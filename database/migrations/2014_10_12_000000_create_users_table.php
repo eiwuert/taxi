@@ -20,13 +20,13 @@ class CreateUsersTable extends Migration
             $table->enum('sex', ['male', 'female']);
             $table->string('email');
             $table->string('password');
-            $table->string('picture');
-            $table->string('device_token');
-            $table->enum('device_type', ['web', 'android', 'ios']);
+            $table->string('picture')->default('no-profile.png');
+            $table->string('device_token')->nullable();
+            $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
             $table->enum('login_by', ['manual', 'google', 'instagram'])
             	  ->default('manual');
-            $table->string('social_id');
-            $table->string('token');
+            $table->string('social_id')->nullable();
+            $table->string('token')->default(0);
             $table->boolean('active')->default(0);
             $table->boolean('online')->default(0);
             $table->boolean('approve')->default(0);
