@@ -17,7 +17,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::post('/register', 'ClientController@register')->name('ClientRegister');
+Route::group(['prefix' => 'client'], function() {
+	Route::post('register', 'ClientController@register')->name('ClientRegister');
+});
+
 
 /*Route::post('/user', function () {
     return 'true';
