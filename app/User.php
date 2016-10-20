@@ -39,15 +39,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * Set the user's token.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setTokenAttribute($value)
-    {
-        $this->attributes['token'] = md5(microtime().rand());
-    }
 }
