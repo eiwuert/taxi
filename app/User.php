@@ -39,4 +39,20 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Encrypt password before saving to database.
+     * 
+     * @param  string $value
+     * @return string
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function setPictureAttribute($picture)
+    {
+        $this->attributes['picture'] = $picture->store('public/profiles');
+    }
 }

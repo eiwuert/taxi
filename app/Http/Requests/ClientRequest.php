@@ -30,7 +30,7 @@ class ClientRequest extends FormRequest
             'email'      => 'required|email',
             'password'   => 'required',
             'device_type'=> 'required|in:android,ios',
-            'picture'    => 'image',
+            'picture'    => 'image|size:512',
         ];
     }
 }
