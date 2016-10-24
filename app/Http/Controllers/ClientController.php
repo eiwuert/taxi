@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
+use GuzzleHttp\Client;
+use \Laravel\Passport\ClientRepository;
 
 class ClientController extends Controller
 {
@@ -13,15 +16,20 @@ class ClientController extends Controller
 	 * 
 	 * @return JSON
 	 */
-    public function register(ClientRequest $request)
+    public function register(ClientRequest $request, ClientRepository $client)
     {
-    	// Set client token
-    	$request['token'] = $this->token();
+        // Set client token
+        $request['token'] = '1';
 
-    	// Set user role
-    	$request['role']  = 'client';
+        // Set user role
+        $request['role']  = 'client';
 
-    	return User::create($request->all());
+        $response = $client->create( User::create($request->all())->id, 'client', url('/'), false, true);
+
+    	return response()->json([
+            'client_secret' => $response->secret,
+            'client_id'     => $response->id,
+        ]);
     }
 
     /**
