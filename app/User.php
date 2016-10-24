@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -54,5 +55,15 @@ class User extends Authenticatable
     public function setPictureAttribute($picture)
     {
         $this->attributes['picture'] = $picture->store('public/profiles');
+    }
+
+    /**
+     * A user can have many locations.
+     * 
+     * @return HasMany
+     */
+    public function user()
+    {
+        return $this->hasOne('App\User');
     }
 }
