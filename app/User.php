@@ -62,8 +62,8 @@ class User extends Authenticatable
      * 
      * @return HasMany
      */
-    public function user()
+    public function locations()
     {
-        return $this->hasOne('App\User');
+        return $this->hasMany('App\Location');
     }
 }
