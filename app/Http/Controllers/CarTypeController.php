@@ -17,6 +17,11 @@ class CarTypeController extends Controller
     	return CarType::all();
     }
 
+    /**
+     * Search car types.
+     * @param  string $term
+     * @return json
+     */
     public function search($term)
     {
     	return CarType::search($term)->get();
