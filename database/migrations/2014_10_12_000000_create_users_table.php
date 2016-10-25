@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->enum('login_by', ['manual', 'google', 'instagram'])
             	  ->default('manual');
             $table->string('social_id')->nullable();
-            $table->string('token')->default(0);
             $table->boolean('active')->default(0);
             $table->boolean('online')->default(0);
             $table->boolean('approve')->default(0);
