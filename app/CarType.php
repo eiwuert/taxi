@@ -30,4 +30,14 @@ class CarType extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    /**
+     * A car type can associate to one car.
+     * 
+     * @return hasOne
+     */
+    public function car()
+    {
+        return $this->hasOne('App\Car');
+    }
 }
