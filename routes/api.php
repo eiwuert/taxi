@@ -13,20 +13,46 @@ use Illuminate\Http\Request;
 |
 */
 
+/**
+ * Client Routes.
+ */
 Route::group(['prefix' => 'client'], function() {
+	// Register
 	Route::post('register', 'ClientController@register')->name('registerClient');
 
 	Route::group(['middleware' => 'auth:api'], function() {
+		// Set user given location.
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
+
+		// Get location based on id.
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
-	});
 
-	Route::get('map', function() {
-		$response = \GoogleMaps::load('geocoding')
-				               ->setParamByKey('latlng', '35.757898,51.409714') 
-				               ->get('results.formatted_address')['results'][0]['formatted_address'];
-	    return $response;
+		Route::group(['prefix' => 'car'], function() {
+			// Get all car types.
+			Route::get('types', 'CarTypeController@all');
+
+			// Search car types.
+			Route::get('search/{term}', 'CarTypeController@search');
+		});
+	});
+});
+
+/**
+ * Driver Routes.
+ */
+Route::group(['prefix' => 'driver'], function() {
+	// Register
+	Route::post('register', 'DriverController@register')->name('registerDriver');
+
+	Route::group(['middleware' => 'auth:api'], function() {
+		// Set user given location.
+		Route::post('location', 'LocationController@set')
+			 ->name('setLocation');
+
+		// Get location based on id.
+		Route::get('location/{id}', 'LocationController@get')
+			 ->name('getLocation');
 	});
 });

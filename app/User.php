@@ -66,4 +66,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Location');
     }
+
+    /**
+     * A user(driver) can have one car type.
+     * 
+     * @return hasOne
+     */
+    public function carType()
+    {
+        return $this->hasOne('App\CarType');
+    }
 }
