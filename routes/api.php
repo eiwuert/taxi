@@ -54,5 +54,13 @@ Route::group(['prefix' => 'driver'], function() {
 		// Get location based on id.
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
+
+		Route::group(['prefix' => 'car'], function() {
+			// Register new car
+			Route::post('register', 'CarController@register');
+
+			// Get driver car info
+			Route::get('info', 'CarController@info');
+		});
 	});
 });
