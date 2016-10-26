@@ -52,6 +52,12 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
+    /**
+     * Save user profile picture.
+     * 
+     * @param  string $picture
+     * @return string
+     */
     public function setPictureAttribute($picture)
     {
         $this->attributes['picture'] = $picture->store('public/profiles');
