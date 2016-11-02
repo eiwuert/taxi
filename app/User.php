@@ -81,4 +81,34 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Car');
     }
+
+    /**
+     * A user can have one client.
+     * 
+     * @return hasMany
+     */
+    public function client()
+    {
+        return $this->hasMany('App\Client');
+    }
+
+    /**
+     * A user can have one driver.
+     * 
+     * @return hasMany
+     */
+    public function driver()
+    {
+        return $this->hasMany('App\Driver');
+    }
+
+    /**
+     * A user can have one web user.
+     * 
+     * @return hasMany
+     */
+    public function web()
+    {
+        return $this->hasMany('App\Web');
+    }
 }
