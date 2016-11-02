@@ -20,7 +20,9 @@ class CreateDriversTable extends Migration
             $table->enum('sex', ['male', 'female', 'not specified'])->default('not specified');
             $table->string('device_token')->nullable();
             $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
-            $table->boolean('lock')->default(0);
+            $table->boolean('online')->default(0);
+            $table->boolean('approve')->default(0);
+            $table->boolean('available')->default(0);
             $table->integer('phone');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
