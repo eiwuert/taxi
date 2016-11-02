@@ -24,12 +24,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:255',
-            'last_name'  => 'required|max:255',
-            'sex'        => 'required|in:male,female',
             'email'      => 'required|email',
             'password'   => 'required',
-            'device_type'=> 'required|in:android,ios',
             'picture'    => 'image|size:512',
         ];
     }
