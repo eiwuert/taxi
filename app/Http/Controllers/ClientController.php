@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
+use App\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\ClientRequest;
 use \Laravel\Passport\ClientRepository;
 
 class ClientController extends Controller
@@ -17,10 +19,10 @@ class ClientController extends Controller
 	 */
     public function register(UserRequest $request, ClientRepository $client)
     {
-        // Set user role
-        $request['role']  = 'client';
+        $user = User::create($request->all());
+        Auth::loginUsingId($user->id)->client()->create($request->all());        
 
-        $response = $client->create( User::create($request->all())->id, 'client', url('/'), false, true);
+        $response = $client->create($user->id, 'client', url('/'), false, true);
 
     	return response()->json([
             'client_secret' => $response->secret,
