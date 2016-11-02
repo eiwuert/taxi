@@ -29,4 +29,29 @@ class DriverController extends Controller
             'client_id'     => $response->id,
         ]);
     }
+
+    public function login(UserRequest $request, ClientRepository $client)
+    {
+        if (Auth::attempt($request->all())) {
+            // A user can have multiple user secrets and ids
+            $response = $client->forUser(Auth::user()->id)[0];
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'client_secret' => $response->secret,
+                    'client_id'     => $response->id,
+                    ]
+                ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'data' => [
+                    'status' => 401,
+                    'title' => 'User credentioal is not valid.'
+                    'detail' => 'You have entered email and password that can not be authenticate.'
+                    ]
+                ], 401);
+        }
+    }
 }

@@ -47,6 +47,8 @@ Route::group(['prefix' => 'client'], function() {
 Route::group(['prefix' => 'driver'], function() {
 	// Register
 	Route::post('register', 'DriverController@register')->name('registerDriver');
+	// Login
+	Route::post('login', 'DriverController@login')->name('loginDriver');
 
 	Route::group(['middleware' => 'auth:api'], function() {
 		// Set user given location.
