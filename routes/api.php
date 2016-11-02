@@ -19,6 +19,8 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'client'], function() {
 	// Register
 	Route::post('register', 'ClientController@register')->name('registerClient');
+	// login
+	Route::post('login', 'ClientController@login')->name('loginClient');
 
 	Route::group(['middleware' => 'auth:api'], function() {
 		// Set user given location.

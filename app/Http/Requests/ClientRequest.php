@@ -29,7 +29,7 @@ class ClientRequest extends FormRequest
             'sex' => 'in:male,female,not specified',
             'device_token' => 'max:255',
             'device_type' => 'max:255',
-            'phone' => 'integer',
+            'phone' => 'required|integer',
         ];
     }
 }

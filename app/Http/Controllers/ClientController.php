@@ -29,4 +29,18 @@ class ClientController extends Controller
             'client_id'     => $response->id,
         ]);
     }
+
+    public function login(UserRequest $request, ClientRepository $client)
+    {
+        //dd($request->all());
+        if (Auth::attempt($request->all())) {
+            
+            // A user can have multiple user secrets and ids
+            $response = $client->forUser(Auth::user()->id)[0];
+            return [
+                'client_secret' => $response->secret,
+                'client_id'     => $response->id,
+            ];
+        }
+    }
 }
