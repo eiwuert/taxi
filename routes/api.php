@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 */
 
 /**
+ * General Routes.
+ */
+Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+
+/**
  * Client Routes.
  */
 Route::group(['prefix' => 'client'], function() {
