@@ -30,7 +30,7 @@ class ClientController extends Controller
         // Create password grant client
         $response = $client->create($user->id, 'client', url('/'), false, true);
 
-    	return response()->json([
+    	return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
         ]);
@@ -49,10 +49,10 @@ class ClientController extends Controller
             // A user can have multiple user secrets and ids
             $response = $client->forUser(Auth::user()->id)[0];
 
-            return [
-                'client_secret' => $response->secret,
-                'client_id'     => $response->id,
-            ];
+            return ok([
+                    'client_secret' => $response->secret,
+                    'client_id'     => $response->id,
+                ]); 
         } else {
             return fail([
                     'title'  => 'User credentioal is not valid.',
