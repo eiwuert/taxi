@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
-use App\Driver;
-use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\ClientRequest;
@@ -15,7 +13,10 @@ class DriverController extends Controller
 {
 	/**
 	 * Create a new driver.
-	 * 
+     *
+     * @param  UserRequest $userRequest
+     * @param  ClientRequest $clientRequest
+     * @param  ClientRequest $client
 	 * @return json
 	 */
     public function register(UserRequest $userRequest, ClientRequest $clientRequest, ClientRepository $client)
@@ -24,7 +25,7 @@ class DriverController extends Controller
         $user = User::create($userRequest->all());
 
         // Failure will handle with ClientRequest
-        Auth::loginUsingId($user->id)->driver()->create($clientRequest->all());   
+        Auth::loginUsingId($user->id)->driver()->create($clientRequest->all());
 
         // Create password grant client
         $response = $client->create($user->id, 'driver', url('/'), false, true);
@@ -35,7 +36,14 @@ class DriverController extends Controller
         ]);
     }
 
-    public function login(UserRequest $request, ClientRepository $client)
+    /**
+     * Login drive.
+     * 
+     * @param  UserRequest
+     * @param  ClientRepository
+     * @return json
+     */
+    public function login(Request $request, ClientRepository $client)
     {
         if (Auth::attempt($request->all())) {
             // A user can have multiple user secrets and ids
@@ -47,7 +55,7 @@ class DriverController extends Controller
                 ]);
         } else {
             return fail([
-                    'title' => 'User credentioal is not valid.',
+                    'title'  => 'User credentioal is not valid.',
                     'detail' => 'You have entered email and password that can not be authenticated.'
                 ], 401);
         }
