@@ -8,6 +8,7 @@ use App\Driver;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\ClientRequest;
 use \Laravel\Passport\ClientRepository;
 
 class DriverController extends Controller
@@ -17,14 +18,18 @@ class DriverController extends Controller
 	 * 
 	 * @return json
 	 */
-    public function register(UserRequest $request, ClientRepository $client)
+    public function register(UserRequest $userRequest, ClientRequest $clientRequest, ClientRepository $client)
     {
-        $user = User::create($request->all());
-        Auth::loginUsingId($user->id)->driver()->create($request->all());   
+        // Failure will handle with UserRequest
+        $user = User::create($userRequest->all());
 
+        // Failure will handle with ClientRequest
+        Auth::loginUsingId($user->id)->driver()->create($clientRequest->all());   
+
+        // Create password grant client
         $response = $client->create($user->id, 'driver', url('/'), false, true);
 
-    	return response()->json([
+    	return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
         ]);
@@ -43,7 +48,7 @@ class DriverController extends Controller
         } else {
             return fail([
                     'title' => 'User credentioal is not valid.',
-                    'detail' => 'You have entered email and password that can not be authenticate.'
+                    'detail' => 'You have entered email and password that can not be authenticated.'
                 ], 401);
         }
     }
