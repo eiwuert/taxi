@@ -19,7 +19,7 @@ class ClientController extends Controller
      * @param  ClientRepository $client
 	 * @return JSON
 	 */
-    public function register(UserRequest $userRequest, ClientRequest $clientRequest ClientRepository $client)
+    public function register(UserRequest $userRequest, ClientRequest $clientRequest, ClientRepository $client)
     {
         // Failure will handle with UserRequest
         $user = User::create($userRequest->all());
@@ -48,7 +48,7 @@ class ClientController extends Controller
         if (Auth::attempt($request->all())) {
             // A user can have multiple user secrets and ids
             $response = $client->forUser(Auth::user()->id)[0];
-            
+
             return [
                 'client_secret' => $response->secret,
                 'client_id'     => $response->id,
