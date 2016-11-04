@@ -27,7 +27,7 @@ class Request extends FormRequest
     {
         $data = $validator->getMessageBag()->toArray();
         $data['title'] = 'Validation failed';
-        $data['detail'] = 'Validation for given fileds have been failed, please check your inputs.';
+        $data['detail'] = 'Validation for given fields have been failed, please check your inputs.';
         $data['status'] = 422;
         return [
                 "success" => false,
