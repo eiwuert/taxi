@@ -55,7 +55,7 @@ class ClientController extends Controller
                 ]); 
         } else {
             return fail([
-                    'title'  => 'User credentioal is not valid.',
+                    'title'  => 'User credentials is not valid.',
                     'detail' => 'You have entered email and password that can not be authenticated.'
                 ], 401);
         }
