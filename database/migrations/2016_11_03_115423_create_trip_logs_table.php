@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTripsTable extends Migration
+class CreateTripLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,32 +13,25 @@ class CreateTripsTable extends Migration
      */
     public function up()
     {
-        Schema::create('trips', function (Blueprint $table) {
+        Schema::create('trip_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('client_id');
+            $table->foreign('client_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
             $table->unsignedInteger('driver_id');
             $table->foreign('driver_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->unsignedInteger('client_id');
-            $table->foreign('client_id')
-                  ->references('id')->on('users')
+            $table->unsignedInteger('trip_id');
+            $table->foreign('trip_id')
+                  ->references('id')->on('trips')
                   ->onDelete('cascade');
             $table->unsignedInteger('status_id');
             $table->foreign('status_id')
                   ->references('id')->on('status')
                   ->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end')->nullable();
-            $table->unsignedInteger('source');
-            $table->foreign('source')
-                  ->references('id')->on('locations')
-                  ->onDelete('cascade');
-            $table->unsignedInteger('destination');
-            $table->foreign('destination')
-                  ->references('id')->on('locations')
-                  ->onDelete('cascade');
-            $table->integer('eta');
-            $table->integer('etd');
+            $table->timestamps();
         });
     }
 
@@ -49,6 +42,6 @@ class CreateTripsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trips');
+        Schema::dropIfExists('trip_logs');
     }
 }
