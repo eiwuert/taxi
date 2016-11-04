@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
  * General Routes.
  */
 Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
 
 /**
  * Client Routes.
@@ -27,7 +28,7 @@ Route::group(['prefix' => 'client'], function() {
 	// login
 	Route::post('login', 'ClientController@login')->name('loginClient');
 
-	Route::group(['middleware' => 'auth:api'], function() {
+	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
 		// Set user given location.
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
@@ -55,7 +56,7 @@ Route::group(['prefix' => 'driver'], function() {
 	// Login
 	Route::post('login', 'DriverController@login')->name('loginDriver');
 
-	Route::group(['middleware' => 'auth:api'], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver']], function() {
 		// Set user given location.
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
