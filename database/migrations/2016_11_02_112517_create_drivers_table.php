@@ -23,6 +23,8 @@ class CreateDriversTable extends Migration
             $table->boolean('online')->default(0);
             $table->boolean('approve')->default(0);
             $table->boolean('available')->default(0);
+            $table->string('login_by')->default('web');
+            $table->string('lang')->default('en');
             $table->bigInteger('phone');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
