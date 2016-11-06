@@ -21,7 +21,6 @@ class CreateClientsTable extends Migration
             $table->string('device_token')->nullable();
             $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
             $table->boolean('lock')->default(0);
-            $table->string('login_by')->default('web');
             $table->string('lang')->default('en');
             $table->bigInteger('phone');
             $table->unsignedInteger('user_id');
