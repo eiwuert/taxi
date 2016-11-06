@@ -19,7 +19,6 @@ class DriverRequest extends Request
             'sex' => 'in:male,female,not specified',
             'device_token' => 'max:255',
             'device_type' => 'max:255',
-            'login_by' => 'in:web,ios,android',
             'lang' => 'in:en,fa',
             'phone' => 'required|integer',
         ];

@@ -17,6 +17,7 @@ class UserRequest extends Request
             'email'      => 'required|email|unique:users|min:6|max:255',
             'password'   => 'required|min:6|max:255',
             'social_id'  => 'max:255',
+            'login_by'   => 'in:manual,google,facebook',
             'picture'    => 'image|size:512',
         ];
     }
