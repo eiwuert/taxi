@@ -6,7 +6,7 @@ use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\ClientRequest;
+use App\Http\Requests\RegisterRequest;
 use \Laravel\Passport\ClientRepository;
 
 class ClientController extends Controller
@@ -15,17 +15,17 @@ class ClientController extends Controller
 	 * Create a new client.
      *
      * @param  UserRequest $userRequest
-     * @param  ClientRequest $clientRequest
+     * @param  RegisterRequest $registerRequest
      * @param  ClientRepository $client
 	 * @return JSON
 	 */
-    public function register(UserRequest $userRequest, ClientRequest $clientRequest, ClientRepository $client)
+    public function register(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
     {
         // Failure will handle with UserRequest
         $user = User::create($userRequest->all());
 
         // Failure will handle with 
-        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());        
+        Auth::loginUsingId($user->id)->client()->create($registerRequest->all());        
 
         // Create password grant client
         $response = $client->create($user->id, 'client', url('/'), false, true);

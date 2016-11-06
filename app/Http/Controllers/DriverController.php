@@ -6,7 +6,7 @@ use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\DriverRequest;
+use App\Http\Requests\RegisterRequest;
 use \Laravel\Passport\ClientRepository;
 
 class DriverController extends Controller
@@ -15,17 +15,17 @@ class DriverController extends Controller
 	 * Create a new driver.
      *
      * @param  UserRequest $userRequest
-     * @param  DriverRequest $driverRequest
+     * @param  RegisterRequest $registerRequest
      * @param  ClientRepository $client
 	 * @return json
 	 */
-    public function register(UserRequest $userRequest, DriverRequest $driverRequest, ClientRepository $client)
+    public function register(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
     {
         // Failure will handle with UserRequest
         $user = User::create($userRequest->all());
 
-        // Failure will handle with DriverRequest
-        Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
+        // Failure will handle with RegisterRequest
+        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
 
         // Create password grant client
         $response = $client->create($user->id, 'driver', url('/'), false, true);
