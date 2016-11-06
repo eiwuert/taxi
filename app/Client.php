@@ -18,6 +18,8 @@ class Client extends Model
         'device_token',
         'device_type',
         'lock',
+        'login_by',
+        'lang',
         'phone',
     ];
 
