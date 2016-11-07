@@ -46,6 +46,9 @@ Route::group(['prefix' => 'client'], function() {
 			// Search car types.
 			Route::get('search/{term}', 'CarTypeController@search');
 		});
+
+		Route::get('profile', 'ProfileController@get');
+		Route::patch('profile', 'ProfileController@update');
 	});
 });
 
@@ -76,5 +79,8 @@ Route::group(['prefix' => 'driver'], function() {
 			// Get driver car info
 			Route::get('info', 'CarController@info');
 		});
+
+		Route::get('profile', 'ProfileController@get');
+		Route::patch('profile', 'ProfileController@update');
 	});
 });
