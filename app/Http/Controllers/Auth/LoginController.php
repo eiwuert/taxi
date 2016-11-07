@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\SocialRequest;
 use App\Http\Controllers\Controller;
+use \Laravel\Passport\ClientRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +40,69 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Login user.
+     * 
+     * @param  UserRequest
+     * @param  ClientRepository
+     * @return json
+     */
+    public function loginUser(Request $request, ClientRepository $client)
+    {
+        if (!isset($request['password']) || !isset($request['email'])) {
+            return fail([
+                    'title'  => 'Email and password are required.',
+                    'detail' => 'Email and password should be sent.'
+                ], 401);
+        }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            // A user can have multiple user secrets and ids
+            $response = $client->forUser(Auth::user()->id)[0];
+
+            return ok([
+                    'client_secret' => $response->secret,
+                    'client_id'     => $response->id,
+                ]);
+        } else {
+            return fail([
+                    'title'  => 'User credentials is not valid.',
+                    'detail' => 'You have entered email and password that can not be authenticated.'
+                ], 401);
+        }
+    }
+
+    /**
+     * Login social.
+     * 
+     * @param  UserRequest
+     * @param  ClientRepository
+     * @return json
+     */
+    public function loginSocial(Request $request, ClientRepository $client)
+    {
+        if (!isset($request['social_id']) || !isset($request['email'])) {
+            return fail([
+                    'title'  => 'Email and social ID are required.',
+                    'detail' => 'Email and social ID should be sent.'
+                ], 401);
+        }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->social_id])) {
+            // A user can have multiple user secrets and ids
+            $response = $client->forUser(Auth::user()->id)[0];
+
+            return ok([
+                    'client_secret' => $response->secret,
+                    'client_id'     => $response->id,
+                ]);
+        } else {
+            return fail([
+                    'title'  => 'User credentials is not valid.',
+                    'detail' => 'You have entered email and password that can not be authenticated.'
+                ], 401);
+        }
     }
 }

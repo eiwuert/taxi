@@ -20,6 +20,7 @@ class Driver extends Model
         'online',
         'approve',
         'available',
+        'lang',
         'phone',
     ];
 

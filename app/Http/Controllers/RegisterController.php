@@ -9,26 +9,26 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\RegisterRequest;
 use \Laravel\Passport\ClientRepository;
 
-class ClientController extends Controller
+class RegisterController extends Controller
 {
 	/**
-	 * Create a new client.
+	 * Create a new driver.
      *
      * @param  UserRequest $userRequest
      * @param  RegisterRequest $registerRequest
      * @param  ClientRepository $client
-	 * @return JSON
+	 * @return json
 	 */
     public function register(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
     {
         // Failure will handle with UserRequest
         $user = User::create($userRequest->all());
 
-        // Failure will handle with 
-        Auth::loginUsingId($user->id)->client()->create($registerRequest->all());        
+        // Failure will handle with RegisterRequest
+        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
 
         // Create password grant client
-        $response = $client->create($user->id, 'client', url('/'), false, true);
+        $response = $client->create($user->id, 'driver', url('/'), false, true);
 
     	return ok([
             'client_secret' => $response->secret,
@@ -37,10 +37,10 @@ class ClientController extends Controller
     }
 
     /**
-     * Login client.
+     * Login drive.
      * 
-     * @param  Request $request 
-     * @param  ClientRepository $client
+     * @param  UserRequest
+     * @param  ClientRepository
      * @return json
      */
     public function login(Request $request, ClientRepository $client)
@@ -52,7 +52,7 @@ class ClientController extends Controller
             return ok([
                     'client_secret' => $response->secret,
                     'client_id'     => $response->id,
-                ]); 
+                ]);
         } else {
             return fail([
                     'title'  => 'User credentials is not valid.',
@@ -60,4 +60,5 @@ class ClientController extends Controller
                 ], 401);
         }
     }
+
 }
