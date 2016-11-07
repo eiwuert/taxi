@@ -21,7 +21,7 @@ class RegisterRequest extends Request
             'device_type'  => 'max:255',
             'lang'         => 'in:fa,en',
             'phone'        => 'required|integer',
-            'picture'      => 'image|size:512',
+            'picture'      => 'image|max:512',
         ];
     }
 }
