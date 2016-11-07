@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -17,7 +18,17 @@ class ProfileController extends Controller
 	private $type;
 
 	/**
+	 * User instance.
+	 * 
+	 * @var App\User
+	 */
+	private $user;
+
+	/**
 	 * Constructor function
+	 *
+	 * @param  Request $request
+	 * @return void
 	 */
 	public function __construct(Request $request)
 	{
@@ -26,34 +37,42 @@ class ProfileController extends Controller
 
 	/**
 	 * Get profile data.
-	 * 
-	 * @return 
+	 *
+	 * @param  Request $request
+	 * @return json
 	 */
     public function get(Request $request)
     {
-    	if ($this->type == 'client') {
-			return ok([
-					Auth::user()->client()->get()->first()
-				]);
-    	} elseif ($this->type == 'driver') {
-			return ok([
-					Auth::user()->driver()->get()->first()
-				]);
-    	} else {
-            return fail([
-                    'title'  => 'Undefined type.',
-                    'detail' => 'You are using undefined type, please contact your adminstrator.'
-                ], 400);
-    	}
+    	return ok($this->user()->first());
     }
 
     /**
      * Update profile data.
-     * 
-     * @return [type] [description]
+     *
+     * @param  ProfileRequest $profileRequest
+     * @return json
      */
-    public function update()
+    public function update(ProfileRequest $profileRequest)
     {
+    	return ok($this->user()->update($profileRequest->all()));
+    }
 
+    /**
+     * Get appropriate user.
+     * 
+     * @return json
+     */
+    private function user()
+    {
+		if ($this->type == 'client') {
+			return $this->user = Auth::user()->client();
+		} elseif ($this->type == 'driver') {
+			return $this->user = Auth::user()->driver();
+		} else {
+		    return fail([
+		            'title'  => 'Undefined type.',
+		            'detail' => 'You are using undefined type, please contact your adminstrator.'
+		        ], 400);
+		}
     }
 }

@@ -48,7 +48,7 @@ Route::group(['prefix' => 'client'], function() {
 		});
 
 		Route::get('profile', 'ProfileController@get');
-		Route::patch('profile', 'ProfileController@update');
+		Route::post('profile', 'ProfileController@update');
 	});
 });
 
@@ -81,6 +81,6 @@ Route::group(['prefix' => 'driver'], function() {
 		});
 
 		Route::get('profile', 'ProfileController@get');
-		Route::patch('profile', 'ProfileController@update');
+		Route::post('profile', 'ProfileController@update');
 	});
 });
