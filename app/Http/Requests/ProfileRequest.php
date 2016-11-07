@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class RegisterRequest extends Request
+class ProfileRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -20,7 +20,7 @@ class RegisterRequest extends Request
             'device_token' => 'max:255',
             'device_type'  => 'max:255',
             'lang'         => 'in:fa,en',
-            'phone'        => 'required|integer',
+            'phone'        => 'integer',
             'picture'      => 'image|max:512',
         ];
     }
