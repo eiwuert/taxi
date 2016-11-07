@@ -20,7 +20,6 @@ class User extends Authenticatable
         'password',
         'login_by',
         'social_id',
-        'picture',
     ];
 
     /**
@@ -41,17 +40,6 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
-    }
-
-    /**
-     * Save user profile picture.
-     * 
-     * @param  string $picture
-     * @return string
-     */
-    public function setPictureAttribute($picture)
-    {
-        $this->attributes['picture'] = $picture->store('public/profiles');
     }
 
     /**

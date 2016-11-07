@@ -23,6 +23,7 @@ class CreateClientsTable extends Migration
             $table->boolean('lock')->default(0);
             $table->string('lang')->default('en');
             $table->bigInteger('phone');
+            $table->string('picture')->default('no-profile.png');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')

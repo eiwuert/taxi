@@ -22,6 +22,7 @@ class Driver extends Model
         'available',
         'lang',
         'phone',
+        'picture',
     ];
 
     /**
@@ -100,5 +101,16 @@ class Driver extends Model
     public function user()
     {
         return $this->hasOne('App\User');
+    }
+
+    /**
+     * Save user profile picture.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function setPictureAttribute($picture)
+    {
+        $this->attributes['picture'] = $picture->store('public/profile/driver');
     }
 }

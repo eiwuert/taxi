@@ -17,7 +17,6 @@ class SocialRequest extends Request
             'email'      => 'required|email|max:255|unique:users',
             'social_id'  => 'required|min:6|max:255',
             'login_by'   => 'required|in:manual,google,facebook',
-            'picture'    => 'image|size:512',
         ];
     }
 }

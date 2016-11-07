@@ -20,6 +20,7 @@ class Client extends Model
         'lock',
         'lang',
         'phone',
+        'picture',
     ];
 
     /**
@@ -30,5 +31,16 @@ class Client extends Model
     public function user()
     {
         return $this->hasOne('App\User');
+    }
+
+    /**
+     * Save user profile picture.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function setPictureAttribute($picture)
+    {
+        $this->attributes['picture'] = $picture->store('public/profile/client');
     }
 }

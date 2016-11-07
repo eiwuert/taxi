@@ -21,6 +21,7 @@ class ProfileRequest extends Request
             'device_type'  => 'max:255',
             'lang'         => 'in:fa,en',
             'phone'        => 'integer',
+            'picture'      => 'image|size:512',
         ];
     }
 }
