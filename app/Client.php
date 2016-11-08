@@ -17,7 +17,6 @@ class Client extends Model
         'sex',
         'device_token',
         'device_type',
-        'lock',
         'lang',
         'phone',
         'picture',
