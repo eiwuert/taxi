@@ -12,7 +12,7 @@
 
           <script>
         $(function() {
-            setupLanguages(["shell","pyhton","bash","javascript"]);
+            setupLanguages(["bash","javascript"]);
         });
       </script>
       </head>
@@ -27,8 +27,6 @@
     <div class="tocify-wrapper">
         <img src="images/logo.png" />
                     <div class="lang-selector">
-                                  <a href="#" data-language-name="shell">shell</a>
-                                  <a href="#" data-language-name="pyhton">pyhton</a>
                                   <a href="#" data-language-name="bash">bash</a>
                                   <a href="#" data-language-name="javascript">javascript</a>
                             </div>
@@ -73,6 +71,25 @@ console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/password/reset</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>email</td>
+<td>email</td>
+<td>required</td>
+<td>email</td>
+</tr>
+</tbody>
+</table>
 <!-- END_8ad860d24dc1cc6dac772d99135ad13e -->
 <!-- START_afa573efcb404c394e835b474f167e56 -->
 <h2>Authorize a client to access the user&#039;s account.</h2>
@@ -1043,8 +1060,6 @@ console.log(response);
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
-                                    <a href="#" data-language-name="shell">shell</a>
-                                    <a href="#" data-language-name="pyhton">pyhton</a>
                                     <a href="#" data-language-name="bash">bash</a>
                                     <a href="#" data-language-name="javascript">javascript</a>
                               </div>

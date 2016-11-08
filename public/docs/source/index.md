@@ -2,8 +2,6 @@
 title: API Reference
 
 language_tabs:
-- shell
-- pyhton
 - bash
 - javascript
 
@@ -19,6 +17,7 @@ toc_footers:
 
 Welcome to the generated API reference.
 [Get Postman Collection](http://localhost/docs/collection.json)
+
 <!-- END_INFO -->
 
 #general
@@ -51,6 +50,12 @@ console.log(response);
 
 ### HTTP Request
 `POST api/password/reset`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    email | email |  required | email
 
 
 <!-- END_8ad860d24dc1cc6dac772d99135ad13e -->
