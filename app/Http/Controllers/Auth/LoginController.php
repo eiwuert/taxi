@@ -75,6 +75,14 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Driver login
+     *
+     * Handle driver login with phone and password.
+     * @param  UserLoginRequest $userRequest
+     * @param  ClientRepository $client
+     * @return JSON
+     */
     public function loginDriver(UserLoginRequest $userRequest, ClientRepository $client)
     {
         // This condition always return a result because we are checking esistance
