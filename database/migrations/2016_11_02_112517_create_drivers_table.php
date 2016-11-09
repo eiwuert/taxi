@@ -24,7 +24,10 @@ class CreateDriversTable extends Migration
             $table->boolean('approve')->default(0);
             $table->boolean('available')->default(0);
             $table->string('lang')->default('en');
-            $table->bigInteger('phone');
+            $table->string('phone');
+            $table->string('state');
+            $table->bigInteger('zipcode');
+            $table->string('country');
             $table->string('picture')->default('no-profile.png');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

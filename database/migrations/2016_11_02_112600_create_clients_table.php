@@ -22,7 +22,10 @@ class CreateClientsTable extends Migration
             $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
             $table->boolean('lock')->default(0);
             $table->string('lang')->default('en');
-            $table->bigInteger('phone');
+            $table->string('phone');
+            $table->string('state');
+            $table->bigInteger('zipcode');
+            $table->string('country');
             $table->string('picture')->default('no-profile.png');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
