@@ -61,7 +61,7 @@ Route::group(['prefix' => 'driver'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
 	//Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
 	// Login
-	Route::post('login', 'Auth\LoginController@loginUser')->name('loginDriver');
+	Route::post('login', 'Auth\LoginController@loginDriver')->name('loginDriver');
 	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginDriverSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver']], function() {
