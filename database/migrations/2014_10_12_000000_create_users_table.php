@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['client', 'driver', 'web'])->default('web');
             $table->string('social_id')->nullable();
             $table->string('login_by')->default('manual');
-            $table->unique(['phone', 'role'])
+            $table->unique(['phone', 'role']);
             $table->rememberToken();
             $table->timestamps();
         });

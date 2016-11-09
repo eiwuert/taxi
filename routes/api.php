@@ -25,8 +25,8 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
  */
 Route::group(['prefix' => 'client'], function() {
 	// Register
-	Route::post('register', 'Auth\RegisterController@driver')->name('registerClient');
-	Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
+	//Route::post('register', 'Auth\RegisterController@driver')->name('registerClient');
+	//Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
 	// login
 	Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
 	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
@@ -58,8 +58,8 @@ Route::group(['prefix' => 'client'], function() {
  */
 Route::group(['prefix' => 'driver'], function() {
 	// Register
-	Route::post('register', 'Auth\RegisterController@client')->name('registerDriver');
-	Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
+	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
+	//Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
 	// Login
 	Route::post('login', 'Auth\LoginController@loginUser')->name('loginDriver');
 	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginDriverSocial');
