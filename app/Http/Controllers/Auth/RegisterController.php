@@ -99,7 +99,18 @@ class RegisterController extends Controller
         ]);
     }*/
 
-
+    /**
+     * Driver registration
+     *
+     * Initial step for driver to register, using phone no. as the primary param
+     * for login and validation. phone must be unique among all registered 
+     * drivers.
+     * 
+     * @param  UserRegisterRequest   $userRequest 
+     * @param  DriverRegisterRequest $driverRequest
+     * @param  ClientRepository      $client
+     * @return JSON
+     */
     public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest, ClientRepository $client)
     {
         $userRequest['role'] = 'driver';

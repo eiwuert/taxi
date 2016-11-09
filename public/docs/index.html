@@ -71,25 +71,6 @@ console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/password/reset</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>email</td>
-<td>email</td>
-<td>required</td>
-<td>email</td>
-</tr>
-</tbody>
-</table>
 <!-- END_8ad860d24dc1cc6dac772d99135ad13e -->
 <!-- START_afa573efcb404c394e835b474f167e56 -->
 <h2>Authorize a client to access the user&#039;s account.</h2>
@@ -114,140 +95,6 @@ console.log(response);
 <h3>HTTP Request</h3>
 <p><code>POST api/oauth/token</code></p>
 <!-- END_afa573efcb404c394e835b474f167e56 -->
-<!-- START_786684a27e8f23727a33ce6bbf1f5a4f -->
-<h2>Create a new driver.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://localhost/api/client/register" \
--H "Accept: application/json" \
-    -d "email"="mckenzie.patience@example.net" \
-    -d "password"="sunt" \
-    -d "social_id"="sunt" \
-    -d "login_by"="manual" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/client/register",
-    "method": "POST",
-    "data": {
-        "email": "mckenzie.patience@example.net",
-        "password": "sunt",
-        "social_id": "sunt",
-        "login_by": "manual"
-},
-        "headers": {
-    "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/client/register</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>email</td>
-<td>email</td>
-<td>required</td>
-<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>password</td>
-<td>string</td>
-<td>required</td>
-<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>social_id</td>
-<td>string</td>
-<td>optional</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>login_by</td>
-<td>string</td>
-<td>optional</td>
-<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
-</tr>
-</tbody>
-</table>
-<!-- END_786684a27e8f23727a33ce6bbf1f5a4f -->
-<!-- START_8c58924b654ca8b9de1761fb81b7cff1 -->
-<h2>Register using social id.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://localhost/api/client/register/social" \
--H "Accept: application/json" \
-    -d "email"="tillman.delaney@example.net" \
-    -d "social_id"="dolorem" \
-    -d "login_by"="manual" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/client/register/social",
-    "method": "POST",
-    "data": {
-        "email": "tillman.delaney@example.net",
-        "social_id": "dolorem",
-        "login_by": "manual"
-},
-        "headers": {
-    "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/client/register/social</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>email</td>
-<td>email</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>social_id</td>
-<td>string</td>
-<td>required</td>
-<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>login_by</td>
-<td>string</td>
-<td>required</td>
-<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
-</tr>
-</tbody>
-</table>
-<!-- END_8c58924b654ca8b9de1761fb81b7cff1 -->
 <!-- START_03f72b6b5cad60cb93852896e72d4bf8 -->
 <h2>Login user.</h2>
 <blockquote>
@@ -570,16 +417,23 @@ console.log(response);
 </table>
 <!-- END_ff3c3c34c0013f2818261a3c81cf76bc -->
 <!-- START_758c5ce4b6de7437277c2d4b3b90b245 -->
-<h2>Create a new client.</h2>
+<h2>Driver registration</h2>
+<p>Initial step for driver to register, using phone no. as the primary param
+for login and validation. phone must be unique among all registered
+drivers.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl "http://localhost/api/driver/register" \
 -H "Accept: application/json" \
-    -d "email"="krajcik.jalyn@example.com" \
     -d "password"="eaque" \
-    -d "social_id"="eaque" \
+    -d "phone"="eaque" \
     -d "login_by"="manual" \
+    -d "lang"="fa" \
+    -d "state"="eaque" \
+    -d "country"="eaque" \
+    -d "device_type"="eaque" \
+    -d "device_token"="eaque" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -587,10 +441,14 @@ console.log(response);
     "url": "http://localhost/api/driver/register",
     "method": "POST",
     "data": {
-        "email": "krajcik.jalyn@example.com",
         "password": "eaque",
-        "social_id": "eaque",
-        "login_by": "manual"
+        "phone": "eaque",
+        "login_by": "manual",
+        "lang": "fa",
+        "state": "eaque",
+        "country": "eaque",
+        "device_type": "eaque",
+        "device_token": "eaque"
 },
         "headers": {
     "accept": "application/json"
@@ -614,95 +472,56 @@ console.log(response);
 </thead>
 <tbody>
 <tr>
-<td>email</td>
-<td>email</td>
-<td>required</td>
-<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
-</tr>
-<tr>
 <td>password</td>
 <td>string</td>
 <td>required</td>
 <td>Minimum: <code>6</code> Maximum: <code>255</code></td>
 </tr>
 <tr>
-<td>social_id</td>
-<td>string</td>
-<td>optional</td>
-<td>Maximum: <code>255</code></td>
+<td>phone</td>
+<td>numeric</td>
+<td>required</td>
+<td>Must have a length between <code>9</code> and <code>255</code></td>
 </tr>
 <tr>
 <td>login_by</td>
 <td>string</td>
-<td>optional</td>
+<td>required</td>
 <td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
+</tr>
+<tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td><code>fa</code>, <code>en</code> or <code>ar</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_type</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_token</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
 </tr>
 </tbody>
 </table>
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
-<!-- START_28d1c493b3d2600a276e467aff28f0e6 -->
-<h2>Register using social id.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://localhost/api/driver/register/social" \
--H "Accept: application/json" \
-    -d "email"="tbergstrom@example.org" \
-    -d "social_id"="consequatur" \
-    -d "login_by"="facebook" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/driver/register/social",
-    "method": "POST",
-    "data": {
-        "email": "tbergstrom@example.org",
-        "social_id": "consequatur",
-        "login_by": "facebook"
-},
-        "headers": {
-    "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/driver/register/social</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>email</td>
-<td>email</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>social_id</td>
-<td>string</td>
-<td>required</td>
-<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>login_by</td>
-<td>string</td>
-<td>required</td>
-<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
-</tr>
-</tbody>
-</table>
-<!-- END_28d1c493b3d2600a276e467aff28f0e6 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
 <h2>Login user.</h2>
 <blockquote>
