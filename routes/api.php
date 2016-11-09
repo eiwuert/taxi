@@ -17,7 +17,8 @@ use Illuminate\Http\Request;
  * General Routes.
  */
 Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
+	 ->middleware('json');
 
 /**
  * Client Routes.
