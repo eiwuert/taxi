@@ -483,13 +483,17 @@ Parameter | Type | Status | Description
 
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
-## Login user.
+## Driver login
+
+Handle driver login with phone and password.
 
 > Example request:
 
 ```bash
 curl "http://localhost/api/driver/login" \
--H "Accept: application/json"
+-H "Accept: application/json" \
+    -d "password"="eaque" \
+    -d "phone"="eaque" \
 ```
 
 ```javascript
@@ -498,8 +502,12 @@ var settings = {
     "crossDomain": true,
     "url": "http://localhost/api/driver/login",
     "method": "POST",
-        "headers": {
-    "accept": "application/json"
+    "data": {
+        "password": "eaque",
+        "phone": "eaque",
+    },
+    "headers": {
+        "accept": "application/json"
     }
 }
 
@@ -512,6 +520,12 @@ console.log(response);
 ### HTTP Request
 `POST api/driver/login`
 
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    password | string |  required  | Minimum: `6` Maximum: `255`
+    phone | numeric |  required  | Must have a length between `9` and `255`
 
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
 <!-- START_63062e85628eac9d0933340350452bd1 -->

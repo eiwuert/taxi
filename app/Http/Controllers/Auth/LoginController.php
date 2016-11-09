@@ -108,7 +108,7 @@ class LoginController extends Controller
             }
 
             return ok([
-                    'client_secret' => $response->secret,
+                    'cliegnt_secret' => $response->secret,
                     'client_id'     => $response->id,
                 ]);
         } else {
