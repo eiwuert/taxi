@@ -73,6 +73,9 @@ Route::group(['prefix' => 'driver'], function() {
 		 ->name('loginDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
+		Route::get('online', 'DriverController@online')
+			 ->name('goOnline');
+
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
