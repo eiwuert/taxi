@@ -133,6 +133,28 @@ class DriverController extends Controller
     }
 
     /**
+     * Driver available
+     *
+     * Make a driver available, when a driver goes available his/her availability 
+     * will set to true while he/she is still online An approved drvier can go 
+     * to available mode.
+     * @return JSON
+     */
+    public function available()
+    {
+        // Online    true
+        // Available true
+        if ($this->updateFlags(true, true)) {
+            return ok(['result' => 'Driver is available.']);
+        } else {
+            return fail([
+                        'title' => 'Driver cannot be availabe',
+                        'detail'=> 'Driver cannot be availabe because of some updating availabe status issue' 
+                    ]);
+        }
+    }
+
+    /**
      * Set online and availabe flags.
      * @param  boolean $online
      * @param  boolean $available
