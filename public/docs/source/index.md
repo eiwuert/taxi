@@ -84,14 +84,123 @@ console.log(response);
 
 
 <!-- END_afa573efcb404c394e835b474f167e56 -->
+<!-- START_786684a27e8f23727a33ce6bbf1f5a4f -->
+## Client registration
+
+Initial step for client to register, using phone no. as the primary param
+for login and validation. phone must be unique among all registered
+clients.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/client/register" \
+-H "Accept: application/json" \
+    -d "password"="sunt" \
+    -d "phone"="sunt" \
+    -d "login_by"="manual" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/register",
+    "method": "POST",
+    "data": {
+        "password": "sunt",
+        "phone": "sunt",
+        "login_by": "manual"
+},
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/client/register`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    password | string |  required  | Minimum: `6` Maximum: `255`
+    phone | numeric |  required  | Must have a length between `9` and `255`
+    login_by | string |  required  | `manual`, `google` or `facebook`
+
+<!-- END_786684a27e8f23727a33ce6bbf1f5a4f -->
+<!-- START_8c58924b654ca8b9de1761fb81b7cff1 -->
+## Client social registraion
+
+Initial step for client to register, using phone no. as the primary param
+for login and validation. phone must be unique among all registered
+clients.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/client/register/social" \
+-H "Accept: application/json" \
+    -d "social_id"="dolorem" \
+    -d "login_by"="google" \
+    -d "phone"="dolorem" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/register/social",
+    "method": "POST",
+    "data": {
+        "social_id": "dolorem",
+        "login_by": "google",
+        "phone": "dolorem"
+},
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/client/register/social`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    social_id | string |  required  | Minimum: `6` Maximum: `255`
+    login_by | string |  required  | `google` or `facebook`
+    phone | numeric |  required  | Must have a length between `9` and `255`
+
+<!-- END_8c58924b654ca8b9de1761fb81b7cff1 -->
 <!-- START_03f72b6b5cad60cb93852896e72d4bf8 -->
-## Login user.
+## Driver/Client login
+
+Handle driver and client login with phone and password.
 
 > Example request:
 
 ```bash
 curl "http://localhost/api/client/login" \
--H "Accept: application/json"
+-H "Accept: application/json" \
+    -d "password"="consequuntur" \
+    -d "phone"="consequuntur" \
+
 ```
 
 ```javascript
@@ -100,6 +209,10 @@ var settings = {
     "crossDomain": true,
     "url": "http://localhost/api/client/login",
     "method": "POST",
+    "data": {
+        "password": "consequuntur",
+        "phone": "consequuntur"
+},
         "headers": {
     "accept": "application/json"
     }
@@ -114,16 +227,26 @@ console.log(response);
 ### HTTP Request
 `POST api/client/login`
 
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    password | string |  required  | Minimum: `6` Maximum: `255`
+    phone | numeric |  required  | Must have a length between `9` and `255` Valid user phone
 
 <!-- END_03f72b6b5cad60cb93852896e72d4bf8 -->
 <!-- START_735c882a06055470755680aea2345366 -->
 ## Login social.
 
+Login client using social ID.
+
 > Example request:
 
 ```bash
 curl "http://localhost/api/client/login/social" \
--H "Accept: application/json"
+-H "Accept: application/json" \
+    -d "social_id"="alias" \
+
 ```
 
 ```javascript
@@ -132,6 +255,9 @@ var settings = {
     "crossDomain": true,
     "url": "http://localhost/api/client/login/social",
     "method": "POST",
+    "data": {
+        "social_id": "alias"
+},
         "headers": {
     "accept": "application/json"
     }
@@ -146,6 +272,11 @@ console.log(response);
 ### HTTP Request
 `POST api/client/login/social`
 
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    social_id | string |  required  | Minimum: `6` Maximum: `255` Valid user social_id
 
 <!-- END_735c882a06055470755680aea2345366 -->
 <!-- START_73599da836df4931c2d145cd98155958 -->
@@ -430,11 +561,6 @@ curl "http://localhost/api/driver/register" \
     -d "password"="eaque" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
-    -d "lang"="fa" \
-    -d "state"="eaque" \
-    -d "country"="eaque" \
-    -d "device_type"="eaque" \
-    -d "device_token"="eaque" \
 
 ```
 
@@ -447,12 +573,7 @@ var settings = {
     "data": {
         "password": "eaque",
         "phone": "eaque",
-        "login_by": "manual",
-        "lang": "fa",
-        "state": "eaque",
-        "country": "eaque",
-        "device_type": "eaque",
-        "device_token": "eaque"
+        "login_by": "manual"
 },
         "headers": {
     "accept": "application/json"
@@ -475,25 +596,21 @@ Parameter | Type | Status | Description
     password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255`
     login_by | string |  required  | `manual`, `google` or `facebook`
-    lang | string |  required  | `fa`, `en` or `ar`
-    state | string |  required  | Maximum: `255`
-    country | string |  required  | Maximum: `255`
-    device_type | string |  required  | Maximum: `255`
-    device_token | string |  required  | Maximum: `255`
 
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
-## Driver login
+## Driver/Client login
 
-Handle driver login with phone and password.
+Handle driver and client login with phone and password.
 
 > Example request:
 
 ```bash
 curl "http://localhost/api/driver/login" \
 -H "Accept: application/json" \
-    -d "password"="eaque" \
-    -d "phone"="eaque" \
+    -d "password"="consequuntur" \
+    -d "phone"="consequuntur" \
+
 ```
 
 ```javascript
@@ -503,11 +620,11 @@ var settings = {
     "url": "http://localhost/api/driver/login",
     "method": "POST",
     "data": {
-        "password": "eaque",
-        "phone": "eaque",
-    },
-    "headers": {
-        "accept": "application/json"
+        "password": "consequuntur",
+        "phone": "consequuntur"
+},
+        "headers": {
+    "accept": "application/json"
     }
 }
 
@@ -525,41 +642,9 @@ console.log(response);
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     password | string |  required  | Minimum: `6` Maximum: `255`
-    phone | numeric |  required  | Must have a length between `9` and `255`
+    phone | numeric |  required  | Must have a length between `9` and `255` Valid user phone
 
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
-<!-- START_63062e85628eac9d0933340350452bd1 -->
-## Login social.
-
-> Example request:
-
-```bash
-curl "http://localhost/api/driver/login/social" \
--H "Accept: application/json"
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/driver/login/social",
-    "method": "POST",
-        "headers": {
-    "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/driver/login/social`
-
-
-<!-- END_63062e85628eac9d0933340350452bd1 -->
 <!-- START_28b0526949c652e7a8cb170247076950 -->
 ## Set user location.
 

@@ -95,18 +95,158 @@ console.log(response);
 <h3>HTTP Request</h3>
 <p><code>POST api/oauth/token</code></p>
 <!-- END_afa573efcb404c394e835b474f167e56 -->
+<!-- START_786684a27e8f23727a33ce6bbf1f5a4f -->
+<h2>Client registration</h2>
+<p>Initial step for client to register, using phone no. as the primary param
+for login and validation. phone must be unique among all registered
+clients.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/register" \
+-H "Accept: application/json" \
+    -d "password"="sunt" \
+    -d "phone"="sunt" \
+    -d "login_by"="manual" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/register",
+    "method": "POST",
+    "data": {
+        "password": "sunt",
+        "phone": "sunt",
+        "login_by": "manual"
+},
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/client/register</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>required</td>
+<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>numeric</td>
+<td>required</td>
+<td>Must have a length between <code>9</code> and <code>255</code></td>
+</tr>
+<tr>
+<td>login_by</td>
+<td>string</td>
+<td>required</td>
+<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
+</tr>
+</tbody>
+</table>
+<!-- END_786684a27e8f23727a33ce6bbf1f5a4f -->
+<!-- START_8c58924b654ca8b9de1761fb81b7cff1 -->
+<h2>Client social registraion</h2>
+<p>Initial step for client to register, using phone no. as the primary param
+for login and validation. phone must be unique among all registered
+clients.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/register/social" \
+-H "Accept: application/json" \
+    -d "social_id"="dolorem" \
+    -d "login_by"="google" \
+    -d "phone"="dolorem" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/register/social",
+    "method": "POST",
+    "data": {
+        "social_id": "dolorem",
+        "login_by": "google",
+        "phone": "dolorem"
+},
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/client/register/social</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>social_id</td>
+<td>string</td>
+<td>required</td>
+<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>login_by</td>
+<td>string</td>
+<td>required</td>
+<td><code>google</code> or <code>facebook</code></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>numeric</td>
+<td>required</td>
+<td>Must have a length between <code>9</code> and <code>255</code></td>
+</tr>
+</tbody>
+</table>
+<!-- END_8c58924b654ca8b9de1761fb81b7cff1 -->
 <!-- START_03f72b6b5cad60cb93852896e72d4bf8 -->
-<h2>Login user.</h2>
+<h2>Driver/Client login</h2>
+<p>Handle driver and client login with phone and password.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl "http://localhost/api/client/login" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json" \
+    -d "password"="consequuntur" \
+    -d "phone"="consequuntur" \
+</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/client/login",
     "method": "POST",
+    "data": {
+        "password": "consequuntur",
+        "phone": "consequuntur"
+},
         "headers": {
     "accept": "application/json"
     }
@@ -117,19 +257,50 @@ console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/client/login</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>required</td>
+<td>Minimum: <code>6</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>numeric</td>
+<td>required</td>
+<td>Must have a length between <code>9</code> and <code>255</code> Valid user phone</td>
+</tr>
+</tbody>
+</table>
 <!-- END_03f72b6b5cad60cb93852896e72d4bf8 -->
 <!-- START_735c882a06055470755680aea2345366 -->
 <h2>Login social.</h2>
+<p>Login client using social ID.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl "http://localhost/api/client/login/social" \
--H "Accept: application/json"</code></pre>
+-H "Accept: application/json" \
+    -d "social_id"="alias" \
+</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/client/login/social",
     "method": "POST",
+    "data": {
+        "social_id": "alias"
+},
         "headers": {
     "accept": "application/json"
     }
@@ -140,6 +311,25 @@ console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/client/login/social</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>social_id</td>
+<td>string</td>
+<td>required</td>
+<td>Minimum: <code>6</code> Maximum: <code>255</code> Valid user social_id</td>
+</tr>
+</tbody>
+</table>
 <!-- END_735c882a06055470755680aea2345366 -->
 <!-- START_73599da836df4931c2d145cd98155958 -->
 <h2>Set user location.</h2>
@@ -429,11 +619,6 @@ drivers.</p>
     -d "password"="eaque" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
-    -d "lang"="fa" \
-    -d "state"="eaque" \
-    -d "country"="eaque" \
-    -d "device_type"="eaque" \
-    -d "device_token"="eaque" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -443,12 +628,7 @@ drivers.</p>
     "data": {
         "password": "eaque",
         "phone": "eaque",
-        "login_by": "manual",
-        "lang": "fa",
-        "state": "eaque",
-        "country": "eaque",
-        "device_type": "eaque",
-        "device_token": "eaque"
+        "login_by": "manual"
 },
         "headers": {
     "accept": "application/json"
@@ -489,60 +669,31 @@ console.log(response);
 <td>required</td>
 <td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
 </tr>
-<tr>
-<td>lang</td>
-<td>string</td>
-<td>required</td>
-<td><code>fa</code>, <code>en</code> or <code>ar</code></td>
-</tr>
-<tr>
-<td>state</td>
-<td>string</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>country</td>
-<td>string</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>device_type</td>
-<td>string</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
-<tr>
-<td>device_token</td>
-<td>string</td>
-<td>required</td>
-<td>Maximum: <code>255</code></td>
-</tr>
 </tbody>
 </table>
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
-<h2>Driver login</h2>
-<p>Handle driver login with phone and password.</p>
+<h2>Driver/Client login</h2>
+<p>Handle driver and client login with phone and password.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl "http://localhost/api/driver/login" \
 -H "Accept: application/json" \
-    -d "password"="eaque" \
-    -d "phone"="eaque" \</code></pre>
+    -d "password"="consequuntur" \
+    -d "phone"="consequuntur" \
+</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/driver/login",
     "method": "POST",
     "data": {
-        "password": "eaque",
-        "phone": "eaque",
-    },
-    "headers": {
-        "accept": "application/json"
+        "password": "consequuntur",
+        "phone": "consequuntur"
+},
+        "headers": {
+    "accept": "application/json"
     }
 }
 
@@ -572,34 +723,11 @@ console.log(response);
 <td>phone</td>
 <td>numeric</td>
 <td>required</td>
-<td>Must have a length between <code>9</code> and <code>255</code></td>
+<td>Must have a length between <code>9</code> and <code>255</code> Valid user phone</td>
 </tr>
 </tbody>
 </table>
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
-<!-- START_63062e85628eac9d0933340350452bd1 -->
-<h2>Login social.</h2>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://localhost/api/driver/login/social" \
--H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://localhost/api/driver/login/social",
-    "method": "POST",
-        "headers": {
-    "accept": "application/json"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>POST api/driver/login/social</code></p>
-<!-- END_63062e85628eac9d0933340350452bd1 -->
 <!-- START_28b0526949c652e7a8cb170247076950 -->
 <h2>Set user location.</h2>
 <blockquote>
