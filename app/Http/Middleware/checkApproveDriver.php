@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
-class checkApproveDriver
+class CheckApproveDriver
 {
     /**
      * The authentication factory instance.
@@ -35,7 +35,13 @@ class checkApproveDriver
      */
     public function handle($request, Closure $next)
     {
-        dd($this->auth->guard('api')->user()->client()->first()));
-        return $next($request);
+        if ($this->auth->user()->driver()->first()->approve) {
+            return $next($request);
+        } else {
+            return fail([
+                    'title'  => 'Not an approved driver',
+                    'detail' => 'You should contact your area car center to begin approving proccess.'
+                ], 401);
+        }
     }
 }
