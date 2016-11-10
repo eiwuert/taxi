@@ -70,7 +70,9 @@ class DriverController extends Controller
      */
     public function online()
     {
-        if (Auth::user()->driver()->first()->update(['online' => true])) {
+        // Online    true
+        // Available true
+        if ($this->updateFlags(true, true)) {
             return ok(['result' => 'Driver is online.']);
         } else {
             return fail([
@@ -78,5 +80,47 @@ class DriverController extends Controller
                         'detail'=> 'Driver cannot go online because of some updating online status issue' 
                     ]);
         }
+    }
+
+    /**
+     * Driver offline
+     *
+     * Make a driver offline, when a driver goes offline his/her availability will
+     * set to false as well. An approved drvier can go to offline mode.
+     * @return JSON
+     */
+    public function offline()
+    {
+        if (! Auth::user()->driver()->first()->available) {
+            return fail([
+                        'title' => 'Driver cannot go offline',
+                        'detail'=> 'An onway driver cannot go offline.' 
+                    ]);
+        }
+
+        // Online    false
+        // Available false
+        if ($this->updateFlags(false, false)) {
+            return ok(['result' => 'Driver is offline.']);
+        } else {
+            return fail([
+                        'title' => 'Driver cannot go offline',
+                        'detail'=> 'Driver cannot go offline because of some updating offline status issue' 
+                    ]);
+        }
+    }
+
+    /**
+     * Set online and availabe flags.
+     * @param  boolean $online
+     * @param  boolean $available
+     * @return boolean
+     */
+    private function updateFlags($online, $available)
+    {
+        $driver = Auth::user()->driver()->first();
+        $driver->online    = $online;
+        $driver->available = $available;
+        return $driver->save();
     }
 }

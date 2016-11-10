@@ -76,6 +76,9 @@ Route::group(['prefix' => 'driver'], function() {
 		Route::get('online', 'DriverController@online')
 			 ->name('goOnline');
 
+		Route::get('offline', 'DriverController@offline')
+			 ->name('goOffline');
+
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
