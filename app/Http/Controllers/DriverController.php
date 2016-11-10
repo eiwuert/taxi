@@ -60,4 +60,23 @@ class DriverController extends Controller
                 ], 401);
         }
     }
+
+    /**
+     * Driver online
+     *
+     * Make a driver online, when a driver goes online his/her availability will
+     * set to true as well. An approved drvier can go to online mode.
+     * @return JSON
+     */
+    public function online()
+    {
+        if (Auth::user()->driver()->first()->update(['online' => true])) {
+            return ok(['result' => 'Driver is online.']);
+        } else {
+            return fail([
+                        'title' => 'Driver cannot go online',
+                        'detail'=> 'Driver cannot go online because of some updating online status issue' 
+                    ]);
+        }
+    }
 }
