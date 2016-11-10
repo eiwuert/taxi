@@ -76,31 +76,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new driver.
-     *
-     * @param  UserRequest $userRequest
-     * @param  RegisterRequest $registerRequest
-     * @param  ClientRepository $client
-     * @return json
-     */
-/*    public function driver(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
-    {
-        // Failure will handle with UserRequest
-        $user = User::create($userRequest->all());
-
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
-
-        // Create password grant client
-        $response = $client->create($user->id, 'driver', url('/'), false, true);
-
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
-        ]);
-    }*/
-
-    /**
      * Driver registration
      *
      * Initial step for driver to register, using phone no. as the primary param

@@ -118,6 +118,8 @@ class LoginController extends Controller
 
     /**
      * Login social.
+     *
+     * Login client using social ID.
      * 
      * @param  UserRequest
      * @param  ClientRepository
