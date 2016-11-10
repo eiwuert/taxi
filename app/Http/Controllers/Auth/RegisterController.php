@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SocialRequest;
-use App\Http\Requests\RegisterRequest;
 use \Laravel\Passport\ClientRepository;
+use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\DriverRegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -81,7 +82,7 @@ class RegisterController extends Controller
      * @param  ClientRepository $client
      * @return json
      */
-    public function driver(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
+/*    public function driver(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
     {
         // Failure will handle with UserRequest
         $user = User::create($userRequest->all());
@@ -92,6 +93,34 @@ class RegisterController extends Controller
         // Create password grant client
         $response = $client->create($user->id, 'driver', url('/'), false, true);
 
+        return ok([
+            'client_secret' => $response->secret,
+            'client_id'     => $response->id,
+        ]);
+    }*/
+
+    /**
+     * Driver registration
+     *
+     * Initial step for driver to register, using phone no. as the primary param
+     * for login and validation. phone must be unique among all registered 
+     * drivers.
+     * 
+     * @param  UserRegisterRequest   $userRequest 
+     * @param  DriverRegisterRequest $driverRequest
+     * @param  ClientRepository      $client
+     * @return JSON
+     */
+    public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest, ClientRepository $client)
+    {
+        $userRequest['role']  = 'driver';
+        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+
+        $user = User::create($userRequest->all());
+
+        Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
+
+        $response = $client->create($user->id, 'driver', url('/'), false, true);
         return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,

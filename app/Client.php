@@ -14,12 +14,14 @@ class Client extends Model
     protected $fillable = [
         'first_name', 
         'last_name',
-        'sex',
+        'gender',
         'device_token',
         'device_type',
-        'lock',
         'lang',
-        'phone',
+        'state',
+        'country',
+        'address',
+        'zipcode',
         'picture',
     ];
 

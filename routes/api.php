@@ -17,18 +17,19 @@ use Illuminate\Http\Request;
  * General Routes.
  */
 Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
+	 ->middleware('format', 'json');
 
 /**
  * Client Routes.
  */
 Route::group(['prefix' => 'client'], function() {
 	// Register
-	Route::post('register', 'Auth\RegisterController@driver')->name('registerClient');
-	Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
+	//Route::post('register', 'Auth\RegisterController@driver')->name('registerClient');
+	//Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
 	// login
-	Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
-	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
+	//Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
+	//Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
 		// Set user given location.
@@ -57,13 +58,13 @@ Route::group(['prefix' => 'client'], function() {
  */
 Route::group(['prefix' => 'driver'], function() {
 	// Register
-	Route::post('register', 'Auth\RegisterController@client')->name('registerDriver');
-	Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
+	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
+	//Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
 	// Login
-	Route::post('login', 'Auth\LoginController@loginUser')->name('loginDriver');
-	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginDriverSocial');
+	Route::post('login', 'Auth\LoginController@loginDriver')->name('loginDriver');
+	//Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginDriverSocial');
 
-	Route::group(['middleware' => ['auth:api', 'role:driver']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
 		// Set user given location.
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');

@@ -46,12 +46,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'role'       => \App\Http\Middleware\CheckRole::class,
+        'json'       => \App\Http\Middleware\FormatJson::class,
+        'format'     => \App\Http\Middleware\ReplacePhone::class,
+        'can'        => \Illuminate\Auth\Middleware\Authorize::class,
+        'approved'   => \App\Http\Middleware\CheckApproveDriver::class,
+        'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
+        'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

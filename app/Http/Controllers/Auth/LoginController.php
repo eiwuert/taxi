@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\SocialRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserLoginRequest;
 use \Laravel\Passport\ClientRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -31,6 +32,16 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'phone';
+    }
 
     /**
      * Create a new controller instance.
@@ -64,6 +75,50 @@ class LoginController extends Controller
 
             return ok([
                     'client_secret' => $response->secret,
+                    'client_id'     => $response->id,
+                ]);
+        } else {
+            return fail([
+                    'title'  => 'User credentials is not valid.',
+                    'detail' => 'You have entered email and password that can not be authenticated.'
+                ], 401);
+        }
+    }
+
+    /**
+     * Driver login
+     *
+     * Handle driver login with phone and password.
+     * @param  UserLoginRequest $userRequest
+     * @param  ClientRepository $client
+     * @return JSON
+     */
+    public function loginDriver(UserLoginRequest $userRequest, ClientRepository $client)
+    {
+        // This condition always return a result because we are checking esistance
+        // of the user phone number on the validation step.
+        if (User::where('phone', $userRequest->phone)->first()->role != 'driver') {
+            return fail([
+                    'title' => 'Unauthorized',
+                    'detail'=> 'You cannot login as a driver with these credentials.'
+                ], 401);
+        }
+
+        if (Auth::attempt(['phone' => $userRequest->phone, 'password' => $userRequest->password])) {
+            // A user can have multiple user secrets and ids
+            $response = $client->forUser(Auth::user()->id)->first();
+
+            // if there is no client id secret or secret.
+            if (empty($response)) {
+                return fail([
+                        'title'  => 'no client secret',
+                        'detail' => 'There is no client id and client secret for this user, please
+                                    contact adminstrator'
+                    ], 500);
+            }
+
+            return ok([
+                    'cliegnt_secret' => $response->secret,
                     'client_id'     => $response->id,
                 ]);
         } else {

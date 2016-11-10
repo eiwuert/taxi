@@ -17,12 +17,15 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->enum('sex', ['male', 'female', 'not specified'])->default('not specified');
+            $table->enum('gender', ['male', 'female', 'not specified'])->default('not specified');
             $table->string('device_token')->nullable();
             $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
             $table->boolean('lock')->default(0);
             $table->string('lang')->default('en');
-            $table->bigInteger('phone');
+            $table->text('address')->nullable();
+            $table->string('state');
+            $table->string('country');
+            $table->bigInteger('zipcode')->nullable();
             $table->string('picture')->default('no-profile.png');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

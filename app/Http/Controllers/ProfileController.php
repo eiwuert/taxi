@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
+use App\Client;
+use App\Driver;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
@@ -54,7 +56,16 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $profileRequest)
     {
-    	return ok($this->user()->update($profileRequest->all()));
+   		if ($this->type == 'client') {
+    		Client::find(Auth::user()->id)->update($profileRequest->all());
+		} elseif ($this->type == 'driver') {
+    		Driver::find(Auth::user()->id)->update($profileRequest->all());
+		} else {
+		    return fail([
+		            'title'  => 'Undefined type.',
+		            'detail' => 'You are using undefined type, please contact your adminstrator.'
+		        ], 400);
+		}
     }
 
     /**

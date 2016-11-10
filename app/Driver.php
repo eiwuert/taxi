@@ -14,14 +14,14 @@ class Driver extends Model
     protected $fillable = [
         'first_name', 
         'last_name',
-        'sex',
+        'gender',
         'device_token',
         'device_type',
-        'online',
-        'approve',
-        'available',
         'lang',
-        'phone',
+        'state',
+        'country',
+        'address',
+        'zipcode',
         'picture',
     ];
 
