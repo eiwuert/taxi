@@ -16,40 +16,49 @@ use Illuminate\Http\Request;
 /**
  * General Routes.
  */
-Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail')
+	 ->name('resetPassword');
+
 Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
-	 ->middleware('format', 'json');
+	 ->middleware('format', 'json')
+	 ->name('issueToken');
 
 /**
  * Client Routes.
  */
 Route::group(['prefix' => 'client'], function() {
-	// Register
-	Route::post('register', 'Auth\RegisterController@client')->name('registerClient');
-	Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
-	// login
-	Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
-	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
+	Route::post('register', 'Auth\RegisterController@client')
+		 ->name('registerClient');
+
+	Route::post('register/social', 'Auth\RegisterController@socialClient')
+		 ->name('registerClientSocial');
+
+	Route::post('login', 'Auth\LoginController@loginUser')
+		 ->name('loginClient');
+
+	Route::post('login/social', 'Auth\LoginController@loginSocial')
+		 ->name('loginClientSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
-		// Set user given location.
 		Route::post('location', 'LocationController@set')
-			 ->name('setLocation');
+		 	 ->name('setLocation');
 
-		// Get location based on id.
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
 
 		Route::group(['prefix' => 'car'], function() {
-			// Get all car types.
-			Route::get('types', 'CarTypeController@all');
+			Route::get('types', 'CarTypeController@all')
+			 	->name('carTypes');
 
-			// Search car types.
-			Route::get('search/{term}', 'CarTypeController@search');
+			Route::get('search/{term}', 'CarTypeController@search')
+			 	 ->name('searchCarTypes');
 		});
 
-		Route::get('profile', 'ProfileController@get');
-		Route::post('profile', 'ProfileController@update');
+		Route::get('profile', 'ProfileController@get')
+			 ->name('getClientProfile');
+
+		Route::post('profile', 'ProfileController@update')
+			 ->name('updateClientProfile');
 	});
 });
 
@@ -57,27 +66,31 @@ Route::group(['prefix' => 'client'], function() {
  * Driver Routes.
  */
 Route::group(['prefix' => 'driver'], function() {
-	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
-	Route::post('login', 'Auth\LoginController@loginUser')->name('loginDriver');
+	Route::post('register', 'Auth\RegisterController@driver')
+		 ->name('registerDriver');
+
+	Route::post('login', 'Auth\LoginController@loginUser')
+		 ->name('loginDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
-		// Set user given location.
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
-		// Get location based on id.
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
 
 		Route::group(['prefix' => 'car'], function() {
-			// Register new car
-			Route::post('register', 'CarController@register');
+			Route::post('register', 'CarController@register')
+				 ->name('registerCar');
 
-			// Get driver car info
-			Route::get('info', 'CarController@info');
+			Route::get('info', 'CarController@info')
+				 ->name('getCarInfo');
 		});
 
-		Route::get('profile', 'ProfileController@get');
-		Route::post('profile', 'ProfileController@update');
+		Route::get('profile', 'ProfileController@get')
+			 ->name('getDriverProfile');
+
+		Route::post('profile', 'ProfileController@update')
+			 ->name('updateDriverProfile');
 	});
 });
