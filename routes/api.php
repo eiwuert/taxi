@@ -26,10 +26,10 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
 Route::group(['prefix' => 'client'], function() {
 	// Register
 	Route::post('register', 'Auth\RegisterController@client')->name('registerClient');
-	//Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
+	Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
 	// login
 	Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
-	//Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
+	Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
 		// Set user given location.

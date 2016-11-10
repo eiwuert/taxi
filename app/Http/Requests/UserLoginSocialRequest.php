@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class SocialRequest extends Request
+class UserLoginSocialRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,7 @@ class SocialRequest extends Request
     public function rules()
     {
         return [
-            'email'      => 'required|email|max:255|unique:users',
-            'social_id'  => 'required|min:6|max:255',
-            'login_by'   => 'required|in:manual,google,facebook',
+            'social_id'    => 'required|min:6|max:255|exists:users,social_id',
         ];
     }
 }

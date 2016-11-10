@@ -9,6 +9,7 @@ use App\Http\Requests\SocialRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
 use \Laravel\Passport\ClientRepository;
+use App\Http\Requests\UserLoginSocialRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -122,22 +123,33 @@ class LoginController extends Controller
      * @param  ClientRepository
      * @return json
      */
-    public function loginSocial(Request $request, ClientRepository $client)
+    public function loginSocial(UserLoginSocialRequest $userRequest, ClientRepository $client)
     {
-        if (!isset($request['social_id']) || !isset($request['email'])) {
-            return fail([
-                    'title'  => 'Email and social ID are required.',
-                    'detail' => 'Email and social ID should be sent.'
-                ], 401);
+        if ($this->type == 'client') {
+            if (User::where('social_id', $userRequest->social_id)->first()->role != 'client') {
+                return fail([
+                        'title' => 'Unauthorized',
+                        'detail'=> 'You cannot login as a client with these credentials.'
+                    ], 401);
+            }
         }
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->social_id])) {
+        if (Auth::attempt(['social_id' => $userRequest->social_id, 'password' => $userRequest->social_id])) {
             // A user can have multiple user secrets and ids
-            $response = $client->forUser(Auth::user()->id)[0];
+            $response = $client->forUser(Auth::user()->id)->first();
+
+            // if there is no client id secret or secret.
+            if (empty($response)) {
+                return fail([
+                        'title'  => 'no client secret',
+                        'detail' => 'There is no client id and client secret for this user, please
+                                    contact adminstrator'
+                    ], 500);
+            }
 
             return ok([
-                    'client_secret' => $response->secret,
-                    'client_id'     => $response->id,
+                    'cliegnt_secret' => $response->secret,
+                    'client_id'      => $response->id,
                 ]);
         } else {
             return fail([
