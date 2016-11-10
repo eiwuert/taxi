@@ -16,12 +16,13 @@ class FormatJson
     public function handle($request, Closure $next)
     {
         $response = $next($request);
+
         if ($response->isOk()) {
             return ok(json_decode($response->getContent()));
         } else {
             return fail([
                 'title'  => json_decode($response->getContent()),
-                'detail' => 'You have entered email and password that can not be authenticated.'
+                'detail' => 'You have entered not valid data.'
             ], $response->getStatusCode());
         }
 
