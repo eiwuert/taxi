@@ -16,11 +16,14 @@ class ProfileRequest extends Request
         return [
             'first_name'   => 'max:255',
             'last_name'    => 'max:255',
-            'sex'          => 'in:male,female,not specified',
+            'gender'       => 'in:male,female,not specified',
             'device_token' => 'max:255',
             'device_type'  => 'max:255',
             'lang'         => 'in:fa,en',
-            'phone'        => 'integer',
+            'address'      => 'min:3',
+            'state'        => 'min:2|max:255',
+            'country'      => 'min:2|max:255',
+            'zipcode'      => 'numeric',
             'picture'      => 'image|max:512',
         ];
     }

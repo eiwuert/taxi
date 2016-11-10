@@ -97,6 +97,7 @@ class RegisterController extends Controller
         Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
 
         $response = $client->create($user->id, 'driver', url('/'), false, true);
+
         return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
