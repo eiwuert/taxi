@@ -12,6 +12,7 @@ use App\Http\Requests\SocialRequest;
 use \Laravel\Passport\ClientRepository;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\DriverRegisterRequest;
+use App\Http\Requests\ClientRegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -130,20 +131,20 @@ class RegisterController extends Controller
     /**
      * Create a new client.
      *
-     * @param  UserRequest $userRequest
-     * @param  RegisterRequest $registerRequest
+     * @param  UserRegisterRequest $userRequest
+     * @param  ClientRegisterRequest $clientRequest
      * @param  ClientRepository $client
      * @return json
      */
-    public function client(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
+    public function client(UserRegisterRequest $userRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
     {
-        // Failure will handle with UserRequest
+        $userRequest['role']  = 'client';
+        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+
         $user = User::create($userRequest->all());
 
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->client()->create($registerRequest->all());
+        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
-        // Create password grant client
         $response = $client->create($user->id, 'client', url('/'), false, true);
 
         return ok([

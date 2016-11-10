@@ -25,7 +25,7 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
  */
 Route::group(['prefix' => 'client'], function() {
 	// Register
-	//Route::post('register', 'Auth\RegisterController@driver')->name('registerClient');
+	Route::post('register', 'Auth\RegisterController@client')->name('registerClient');
 	//Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
 	// login
 	//Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
@@ -57,12 +57,8 @@ Route::group(['prefix' => 'client'], function() {
  * Driver Routes.
  */
 Route::group(['prefix' => 'driver'], function() {
-	// Register
 	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
-	//Route::post('register/social', 'Auth\RegisterController@socialDriver')->name('registerDriverSocial');
-	// Login
 	Route::post('login', 'Auth\LoginController@loginDriver')->name('loginDriver');
-	//Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginDriverSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
 		// Set user given location.
