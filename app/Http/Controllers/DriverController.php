@@ -111,6 +111,28 @@ class DriverController extends Controller
     }
 
     /**
+     * Driver onway
+     *
+     * Make a driver onway, when a driver goes onway his/her availability will
+     * set to false while he/she is still online An approved drvier can go 
+     * to onway mode.
+     * @return JSON
+     */
+    public function onway()
+    {
+        // Online    true
+        // Available false
+        if ($this->updateFlags(true, false)) {
+            return ok(['result' => 'Driver is onway.']);
+        } else {
+            return fail([
+                        'title' => 'Driver cannot be onway',
+                        'detail'=> 'Driver cannot be onway because of some updating onway status issue' 
+                    ]);
+        }
+    }
+
+    /**
      * Set online and availabe flags.
      * @param  boolean $online
      * @param  boolean $available
