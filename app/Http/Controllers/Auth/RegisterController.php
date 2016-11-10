@@ -113,9 +113,13 @@ class RegisterController extends Controller
      */
     public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest, ClientRepository $client)
     {
-        $userRequest['role'] = 'driver';
+        $userRequest['role']  = 'driver';
+        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+
         $user = User::create($userRequest->all());
+
         Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
+
         $response = $client->create($user->id, 'driver', url('/'), false, true);
         return ok([
             'client_secret' => $response->secret,
