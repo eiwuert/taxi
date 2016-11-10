@@ -28,7 +28,7 @@ Route::group(['prefix' => 'client'], function() {
 	Route::post('register', 'Auth\RegisterController@client')->name('registerClient');
 	//Route::post('register/social', 'Auth\RegisterController@socialClient')->name('registerClientSocial');
 	// login
-	//Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
+	Route::post('login', 'Auth\LoginController@loginUser')->name('loginClient');
 	//Route::post('login/social', 'Auth\LoginController@loginSocial')->name('loginClientSocial');
 
 	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'client'], function() {
  */
 Route::group(['prefix' => 'driver'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')->name('registerDriver');
-	Route::post('login', 'Auth\LoginController@loginDriver')->name('loginDriver');
+	Route::post('login', 'Auth\LoginController@loginUser')->name('loginDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
 		// Set user given location.
