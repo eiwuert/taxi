@@ -133,7 +133,10 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255`
-    login_by | string |  required  | `manual`, `google` or `facebook`
+    login_by | string |  required  | `manual`, `ios`, `android`
+    lang | string |  required  | `fa`, `en`, `ar`
+    device_type | string |  required  | Maximum: `255`
+    device_token | string |  required  | Maximum: `255`
 
 <!-- END_786684a27e8f23727a33ce6bbf1f5a4f -->
 <!-- START_8c58924b654ca8b9de1761fb81b7cff1 -->
@@ -186,6 +189,9 @@ Parameter | Type | Status | Description
     social_id | string |  required  | Minimum: `6` Maximum: `255`
     login_by | string |  required  | `google` or `facebook`
     phone | numeric |  required  | Must have a length between `9` and `255`
+    lang | string |  required  | `fa`, `en`, `ar`
+    device_type | string |  required  | Maximum: `255`
+    device_token | string |  required  | Maximum: `255`
 
 <!-- END_8c58924b654ca8b9de1761fb81b7cff1 -->
 <!-- START_03f72b6b5cad60cb93852896e72d4bf8 -->
@@ -486,6 +492,8 @@ null
 <!-- START_ff3c3c34c0013f2818261a3c81cf76bc -->
 ## Update profile data.
 
+Update authenticated user profile data.
+
 > Example request:
 
 ```bash
@@ -493,11 +501,14 @@ curl "http://localhost/api/client/profile" \
 -H "Accept: application/json" \
     -d "first_name"="et" \
     -d "last_name"="et" \
-    -d "sex"="male" \
+    -d "gender"="male" \
     -d "device_token"="et" \
     -d "device_type"="et" \
     -d "lang"="fa" \
-    -d "phone"="2" \
+    -d "address"="et" \
+    -d "state"="et" \
+    -d "country"="et" \
+    -d "zipcode"="2" \
     -d "picture"="et" \
 
 ```
@@ -511,11 +522,14 @@ var settings = {
     "data": {
         "first_name": "et",
         "last_name": "et",
-        "sex": "male",
+        "gender": "male",
         "device_token": "et",
         "device_type": "et",
         "lang": "fa",
-        "phone": 2,
+        "address": "et",
+        "state": "et",
+        "country": "et",
+        "zipcode": 2,
         "picture": "et"
 },
         "headers": {
@@ -538,11 +552,14 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     first_name | string |  optional  | Maximum: `255`
     last_name | string |  optional  | Maximum: `255`
-    sex | string |  optional  | `male`, `female` or `not specified`
+    gender | string |  optional  | `male`, `female` or `not specified`
     device_token | string |  optional  | Maximum: `255`
     device_type | string |  optional  | Maximum: `255`
     lang | string |  optional  | `fa` or `en`
-    phone | integer |  optional  | 
+    address | string |  optional  | Minimum: `3`
+    state | string |  optional  | Minimum: `2` Maximum: `255`
+    country | string |  optional  | Minimum: `2` Maximum: `255`
+    zipcode | numeric |  optional  | 
     picture | image |  optional  | Must be an image (jpeg, png, bmp, gif, or svg) Maximum: `512`
 
 <!-- END_ff3c3c34c0013f2818261a3c81cf76bc -->
@@ -595,7 +612,12 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255`
-    login_by | string |  required  | `manual`, `google` or `facebook`
+    lang | string |  required  | `fa`, `en`, `ar
+    country | string |  required  |  Maximum: `255`
+    state | string |  required  |  Maximum: `255`
+    device_token | string |  required  |  Maximum: `255`
+    device_type | string |  required  |  Maximum: `255`
+    login_by | string |  required  |  `manual`
 
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
@@ -645,6 +667,176 @@ Parameter | Type | Status | Description
     phone | numeric |  required  | Must have a length between `9` and `255` Valid user phone
 
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
+<!-- START_592dbad5f2c258af41de0cf2b034f7ce -->
+## Driver online
+
+Make a driver online, when a driver goes online his/her availability will
+set to true as well. An approved drvier can go to online mode.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/driver/online" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/online",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/driver/online`
+
+`HEAD api/driver/online`
+
+
+<!-- END_592dbad5f2c258af41de0cf2b034f7ce -->
+<!-- START_6d462c67159910a72526551ed62c271b -->
+## Driver offline
+
+Make a driver offline, when a driver goes offline his/her availability will
+set to false as well. An approved drvier can go to offline mode.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/driver/offline" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/offline",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/driver/offline`
+
+`HEAD api/driver/offline`
+
+
+<!-- END_6d462c67159910a72526551ed62c271b -->
+<!-- START_265f5314de7713e75152bce68e4705ce -->
+## Driver onway
+
+Make a driver onway, when a driver goes onway his/her availability will
+set to false while he/she is still online An approved drvier can go
+to onway mode.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/driver/onway" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/onway",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/driver/onway`
+
+`HEAD api/driver/onway`
+
+
+<!-- END_265f5314de7713e75152bce68e4705ce -->
+<!-- START_6d9aee0e3694270647c488b26897e57b -->
+## Driver available
+
+Make a driver available, when a driver goes available his/her availability
+will set to true while he/she is still online An approved drvier can go
+to available mode.
+
+> Example request:
+
+```bash
+curl "http://localhost/api/driver/available" \
+-H "Accept: application/json"
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/available",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+> Example response:
+
+```json
+null
+```
+
+### HTTP Request
+`GET api/driver/available`
+
+`HEAD api/driver/available`
+
+
+<!-- END_6d9aee0e3694270647c488b26897e57b -->
 <!-- START_28b0526949c652e7a8cb170247076950 -->
 ## Set user location.
 
@@ -861,6 +1053,8 @@ null
 <!-- START_df243d0fcaae3817217c20b411deca06 -->
 ## Update profile data.
 
+Update authenticated user profile data.
+
 > Example request:
 
 ```bash
@@ -868,11 +1062,14 @@ curl "http://localhost/api/driver/profile" \
 -H "Accept: application/json" \
     -d "first_name"="amet" \
     -d "last_name"="amet" \
-    -d "sex"="male" \
+    -d "gender"="male" \
     -d "device_token"="amet" \
     -d "device_type"="amet" \
     -d "lang"="fa" \
-    -d "phone"="30" \
+    -d "address"="amet" \
+    -d "state"="amet" \
+    -d "country"="amet" \
+    -d "zipcode"="30" \
     -d "picture"="amet" \
 
 ```
@@ -886,11 +1083,14 @@ var settings = {
     "data": {
         "first_name": "amet",
         "last_name": "amet",
-        "sex": "male",
+        "gender": "male",
         "device_token": "amet",
         "device_type": "amet",
         "lang": "fa",
-        "phone": 30,
+        "address": "amet",
+        "state": "amet",
+        "country": "amet",
+        "zipcode": 30,
         "picture": "amet"
 },
         "headers": {
@@ -913,11 +1113,14 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     first_name | string |  optional  | Maximum: `255`
     last_name | string |  optional  | Maximum: `255`
-    sex | string |  optional  | `male`, `female` or `not specified`
+    gender | string |  optional  | `male`, `female` or `not specified`
     device_token | string |  optional  | Maximum: `255`
     device_type | string |  optional  | Maximum: `255`
     lang | string |  optional  | `fa` or `en`
-    phone | integer |  optional  | 
+    address | string |  optional  | Minimum: `3`
+    state | string |  optional  | Minimum: `2` Maximum: `255`
+    country | string |  optional  | Minimum: `2` Maximum: `255`
+    zipcode | numeric |  optional  | 
     picture | image |  optional  | Must be an image (jpeg, png, bmp, gif, or svg) Maximum: `512`
 
 <!-- END_df243d0fcaae3817217c20b411deca06 -->

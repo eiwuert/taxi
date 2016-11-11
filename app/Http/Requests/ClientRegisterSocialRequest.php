@@ -15,7 +15,6 @@ class ClientRegisterSocialRequest extends Request
     {
         return [
             'social_id'  => 'required|min:6|max:255|unique:users,social_id',
-            'login_by'   => 'required|in:google,facebook',
             'phone'      => 'required|digits_between:9,255|unique:users,phone',
         ];
     }

@@ -17,7 +17,6 @@ class ClientRegisterRequest extends Request
             'lang'         => 'required|in:fa,en,ar',
             'device_type'  => 'required|max:255',
             'device_token' => 'required|max:255',
-            'login_by'     => 'required|in:manual,google,facebook',
         ];
     }
 }

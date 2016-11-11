@@ -156,7 +156,25 @@ console.log(response);
 <td>login_by</td>
 <td>string</td>
 <td>required</td>
-<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
+<td><code>manual</code>, <code>ios</code>, <code>android</code></td>
+</tr>
+<tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td><code>fa</code>, <code>en</code>, <code>ar</code></td>
+</tr>
+<tr>
+<td>device_type</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_token</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
 </tr>
 </tbody>
 </table>
@@ -223,6 +241,24 @@ console.log(response);
 <td>numeric</td>
 <td>required</td>
 <td>Must have a length between <code>9</code> and <code>255</code></td>
+</tr>
+<tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td><code>fa</code>, <code>en</code>, <code>ar</code></td>
+</tr>
+<tr>
+<td>device_type</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_token</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
 </tr>
 </tbody>
 </table>
@@ -506,6 +542,7 @@ console.log(response);
 <!-- END_6756c814f606e970af7f12dbc16954f6 -->
 <!-- START_ff3c3c34c0013f2818261a3c81cf76bc -->
 <h2>Update profile data.</h2>
+<p>Update authenticated user profile data.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -513,11 +550,14 @@ console.log(response);
 -H "Accept: application/json" \
     -d "first_name"="et" \
     -d "last_name"="et" \
-    -d "sex"="male" \
+    -d "gender"="male" \
     -d "device_token"="et" \
     -d "device_type"="et" \
     -d "lang"="fa" \
-    -d "phone"="2" \
+    -d "address"="et" \
+    -d "state"="et" \
+    -d "country"="et" \
+    -d "zipcode"="2" \
     -d "picture"="et" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
@@ -528,11 +568,14 @@ console.log(response);
     "data": {
         "first_name": "et",
         "last_name": "et",
-        "sex": "male",
+        "gender": "male",
         "device_token": "et",
         "device_type": "et",
         "lang": "fa",
-        "phone": 2,
+        "address": "et",
+        "state": "et",
+        "country": "et",
+        "zipcode": 2,
         "picture": "et"
 },
         "headers": {
@@ -569,7 +612,7 @@ console.log(response);
 <td>Maximum: <code>255</code></td>
 </tr>
 <tr>
-<td>sex</td>
+<td>gender</td>
 <td>string</td>
 <td>optional</td>
 <td><code>male</code>, <code>female</code> or <code>not specified</code></td>
@@ -593,8 +636,26 @@ console.log(response);
 <td><code>fa</code> or <code>en</code></td>
 </tr>
 <tr>
-<td>phone</td>
-<td>integer</td>
+<td>address</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>3</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>2</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>2</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>numeric</td>
 <td>optional</td>
 </tr>
 <tr>
@@ -664,10 +725,40 @@ console.log(response);
 <td>Must have a length between <code>9</code> and <code>255</code></td>
 </tr>
 <tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td><code>fa</code>, <code>en</code>, `ar</td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_token</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>device_type</td>
+<td>string</td>
+<td>required</td>
+<td>Maximum: <code>255</code></td>
+</tr>
+<tr>
 <td>login_by</td>
 <td>string</td>
 <td>required</td>
-<td><code>manual</code>, <code>google</code> or <code>facebook</code></td>
+<td><code>manual</code></td>
 </tr>
 </tbody>
 </table>
@@ -728,6 +819,128 @@ console.log(response);
 </tbody>
 </table>
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
+<!-- START_592dbad5f2c258af41de0cf2b034f7ce -->
+<h2>Driver online</h2>
+<p>Make a driver online, when a driver goes online his/her availability will
+set to true as well. An approved drvier can go to online mode.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/online" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/online",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/online</code></p>
+<p><code>HEAD api/driver/online</code></p>
+<!-- END_592dbad5f2c258af41de0cf2b034f7ce -->
+<!-- START_6d462c67159910a72526551ed62c271b -->
+<h2>Driver offline</h2>
+<p>Make a driver offline, when a driver goes offline his/her availability will
+set to false as well. An approved drvier can go to offline mode.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/offline" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/offline",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/offline</code></p>
+<p><code>HEAD api/driver/offline</code></p>
+<!-- END_6d462c67159910a72526551ed62c271b -->
+<!-- START_265f5314de7713e75152bce68e4705ce -->
+<h2>Driver onway</h2>
+<p>Make a driver onway, when a driver goes onway his/her availability will
+set to false while he/she is still online An approved drvier can go
+to onway mode.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/onway" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/onway",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/onway</code></p>
+<p><code>HEAD api/driver/onway</code></p>
+<!-- END_265f5314de7713e75152bce68e4705ce -->
+<!-- START_6d9aee0e3694270647c488b26897e57b -->
+<h2>Driver available</h2>
+<p>Make a driver available, when a driver goes available his/her availability
+will set to true while he/she is still online An approved drvier can go
+to available mode.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/available" \
+-H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/available",
+    "method": "GET",
+        "headers": {
+    "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">null</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/available</code></p>
+<p><code>HEAD api/driver/available</code></p>
+<!-- END_6d9aee0e3694270647c488b26897e57b -->
 <!-- START_28b0526949c652e7a8cb170247076950 -->
 <h2>Set user location.</h2>
 <blockquote>
@@ -936,6 +1149,7 @@ console.log(response);
 <!-- END_0eb81262ddf2345b12ddd00157d2bae7 -->
 <!-- START_df243d0fcaae3817217c20b411deca06 -->
 <h2>Update profile data.</h2>
+<p>Update authenticated user profile data.</p>
 <blockquote>
 <p>Example request:</p>
 </blockquote>
@@ -943,11 +1157,14 @@ console.log(response);
 -H "Accept: application/json" \
     -d "first_name"="amet" \
     -d "last_name"="amet" \
-    -d "sex"="male" \
+    -d "gender"="male" \
     -d "device_token"="amet" \
     -d "device_type"="amet" \
     -d "lang"="fa" \
-    -d "phone"="30" \
+    -d "address"="amet" \
+    -d "state"="amet" \
+    -d "country"="amet" \
+    -d "zipcode"="30" \
     -d "picture"="amet" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
@@ -958,11 +1175,14 @@ console.log(response);
     "data": {
         "first_name": "amet",
         "last_name": "amet",
-        "sex": "male",
+        "gender": "male",
         "device_token": "amet",
         "device_type": "amet",
         "lang": "fa",
-        "phone": 30,
+        "address": "amet",
+        "state": "amet",
+        "country": "amet",
+        "zipcode": 30,
         "picture": "amet"
 },
         "headers": {
@@ -999,7 +1219,7 @@ console.log(response);
 <td>Maximum: <code>255</code></td>
 </tr>
 <tr>
-<td>sex</td>
+<td>gender</td>
 <td>string</td>
 <td>optional</td>
 <td><code>male</code>, <code>female</code> or <code>not specified</code></td>
@@ -1023,8 +1243,26 @@ console.log(response);
 <td><code>fa</code> or <code>en</code></td>
 </tr>
 <tr>
-<td>phone</td>
-<td>integer</td>
+<td>address</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>3</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>2</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>country</td>
+<td>string</td>
+<td>optional</td>
+<td>Minimum: <code>2</code> Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>zipcode</td>
+<td>numeric</td>
 <td>optional</td>
 </tr>
 <tr>
