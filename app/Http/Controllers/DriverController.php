@@ -70,6 +70,14 @@ class DriverController extends Controller
      */
     public function online()
     {
+        $user = Auth::user()->driver()->first();
+        if (Auth::user()->driver()->first()->online) {
+            return fail([
+                        'title' => 'Driver cannot go online',
+                        'detail'=> 'You are currently online.' 
+                    ]);
+        }
+
         // Online    true
         // Available true
         if ($this->updateFlags(true, true)) {
