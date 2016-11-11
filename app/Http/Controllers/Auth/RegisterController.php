@@ -8,11 +8,12 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SocialRequest;
 use \Laravel\Passport\ClientRepository;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\DriverRegisterRequest;
+use App\Http\Requests\ClientRegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\ClientRegisterSocialRequest;
 
 class RegisterController extends Controller
 {
@@ -75,31 +76,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new driver.
-     *
-     * @param  UserRequest $userRequest
-     * @param  RegisterRequest $registerRequest
-     * @param  ClientRepository $client
-     * @return json
-     */
-/*    public function driver(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
-    {
-        // Failure will handle with UserRequest
-        $user = User::create($userRequest->all());
-
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
-
-        // Create password grant client
-        $response = $client->create($user->id, 'driver', url('/'), false, true);
-
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
-        ]);
-    }*/
-
-    /**
      * Driver registration
      *
      * Initial step for driver to register, using phone no. as the primary param
@@ -121,6 +97,7 @@ class RegisterController extends Controller
         Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
 
         $response = $client->create($user->id, 'driver', url('/'), false, true);
+
         return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
@@ -128,22 +105,26 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new client.
+     * Client registration
      *
-     * @param  UserRequest $userRequest
-     * @param  RegisterRequest $registerRequest
+     * Initial step for client to register, using phone no. as the primary param
+     * for login and validation. phone must be unique among all registered 
+     * clients.
+     *
+     * @param  UserRegisterRequest $userRequest
+     * @param  ClientRegisterRequest $clientRequest
      * @param  ClientRepository $client
      * @return json
      */
-    public function client(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
+    public function client(UserRegisterRequest $userRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
     {
-        // Failure will handle with UserRequest
+        $userRequest['role']  = 'client';
+        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+
         $user = User::create($userRequest->all());
 
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->client()->create($registerRequest->all());
+        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
-        // Create password grant client
         $response = $client->create($user->id, 'client', url('/'), false, true);
 
         return ok([
@@ -153,49 +134,28 @@ class RegisterController extends Controller
     }
 
     /**
-     * Register using social id.
-     * @param  SocialRequest    $socialRequest
+     * Client social registraion
+     *
+     * Initial step for client to register, using phone no. as the primary param
+     * for login and validation. phone must be unique among all registered 
+     * clients.
+     * 
+     * @param  ClientRegisterSocialRequest    $socialRequest
      * @param  RegisterRequest  $registerRequest
      * @param  ClientRepository $client
      * @return json
      */
-    public function socialDriver(SocialRequest $socialRequest, RegisterRequest $registerRequest, ClientRepository $client)
+    public function socialClient(ClientRegisterSocialRequest $socialRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
     {
+        $socialRequest['role']  = 'client';
+        $socialRequest['email'] = $socialRequest['role'] . '_' . $socialRequest['phone'] . '@saamtaxi.com';
         $socialRequest['password'] = $socialRequest->social_id;
 
         // Failure will handle with UserRequest
         $user = User::create($socialRequest->all());
 
         // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
-
-        // Create password grant client
-        $response = $client->create($user->id, 'driver', url('/'), false, true);
-
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
-        ]);
-    }
-
-    /**
-     * Register using social id.
-     * @param  SocialRequest    $socialRequest
-     * @param  RegisterRequest  $registerRequest
-     * @param  ClientRepository $client
-     * @return json
-     */
-    public function socialClient(SocialRequest $socialRequest, RegisterRequest $registerRequest, ClientRepository $client)
-    {
-        $socialRequest['password'] = $socialRequest->social_id;
-
-        // Failure will handle with UserRequest
-        $user = User::create($socialRequest->all());
-
-        //dd($registerRequest->all());
-
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->client()->create($registerRequest->all());
+        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
         // Create password grant client
         $response = $client->create($user->id, 'client', url('/'), false, true);

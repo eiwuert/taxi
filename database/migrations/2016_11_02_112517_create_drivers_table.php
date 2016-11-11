@@ -27,7 +27,7 @@ class CreateDriversTable extends Migration
             $table->text('address')->nullable();
             $table->string('state');
             $table->string('country');
-            $table->bigInteger('zipcode')->nullable();
+            $table->string('zipcode')->nullable();
             $table->string('picture')->default('no-profile.png');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')

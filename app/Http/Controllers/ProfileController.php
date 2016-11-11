@@ -51,15 +51,32 @@ class ProfileController extends Controller
     /**
      * Update profile data.
      *
+     * Update authenticated user profile data.
      * @param  ProfileRequest $profileRequest
      * @return json
      */
     public function update(ProfileRequest $profileRequest)
     {
+    	// All field are optional, but we are not going to accept empty response.
+    	if(empty($profileRequest->all())) {
+    		return fail([
+    				'title'  => 'Empty request is prohibited',
+    				'detail' => 'All profile fields are optional, but empty requst is prohibited'
+    			], 400);
+    	}
+
    		if ($this->type == 'client') {
-    		Client::find(Auth::user()->id)->update($profileRequest->all());
+			Client::where('user_id', Auth::user()->id)
+				->first()
+				->fill($profileRequest->all())
+				->save();
+			return $this->get($profileRequest);
 		} elseif ($this->type == 'driver') {
-    		Driver::find(Auth::user()->id)->update($profileRequest->all());
+			Driver::where('user_id', Auth::user()->id)
+				->first()
+				->fill($profileRequest->all())
+				->save();
+			return $this->get($profileRequest);
 		} else {
 		    return fail([
 		            'title'  => 'Undefined type.',
