@@ -34,7 +34,6 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'accept',
             'throttle:60,1',
             'bindings',
         ],
@@ -58,6 +57,5 @@ class Kernel extends HttpKernel
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'accept' => \App\Http\Middleware\AcceptJson::class,
     ];
 }
