@@ -27,4 +27,14 @@ class Trip extends Model
     {
         return $this->hasOne('App\Driver');
     }
+
+    /**
+     * A trip can have one client.
+     * 
+     * @return hasOne
+     */
+    public function client()
+    {
+        return $this->hasOne('App\Client');
+    }
 }
