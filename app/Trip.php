@@ -17,4 +17,14 @@ class Trip extends Model
         'eta',
         'etd',
     ];
+
+    /**
+     * A trip can have one driver.
+     * 
+     * @return hasOne
+     */
+    public function driver()
+    {
+        return $this->hasOne('App\Driver');
+    }
 }
