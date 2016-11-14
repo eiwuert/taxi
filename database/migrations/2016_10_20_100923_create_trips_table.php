@@ -27,8 +27,6 @@ class CreateTripsTable extends Migration
             $table->foreign('status_id')
                   ->references('id')->on('status')
                   ->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end')->nullable();
             $table->unsignedInteger('source');
             $table->foreign('source')
                   ->references('id')->on('locations')
