@@ -24,7 +24,9 @@ if (! function_exists('ok')) {
             'data'    => [$content]
         ];
 
-        return $factory->json($content, $status, $headers);
+        // It should not be 200, that's because of some package named volly on 
+        // android side that cannot handle responses otherthan 200! so wiered
+        return $factory->json($content, 200, $headers);
     }
 }
 
@@ -51,6 +53,8 @@ if (! function_exists('fail')) {
         	'data'    => [$content]
         ];
 
-        return $factory->json($content, $status, $headers);
+        // It should not be 200, that's because of some package named volly on 
+        // android side that cannot handle responses otherthan 200! so wiered
+        return $factory->json($content, 200, $headers);
     }
 }
