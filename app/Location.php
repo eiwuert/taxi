@@ -40,6 +40,6 @@ class Location extends Model
      */
     public function destinations()
     {
-        return $this->hasMany('App\Trip', 'source', 'id');
+        return $this->hasMany('App\Trip', 'destination', 'id');
     }
 }
