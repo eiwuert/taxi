@@ -37,4 +37,14 @@ class Trip extends Model
     {
         return $this->hasOne('App\Client');
     }
+
+    /**
+     * A trip can have one status.
+     * 
+     * @return hasOne
+     */
+    public function status()
+    {
+        return $this->hasOne('App\Status');
+    }
 }
