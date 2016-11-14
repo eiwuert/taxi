@@ -49,12 +49,41 @@ if (! function_exists('fail')) {
 
         $content['status'] = $status;
         $content = [
-        	'success' => false,
-        	'data'    => [$content]
+            'success' => false,
+            'data'    => [$content]
         ];
 
         // It should not be 200, that's because of some package named volly on 
         // android side that cannot handle responses otherthan 200! so wiered
         return $factory->json($content, 200, $headers);
     }
+}
+
+if (! function_exists('setLocation')) {
+    /**
+     * Return a new location id that has been saved.
+     *
+     * @param  decimal  $lat
+     * @param  decimal  $long
+     * @param  string   $name
+     * @return integer Location id
+     */
+/*    function fail($lat, $long, $name = '')
+    {
+        dd();
+        if ($name != '') {
+            $name = GoogleMaps::load('geocoding')
+                              ->setParamByKey('latlng', $lat . ',' . $long)
+                              ->get('results.formatted_address');
+                              //['results'][0]['formatted_address']
+        }
+
+        dd($name);
+
+        return App\Location::create([
+                    'latitude' => $lat,
+                    'latitude' => $long,
+                    'name'     => $name,
+                ]);
+    }*/
 }
