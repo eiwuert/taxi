@@ -12,8 +12,6 @@ class Trip extends Model
      * @var array
      */
     protected $fillable = [
-        'start', 
-        'end',
         'eta',
         'etd',
     ];
