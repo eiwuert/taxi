@@ -22,4 +22,14 @@ class Status extends Model
         'name', 
         'value',
     ];
+
+    /**
+     * A status can have many trips.
+     * 
+     * @return hasMany
+     */
+    public function trips()
+    {
+        return $this->hasMany('App\Trip');
+    }
 }

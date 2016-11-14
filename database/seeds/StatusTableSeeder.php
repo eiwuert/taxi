@@ -31,7 +31,7 @@ class StatusTableSeeder extends Seeder
                     'name'  => 'trip_started',
                     'value' => 6,
                 ], [
-                    'name'  => 'client_reject_started_trip',
+                    'name'  => 'driver_onway',
                     'value' => 7,
                 ], [
                     'name'  => 'driver_reject_started_trip',
@@ -42,6 +42,9 @@ class StatusTableSeeder extends Seeder
                 ], [
                     'name'  => 'cancel_request_taxi',
                     'value' => 10,
+                ], [
+                    'name'  => 'cancel_onway_driver',
+                    'value' => 11,
                 ]
             ]);
     }

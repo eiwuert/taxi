@@ -104,6 +104,16 @@ class Driver extends Model
     }
 
     /**
+     * A driver can have many trips.
+     * 
+     * @return hasMany
+     */
+    public function trips()
+    {
+        return $this->hasMany('App\Trip');
+    }
+
+    /**
      * Save user profile picture.
      * 
      * @param  string $picture

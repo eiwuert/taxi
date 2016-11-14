@@ -36,6 +36,16 @@ class Client extends Model
     }
 
     /**
+     * A client can have many trips.
+     * 
+     * @return hasMany
+     */
+    public function trips()
+    {
+        return $this->hasOne('App\Trip');
+    }
+
+    /**
      * Save user profile picture.
      * 
      * @param  string $picture

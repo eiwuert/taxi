@@ -17,18 +17,17 @@ class CreateTripsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('driver_id');
             $table->foreign('driver_id')
-                  ->references('id')->on('users')
-                  ->onDelete('cascade');
+                  ->references('id')->on('drivers')
+                  ->onDelete('cascade')
+                  ->nullable();
             $table->unsignedInteger('client_id');
             $table->foreign('client_id')
-                  ->references('id')->on('users')
+                  ->references('id')->on('clients')
                   ->onDelete('cascade');
             $table->unsignedInteger('status_id');
             $table->foreign('status_id')
                   ->references('id')->on('status')
                   ->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end')->nullable();
             $table->unsignedInteger('source');
             $table->foreign('source')
                   ->references('id')->on('locations')
