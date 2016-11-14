@@ -61,7 +61,11 @@ Route::group(['prefix' => 'client'], function() {
 			 ->name('updateClientProfile');
 
 		Route::post('trip', 'TripController@request');
+
 	});
+Route::get('sms', function() {
+	return ok(['content' => 'sms verified']);
+});
 });
 
 /**
@@ -106,5 +110,9 @@ Route::group(['prefix' => 'driver'], function() {
 
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateDriverProfile');
+
 	});
+	 Route::get('sms', function() {
+	 	return ok(['content' => 'sms verified']);
+	 });
 });
