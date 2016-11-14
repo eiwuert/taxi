@@ -22,4 +22,14 @@ class Location extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    /**
+     * A location can be source location of many trips.
+     * 
+     * @return hasMany
+     */
+    public function source()
+    {
+        return $this->hasOne('App\Trip', 'source', 'id');
+    }
 }
