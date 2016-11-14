@@ -57,4 +57,14 @@ class Trip extends Model
     {
         return $this->hasOne('App\Location', 'id', 'source');
     }
+
+    /**
+     * A trip can have one destination location.
+     * 
+     * @return hasOne
+     */
+    public function destination()
+    {
+        return $this->hasOne('App\Location', 'id', 'destination');
+    }
 }

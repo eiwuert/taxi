@@ -32,4 +32,14 @@ class Location extends Model
     {
         return $this->hasOne('App\Trip', 'source', 'id');
     }
+
+    /**
+     * A location can be destination location of many trips.
+     * 
+     * @return hasMany
+     */
+    public function destinations()
+    {
+        return $this->hasMany('App\Trip', 'source', 'id');
+    }
 }
