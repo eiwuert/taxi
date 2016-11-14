@@ -28,9 +28,9 @@ class Location extends Model
      * 
      * @return hasMany
      */
-    public function source()
+    public function sources()
     {
-        return $this->hasOne('App\Trip', 'source', 'id');
+        return $this->hasMany('App\Trip', 'source', 'id');
     }
 
     /**
