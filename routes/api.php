@@ -26,7 +26,7 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
 /**
  * Client Routes.
  */
-Route::group(['prefix' => 'client'], function() {
+Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@client')
 		 ->name('registerClient');
 
@@ -72,7 +72,7 @@ Route::group(['prefix' => 'client'], function() {
 /**
  * Driver Routes.
  */
-Route::group(['prefix' => 'driver'], function() {
+Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')
 		 ->name('registerDriver');
 
