@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use Validator;
 use Illuminate\Http\Request;
+use App\Events\UserRegistered;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use \Laravel\Passport\ClientRepository;
@@ -98,6 +99,8 @@ class RegisterController extends Controller
 
         $response = $client->create($user->id, 'driver', url('/'), false, true);
 
+        event(new UserRegistered(Auth::loginUsingId($user->id)));
+
         return ok([
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
@@ -126,6 +129,8 @@ class RegisterController extends Controller
         Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
         $response = $client->create($user->id, 'client', url('/'), false, true);
+
+        event(new UserRegistered(Auth::loginUsingId($user->id)));
 
         return ok([
             'client_secret' => $response->secret,
