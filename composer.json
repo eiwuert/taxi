@@ -10,7 +10,8 @@
         "laravel/passport": "^1.0",
         "alexpechkarev/google-maps": "1.0.5",
         "brozot/laravel-fcm": "^1.2",
-        "mpociot/laravel-apidoc-generator": "^1.6"
+        "mpociot/laravel-apidoc-generator": "^1.6",
+        "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
