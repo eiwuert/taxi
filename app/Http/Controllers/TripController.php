@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
-use Status;
+use App\Status;
 use GoogleMaps;
 use App\Location;
 use Illuminate\Http\Request;
@@ -19,13 +20,36 @@ class TripController extends Controller
 	 */
     public function request(TripRequest $tripRequest)
     {
-    	Auth::user()->client()->create([
-    			'status_id'   => Status::where('name', 'request_taxi')->firstOrFail()->id,
-    			'source'	  => setLocation($tripRequest->s_lat, $tripRequest->s_long)->id,
-    			'destination' => setLocation($tripRequest->d_lat, $tripRequest->d_long)->id,
-    			'eta'		  => 0,
-    			'etd'		  => 0,
-    		]);
-    	return 1;
+    	$matrix = getDistanceMatrix($tripRequest->all());
+    	$source = setLocation($tripRequest->s_lat, $tripRequest->s_long);
+    	$destination = setLocation($tripRequest->d_lat, $tripRequest->d_long);
+    	$result = DB::table('trips')->insert([
+						'client_id'   	  => Auth::user()->client()->first()->id,
+						'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->id,
+						'source'	  	  => $source->id,
+						'destination'     => $destination->id,
+						'eta_text'		  => $matrix['duration']['text'],
+						'eta_value'		  => $matrix['duration']['value'],
+						'distance_text'	  => $matrix['distance']['text'],
+						'distance_value'  => $matrix['distance']['value'],
+    				]);
+
+    	if ($result) {
+    		return ok([
+    					'content' 	       => 'Trip requested successfuly.',
+    					'eta_text'	       => $matrix['duration']['text'],
+						'eta_value'	       => $matrix['duration']['value'],
+						'distance_text'	   => $matrix['distance']['text'],
+						'distance_value'   => $matrix['distance']['value'],
+						'trip_status'	   => 1,
+						'source_name'	   => $source->name,
+						'destination_name' => $destination->name,
+    				]);
+    	} else {
+    		return fail([
+    				'title' => 'There was problem requesting trip',
+    				'detail'=> 'There was some problem with inserting new trip to DB'
+    			]);
+    	}
     }
 }

@@ -74,6 +74,9 @@ if (! function_exists('setLocation')) {
         if ($name == '') {
             $name = GoogleMaps::load('geocoding')
                               ->setParamByKey('latlng', $lat . ',' . $long)
+                              ->setParamByKey('mode', 'driving')
+                              ->setParamByKey('language', 'FA')
+                              ->setParamByKey('traffic_model', 'optimistic')
                               ->get('results.formatted_address');
             (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
         }
@@ -86,3 +89,23 @@ if (! function_exists('setLocation')) {
 
     }
 }
+
+
+function getDistanceMatrix($location){
+            /**
+             * Get distance matrix response
+             */
+            $d = GoogleMaps::load('distancematrix')
+                                ->setParamByKey('origins', $location['s_lat'] . ',' . $location['s_long'])
+                                ->setParamByKey('destinations', $location['d_lat'] . ',' . $location['d_long'])                      
+                                ->getResponseByKey('rows.elements');
+
+            if (@isset($d['rows'][0]['elements'][0])) {
+                return $d['rows'][0]['elements'][0];
+            } else {
+                fail([
+                        'title' => 'unable to fetch location distance and time',
+                        'detail'=> 'unable to get distance and time from Google Matrix API'
+                    ], 422);
+            }
+    }  
