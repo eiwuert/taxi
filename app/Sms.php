@@ -14,6 +14,15 @@ class Sms extends Model
     protected $table = 'sms';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'code',
+    ];
+
+    /**
      * A SMS can have one user.
      * 
      * @return hasMany
