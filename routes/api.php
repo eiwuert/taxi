@@ -39,7 +39,7 @@ Route::group(['prefix' => 'client'], function() {
 	Route::post('login/social', 'Auth\LoginController@loginSocial')
 		 ->name('loginClientSocial');
 
-	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function() {
 		Route::post('location', 'LocationController@set')
 		 	 ->name('setLocation');
 
@@ -78,7 +78,7 @@ Route::group(['prefix' => 'driver'], function() {
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginDriver');
 
-	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved', 'verified']], function() {
 		Route::get('online', 'DriverController@online')
 			 ->name('goOnline');
 
