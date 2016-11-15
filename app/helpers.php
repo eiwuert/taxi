@@ -1,5 +1,6 @@
 <?php
 
+use GoogleMaps;
 use Illuminate\Contracts\Routing\ResponseFactory;
 
 if (! function_exists('ok')) {
@@ -68,22 +69,20 @@ if (! function_exists('setLocation')) {
      * @param  string   $name
      * @return integer Location id
      */
-/*    function fail($lat, $long, $name = '')
+    function setLocation($lat, $long, $name = '')
     {
-        dd();
-        if ($name != '') {
+        if ($name == '') {
             $name = GoogleMaps::load('geocoding')
                               ->setParamByKey('latlng', $lat . ',' . $long)
                               ->get('results.formatted_address');
-                              //['results'][0]['formatted_address']
+            (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
         }
-
-        dd($name);
 
         return App\Location::create([
                     'latitude' => $lat,
-                    'latitude' => $long,
+                    'longitude' => $long,
                     'name'     => $name,
                 ]);
-    }*/
+
+    }
 }

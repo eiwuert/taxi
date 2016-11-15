@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Status;
 use GoogleMaps;
 use App\Location;
 use Illuminate\Http\Request;
@@ -17,13 +19,13 @@ class TripController extends Controller
 	 */
     public function request(TripRequest $tripRequest)
     {
-/*    	dd();
-    	dd(setLocation($tripRequest->s_lat, $tripRequest->s_long));
-    	$name = GoogleMaps::load('geocoding')
-		        ->setParamByKey('latlng', $tripRequest->s_lat . ',' . $tripRequest->s_long)
-		        ->get('results.formatted_address')['results'][0]['formatted_address'];
-		dd($tripRequest->s_lat);
-    	$source = Location::create('');
-    	return 1;*/
+    	Auth::user()->client()->create([
+    			'status_id'   => Status::where('name', 'request_taxi')->firstOrFail()->id,
+    			'source'	  => setLocation($tripRequest->s_lat, $tripRequest->s_long)->id,
+    			'destination' => setLocation($tripRequest->d_lat, $tripRequest->d_long)->id,
+    			'eta'		  => 0,
+    			'etd'		  => 0,
+    		]);
+    	return 1;
     }
 }
