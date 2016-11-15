@@ -27,8 +27,9 @@ class SendSMSVerification
      */
     public function handle(UserRegistered $event)
     {
-        $event->user->create([
-                        'code' => rand (10000 , 99999),
-                    ]);
+        $event->user->sms()
+              ->create([
+                  'code' => rand (10000 , 99999),
+            ]);
     }
 }
