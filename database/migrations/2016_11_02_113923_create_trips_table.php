@@ -36,8 +36,14 @@ class CreateTripsTable extends Migration
             $table->foreign('destination')
                   ->references('id')->on('locations')
                   ->onDelete('cascade');
-            $table->integer('eta');
-            $table->integer('etd');
+            $table->string('eta_value');
+            $table->string('eta_text');
+            $table->string('distance_value');
+            $table->string('distance_text');
+            $table->string('etd_value')->nullable();
+            $table->string('etd_text')->nullable();
+            $table->string('driver_distance_value')->nullable();
+            $table->string('driver_distance_text')->nullable();
         });
     }
 
