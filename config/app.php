@@ -170,6 +170,7 @@ return [
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         LaravelFCM\FCMServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +231,7 @@ return [
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'FCM'      => LaravelFCM\Facades\FCM::class,
         'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

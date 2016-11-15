@@ -68,22 +68,48 @@ if (! function_exists('setLocation')) {
      * @param  string   $name
      * @return integer Location id
      */
-/*    function fail($lat, $long, $name = '')
+    function setLocation($lat, $long, $name = '')
     {
-        dd();
-        if ($name != '') {
-            $name = GoogleMaps::load('geocoding')
+        if ($name == '') {
+            $name = \GoogleMaps::load('geocoding')
                               ->setParamByKey('latlng', $lat . ',' . $long)
+                              ->setParamByKey('mode', 'driving')
+                              ->setParamByKey('language', 'FA')
+                              ->setParamByKey('traffic_model', 'best_guess')
                               ->get('results.formatted_address');
-                              //['results'][0]['formatted_address']
+            (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
         }
-
-        dd($name);
 
         return App\Location::create([
                     'latitude' => $lat,
-                    'latitude' => $long,
+                    'longitude' => $long,
                     'name'     => $name,
                 ]);
-    }*/
+
+    }
+}
+
+if (! function_exists('getDistanceMatrix')) {
+    /**
+     * Get distance matrix response.
+     *
+     * @param  array  $location
+     * @return json
+     */
+    function getDistanceMatrix($location)
+    {
+        $distance = \GoogleMaps::load('distancematrix')
+                                ->setParamByKey('origins', $location['s_lat'] . ',' . $location['s_long'])
+                                ->setParamByKey('destinations', $location['d_lat'] . ',' . $location['d_long'])                      
+                                ->getResponseByKey('rows.elements');
+
+        if (@isset($distance['rows'][0]['elements'][0])) {
+            return $distance['rows'][0]['elements'][0];
+        } else {
+            fail([
+                    'title' => 'unable to fetch location distance and time',
+                    'detail'=> 'unable to get distance and time from Google Matrix API'
+                ], 422);
+        }
+    }  
 }
