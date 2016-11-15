@@ -60,7 +60,7 @@ Route::group(['prefix' => 'client'], function() {
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateClientProfile');
 
-		Route::post('trip', 'TripController@request');
+		Route::post('trip', 'TripController@requestTaxi');
 
 	});
 Route::get('sms', function() {
