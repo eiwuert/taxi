@@ -63,6 +63,10 @@ class TripController extends Controller
      */
     private function pendingRequestTaxi()
     {
+    	/**
+    	 * @todo add more state for pending request
+    	 * @var QueryBuilder
+    	 */
     	$pending = Auth::user()->client()->first()->trips()
     		   				  ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->id);
 

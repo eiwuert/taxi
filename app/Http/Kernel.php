@@ -49,8 +49,10 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'role'       => \App\Http\Middleware\CheckRole::class,
         'json'       => \App\Http\Middleware\FormatJson::class,
+        'header'     => \App\Http\Middleware\CheckHeader::class,
         'format'     => \App\Http\Middleware\ReplacePhone::class,
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
+        'verified'   => \App\Http\Middleware\CheckVerifiedUser::class,
         'approved'   => \App\Http\Middleware\CheckApproveDriver::class,
         'auth'       => \Illuminate\Auth\Middleware\Authenticate::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,

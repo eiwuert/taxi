@@ -103,4 +103,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Web');
     }
+
+    /**
+     * A user can have many sms.
+     * 
+     * @return hasMany
+     */
+    public function sms()
+    {
+        return $this->hasMany('App\Sms');
+    }
 }

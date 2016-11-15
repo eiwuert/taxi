@@ -26,7 +26,7 @@ Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenContro
 /**
  * Client Routes.
  */
-Route::group(['prefix' => 'client'], function() {
+Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@client')
 		 ->name('registerClient');
 
@@ -39,7 +39,11 @@ Route::group(['prefix' => 'client'], function() {
 	Route::post('login/social', 'Auth\LoginController@loginSocial')
 		 ->name('loginClientSocial');
 
-	Route::group(['middleware' => ['auth:api', 'role:client']], function() {
+	Route::post('verify', 'SmsController')
+		 ->name('verifyUser')
+		 ->middleware('auth:api, role:client');
+
+	Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function() {
 		Route::post('location', 'LocationController@set')
 		 	 ->name('setLocation');
 
@@ -60,25 +64,22 @@ Route::group(['prefix' => 'client'], function() {
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateClientProfile');
 
-		Route::post('trip', 'TripController@requestTaxi');
-
+		Route::post('trip', 'TripController@requestTaxi')
+			 ->name('requestTaxi');
 	});
-Route::get('sms', function() {
-	return ok(['content' => 'sms verified']);
-});
 });
 
 /**
  * Driver Routes.
  */
-Route::group(['prefix' => 'driver'], function() {
+Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')
 		 ->name('registerDriver');
 
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginDriver');
 
-	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved', 'verified']], function() {
 		Route::get('online', 'DriverController@online')
 			 ->name('goOnline');
 
@@ -110,9 +111,9 @@ Route::group(['prefix' => 'driver'], function() {
 
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateDriverProfile');
-
 	});
-	 Route::get('sms', function() {
-	 	return ok(['content' => 'sms verified']);
-	 });
+
+	Route::post('verify', 'SmsController')
+		 ->name('verifyUser')
+		 ->middleware('auth:api, role:driver');
 });
