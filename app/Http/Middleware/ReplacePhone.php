@@ -19,7 +19,7 @@ class ReplacePhone
         if (! isset(User::where('phone', $request->username)->first()->email)) {
             return fail([
                     'title' => 'Unhandled error',
-                    'detail'=> 'Unhandled error occured during issue token'
+                    'detail'=> 'Unhandled error occured during issue token, please make sure you have entered username'
                 ], 500);
         }
 
