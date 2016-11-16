@@ -8,6 +8,7 @@ use App\Sms;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Events\UserRegistered;
 use App\Http\Requests\SmsRequest;
 
 class SmsController extends Controller
@@ -18,7 +19,7 @@ class SmsController extends Controller
 	 * Check user SMS code is valid.
 	 * @return json
 	 */
-    public function __invoke(SmsRequest $request)
+    public function verify(SmsRequest $request)
     {
         if (Gate::denies('verify')) {
             return fail([
@@ -31,7 +32,7 @@ class SmsController extends Controller
 
     	if ($sms->count()) {
     		if ($sms->first()->code == $request->code) {
-                $this->verify();
+                $this->verifyUser();
     			return ok([
     						'content' => 'Phone verified successfuly'
     					]);
@@ -50,20 +51,45 @@ class SmsController extends Controller
     }
 
     /**
+     * Resend verification SMS.
+     *
+     * Resend SMS to authenticated user.
+     * @return json
+     */
+    public function resend()
+    {
+        if (Auth::user()->can('resend', Sms::class)) {
+            event(new UserRegistered(Auth::user()));
+
+            return ok([
+                        'content' => 'SMS code re-sent successfuly',
+                    ]);
+        }
+        return fail([
+                        'title'  => 'You have requested for sms before',
+                        'detail' => 'You have asked for resending sms less than 2 minutes ago.',
+                    ]);
+    }
+
+    /**
      * Get user sms that is received less than 8 minutes ago.
-     * @param  integer $minute
+     * @param  integer|string $minute
      * @return PDO
      */
     private function getSMS($minute = 8)
     {
-        return Auth::user()->sms()->where('created_at', '>', Carbon::now()->subMinute($minute)->toDateTimeString());
+        if ($minute == 'all') {
+            return Auth::user()->sms()->get();
+        } else {
+            return Auth::user()->sms()->received($minute);        
+        }
     }
 
     /**
      * Update user to verified.
      * @return void
      */
-    private function verify()
+    private function verifyUser()
     {
         $user = User::find(Auth::user()->id);
         $user->verified = true;

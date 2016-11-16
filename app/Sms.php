@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Sms extends Model
@@ -30,5 +31,16 @@ class Sms extends Model
     public function user()
     {
         return $this->hasMany('App\User');
+    }
+
+    /**
+     * Scope a query for getting sms based on time.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReceived($query, $minute)
+    {
+        return $query->where('created_at', '>', Carbon::now()->subMinute($minute)->toDateTimeString());
     }
 }
