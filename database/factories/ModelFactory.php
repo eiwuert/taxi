@@ -15,9 +15,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'phone' => $faker->unique()->e164PhoneNumber(),
+        'role' => 'web',
+        'verified' => true,
+    ];
+});
+
+$factory->state(App\User::class, 'driver', function (Faker\Generator $faker) {
+    return [
+        'role' => 'driver',
+    ];
+});
+
+$factory->state(App\User::class, 'client', function (Faker\Generator $faker) {
+    return [
+        'role' => 'client',
     ];
 });
