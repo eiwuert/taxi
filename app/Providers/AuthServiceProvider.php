@@ -32,5 +32,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(Carbon::now()->addDays(15));
 
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
+
+        Gate::define('verify', function ($user) {
+            return $user->verified == false;
+        });
     }
 }
