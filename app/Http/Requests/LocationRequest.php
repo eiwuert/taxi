@@ -14,9 +14,8 @@ class LocationRequest extends Request
     public function rules()
     {
         return [
-            'latitude'  => 'required',
-            'longitude' => 'required',
-            'user_id'   => 'integer|exists:users,id',
+            'lat'  => 'required',
+            'long' => 'required',
         ];
     }
 }

@@ -80,10 +80,10 @@ if (! function_exists('setLocation')) {
             (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
         }
 
-        return App\Location::create([
-                    'latitude' => $lat,
+        return \Auth::user()->locations()->create([
+                    'latitude'  => $lat,
                     'longitude' => $long,
-                    'name'     => $name,
+                    'name'      => $name,
                 ]);
 
     }
