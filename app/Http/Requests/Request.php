@@ -31,7 +31,7 @@ class Request extends FormRequest
         $data['status'] = 422;
         return [
                 "success" => false,
-                "data" => $data
+                "data" => [$data]
             ];
     }
 }
