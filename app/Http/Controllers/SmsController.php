@@ -58,17 +58,22 @@ class SmsController extends Controller
      */
     public function resend()
     {
+        if (Gate::denies('verify')) {
+            return fail([
+                    'title'  => 'You are already verfied',
+                    'detail' => 'You are verfied, there is no need for verify again.'
+                ]);
+        }
+
         if (Auth::user()->can('resend', Sms::class)) {
             event(new UserRegistered(Auth::user()));
-
-            return ok([
-                        'content' => 'SMS code re-sent successfuly',
-                    ]);
+            return ok(['content' => 'SMS code re-sent successfuly']);
         }
+
         return fail([
-                        'title'  => 'You have requested for sms before',
-                        'detail' => 'You have asked for resending sms less than 2 minutes ago.',
-                    ]);
+                    'title'  => 'You have requested for sms before',
+                    'detail' => 'You have asked for resending sms less than 2 minutes ago.',
+                ]);
     }
 
     /**
@@ -78,11 +83,7 @@ class SmsController extends Controller
      */
     private function getSMS($minute = 8)
     {
-        if ($minute == 'all') {
-            return Auth::user()->sms()->get();
-        } else {
-            return Auth::user()->sms()->received($minute);        
-        }
+        return Auth::user()->sms()->received($minute);
     }
 
     /**
