@@ -66,3 +66,40 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
         'zipcode' => $faker->postcode,
     ];
 });
+
+$factory->define(App\Location::class, function (Faker\Generator $faker) {
+    $location = fakerLocation();
+    $name = \GoogleMaps::load('geocoding')
+                      ->setParamByKey('latlng', $location['lat'] . ',' . $location['long'])
+                      ->setParamByKey('mode', 'driving')
+                      ->setParamByKey('language', 'FA')
+                      ->setParamByKey('traffic_model', 'best_guess')
+                      ->get('results.formatted_address');
+    (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : $name ='';
+
+    return [
+        'latitude'  => $location['lat'],
+        'longitude' => $location['long'],
+        'name'      => $name,
+    ];
+});
+
+/**
+ * Generate random lat/long within tehran area.
+ * @return array
+ */
+function fakerLocation()
+{
+    $r  = 10000 / 111300;
+    $y0 = 35.719035;
+    $x0 = 51.393068;
+    $u  = (float)rand()/(float)getrandmax();
+    $v  = (float)rand()/(float)getrandmax();
+    $w  = $r * sqrt($u);
+    $t  = 2  * pi() * $v;
+    $x  = $w * cos($t);
+    $y1 = $w * sin($t);
+    $x1 = $x / cos($y0);
+    return ['lat' => $y0 + $y1, 
+            'long' => $x0 + $x1];
+}
