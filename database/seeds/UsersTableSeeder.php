@@ -12,7 +12,19 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(App\User::class, 5)->create();
-        factory(App\User::class, 200)->states('driver')->create();
-        factory(App\User::class, 200)->states('client')->create();
+
+        factory(App\User::class, 200)
+        	->states('driver')
+        	->create()
+            ->each(function ($u) {
+                $u->driver()->save(factory(App\Driver::class)->make());
+            });
+
+        factory(App\User::class, 200)
+            ->states('client')
+            ->create()
+            ->each(function ($u) {
+                $u->client()->save(factory(App\Client::class)->make());
+            });;
     }
 }

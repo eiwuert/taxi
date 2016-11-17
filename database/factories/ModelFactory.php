@@ -35,3 +35,34 @@ $factory->state(App\User::class, 'client', function (Faker\Generator $faker) {
         'role' => 'client',
     ];
 });
+
+$factory->define(App\Driver::class, function (Faker\Generator $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'gender' => $faker->randomElement(['male', 'female', 'not specified']),
+        'device_token' => $faker->unique()->sha256(),
+        'device_type' => 'ios',
+        'online' => true,
+        'approve' => true,
+        'available' => true,
+        'address' => $faker->address,
+        'state' => $faker->state,
+        'country' => $faker->country,
+        'zipcode' => $faker->postcode,
+    ];
+});
+
+$factory->define(App\Client::class, function (Faker\Generator $faker) {
+    return [
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'gender' => $faker->randomElement(['male', 'female', 'not specified']),
+        'device_token' => $faker->unique()->sha256(),
+        'device_type' => 'ios',
+        'address' => $faker->address,
+        'state' => $faker->state,
+        'country' => $faker->country,
+        'zipcode' => $faker->postcode,
+    ];
+});
