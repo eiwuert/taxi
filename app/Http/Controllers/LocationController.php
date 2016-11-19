@@ -15,15 +15,9 @@ class LocationController extends Controller
 	 * @param  LocationRequest $request
 	 * @return json
 	 */
-    public function set(LocationRequest $request, Location $location)
+    public function set(LocationRequest $request)
     {
-    	$request['name'] = GoogleMaps::load('geocoding')
-				               		 ->setParamByKey('latlng', $request['latitude'] . ',' . $request['longitude'])
-				               		 ->get('results.formatted_address')['results'][0]['formatted_address'];
-
-    	$location = Auth::user()->locations()->create($request->all());
-
-		return [$location];
+        return ok([setLocation($request->lat, $request->long)]);
     }
 
     /**
@@ -33,6 +27,6 @@ class LocationController extends Controller
      */
     public function get(Location $location)
     {
-    	return $location->get();
+    	return ok([$location->get()]);
     }
 }

@@ -18,6 +18,10 @@ class CreateLocationsTable extends Migration
             $table->decimal('latitude', 8, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->string('name');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }

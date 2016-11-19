@@ -39,9 +39,13 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('login/social', 'Auth\LoginController@loginSocial')
 		 ->name('loginClientSocial');
 
-	Route::post('verify', 'SmsController')
+	Route::post('verify', 'SmsController@verify')
 		 ->name('verifyUser')
-		 ->middleware('auth:api, role:client');
+		 ->middleware('auth:api', 'role:client');
+
+	Route::post('resend', 'SmsController@resend')
+		 ->name('resendSMS')
+		 ->middleware('auth:api', 'role:client');
 
 	Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function() {
 		Route::post('location', 'LocationController@set')
@@ -113,7 +117,11 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 			 ->name('updateDriverProfile');
 	});
 
-	Route::post('verify', 'SmsController')
+	Route::post('verify', 'SmsController@verify')
 		 ->name('verifyUser')
-		 ->middleware('auth:api, role:driver');
+		 ->middleware('auth:api', 'role:driver');
+
+	Route::post('resend', 'SmsController@resend')
+		 ->name('resendSMS')
+		 ->middleware('auth:api', 'role:driver');
 });
