@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use App\User;
 use App\Trip;
 use App\Driver;
 use App\Client;
@@ -26,15 +27,12 @@ class TripController extends Controller
     		return $pending;
         }
 
-        dd($this->nearby($tripRequest->s_lat, $tripRequest->s_long, 5, 5));
-
         $matrix = getDistanceMatrix($tripRequest->all());
         $source = setLocation($tripRequest->s_lat, $tripRequest->s_long);
         $destination = setLocation($tripRequest->d_lat, $tripRequest->d_long);
 
-
-
-        $result = DB::table('trips')->insert([
+        // REQUEST_TAXI
+        $trip_id = DB::table('trips')->insertGetId([
                         'client_id'       => Auth::user()->client()->first()->id,
                         'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->id,
                         'source'          => $source->id,
@@ -45,24 +43,52 @@ class TripController extends Controller
                         'distance_value'  => $matrix['distance']['value'],
                     ]);
 
+        $trip = DB::table('trips')->where('id', $trip_id);
 
-    	if ($result) {
-    		return ok([
-    					'content' 	       => 'Trip requested successfuly.',
-    					'eta_text'	       => $matrix['duration']['text'],
-						'eta_value'	       => $matrix['duration']['value'],
-						'distance_text'	   => $matrix['distance']['text'],
-						'distance_value'   => $matrix['distance']['value'],
-						'trip_status'	   => 1,
-						'source_name'	   => $source->name,
-						'destination_name' => $destination->name,
-    				]);
-    	} else {
-    		return fail([
-    				'title' => 'There was problem requesting trip',
-    				'detail'=> 'There was some problem with inserting new trip to DB'
-    			]);
-    	}
+        /**
+         * If there is one available driver within 1KM.
+         * No driver found state happens here.
+         * When there is a driver we send the requset to driver and wait for his/her response.
+         */
+        if (!empty($driver = $this->nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1)[0])) {
+            $driver_to_client = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
+                                       's_long' => $tripRequest->s_long,
+                                       'd_lat'  => $driver->latitude,
+                                       'd_long' => $driver->longitude]);
+
+            // CLIENT_FOUND
+            $trip->update([
+                    'driver_id'              => User::find($driver->user_id)->driver()->first()->id,
+                    'status_id'              => Status::where('name', 'client_found')->firstOrFail()->id,
+                    'etd_text'               => $driver_to_client['duration']['text'],
+                    'etd_value'              => $driver_to_client['duration']['value'],
+                    'driver_distance_text'   => $driver_to_client['distance']['text'],
+                    'driver_distance_value'  => $driver_to_client['distance']['value'],
+                    'driver_location'        => $driver->id,
+                ]);
+
+            return ok([
+                        'content'          => 'Trip request created successfully, waiting for driver(s) to accept.',
+                        'eta_text'         => $matrix['duration']['text'],
+                        'eta_value'        => $matrix['duration']['value'],
+                        'distance_text'    => $matrix['distance']['text'],
+                        'distance_value'   => $matrix['distance']['value'],
+                        'trip_status'      => 2,
+                        'source_name'      => $source->name,
+                        'destination_name' => $destination->name,
+                    ]);
+        } else {
+            // NO_DRIVER
+            $trip->update([
+                    'status_id'       => Status::where('name', 'no_driver')->firstOrFail()->id,
+                ]);
+
+            return fail([
+                'title'       => 'No driver available',
+                'detail'      => 'There is no driver available in your area.',
+                'trip_status' => 5,
+            ], 404);
+        }
     }
 
     /**
@@ -85,7 +111,9 @@ class TripController extends Controller
     	 * @var QueryBuilder
     	 */
     	$pending = Auth::user()->client()->first()->trips()
-    		   				  ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->id);
+                              ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->id)
+                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->id)
+    		   				  ->orWhere('status_id', Status::where('name', 'no_driver')->firstOrFail()->id);
 
     	if ($pending->count()) {
     		return fail([
@@ -108,7 +136,7 @@ class TripController extends Controller
      */
     private function nearby($lat, $long, $distance = 25.0, $limit = 5)
     {
-        $query = "SELECT id, distance, longitude, latitude, name
+        $query = "SELECT id, distance, longitude, latitude, name, user_id
         FROM (
         select id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
                                                                 COS( RADIANS( CAST(latitude  AS double precision) ) ) * 
@@ -132,7 +160,7 @@ class TripController extends Controller
                         AND available = true
                     )
                 )
-            ) AS dt
+            ) AS loc 
             where distance < $distance
             ORDER BY distance ASC
             LIMIT $limit";
