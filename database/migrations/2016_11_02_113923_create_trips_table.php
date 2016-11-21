@@ -42,12 +42,13 @@ class CreateTripsTable extends Migration
             $table->string('distance_text');
             $table->string('etd_value')->nullable();
             $table->string('etd_text')->nullable();
-            $table->unsignedInteger('driver_location');
+            $table->unsignedInteger('driver_location')->nullable();
             $table->foreign('driver_location')
                   ->references('id')->on('locations')
                   ->onDelete('cascade');
             $table->string('driver_distance_value')->nullable();
             $table->string('driver_distance_text')->nullable();
+            $table->timestamps();
         });
     }
 
