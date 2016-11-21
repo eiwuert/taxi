@@ -35,6 +35,14 @@ class CheckRole
      */
     public function handle($request, Closure $next, $role = 'client')
     {
+        if (is_null($this->auth->guard('api')->user()) ||
+            is_null($this->auth->guard('api')->user()) ) {
+            return fail([
+                    'title'  => 'You are not authorized to access',
+                    'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
+                ], 401);
+        }
+
         if ($role == 'client' && ! is_null($this->auth->guard('api')->user()->client()->first())) {
             return $next($request);
         } elseif ($role == 'driver' && ! is_null($this->auth->guard('api')->user()->driver()->first())) {
