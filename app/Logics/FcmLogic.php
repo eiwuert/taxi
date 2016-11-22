@@ -57,17 +57,11 @@ class FcmLogic
      * @param  string $title
      * @param  string $message
      * @param  string $device_token
-     * @return boolean
+     * @return Response
      */
     public function to_driver($title, $message, $device_token) 
     {
-        $response = $this->message($title, $message, $device_token);
-
-        if ($response->getReasonPhrase() == 'OK' && $response->getStatusCode() == 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->message($title, $message, $device_token);
     }
 
     /**
@@ -75,16 +69,10 @@ class FcmLogic
      * @param  string $title
      * @param  string $message
      * @param  string $device_token
-     * @return boolean
+     * @return Response
      */
     public function to_client($title, $message, $device_token) 
     {
-        $response = $this->message($title, $message, $device_token);
-
-        if ($response->getReasonPhrase() == 'OK' && $response->getStatusCode() == 200) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->message($title, $message, $device_token);
     }
 }
