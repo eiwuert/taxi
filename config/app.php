@@ -168,7 +168,6 @@ return [
          */
         Laravel\Passport\PassportServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
-        LaravelFCM\FCMServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
@@ -229,8 +228,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
-        'FCM'      => LaravelFCM\Facades\FCM::class,
-        'FCMGroup' => LaravelFCM\Facades\FCMGroup::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
