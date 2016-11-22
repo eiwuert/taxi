@@ -12,33 +12,33 @@ class SendDriverNotification implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * FCM instance.
-     * @var FCM
-     */
-    protected $fcm;
+    protected $title;
+    protected $message;
+    protected $device_token;
 
     /**
      * Create a new job instance.
-     *
+     * 
+     * @param string $title
+     * @param string $message
+     * @param string $device_token     
      * @return void
      */
-    public function __construct(FCM $fcm)
+    public function __construct($title, $message, $device_token)
     {
-        $this->fcm = $fcm;
+        $this->title = $title;
+        $this->message = $message;
+        $this->device_token = $device_token;
     }
-
 
     /**
      * Execute the job.
      *
-     * @param string $title
-     * @param string $message
-     * @param string $device_type
      * @return void
      */
-    public function handle($title, $message, $device_type)
+    public function handle()
     {
-        $this->fcm->to_driver($title, $message, $device_type);
+        $fcm = new FcmLogic();
+        $fcm->to_driver($this->title, $this->message, $this->device_token);
     }
 }
