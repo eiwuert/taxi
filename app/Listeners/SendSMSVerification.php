@@ -42,7 +42,7 @@ class SendSMSVerification
 
         $event->user->sms()
               ->create([
-                  'code' => rand (10000 , 99999),
+                  'code' => $code,
             ]);
 
         if ($event->user->role == 'client') {
