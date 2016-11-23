@@ -2,6 +2,7 @@
 
 namespace App\Logics;
 
+use Log;
 use Auth;
 use GuzzleHttp\Client;
 
@@ -54,6 +55,8 @@ class SmsLogic
         if ($response->getStatusCode() == 200 && $response->getReasonPhrase() == 'OK') {
             return true;
         } else {
+            Log::critical('SMS verification failed with status of ' . $response->getStatusCode() . 
+                          ' and reason phrase of ' . $response->getReasonPhrase());
             return false;
         }
     }
