@@ -12,6 +12,7 @@ use App\Status;
 use App\Location;
 use Illuminate\Http\Request;
 use App\Http\Requests\TripRequest;
+use App\Http\Requests\NearbyRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 
@@ -111,12 +112,24 @@ class TripController extends Controller
     }
 
     /**
-     * Search taxi for client.
+     * Show nearby taxi to client.
+     * @param  \App\Http\Requests\NearbyRequest $request
      * @return json
      */
-    private function searchForTaxi()
+    public function nearbyTaxi(NearbyRequest $request)
     {
-        dd(Driver::online());
+        if (is_null($request->limit)) {
+            $request->limit = 5;
+        }
+
+        if (is_null($request->distance)) {
+            $request->distance = 1;
+        }
+
+        return ok($this->nearby($request->lat, 
+                                $request->long, 
+                                $request->distance, 
+                                $request->limit), 200, [], false);
     }
 
     /**
@@ -152,7 +165,7 @@ class TripController extends Controller
      * @param  integer  $limit
      * @return PDO
      */
-    private function nearby($lat, $long, $distance = 25.0, $limit = 5)
+    private function nearby($lat, $long, $distance = 1.0, $limit = 5)
     {
         $query = "SELECT id, distance, longitude, latitude, name, user_id
         FROM (
