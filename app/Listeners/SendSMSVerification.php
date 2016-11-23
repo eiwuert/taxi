@@ -34,7 +34,11 @@ class SendSMSVerification
      */
     public function handle(UserRegistered $event)
     {
-        $code = rand (10000 , 99999);
+        if (config('sms.code') == 'random_int') {
+            $code = rand (10000 , 99999);
+        } else if (config('sms.code' == 'plain')) {
+            $code = 55555;
+        }
 
         $event->user->sms()
               ->create([
