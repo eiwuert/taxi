@@ -70,6 +70,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::post('trip', 'TripController@requestTaxi')
 			 ->name('requestTaxi');
+
+		Route::post('nearby', 'TripController@nearbyTaxi')
+			 ->name('nearbyTaxi');
 	});
 });
 

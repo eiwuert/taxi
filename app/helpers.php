@@ -9,9 +9,10 @@ if (! function_exists('ok')) {
      * @param  string  $content
      * @param  int     $status
      * @param  array   $headers
+     * @param  toArray $toArray
      * @return \Symfony\Component\HttpFoundation\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
-    function ok($content = '', $status = 200, array $headers = [])
+    function ok($content = '', $status = 200, array $headers = [], $toArray = true)
     {
         $factory = app(ResponseFactory::class);
 
@@ -21,7 +22,7 @@ if (! function_exists('ok')) {
 
         $content = [
             'success' => true,
-            'data'    => [$content]
+            'data'    => ($toArray)?[$content]:$content
         ];
 
         // It should not be 200, that's because of some package named volly on 
