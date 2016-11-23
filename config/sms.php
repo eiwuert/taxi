@@ -11,5 +11,5 @@ return [
 	 * random_int: 5 digits
 	 * plain:      55555
 	 */
-	'code'		 => 'plain',
+	'code'		 => env('SMS_CODE', 'plain'),
 ];
