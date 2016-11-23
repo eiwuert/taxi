@@ -36,7 +36,7 @@ class SendSMSVerification
     {
         if (config('sms.code') == 'random_int') {
             $code = rand (10000 , 99999);
-        } else if (config('sms.code' == 'plain')) {
+        } else if (config('sms.code') == 'plain') {
             $code = 55555;
         }
 
