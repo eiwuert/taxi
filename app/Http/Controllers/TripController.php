@@ -57,8 +57,8 @@ class TripController extends Controller
          * No driver found state happens here.
          * When there is a driver we send the requset to driver and wait for his/her response.
          */
-        if (!empty($this->nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1))) {
-            $found_driver = $this->nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1)[0];
+        if (!empty(nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1))) {
+            $found_driver = nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1)[0];
             $driver_to_client = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
                                        's_long' => $tripRequest->s_long,
                                        'd_lat'  => $found_driver->latitude,
@@ -126,7 +126,7 @@ class TripController extends Controller
             $request->distance = 1;
         }
 
-        return ok($this->nearby($request->lat, 
+        return ok(nearby($request->lat, 
                                 $request->long, 
                                 $request->distance, 
                                 $request->limit), 200, [], false);
@@ -155,47 +155,5 @@ class TripController extends Controller
     	}
 
     	return false;
-    }
-
-    /**
-     * Find nearby
-     * @param  numeric  $lat
-     * @param  numeric  $long
-     * @param  float    $distance
-     * @param  integer  $limit
-     * @return PDO
-     */
-    private function nearby($lat, $long, $distance = 1.0, $limit = 5)
-    {
-        $query = "SELECT id, distance, longitude, latitude, name, user_id
-        FROM (
-        select id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
-                                                                COS( RADIANS( CAST(latitude  AS double precision) ) ) * 
-                                                                COS( RADIANS( CAST(longitude AS double precision) ) - 
-                                                                RADIANS(CAST($long AS double precision)) ) + 
-                                                                SIN( RADIANS(CAST($lat AS double precision)) ) * 
-                                                                SIN( RADIANS( CAST(latitude AS double precision) ) ) 
-                                                            ) 
-                                                ) AS distance
-            FROM locations
-                WHERE user_id IN (
-                    SELECT id 
-                    FROM users
-                    WHERE verified = true 
-                    AND role = 'driver'
-                    AND id IN (
-                        SELECT user_id 
-                        FROM drivers 
-                        WHERE online = true
-                        AND approve = true
-                        AND available = true
-                    )
-                )
-            ) AS loc 
-            where distance < $distance
-            ORDER BY distance ASC
-            LIMIT $limit";
-
-        return DB::select(DB::raw($query));
     }
 }
