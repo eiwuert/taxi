@@ -124,6 +124,12 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 		Route::get('cancel', 'TripController@cencel')
 			 ->name('driverCancelTrip');
+
+		Route::get('accept', 'TripController@accept')
+			 ->name('driverAcceptTrip');
+
+		Route::get('start', 'TripController@start')
+			 ->name('driverStartTrip');
 	});
 
 	Route::post('verify', 'SmsController@verify')

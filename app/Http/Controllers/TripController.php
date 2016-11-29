@@ -237,7 +237,7 @@ class TripController extends Controller
                     $driver->update([
                             'available' => true,
                         ]);
-                    dispatch(new SendDriverNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    dispatch(new SendClientNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from 6 to 8',
@@ -255,7 +255,7 @@ class TripController extends Controller
                     $driver->update([
                             'available' => true,
                         ]);
-                    dispatch(new SendDriverNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    dispatch(new SendCLientNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 2 to 4',
@@ -296,7 +296,7 @@ class TripController extends Controller
             $driver->update([
                     'available' => false,
                 ]);
-            dispatch(new SendDriverNotification('Driver onway', 'Driver onway to you', Client::whereId($trip->client_id)->first()->device_token));
+            dispatch(new SendClientNotification('Driver onway', 'Driver onway to you', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'You are onway.',
                     'detail' => 'Trip status changed from 2 to 7',
@@ -305,6 +305,78 @@ class TripController extends Controller
             return fail([
                     'title'  => 'Fail',
                     'detail' => 'You have no trip to start',
+                ]);
+        }
+    }
+
+    /**
+     * Start ride.
+     * @return json
+     */
+    public function start()
+    {
+        if (Auth::user()->driver()->first()->online) {
+            $driver = Auth::user()->driver()->first();
+            $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            if ($trip->status_id == 2) {
+                $trip->update([
+                        'status_id'       => Status::where('name', 'driver_onway')->firstOrFail()->id,
+                        'updated_at'      => Carbon::now(),
+                    ]);
+                $driver->update([
+                        'available' => false,
+                    ]);
+                dispatch(new SendClientNotification('Driver onway', 'Driver onway to you', Client::whereId($trip->client_id)->first()->device_token));
+                return ok([
+                        'title'  => 'You are onway.',
+                        'detail' => 'Trip status changed from 2 to 7',
+                    ]);   
+            } else {
+                return fail([
+                        'title'  => 'Fail',
+                        'detail' => 'You have no trip to start',
+                    ]);
+            }
+        } else {
+            return fail([
+                    'title'  => 'You are offline',
+                    'detail' => 'You should go online first',
+                ]);
+        }
+    }
+
+    /**
+     * End ride.
+     * @return json
+     */
+    public function end()
+    {
+        if (Auth::user()->driver()->first()->online) {
+            $driver = Auth::user()->driver()->first();
+            $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            if ($trip->status_id == 6) {
+                $trip->update([
+                        'status_id'       => Status::where('name', 'trip_ended')->firstOrFail()->id,
+                        'updated_at'      => Carbon::now(),
+                    ]);
+                $driver->update([
+                        'available' => false,
+                    ]);
+                dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
+                return ok([
+                        'title'  => 'You are onway.',
+                        'detail' => 'Trip status changed from 2 to 7',
+                    ]);   
+            } else {
+                return fail([
+                        'title'  => 'Fail',
+                        'detail' => 'You have no trip to end',
+                    ]);
+            }
+        } else {
+            return fail([
+                    'title'  => 'You are offline',
+                    'detail' => 'You should go online first',
                 ]);
         }
     }
