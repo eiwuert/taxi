@@ -73,6 +73,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::post('nearby', 'TripController@nearbyTaxi')
 			 ->name('nearbyTaxi');
+
+		Route::get('cancel', 'TripController@cancel')
+			 ->name('clientCancelTrip');
 	});
 });
 
@@ -118,6 +121,21 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateDriverProfile');
+
+		Route::group(['middleware' => 'online'], function() {
+			Route::get('cancel', 'TripController@cancel')
+				 ->name('driverCancelTrip');
+
+			Route::get('accept', 'TripController@accept')
+				 ->name('driverAcceptTrip');
+
+			Route::get('start', 'TripController@start')
+				 ->name('driverStartTrip');
+
+			Route::get('end', 'TripController@end')
+				 ->name('driverEndTrip');
+
+		});
 	});
 
 	Route::post('verify', 'SmsController@verify')
