@@ -111,7 +111,7 @@ class LoginController extends Controller
         } else {
             return fail([
                     'title'  => 'User credentials is not valid.',
-                    'detail' => 'You have entered email and password that can not be authenticated.'
+                    'detail' => 'You have entered phone and password that can not be authenticated.'
                 ], 401);
         }
     }
@@ -156,7 +156,7 @@ class LoginController extends Controller
         } else {
             return fail([
                     'title'  => 'User credentials is not valid.',
-                    'detail' => 'You have entered email and password that can not be authenticated.'
+                    'detail' => 'You have entered phone and password that can not be authenticated.'
                 ], 401);
         }
     }

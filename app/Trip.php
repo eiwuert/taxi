@@ -14,6 +14,12 @@ class Trip extends Model
      */
     protected $fillable = [
     	'status_id',
+        'driver_id',
+        'etd_text',
+        'etd_value',
+        'driver_distance_text',
+        'driver_distance_value',
+        'driver_location',
     ];
 
     /**
