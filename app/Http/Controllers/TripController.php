@@ -288,27 +288,27 @@ class TripController extends Controller
      */
     public function start()
     {
-        if (Auth::user()->driver()->first()->online) {
-            $driver = Auth::user()->driver()->first();
-            $trip = $driver->trips()->orderBy('id', 'desc')->first();
-            if ($trip->status_id == 2) {
-                $this->updateStatus($trip, 'trip_started');
-                $this->updateDriverAvailability($driver, false);
-                dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
-                return ok([
-                        'title'  => 'Trip started.',
-                        'detail' => 'Trip status changed from 2 to 6',
-                    ]);   
-            } else {
-                return fail([
-                        'title'  => 'Fail',
-                        'detail' => 'You have no trip to start',
-                    ]);
-            }
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null ($trip)) {
+            return fail([
+                    'title'  => 'Wait',
+                    'detail' => 'You still do not have trip, please wait.'
+                ]);
+        }
+
+        if ($trip->status_id == 2) {
+            $this->updateStatus($trip, 'trip_started');
+            $this->updateDriverAvailability($driver, false);
+            dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
+            return ok([
+                    'title'  => 'Trip started.',
+                    'detail' => 'Trip status changed from 2 to 6',
+                ]);   
         } else {
             return fail([
-                    'title'  => 'You are offline',
-                    'detail' => 'You should go online first',
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to start',
                 ]);
         }
     }
