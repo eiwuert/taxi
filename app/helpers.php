@@ -126,9 +126,9 @@ if (! function_exists('nearby')) {
      */
     function nearby($lat, $long, $distance = 1.0, $limit = 5)
     {
-        $query = "SELECT id, distance, longitude, latitude, name, user_id
+        $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
         FROM (
-        select id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
+        SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
                                                                 COS( RADIANS( CAST(latitude  AS double precision) ) ) * 
                                                                 COS( RADIANS( CAST(longitude AS double precision) ) - 
                                                                 RADIANS(CAST($long AS double precision)) ) + 
@@ -150,6 +150,7 @@ if (! function_exists('nearby')) {
                         AND available = true
                     )
                 )
+                ORDER BY user_id, id DESC
             ) AS loc 
             where distance < $distance
             ORDER BY distance ASC
