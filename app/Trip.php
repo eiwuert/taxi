@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model
@@ -63,5 +64,16 @@ class Trip extends Model
     public function destination()
     {
         return $this->hasOne('App\Location', 'id', 'destination');
+    }
+
+    /**
+     * Scope a query for getting trip based on created time.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePassed($query, $minute = 2)
+    {
+        return $query->where('created_at', '<', Carbon::now()->subMinute($minute)->toDateTimeString());
     }
 }

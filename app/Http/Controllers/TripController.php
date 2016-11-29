@@ -10,6 +10,7 @@ use App\Driver;
 use App\Client;
 use App\Status;
 use App\Location;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\TripRequest;
 use App\Http\Requests\NearbyRequest;
@@ -26,9 +27,9 @@ class TripController extends Controller
 	 */
     public function requestTaxi(TripRequest $tripRequest)
     {
-        $client_device_token = Auth::user()->client()->first()->device_token;
+        $clientDeviceToken = Auth::user()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
-            dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $client_device_token));
+            dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
     		return $pending;
         }
 
@@ -48,6 +49,8 @@ class TripController extends Controller
                         'eta_value'       => $matrix['duration']['value'],
                         'distance_text'   => $matrix['distance']['text'],
                         'distance_value'  => $matrix['distance']['value'],
+                        'created_at'      => Carbon::now(),
+                        'updated_at'      => Carbon::now(),
                     ]);
 
         $trip = DB::table('trips')->where('id', $trip_id);
@@ -57,15 +60,15 @@ class TripController extends Controller
          * No driver found state happens here.
          * When there is a driver we send the requset to driver and wait for his/her response.
          */
-        if (!empty(nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1))) {
-            $found_driver = nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1)[0];
-            $driver_to_client = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
+        if (!empty($foundDriver = nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1))) {
+            $foundDriver = $foundDriver[0];
+            $driverToClient = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
                                        's_long' => $tripRequest->s_long,
-                                       'd_lat'  => $found_driver->latitude,
-                                       'd_long' => $found_driver->longitude]);
+                                       'd_lat'  => $foundDriver->latitude,
+                                       'd_long' => $foundDriver->longitude]);
 
-            $driver = User::find($found_driver->user_id)->driver()->first();
-            $driver_device_token = $driver->device_token;
+            $driver = User::find($foundDriver->user_id)->driver()->first();
+            $driverDeviceToken = $driver->device_token;
 
             // 
             // CLIENT_FOUND
@@ -73,15 +76,16 @@ class TripController extends Controller
             $trip->update([
                     'driver_id'              => $driver->id,
                     'status_id'              => Status::where('name', 'client_found')->firstOrFail()->id,
-                    'etd_text'               => $driver_to_client['duration']['text'],
-                    'etd_value'              => $driver_to_client['duration']['value'],
-                    'driver_distance_text'   => $driver_to_client['distance']['text'],
-                    'driver_distance_value'  => $driver_to_client['distance']['value'],
-                    'driver_location'        => $found_driver->id, // location
+                    'etd_text'               => $driverToClient['duration']['text'],
+                    'etd_value'              => $driverToClient['duration']['value'],
+                    'driver_distance_text'   => $driverToClient['distance']['text'],
+                    'driver_distance_value'  => $driverToClient['distance']['value'],
+                    'driver_location'        => $foundDriver->id, // location
+                    'updated_at'             => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $client_device_token));
-            dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driver_device_token));
+            dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $clientDeviceToken));
+            dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driverDeviceToken));
 
             return ok([
                         'content'          => 'Trip request created successfully, waiting for driver(s) to accept.',
@@ -99,9 +103,10 @@ class TripController extends Controller
             //  
             $trip->update([
                     'status_id'       => Status::where('name', 'no_driver')->firstOrFail()->id,
+                    'updated_at'      => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('No driver', 'There is no driver available', $client_device_token));
+            dispatch(new SendClientNotification('No driver', 'There is no driver available', $clientDeviceToken));
 
             return fail([
                 'title'       => 'No driver available',
@@ -130,6 +135,26 @@ class TripController extends Controller
                                 $request->long, 
                                 $request->distance, 
                                 $request->limit), 200, [], false);
+    }
+
+    /**
+     * Cancel ride.
+     * @return json
+     */
+    public function cancel()
+    {
+        if (Auth::user()->role == 'client') {
+            $client = Auth::user()->client()->first()->trips()->first()->status_id;
+            
+        } else if (Auth::user()->role == 'driver') {
+            $driver = Auth::user()->driver()->first()->trips()->first()->status_id;
+            
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'Fail',
+                ]);
+        }
     }
 
     /**

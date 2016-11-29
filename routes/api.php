@@ -73,6 +73,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::post('nearby', 'TripController@nearbyTaxi')
 			 ->name('nearbyTaxi');
+
+		Route::get('cancel', 'TripController@cancel')
+			 ->name('clientCancelTrip');
 	});
 });
 
@@ -118,6 +121,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateDriverProfile');
+
+		Route::get('cancel', 'TripController@cencel')
+			 ->name('driverCancelTrip');
 	});
 
 	Route::post('verify', 'SmsController@verify')
