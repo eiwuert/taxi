@@ -144,11 +144,117 @@ class TripController extends Controller
     public function cancel()
     {
         if (Auth::user()->role == 'client') {
-            $client = Auth::user()->client()->first()->trips()->first()->status_id;
-            
+            $trip   = Auth::user()->client()->first()->trips()->orderBy('id', 'desc')->first();
+            $status = $trip->status_id;
+            /**
+             * Cancel by CLIENT
+             */
+            switch ($status) {
+                //
+                // REQUEST_TAXI
+                // NO_RESPONSE
+                // REJECT_CLIENT_FOUND
+                //
+                case '1':
+                case '3':
+                case '4':
+                    $trip->update([
+                            'status_id'       => Status::where('name', 'cancel_request_taxi')->firstOrFail()->id,
+                            'updated_at'      => Carbon::now(),
+                        ]);
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from ' . $status . ' to 10',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    $trip->update([
+                            'status_id'       => Status::where('name', 'cancel_request_taxi')->firstOrFail()->id,
+                            'updated_at'      => Carbon::now(),
+                        ]);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 2 to 10',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ONWAY
+                //
+                case '7':
+                    $trip->update([
+                            'status_id'       => Status::where('name', 'cancel_onway_driver')->firstOrFail()->id,
+                            'updated_at'      => Carbon::now(),
+                        ]);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 7 to 11',
+                        ]);
+                    break;
+
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
         } else if (Auth::user()->role == 'driver') {
-            $driver = Auth::user()->driver()->first()->trips()->first()->status_id;
-            
+            $trip   = Auth::user()->driver()->first()->trips()->orderBy('id', 'desc')->first();;
+            $status = $trip->status_id;
+            //
+            // Cancel by DRIVER
+            //
+            switch ($status) {
+                //
+                // TRIP_STARTED
+                //
+                case '6':
+                    $trip->update([
+                            'status_id'       => Status::where('name', 'driver_reject_trip_started')->firstOrFail()->id,
+                            'updated_at'      => Carbon::now(),
+                        ]);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 6 to 8',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    $trip->update([
+                            'status_id'       => Status::where('name', 'reject_client_found')->firstOrFail()->id,
+                            'updated_at'      => Carbon::now(),
+                        ]);
+                    dispatch(new SendDriverNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip rejected.',
+                            'detail' => 'Trip status changed from 2 to 4',
+                        ]);
+                    break;
+                
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
         } else {
             return fail([
                     'title'  => 'Fail',

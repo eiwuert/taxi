@@ -13,7 +13,7 @@ class Trip extends Model
      * @var array
      */
     protected $fillable = [
-    	//
+    	'status_id',
     ];
 
     /**
