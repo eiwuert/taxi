@@ -218,7 +218,7 @@ class TripController extends Controller
                 // TRIP_STARTED
                 //
                 case '6':
-                    $this->updateStatus($trip, 'driver_reject_trip_started');
+                    $this->updateStatus($trip, 'driver_reject_started_trip');
                     $this->updateDriverAvailability($driver, true);
                     dispatch(new SendClientNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
@@ -340,7 +340,7 @@ class TripController extends Controller
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         if ($trip->status_id == 6) {
             $this->updateStatus($trip, 'trip_ended');
-            $this->updateDriverAvailability($driver, false);
+            $this->updateDriverAvailability($driver, true);
             dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'Trip ended.',
