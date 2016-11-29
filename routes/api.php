@@ -123,7 +123,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 			 ->name('updateDriverProfile');
 
 		Route::group(['middleware' => 'online'], function() {
-			Route::get('cancel', 'TripController@cencel')
+			Route::get('cancel', 'TripController@cancel')
 				 ->name('driverCancelTrip');
 
 			Route::get('accept', 'TripController@accept')
@@ -131,6 +131,10 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 			Route::get('start', 'TripController@start')
 				 ->name('driverStartTrip');
+
+			Route::get('end', 'TripController@end')
+				 ->name('driverEndTrip');
+
 		});
 	});
 
