@@ -80,7 +80,7 @@ class TripController extends Controller
                     'etd_value'              => $driverToClient['duration']['value'],
                     'driver_distance_text'   => $driverToClient['distance']['text'],
                     'driver_distance_value'  => $driverToClient['distance']['value'],
-                    'driver_location'        => $foundDriver->id, // location
+                    'driver_location'        => Location::where('user_id', $foundDriver->user_id)->orderBy('id', 'desc')->first()->id, // location
                     'updated_at'             => Carbon::now(),
                 ]);
 

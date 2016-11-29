@@ -15,7 +15,7 @@ class UserRegisterRequest extends Request
     {
         return [
             'password'     => 'required|min:6|max:255',
-            'phone'        => 'required|digits_between:9,255|unique:users,phone',
+            'phone'        => 'required|unique:users,phone',
             'login_by'     => 'required|in:manual,facebook,google',
         ];
     }
