@@ -15,7 +15,7 @@ class UserLoginRequest extends Request
     {
         return [
             'password'     => 'required|min:6|max:255',
-            'phone'        => 'required|digits_between:9,255|exists:users,phone',
+            'phone'        => 'required|exists:users,phone',
         ];
     }
 }

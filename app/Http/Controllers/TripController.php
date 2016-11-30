@@ -10,6 +10,7 @@ use App\Driver;
 use App\Client;
 use App\Status;
 use App\Location;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests\TripRequest;
 use App\Http\Requests\NearbyRequest;
@@ -26,9 +27,9 @@ class TripController extends Controller
 	 */
     public function requestTaxi(TripRequest $tripRequest)
     {
-        $client_device_token = Auth::user()->client()->first()->device_token;
+        $clientDeviceToken = Auth::user()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
-            dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $client_device_token));
+            dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
     		return $pending;
         }
 
@@ -48,6 +49,8 @@ class TripController extends Controller
                         'eta_value'       => $matrix['duration']['value'],
                         'distance_text'   => $matrix['distance']['text'],
                         'distance_value'  => $matrix['distance']['value'],
+                        'created_at'      => Carbon::now(),
+                        'updated_at'      => Carbon::now(),
                     ]);
 
         $trip = DB::table('trips')->where('id', $trip_id);
@@ -57,15 +60,15 @@ class TripController extends Controller
          * No driver found state happens here.
          * When there is a driver we send the requset to driver and wait for his/her response.
          */
-        if (!empty($this->nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1))) {
-            $found_driver = $this->nearby($tripRequest->s_lat, $tripRequest->s_long, 1, 1)[0];
-            $driver_to_client = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
+        if (!empty($foundDriver = nearby($tripRequest->s_lat, $tripRequest->s_long, 10, 1))) {
+            $foundDriver = $foundDriver[0];
+            $driverToClient = getDistanceMatrix(['s_lat'  => $tripRequest->s_lat,
                                        's_long' => $tripRequest->s_long,
-                                       'd_lat'  => $found_driver->latitude,
-                                       'd_long' => $found_driver->longitude]);
+                                       'd_lat'  => $foundDriver->latitude,
+                                       'd_long' => $foundDriver->longitude]);
 
-            $driver = User::find($found_driver->user_id)->driver()->first();
-            $driver_device_token = $driver->device_token;
+            $driver = User::find($foundDriver->user_id)->driver()->first();
+            $driverDeviceToken = $driver->device_token;
 
             // 
             // CLIENT_FOUND
@@ -73,15 +76,18 @@ class TripController extends Controller
             $trip->update([
                     'driver_id'              => $driver->id,
                     'status_id'              => Status::where('name', 'client_found')->firstOrFail()->id,
-                    'etd_text'               => $driver_to_client['duration']['text'],
-                    'etd_value'              => $driver_to_client['duration']['value'],
-                    'driver_distance_text'   => $driver_to_client['distance']['text'],
-                    'driver_distance_value'  => $driver_to_client['distance']['value'],
-                    'driver_location'        => $found_driver->id, // location
+                    'etd_text'               => $driverToClient['duration']['text'],
+                    'etd_value'              => $driverToClient['duration']['value'],
+                    'driver_distance_text'   => $driverToClient['distance']['text'],
+                    'driver_distance_value'  => $driverToClient['distance']['value'],
+                    'driver_location'        => Location::where('user_id', $foundDriver->user_id)->orderBy('id', 'desc')->first()->id, // location
+                    'updated_at'             => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $client_device_token));
-            dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driver_device_token));
+            $this->updateDriverAvailability($driver, false);
+
+            dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $clientDeviceToken));
+            dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driverDeviceToken));
 
             return ok([
                         'content'          => 'Trip request created successfully, waiting for driver(s) to accept.',
@@ -98,10 +104,11 @@ class TripController extends Controller
             //  NO_DRIVER
             //  
             $trip->update([
-                    'status_id'       => Status::where('name', 'no_driver')->firstOrFail()->id,
+                    'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->id,
+                    'updated_at'             => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('No driver', 'There is no driver available', $client_device_token));
+            dispatch(new SendClientNotification('No driver', 'There is no driver available', $clientDeviceToken));
 
             return fail([
                 'title'       => 'No driver available',
@@ -126,10 +133,252 @@ class TripController extends Controller
             $request->distance = 1;
         }
 
-        return ok($this->nearby($request->lat, 
+        return ok(nearby($request->lat, 
                                 $request->long, 
                                 $request->distance, 
                                 $request->limit), 200, [], false);
+    }
+
+    /**
+     * Cancel ride.
+     * @return json
+     */
+    public function cancel()
+    {
+        if (Auth::user()->role == 'client') {
+            $client = Auth::user()->client()->first();
+            $trip   = $client->trips()->orderBy('id', 'desc')->first();
+            $driver = Driver::whereId($trip->driver_id)->first();
+            $status = $trip->status_id;
+            /**
+             * Cancel by CLIENT
+             */
+            switch ($status) {
+                //
+                // REQUEST_TAXI
+                // NO_RESPONSE
+                // REJECT_CLIENT_FOUND
+                //
+                case '1':
+                case '3':
+                case '4':
+                    $this->updateStatus($trip, 'cancel_request_taxi');
+                    if (! is_null($driver)) {
+                        $this->updateDriverAvailability($driver, true);
+                    }
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from ' . $status . ' to 10',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    $this->updateStatus($trip, 'cancel_request_taxi');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 2 to 10',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ONWAY
+                //
+                case '7':
+                    $this->updateStatus($trip, 'cancel_onway_driver');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 7 to 11',
+                        ]);
+                    break;
+
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
+        } else if (Auth::user()->role == 'driver') {
+            $driver = Auth::user()->driver()->first();
+            $trip   = $driver->trips()->orderBy('id', 'desc')->first();;
+            $status = $trip->status_id;
+            //
+            // Cancel by DRIVER
+            //
+            switch ($status) {
+                //
+                // TRIP_STARTED
+                //
+                case '6':
+                    $this->updateStatus($trip, 'driver_reject_started_trip');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 6 to 8',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    $this->updateStatus($trip, 'reject_client_found');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendCLientNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip rejected.',
+                            'detail' => 'Trip status changed from 2 to 4',
+                        ]);
+                    break;
+                
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'Fail',
+                ]);
+        }
+    }
+
+    /**
+     * Accept ride and go to the client.
+     * @return json
+     */
+    public function accept()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if ($trip->status_id == 2) {
+            $this->updateStatus($trip, 'driver_onway');
+            $this->updateDriverAvailability($driver, false);
+            dispatch(new SendClientNotification('Driver onway', 'Driver onway to you', Client::whereId($trip->client_id)->first()->device_token));
+            return ok([
+                    'title'  => 'You are onway.',
+                    'detail' => 'Trip status changed from 2 to 7',
+                ]);   
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to start',
+                ]);
+        }
+    }
+
+    /**
+     * Start ride.
+     * @return json
+     */
+    public function start()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null ($trip)) {
+            return fail([
+                    'title'  => 'Wait',
+                    'detail' => 'You still do not have trip, please wait.'
+                ]);
+        }
+
+        //
+        // DRIVER_ONWAY
+        //
+        if ($trip->status_id == 7) {
+            $this->updateStatus($trip, 'trip_started');
+            $this->updateDriverAvailability($driver, false);
+            dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
+            return ok([
+                    'title'  => 'Trip started.',
+                    'detail' => 'Trip status changed from 2 to 6',
+                ]);   
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to start',
+                ]);
+        }
+    }
+
+    /**
+     * Current state of the trip.
+     * @todo 
+     * @return json
+     */
+    public function now()
+    {
+/*        if (Auth::user()->role == 'client') {
+            return ok([
+                    Auth::user()->client()->first()->trips()->orderBy('id', 'desc');
+                ]);
+        }*/
+    }
+
+    /**
+     * End ride.
+     * @return json
+     */
+    public function end()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if ($trip->status_id == 6) {
+            $this->updateStatus($trip, 'trip_ended');
+            $this->updateDriverAvailability($driver, true);
+            dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
+            return ok([
+                    'title'  => 'Trip ended.',
+                    'detail' => 'Trip status changed from 6 to 9',
+                ]);   
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to end or you cannot end trip now.',
+                ]);
+        }
+    }
+
+    /**
+     * Update trip status.
+     * @param  App\Trip $trip
+     * @param  string $name status name
+     * @return void
+     */
+    private function updateStatus($trip, $name)
+    {
+        $trip->update([
+            'status_id' => Status::where('name', $name)->firstOrFail()->id,
+        ]);
+    }
+
+    /**
+     * Update driver availability.
+     * @param  App\Driver $driver
+     * @param  boolean $state
+     * @return void
+     */
+    private function updateDriverAvailability($driver, $state)
+    {
+        $driver->available = $state;
+        $driver->save();
     }
 
     /**
@@ -155,47 +404,5 @@ class TripController extends Controller
     	}
 
     	return false;
-    }
-
-    /**
-     * Find nearby
-     * @param  numeric  $lat
-     * @param  numeric  $long
-     * @param  float    $distance
-     * @param  integer  $limit
-     * @return PDO
-     */
-    private function nearby($lat, $long, $distance = 1.0, $limit = 5)
-    {
-        $query = "SELECT id, distance, longitude, latitude, name, user_id
-        FROM (
-        select id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
-                                                                COS( RADIANS( CAST(latitude  AS double precision) ) ) * 
-                                                                COS( RADIANS( CAST(longitude AS double precision) ) - 
-                                                                RADIANS(CAST($long AS double precision)) ) + 
-                                                                SIN( RADIANS(CAST($lat AS double precision)) ) * 
-                                                                SIN( RADIANS( CAST(latitude AS double precision) ) ) 
-                                                            ) 
-                                                ) AS distance
-            FROM locations
-                WHERE user_id IN (
-                    SELECT id 
-                    FROM users
-                    WHERE verified = true 
-                    AND role = 'driver'
-                    AND id IN (
-                        SELECT user_id 
-                        FROM drivers 
-                        WHERE online = true
-                        AND approve = true
-                        AND available = true
-                    )
-                )
-            ) AS loc 
-            where distance < $distance
-            ORDER BY distance ASC
-            LIMIT $limit";
-
-        return DB::select(DB::raw($query));
     }
 }
