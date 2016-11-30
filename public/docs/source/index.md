@@ -1575,6 +1575,559 @@ console.log(response);
     ]
 }
 ```
+## Request taxi
+
+Request new taxi by client
+
+> Example request
+
+```bash
+curl "http://localhost/api/client/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_long": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_long": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/trip",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_long": "amet",
+        "d_lat": "amet",
+        "d_long": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/client/trip`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | 
+s_long | numeric |  required  | 
+d_lat | numeric |  required  | 
+d_long | numeric |  required  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully, waiting for driver(s) to accept.",
+            "eta_text": "8 mins",
+            "eta_value": 500,
+            "distance_text": "5.1 km",
+            "distance_value": 5051,
+            "trip_status": 2,
+            "source_name": "استان تهران، تهران، بزرگراه شهید حقانی، ایران",
+            "destination_name": "استان تهران، تهران، پل پارک وی، ایران"
+        }
+    ]
+}
+```
+
+> Example response - Have pending request
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You have pending request",
+            "detail": "Please address your pending trip request at first",
+            "trips": [
+                {
+                    "id": 8,
+                    "driver_id": null,
+                    "client_id": 1,
+                    "status_id": 1,
+                    "source": 17,
+                    "destination": 18,
+                    "eta_value": "500",
+                    "eta_text": "8 mins",
+                    "distance_value": "5051",
+                    "distance_text": "5.1 km",
+                    "etd_value": null,
+                    "etd_text": null,
+                    "driver_location": null,
+                    "driver_distance_value": null,
+                    "driver_distance_text": null,
+                    "created_at": "2016-11-29 15:24:33",
+                    "updated_at": "2016-11-29 15:24:33"
+                }
+            ],
+            "status": 500
+        }
+    ]
+}
+```
+> Example response - Asked for resend less than 2 minutes ago
+
+## Nearby taxis
+
+Find near by taxis
+
+> Example request
+
+```bash
+curl "http://localhost/api/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "long": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/trip",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "long": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/client/trip`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | 
+long | numeric |  required  | 
+distance | numeric |  min: `1`, max: `5`  | 
+limit | numeric |  min: `5`, max: `100`  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 20,
+            "distance": "0.245001059497561",
+            "longitude": "51.409909",
+            "latitude": "35.757580",
+            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
+            "user_id": 3
+        },
+        {
+            "id": 4,
+            "distance": "0.563525245388979",
+            "longitude": "51.406401",
+            "latitude": "35.757223",
+            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
+            "user_id": 1
+        }
+    ]
+}
+```
+## Cancel taxi
+
+Cancel taxi by client
+
+> Example request
+
+```bash
+curl "http://localhost/api/client/cancel" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/cancel",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/client/cancel`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip cancelled.",
+            "detail": "Trip status changed from 2 to 10"
+        }
+    ]
+}
+```
+
+
+
+> Example response - Fail to cancel
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot do this.",
+            "detail": "You cannot cancel your ride on this status.",
+            "status": 500
+        }
+    ]
+}
+
+```
+## Accept ride
+
+Accept ride by driver
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/accept" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/accept",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/cancel`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "You are onway.",
+            "detail": "Trip status changed from 2 to 7"
+        }
+    ]
+}
+```
+
+> Example response - Fail accept
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to start",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+## Start ride
+
+Start ride by driver
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/start" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/start",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/start`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip started.",
+            "detail": "Trip status changed from 2 to 6"
+        }
+    ]
+}
+```
+
+> Example response - Fail start
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Wait",
+            "detail": "You still do not have trip, please wait.",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+> Example response - Fail start
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to start",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+## End ride
+
+End ride by driver
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/end" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/end",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/end`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip ended.",
+            "detail": "Trip status changed from 6 to 9"
+        }
+    ]
+}
+```
+
+> Example response - Fail start
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to end or you cannot end trip now.",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+## Cancel ride
+
+Cancel ride by driver
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/cancel" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/cancel",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/cancel`
+    
+> Example response - trip cancelled
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip cancelled.",
+            "detail": "Trip status changed from 6 to 8"
+        }
+    ]
+}
+```
+
+> Example response - trip rejected
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip rejected.",
+            "detail": "Trip status changed from 2 to 4"
+        }
+    ]
+}
+```
+
+
+
+> Example response - Fail to cancel
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot do this.",
+            "detail": "You cannot cancel your ride on this status.",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+
+
 <!-- END_df243d0fcaajs8rubvzdd817217c2gks86dDca06 -->
 
 # Middlewares
@@ -1633,6 +2186,7 @@ Client access token and driver access token are different and a client cannot ac
 Check if the current user(driver or client) has verified phone number.
 
 > Example response - not verified
+
 ```json
 {
     "success": false,
@@ -1640,6 +2194,24 @@ Check if the current user(driver or client) has verified phone number.
         {
             "title"  : "Not a verified user",
             "detail" : "You should verify your phone number first.",
+            "status": 401
+        }
+    ]
+}
+```
+
+##Check online driver
+Check if the current driver is online.
+
+> Example response - not online (offline)
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title"  : "Not an online driver",
+            "detail" : "You should go online first.",
             "status": 401
         }
     ]

@@ -163,7 +163,9 @@ class TripController extends Controller
                 case '3':
                 case '4':
                     $this->updateStatus($trip, 'cancel_request_taxi');
-                    $this->updateDriverAvailability($driver, true);
+                    if (! is_null($driver)) {
+                        $this->updateDriverAvailability($driver, true);
+                    }
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from ' . $status . ' to 10',

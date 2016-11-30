@@ -1721,6 +1721,512 @@ console.log(response);
         }
     ]
 }</code></pre>
+<h2>Request taxi</h2>
+<p>Request new taxi by client</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_long": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_long": "maiores", \ 
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/trip",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_long": "amet",
+        "d_lat": "amet",
+        "d_long": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/client/trip</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_lat</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>s_long</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>d_lat</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>d_long</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully, waiting for driver(s) to accept.",
+            "eta_text": "8 mins",
+            "eta_value": 500,
+            "distance_text": "5.1 km",
+            "distance_value": 5051,
+            "trip_status": 2,
+            "source_name": "استان تهران، تهران، بزرگراه شهید حقانی، ایران",
+            "destination_name": "استان تهران، تهران، پل پارک وی، ایران"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Have pending request</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You have pending request",
+            "detail": "Please address your pending trip request at first",
+            "trips": [
+                {
+                    "id": 8,
+                    "driver_id": null,
+                    "client_id": 1,
+                    "status_id": 1,
+                    "source": 17,
+                    "destination": 18,
+                    "eta_value": "500",
+                    "eta_text": "8 mins",
+                    "distance_value": "5051",
+                    "distance_text": "5.1 km",
+                    "etd_value": null,
+                    "etd_text": null,
+                    "driver_location": null,
+                    "driver_distance_value": null,
+                    "driver_distance_text": null,
+                    "created_at": "2016-11-29 15:24:33",
+                    "updated_at": "2016-11-29 15:24:33"
+                }
+            ],
+            "status": 500
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Asked for resend less than 2 minutes ago</p>
+</blockquote>
+<h2>Nearby taxis</h2>
+<p>Find near by taxis</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "long": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/trip",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "long": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/client/trip</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lat</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>long</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>distance</td>
+<td>numeric</td>
+<td>min: <code>1</code>, max: <code>5</code></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>numeric</td>
+<td>min: <code>5</code>, max: <code>100</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "id": 20,
+            "distance": "0.245001059497561",
+            "longitude": "51.409909",
+            "latitude": "35.757580",
+            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
+            "user_id": 3
+        },
+        {
+            "id": 4,
+            "distance": "0.563525245388979",
+            "longitude": "51.406401",
+            "latitude": "35.757223",
+            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
+            "user_id": 1
+        }
+    ]
+}</code></pre>
+<h2>Cancel taxi</h2>
+<p>Cancel taxi by client</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/cancel" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/cancel",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/client/cancel</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip cancelled.",
+            "detail": "Trip status changed from 2 to 10"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail to cancel</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot do this.",
+            "detail": "You cannot cancel your ride on this status.",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h2>Accept ride</h2>
+<p>Accept ride by driver</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/accept" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/accept",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/cancel</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "You are onway.",
+            "detail": "Trip status changed from 2 to 7"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail accept</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to start",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h2>Start ride</h2>
+<p>Start ride by driver</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/start" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/start",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/start</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip started.",
+            "detail": "Trip status changed from 2 to 6"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail start</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Wait",
+            "detail": "You still do not have trip, please wait.",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - Fail start</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to start",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h2>End ride</h2>
+<p>End ride by driver</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/end" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/end",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/end</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip ended.",
+            "detail": "Trip status changed from 6 to 9"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail start</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Fail",
+            "detail": "You have no trip to end or you cannot end trip now.",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h2>Cancel ride</h2>
+<p>Cancel ride by driver</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/cancel" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/cancel",
+    "method": "GET",
+    "data": {
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/cancel</code></p>
+<blockquote>
+<p>Example response - trip cancelled</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip cancelled.",
+            "detail": "Trip status changed from 6 to 8"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - trip rejected</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip rejected.",
+            "detail": "Trip status changed from 2 to 4"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail to cancel</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot do this.",
+            "detail": "You cannot cancel your ride on this status.",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
 <!-- END_df243d0fcaajs8rubvzdd817217c2gks86dDca06 -->
 <h1>Middlewares</h1>
 <h2>Authenticate</h2>
@@ -1769,17 +2275,32 @@ console.log(response);
 <p>Check if the current user(driver or client) has verified phone number.</p>
 <blockquote>
 <p>Example response - not verified</p>
-<pre><code class="language-json">{
-"success": false,
-"data": [
-{
-"title"  : "Not a verified user",
-"detail" : "You should verify your phone number first.",
-"status": 401
-}
-]
-}</code></pre>
 </blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title"  : "Not a verified user",
+            "detail" : "You should verify your phone number first.",
+            "status": 401
+        }
+    ]
+}</code></pre>
+<h2>Check online driver</h2>
+<p>Check if the current driver is online.</p>
+<blockquote>
+<p>Example response - not online (offline)</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title"  : "Not an online driver",
+            "detail" : "You should go online first.",
+            "status": 401
+        }
+    ]
+}</code></pre>
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
