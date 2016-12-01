@@ -40,4 +40,14 @@ class CarType extends Model
     {
         return $this->hasOne('App\Car');
     }
+
+    /**
+     * A car type can associate to many transaction.
+     * 
+     * @return hasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
 }

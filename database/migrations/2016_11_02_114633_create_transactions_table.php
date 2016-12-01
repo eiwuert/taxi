@@ -19,6 +19,10 @@ class CreateTransactionsTable extends Migration
             $table->foreign('trip_id')
                   ->references('id')->on('trips')
                   ->onDelete('cascade');
+            $table->unsignedInteger('car_type_id');
+            $table->foreign('car_type_id')
+                  ->references('id')->on('car_types')
+                  ->onDelete('cascade');
             $table->float('entry');
             $table->float('distance');
             $table->float('per_distance');

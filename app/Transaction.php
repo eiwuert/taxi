@@ -32,4 +32,14 @@ class Transaction extends Model
     {
         return $this->hasOne('App\Trip');
     }
+
+    /**
+     * A transaction can have one car type.
+     * 
+     * @return hasOne
+     */
+    public function type()
+    {
+        return $this->hasOne('App\CarType');
+    }
 }
