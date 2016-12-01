@@ -14,11 +14,11 @@ class Transaction extends Model
     protected $fillable = [
     	'entry',
         'distance',
-        'perdistance',
-        'distanceunit',
+        'per_distance',
+        'distance_unit',
         'time',
-        'pertime',
-        'timeunit',
+        'per_time',
+        'time_unit',
         'surcharge',
         'currency',
     ];
