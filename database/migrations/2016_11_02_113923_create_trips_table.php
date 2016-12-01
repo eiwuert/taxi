@@ -48,6 +48,10 @@ class CreateTripsTable extends Migration
                   ->onDelete('cascade');
             $table->string('driver_distance_value')->nullable();
             $table->string('driver_distance_text')->nullable();
+            $table->unsignedInteger('transaction_id')->nullable();
+            $table->foreign('transaction_id')
+                  ->references('id')->on('transactions')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }
