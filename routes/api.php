@@ -89,7 +89,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginDriver');
 
-	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved', 'verified']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver', 'hasCar', 'approved', 'verified']], function() {
 		Route::get('online', 'DriverController@online')
 			 ->name('goOnline');
 
