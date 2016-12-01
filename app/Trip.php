@@ -73,6 +73,16 @@ class Trip extends Model
     }
 
     /**
+     * A trip can have one transaction.
+     * 
+     * @return hasOne
+     */
+    public function transaction()
+    {
+        return $this->hasOne('App\Transaction');
+    }
+
+    /**
      * Scope a query for getting trip based on created time.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
