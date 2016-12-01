@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
         'verified'   => \App\Http\Middleware\CheckVerifiedUser::class,
         'approved'   => \App\Http\Middleware\CheckApproveDriver::class,
         'online'     => \App\Http\Middleware\CheckOnlineDriver::class,
+        'hasCar'     => \App\Http\Middleware\HasCar::class,
         'auth'       => \App\Http\Middleware\Authenticate::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
