@@ -19,9 +19,15 @@ class CreateTransactionsTable extends Migration
             $table->foreign('trip_id')
                   ->references('id')->on('trips')
                   ->onDelete('cascade');
-            $table->integer('base');
-            $table->integer('time');
-            $table->integer('distance');
+            $table->float('entry');
+            $table->float('distance');
+            $table->float('perdistance');
+            $table->string('distanceunit');
+            $table->float('time');
+            $table->float('pertime');
+            $table->string('timeunit');
+            $table->float('surcharge');
+            $table->string('currency');
             $table->timestamps();
         });
     }
