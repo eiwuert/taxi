@@ -21,11 +21,11 @@ class CreateTransactionsTable extends Migration
                   ->onDelete('cascade');
             $table->float('entry');
             $table->float('distance');
-            $table->float('perdistance');
-            $table->string('distanceunit');
+            $table->float('per_distance');
+            $table->string('distance_unit');
             $table->float('time');
-            $table->float('pertime');
-            $table->string('timeunit');
+            $table->float('per_time');
+            $table->string('time_unit');
             $table->float('surcharge');
             $table->string('currency');
             $table->timestamps();
