@@ -12,15 +12,20 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
+        'car_type_id',
     	'entry',
         'distance',
         'per_distance',
         'distance_unit',
+        'distance_value',
         'time',
         'per_time',
         'time_unit',
+        'time_value',
         'surcharge',
         'currency',
+        'timezone',
+        'total',
     ];
 
     /**

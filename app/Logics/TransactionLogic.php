@@ -4,6 +4,7 @@ namespace App\Logics;
 
 use App\Trip;
 use GoogleMaps;
+use App\CarType;
 use Carbon\Carbon;
 
 class TransactionLogic
@@ -14,6 +15,11 @@ class TransactionLogic
 	private $rules;
 
 	/**
+	 * Type of the car
+	 */
+	private $type;
+
+	/**
 	 * Currency to compute with
 	 */
 	private $currency;
@@ -21,6 +27,7 @@ class TransactionLogic
 	public function __construct($type, $currency)
 	{
 		$this->currency = $currency;
+		$this->type 	= $type;
 		$this->rules($type);
 	}
 
@@ -35,15 +42,17 @@ class TransactionLogic
 		$timezone = $this->timezone($source->latitude, $source->longitude);
 
 		$transaction = [
+			'car_type'		 => $this->type,
+			'car_type_id'    => CarType::whereName($this->type)->first()->id,
 			'currency'		 => $this->currency,
 			'entry'			 => $this->entry(),
 			'distance'		 => $trip->distance_value,
 			'per_distance'	 => $this->perDistance(),
-			'distanceـunit'	 => $this->distanceUnit(),
+			'distance_unit'	 => $this->distanceUnit(),
 			'distance_value' => round($this->perDistance() * $this->distanceValue($trip->distance_value), 1),
 			'time'			 => $trip->eta_value,
 			'per_time'		 => $this->perTime(),
-			'timeـunit'		 => $this->timeUnit(),
+			'time_unit'		 => $this->timeUnit(),
 			'time_value'	 => round($this->perTime() * $this->timeValue($trip->eta_value), 1),
 			'surcharge'		 => $this->surcharge($timezone),
 			'timezone'		 => $timezone,
