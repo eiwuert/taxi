@@ -11,6 +11,7 @@ use App\Client;
 use App\Status;
 use App\Location;
 use Carbon\Carbon;
+use App\Events\RideAccepted;
 use Illuminate\Http\Request;
 use App\Http\Requests\TripRequest;
 use App\Http\Requests\NearbyRequest;
@@ -27,6 +28,14 @@ class TripController extends Controller
 	 */
     public function requestTaxi(TripRequest $tripRequest)
     {
+        if (is_null($tripRequest->currency)) {
+            $tripRequest->currency = 'USD';
+        }
+
+        if (is_null($tripRequest->type)) {
+            $tripRequest->currency = 'any';
+        }
+
         $clientDeviceToken = Auth::user()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
             dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
@@ -88,6 +97,7 @@ class TripController extends Controller
 
             dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $clientDeviceToken));
             dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driverDeviceToken));
+            event(new RideAccepted(App\Trip::find(1), $tripRequest->type, 'USD'));
 
             return ok([
                         'content'          => 'Trip request created successfully, waiting for driver(s) to accept.',

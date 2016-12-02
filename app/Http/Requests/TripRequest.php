@@ -14,10 +14,12 @@ class TripRequest extends Request
     public function rules()
     {
         return [
-            's_lat'  => 'required|numeric',
-            's_long' => 'required|numeric',
-            'd_lat'  => 'required|numeric',
-            'd_long' => 'required|numeric',
+            's_lat'    => 'required|numeric',
+            's_long'   => 'required|numeric',
+            'd_lat'    => 'required|numeric',
+            'd_long'   => 'required|numeric',
+            'type'     => 'min:3|max:255',
+            'currency' => 'size:3',
         ];
     }
 }
