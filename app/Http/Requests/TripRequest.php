@@ -18,7 +18,7 @@ class TripRequest extends Request
             's_long'   => 'required|numeric',
             'd_lat'    => 'required|numeric',
             'd_long'   => 'required|numeric',
-            'type'     => 'min:3|max:255',
+            'type'     => 'min:3|max:255|exists:car_types,name',
             'currency' => 'size:3',
         ];
     }
