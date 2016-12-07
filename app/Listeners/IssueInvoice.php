@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use DB;
 use App\Transaction;
 use App\Events\RideAccepted;
 use App\Logics\TransactionLogic;
@@ -32,6 +33,8 @@ class IssueInvoice
     {
         $transaction = new TransactionLogic($event->type, $event->currency);
         $invoice = $transaction->new($event->trip);
-        $event->trip->transaction()->create($invoice);
+        $transaction = $event->trip->transaction()->create($invoice);
+        DB::table('trips')->whereId($event->trip->id)
+                          ->update(['transaction_id' => $transaction->id]);
     }
 }
