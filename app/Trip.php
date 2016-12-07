@@ -29,7 +29,7 @@ class Trip extends Model
      */
     public function driver()
     {
-        return $this->hasOne('App\Driver');
+        return $this->hasOne('App\Driver', 'user_id', 'driver_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class Trip extends Model
      */
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->hasOne('App\Client', 'user_id', 'client_id');
     }
 
     /**

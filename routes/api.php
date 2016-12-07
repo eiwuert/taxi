@@ -76,6 +76,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::get('cancel', 'TripController@cancel')
 			 ->name('clientCancelTrip');
+
+		Route::get('trip', 'TripController@trip')
+			 ->name('currentTrip');
 	});
 });
 
@@ -135,6 +138,8 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 			Route::get('end', 'TripController@end')
 				 ->name('driverEndTrip');
 
+			Route::get('trip', 'TripController@trip')
+				 ->name('currentTrip');
 		});
 	});
 

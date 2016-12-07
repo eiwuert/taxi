@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use App\Car;
 use App\User;
 use App\Trip;
 use App\Driver;
@@ -350,13 +351,31 @@ class TripController extends Controller
      * @todo 
      * @return json
      */
-    public function now()
+    public function trip()
     {
-/*        if (Auth::user()->role == 'client') {
+        if (Auth::user()->role == 'client') {
+            $client = Auth::user()->client()->first();
+            $trip = $client->trips()->orderBy('id', 'desc')->first();
+            $driver = $trip->driver()->first();
+            $car = Car::whereUserId($trip->driver_id)->first();
+            $carType = $car->type()->first();
+
             return ok([
-                    Auth::user()->client()->first()->trips()->orderBy('id', 'desc');
+                    'driver' => $driver,
+                    'trip'   => $trip,
+                    'status' => Status::whereId($trip->status_id)->first(),
+                    'car'    => $car,
+                    'type'   => $carType,
                 ]);
-        }*/
+        } else if(Auth::user()->role == 'driver') {
+            $driver = Auth::user()->driver()->first();
+            $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            return ok([
+                    'client' => $trip->client()->first(),
+                    'trip'   => $trip,
+                    'status' => Status::whereId($trip->id),
+                ]);
+        }
     }
 
     /**
