@@ -15,8 +15,8 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('client');
-            $table->string('driver');
+            $table->integer('client')->nullable();
+            $table->integer('driver')->nullable();
             $table->unsignedInteger('trip_id');
             $table->foreign('trip_id')
                   ->references('id')->on('trips')
