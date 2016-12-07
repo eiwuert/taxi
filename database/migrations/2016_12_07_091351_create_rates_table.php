@@ -17,7 +17,7 @@ class CreateRatesTable extends Migration
             $table->increments('id');
             $table->integer('client')->nullable();
             $table->integer('driver')->nullable();
-            $table->unsignedInteger('trip_id');
+            $table->unsignedInteger('trip_id')->unique();
             $table->foreign('trip_id')
                   ->references('id')->on('trips')
                   ->onDelete('cascade');

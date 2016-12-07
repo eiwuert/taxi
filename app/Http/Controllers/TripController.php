@@ -12,6 +12,7 @@ use App\Client;
 use App\Status;
 use App\Location;
 use Carbon\Carbon;
+use App\Events\TripEnded;
 use App\Events\RideAccepted;
 use Illuminate\Http\Request;
 use App\Http\Requests\TripRequest;
@@ -390,9 +391,10 @@ class TripController extends Controller
             $this->updateStatus($trip, 'trip_ended');
             $this->updateDriverAvailability($driver, true);
             dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
+            event(new TripEnded($trip));
             return ok([
                     'title'  => 'Trip ended.',
-                    'detail' => 'Trip status changed from 6 to 9',
+                    'detail' => 'Trip status changed from 6 to 9, You can rate trip now.',
                 ]);   
         } else {
             return fail([
