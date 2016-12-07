@@ -83,6 +83,16 @@ class Trip extends Model
     }
 
     /**
+     * Get the rate that own the trip.
+     * 
+     * @return belongsTo
+     */
+    public function rate()
+    {
+        return $this->belongsTo('App\Rate');
+    }
+
+    /**
      * Scope a query for getting trip based on created time.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
