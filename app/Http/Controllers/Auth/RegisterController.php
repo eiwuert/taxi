@@ -8,6 +8,7 @@ use Validator;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
+use \Laravel\Passport\Passport;
 use \GuzzleHttp\Client as http;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
@@ -107,6 +108,15 @@ class RegisterController extends Controller
         $response = $client->create($user->id, 'driver', url('/'), false, true);
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
+
+        $toRevoke = user::wherePhone($userRequest->phone)
+                        ->select('id')
+                        ->where('id', '<>', $user->id)
+                        ->get(['id']);
+
+        \DB::table('oauth_access_tokens')
+            ->whereIn('user_id', $toRevoke->flatten())
+            ->update(['revoked' => true]);
 
         $response = (new http())->post(route('issueToken'), [
             'form_params' => [
