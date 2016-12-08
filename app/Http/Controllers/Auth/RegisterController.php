@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use App\User;
 use Validator;
+use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
+use \GuzzleHttp\Client as http;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use \Laravel\Passport\ClientRepository;
@@ -15,6 +17,7 @@ use App\Http\Requests\DriverRegisterRequest;
 use App\Http\Requests\ClientRegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\ClientRegisterSocialRequest;
+use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 class RegisterController extends Controller
 {
@@ -90,8 +93,12 @@ class RegisterController extends Controller
      */
     public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest, ClientRepository $client)
     {
-        $userRequest['role']  = 'driver';
-        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+        $uuid = Uuid::generate(1)->string;
+        $userRequest['role']     = 'driver';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $userRequest['uuid']     = $uuid;
+        $userRequest['password'] = $uuid;
+        $userRequest['email']    = $email;
 
         $user = User::create($userRequest->all());
 
@@ -101,10 +108,17 @@ class RegisterController extends Controller
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
 
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
+        $response = (new http())->post(route('issueToken'), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'username' => $email,
+                'password' => $uuid,
+                'client_id' => $response->id,
+                'client_secret' => $response->secret,
+            ],
         ]);
+
+        return ok(json_decode((string) $response->getBody(), true));
     }
 
     /**
@@ -121,8 +135,12 @@ class RegisterController extends Controller
      */
     public function client(UserRegisterRequest $userRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
     {
-        $userRequest['role']  = 'client';
-        $userRequest['email'] = $userRequest['role'] . '_' . $userRequest['phone'] . '@saamtaxi.com';
+        $uuid = Uuid::generate(1)->string;
+        $userRequest['role']     = 'client';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $userRequest['uuid']     = $uuid;
+        $userRequest['password'] = $uuid;
+        $userRequest['email']    = $email;
 
         $user = User::create($userRequest->all());
 
@@ -132,10 +150,17 @@ class RegisterController extends Controller
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
 
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
+        $response = (new http())->post(route('issueToken'), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'username' => $email,
+                'password' => $uuid,
+                'client_id' => $response->id,
+                'client_secret' => $response->secret,
+            ],
         ]);
+
+        return ok(json_decode((string) $response->getBody(), true));
     }
 
     /**

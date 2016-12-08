@@ -170,7 +170,7 @@ return [
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
+        
         /*
          * Application Service Providers...
          */
@@ -229,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Uuid' => Webpatser\Uuid\Uuid::class,
 
     ],
 
