@@ -20,7 +20,7 @@ Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 	 ->name('resetPassword');
 
 Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
-	 ->middleware('format', 'json')
+	 //->middleware('format', 'json')
 	 ->name('issueToken');
 
 /**
@@ -79,6 +79,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::get('trip', 'TripController@trip')
 			 ->name('currentTrip');
+
+		Route::post('rate', 'RateController@client')
+			 ->name('clientRate');
 	});
 });
 
@@ -140,6 +143,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 			Route::get('trip', 'TripController@trip')
 				 ->name('currentTrip');
+
+			Route::post('rate', 'RateController@driver')
+				 ->name('driverRate');
 		});
 	});
 
