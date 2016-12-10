@@ -29,7 +29,7 @@ class Trip extends Model
      */
     public function driver()
     {
-        return $this->hasOne('App\Driver');
+        return $this->hasOne('App\Driver', 'user_id', 'driver_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class Trip extends Model
      */
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->hasOne('App\Client', 'user_id', 'client_id');
     }
 
     /**
@@ -70,6 +70,26 @@ class Trip extends Model
     public function destination()
     {
         return $this->hasOne('App\Location', 'id', 'destination');
+    }
+
+    /**
+     * A trip can have one transaction.
+     * 
+     * @return hasOne
+     */
+    public function transaction()
+    {
+        return $this->hasOne('App\Transaction');
+    }
+
+    /**
+     * Get the rate that own the trip.
+     * 
+     * @return belongsTo
+     */
+    public function rate()
+    {
+        return $this->belongsTo('App\Rate');
     }
 
     /**

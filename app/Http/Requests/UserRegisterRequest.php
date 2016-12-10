@@ -14,8 +14,7 @@ class UserRegisterRequest extends Request
     public function rules()
     {
         return [
-            'password'     => 'required|min:6|max:255',
-            'phone'        => 'required|unique:users,phone',
+            'phone'        => 'required',
             'login_by'     => 'required|in:manual,facebook,google',
         ];
     }

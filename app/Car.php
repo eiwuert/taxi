@@ -30,6 +30,6 @@ class Car extends Model
      */
     public function type()
     {
-        return $this->hasOne('App\CarType');
+        return $this->hasOne('App\CarType', 'id', 'type_id');
     }
 }

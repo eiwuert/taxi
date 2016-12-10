@@ -2217,3 +2217,22 @@ Check if the current driver is online.
     ]
 }
 ```
+
+##Check driver car
+Check if the current driver has a registered car.
+
+> Example response - does not own a car
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "No car",
+            "detail": "You should contact your area car center to register your car.",
+            "status": 401
+        }
+    ]
+}
+
+```

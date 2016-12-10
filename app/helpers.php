@@ -124,8 +124,15 @@ if (! function_exists('nearby')) {
      * @param  integer  $limit
      * @return PDO
      */
-    function nearby($lat, $long, $distance = 1.0, $limit = 5)
+    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5)
     {
+        if ($type == 'any') {
+            $type = "SELECT id FROM car_types";
+        } else {
+            $type = "SELECT id 
+                     FROM car_types
+                     WHERE name = '$type'";
+        }
         $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
         FROM (
         SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
@@ -148,6 +155,12 @@ if (! function_exists('nearby')) {
                         WHERE online = true
                         AND approve = true
                         AND available = true
+                    ) 
+                    AND id IN (
+                        SELECT user_id
+                        FROM cars 
+                        WHERE type_id
+                        IN ( $type )
                     )
                 )
                 ORDER BY user_id, id DESC

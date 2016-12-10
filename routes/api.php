@@ -20,7 +20,7 @@ Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 	 ->name('resetPassword');
 
 Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
-	 ->middleware('format', 'json')
+	 //->middleware('format', 'json')
 	 ->name('issueToken');
 
 /**
@@ -76,6 +76,12 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::get('cancel', 'TripController@cancel')
 			 ->name('clientCancelTrip');
+
+		Route::get('trip', 'TripController@trip')
+			 ->name('currentTrip');
+
+		Route::post('rate', 'RateController@client')
+			 ->name('clientRate');
 	});
 });
 
@@ -89,7 +95,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginDriver');
 
-	Route::group(['middleware' => ['auth:api', 'role:driver', 'approved', 'verified']], function() {
+	Route::group(['middleware' => ['auth:api', 'role:driver', 'hasCar', 'approved', 'verified']], function() {
 		Route::get('online', 'DriverController@online')
 			 ->name('goOnline');
 
@@ -135,6 +141,11 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 			Route::get('end', 'TripController@end')
 				 ->name('driverEndTrip');
 
+			Route::get('trip', 'TripController@trip')
+				 ->name('currentTrip');
+
+			Route::post('rate', 'RateController@driver')
+				 ->name('driverRate');
 		});
 	});
 
