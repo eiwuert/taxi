@@ -53,6 +53,7 @@ console.log(response);
 
 <!-- END_8ad860d24dc1cc6dac772d99135ad13e -->
 <!-- START_afa573efcb404c394e835b474f167e56 -->
+<!--
 ## Access token
 
 > Example request
@@ -178,6 +179,7 @@ Parameter | Type | Status | Description
     ]
 }
 ```
+-->
 <!-- END_afa573efcb404c394e835b474f167e56 -->
 <!-- START_786684a27e8f23727a33ce6bbf1f5a4f -->
 ## Client registration
@@ -191,7 +193,6 @@ clients.
 ```bash
 curl "http://localhost/api/client/register" \
 -H "Accept: application/json" \
-    -d "password"="sunt" \
     -d "phone"="sunt" \
     -d "login_by"="manual" \
 
@@ -204,7 +205,6 @@ var settings = {
     "url": "http://localhost/api/client/register",
     "method": "POST",
     "data": {
-        "password": "sunt",
         "phone": "sunt",
         "login_by": "manual"
 },
@@ -226,7 +226,6 @@ console.log(response);
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255`
     login_by | string |  required  | `manual`, `ios`, `android`
     lang | string |  required  | `fa`, `en`, `ar`
@@ -240,29 +239,15 @@ Parameter | Type | Status | Description
     "success": true,
     "data": [
         {
-            "client_secret": "7ztUqt6ccT4io4zVClIv3grVQsZfGGdEqAA5niP8",
-            "client_id": 22
+            "token_type": "Bearer",
+            "expires_in": 129600000,
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM3NWI4OTQ1OWRlNzllNTZlNzlhOTViY2RiYWI3MjFkMjQ3OTAyN2E5NjYzMzk1NzJlZTQ4MGI4OWZiMDQ1OTBiYmNhNDhiZDgyMjdlOTE5In0.eyJhdWQiOiIzIiwianRpIjoiYzc1Yjg5NDU5ZGU3OWU1NmU3OWE5NWJjZGJhYjcyMWQyNDc5MDI3YTk2NjMzOTU3MmVlNDgwYjg5ZmIwNDU5MGJiY2E0OGJkODIyN2U5MTkiLCJpYXQiOjE0ODEyMDUyNjMsIm5iZiI6MTQ4MTIwNTI2MywiZXhwIjoxNjEwODA1MjYzLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.oEGk7El5FE3rpFC3QH70exU9VxK6sFhyvxaGtqwK69OGoWu1AxmbD5gne2aKdnZt3fhXPnlq-viL6edHesZ-BGm0E8SvqzT6-WwhIAzjXfgSxJjvm1n2WWy0RgRjYjFaMpgPkp6kA8jSHoztJuPUEqsdRDUBPNaVCCOLv-Ob7YzAEH8g6BG3SqWhEy5FHdyyKjPKIVA4VIQpCmsElplYU178HkW-kEbJouakjAkDk5bkhdgtW8JZDxuj2febcs3GTw-BACB_moGzSuIgiyImNwcjalPWhpBHroUaDYWlm_5lAsnNR5VyDjCmPVzUqvKTSxtj-WXIQGUpi5Vw5AaEXu1oeTMzzvJIiWytEUWm6FHQ8oFFaP_Iqh90sT0T5Dp0DFu9RDk12H90dSGWzgxXunWnmItOFPwe_zkHGjYZmEMFjRqn3ragvBpmAfa3hmCARNOy2izoGIPuK1d1lXxctwaQozkRsCRxwuhAm0NTs6pmGbYL_mzZJ6RFjt8riaHHtDglHP32JYXCgiSRmHPNVv_kLmTr9MOUWB31pDFDj1fpX8bDReMwYmTUs97pabteiFM7Spu5YYh8rgr05p-s2x8M0455JSq5R1z_hgmSzp_LwqgHLEHSTwTxq8pWHGR6dA0m3gc1aAS6wbZIGbtFK6QgTteAfidmRL094vIzdMc",
+            "refresh_token": "sr0DHgrtPb0rX2s+fsc6UAaIC05JwCcXJlPMlRSZvsyD9e4ZA/d86rhi+3CFw7amWH9W6oYJYYoae3sd1AYGKcA0cRj/bw3X0vDjbmqxUNVdivb0e+iL/ikxZ1v4LoNqLbnbZ6L3GvjG/uUc9A2SHu5f4K4J8zsQcsZ3WETPUVXFGgljR+eI2EuHB9Zc8aJpJ1kgRFAImoGWVEAMgl2a1kkR1x1B9jdrmzCLAR+62Kz0n4HAtCUgcRw/U75bHh4KyeHjjuWuvdwUX+chsUHdJdtZ2wI8nxUJqmqZoqIjinf1pti8NnT3NIIySexwJ1IcVV1w5G4hugbXnLKvRUN8fLcywX0WarwZp3EHS16IDRh/KH75REhNBEDg7rEde6OcBbRmRB2uDF1TLmbw5Zj0CxC6EJfxy2ipyms/2xk0dHblhoDMX8Nebgjyl4D0GWx/jysrlGeGScT4wB/dnl+iCCkbEU+DxMMV/TMfIpgOwrOALsODdmD3+Vw2QTFjiFC5z4+F5Bipc6ZrVTEtAw64DMLekklW+/8XI5bXjscktV18MbyA8h9LkCbM9WMctNxv9t8Ox6SBvsogMBw8i4OOdr+ktN/yYv2VXhJWDaV5SREXoXP/GNKV+dSdjDV9y8/kRDNZnCgyTF31/+nVQYVaqbpwrVshxlPMlAVHAlZ4b9k="
         }
     ]
 }
 ```
-> Example response - Duplicated `phone`
 
-```json
-{
-    "success": false,
-    "data": [
-        {
-            "phone": [
-                "The phone has already been taken."
-            ],
-            "title": "Validation failed",
-            "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
-        }
-    ]
-}
-```
 
 > Example response - Validation error(s)
 
@@ -271,9 +256,6 @@ Parameter | Type | Status | Description
     "success": false,
     "data": [
         {
-            "password": [
-                "The password field is required."
-            ],
             "phone": [
                 "The phone field is required."
             ],
@@ -747,7 +729,6 @@ drivers.
 ```bash
 curl "http://localhost/api/driver/register" \
 -H "Accept: application/json" \
-    -d "password"="eaque" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
 
@@ -760,7 +741,6 @@ var settings = {
     "url": "http://localhost/api/driver/register",
     "method": "POST",
     "data": {
-        "password": "eaque",
         "phone": "eaque",
         "login_by": "manual"
 },
@@ -782,7 +762,6 @@ console.log(response);
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255`
     lang | string |  required  | `fa`, `en`, `ar
     country | string |  required  |  Maximum: `255`
@@ -790,9 +769,26 @@ Parameter | Type | Status | Description
     device_token | string |  required  |  Maximum: `255`
     device_type | string |  required  |  Maximum: `255`
     login_by | string |  required  |  `manual`
+    
+> Example response:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "token_type": "Bearer",
+            "expires_in": 129600000,
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYxN2YzODY5MDhmMGQ2ZDlkMzEwY2RmY2NjZDBjZWY4NDFkYmM3Mjc3YjY1N2Y2ZjkxZmNiNWI0ZjUyYmVkYmExYzJlY2IyODM0NmI4N2NjIn0.eyJhdWQiOiI0IiwianRpIjoiZjE3ZjM4NjkwOGYwZDZkOWQzMTBjZGZjY2NkMGNlZjg0MWRiYzcyNzdiNjU3ZjZmOTFmY2I1YjRmNTJiZWRiYTFjMmVjYjI4MzQ2Yjg3Y2MiLCJpYXQiOjE0ODEyMDU0MDksIm5iZiI6MTQ4MTIwNTQwOSwiZXhwIjoxNjEwODA1NDA5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.XPwFDi0kp9AIUMF8iW2g0jyYKmwIzF0UWc-qIepaFFLJ0vV7maXNJLNcTTx2PqXRY0O62wQmTMxTEqKkX0k0uYAqDBC02TZ6rwyM4JJCqyj5EdYhA0HZzZYDc2hA5nyEnFWR7nSqJkUYxLBZl7Uc9a7c9mT-kV6WikStETmvJhsMRYwLVyokdEpMRxixAmCYAQ4mR8mgSopcRz5f1oOPemndOyJP1TAoGeMk0yYe-R9AkD8GSEv4SLU4kIPC6j193OYOY_B3FFplM8_M9XfoPrdAdV3bxecl9Wx_ZKrGl1nq8Hi22Q8v1FwAsWyuxguyegK6BzRx_mO6a1X0WpEyZsCY_RTwpaZv1Ftkn_rgkDHluzoPentwaS7YVUmmG-HyeZrTVFyRljSJj7oHpaAYIiNfrgMvD4HF8asYF2_Ns1M2pXZTCqDAPE4dYauZ0PRaX9kytCzKQoA2XP9Qk9C5ayXCf21KDqWxsYurkH08LrK4KmD9qtJ7Mf_ZYyPitDL5coy-CWrWONr89m12SZya8URNLxGEp7ni8IMIlZuV1CI3RsAnqLVyYMY1y52Wy3q0zLWaVlCPK15CeZbLIfXvAxhNhfNrCyLLX7vHY32tHykhmQiwvDeCDZ8u9UK4jgexd2BNsM7ErVGC4L2SYlkv8ItWyoEQ-tUOBG-5DFUSspQ",
+            "refresh_token": "ozaq8Ssd/Vvh8tmhyVs4L5w7N3f/6V6/nS0dMkqlm5waEPKdqgHGIPcbTqXTTEmcpV/YYrBN7tuFmFE/iju9s0aiLnP/lbHbNG77+Td9j1M8zGzYp3LUJkboJW9bh3AdfqAOxUWjFjg/jUko4VaNUjbqO3ZsEjLsd06elwIyLi3NB/WwSH57rBoBMo23HZMqQVKNwpeekCJq1Q8zxECQhyN5kCojc9PTOfRovw1NQw/4EHluc76OVkgcHiAEzp6m/OX1dWOKpPqmXko6CX+19AFktvWbrgaOty75sPhM2d9CzUWvToL47eq2jtA0xNiTm/UNLV5y7R6sTbhNq+7ec3RKBOTvXY4Nn9AkRn8KK7wAOJYdQJ7pn4T73SlY94Gh05ioX1mtm4PyzZeZK6m9rredD/GPgIgJW1y7eahY4ifUCdy5fW6bzEJKCMaDtoi9QJuqg/lhiG8dnYynZo6Vx3XJqow+QOdaylGyBAV517ZQEmooftF8yMAh7nsQkxCrPpgarjH8v3FJoTtEgDEpTckUOo3i8o1c8cPg2eodUws6pyCTDV9xppb5WM9PVIEcS5+S2ibm6VoYa74oi9WPc9bwgNXKlb6IOynwvciB+o6buYpQbz38Ydw8oPuIDvS9Zrr4VpaNN99x5f9car81fPZiJbTMWnpfonnJpT4P1Do="
+        }
+    ]
+}
+```
 
 <!-- END_758c5ce4b6de7437277c2d4b3b90b245 -->
 <!-- START_8f84a574765c547365e6dc7ddbfe763a -->
+<!--
 ## Driver/Client login
 
 Handle driver and client login with phone and password.
@@ -837,7 +833,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     password | string |  required  | Minimum: `6` Maximum: `255`
     phone | numeric |  required  | Must have a length between `9` and `255` Valid user phone
-
+-->
 <!-- END_8f84a574765c547365e6dc7ddbfe763a -->
 <!-- START_592dbad5f2c258af41de0cf2b034f7ce -->
 ## Driver online
