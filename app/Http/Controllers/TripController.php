@@ -41,7 +41,7 @@ class TripController extends Controller
         $clientDeviceToken = Auth::user()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
             dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
-    		//return $pending;
+    		return $pending;
         }
 
         $matrix = getDistanceMatrix($tripRequest->all());
