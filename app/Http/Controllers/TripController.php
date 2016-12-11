@@ -228,6 +228,19 @@ class TripController extends Controller
                     break;
 
                 //
+                // DRIVER_ARRIVED
+                //
+                case '12':
+                    $this->updateStatus($trip, 'client_canceled_arrived_cancel');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 12 to 13',
+                        ]);
+                    break;
+
+                //
                 // CANCEL FAIL
                 //
                 default:
@@ -268,6 +281,19 @@ class TripController extends Controller
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 2 to 4',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ARRIVED
+                //
+                case '12':
+                    $this->updateStatus($trip, 'driver_cancel_arrived_status');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendCLientNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip rejected.',
+                            'detail' => 'Trip status changed from 12 to 14',
                         ]);
                     break;
                 
@@ -400,6 +426,29 @@ class TripController extends Controller
             return fail([
                     'title'  => 'Fail',
                     'detail' => 'You have no trip to end or you cannot end trip now.',
+                ]);
+        }
+    }
+
+    /**
+     * Driver arrived to start point to start the trip.
+     * @return json
+     */
+    public function arrived()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if ($trip->status_id == 7) {
+            $this->updateStatus($trip, 'driver_arrived');
+            dispatch(new SendClientNotification('Driver arrived', 'Driver arrived', Client::whereId($trip->client_id)->first()->device_token));
+            return ok([
+                    'title'  => 'Waiting for client.',
+                    'detail' => 'Trip status changed from 7 to 12.',
+                ]);   
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You cannot got to this status from your current state',
                 ]);
         }
     }

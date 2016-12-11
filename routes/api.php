@@ -138,6 +138,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 			Route::get('start', 'TripController@start')
 				 ->name('driverStartTrip');
 
+			Route::get('arrived', 'TripController@arrived')
+				 ->name('driverArrived');
+
 			Route::get('end', 'TripController@end')
 				 ->name('driverEndTrip');
 
