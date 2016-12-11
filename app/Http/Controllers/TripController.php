@@ -530,7 +530,7 @@ class TripController extends Controller
             $trip->status_id == 11 ||
             $trip->status_id == 8  ||
             $trip->status_id == 9  ||
-            $trip->status_id == 3  ||) {
+            $trip->status_id == 3  ) {
             return true;
         } else {
             return false;
