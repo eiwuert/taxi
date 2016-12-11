@@ -490,7 +490,10 @@ class TripController extends Controller
     	 */
     	$pending = Auth::user()->client()->first()->trips()
                               ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->id)
-                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->id);
+                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->id)
+                              ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->id)
+                              ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->id)
+                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->id);
 
     	if ($pending->count()) {
     		return fail([
