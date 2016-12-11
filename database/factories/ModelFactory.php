@@ -21,6 +21,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'phone' => $faker->unique()->e164PhoneNumber(),
         'role' => 'web',
         'verified' => true,
+        'uuid' => Webpatser\Uuid\Uuid::generate(1)->string,
     ];
 });
 
