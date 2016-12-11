@@ -383,7 +383,12 @@ class TripController extends Controller
         if (Auth::user()->role == 'client') {
             $client = Auth::user()->client()->first();
             $trip = $client->trips()->orderBy('id', 'desc')->first();
-            if ($trip->status_id array_key_exists(key, array))
+            if ($this->notOnTrip($trip)) {
+                return fail([
+                        'title'  => 'Not on trip',
+                        'detail' => 'Not on an active trip right now',
+                    ])
+            }
             $driver = $trip->driver()->first();
             $car = Car::whereUserId($trip->driver_id)->first();
             $carType = $car->type()->first();
@@ -398,6 +403,12 @@ class TripController extends Controller
         } else if(Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            if ($this->notOnTrip($trip)) {
+                return fail([
+                        'title'  => 'Not on trip',
+                        'detail' => 'Not on an active trip right now',
+                    ])
+            }
             return ok([
                     'client' => $trip->client()->first(),
                     'trip'   => $trip,
@@ -505,5 +516,24 @@ class TripController extends Controller
     	}
 
     	return false;
+    }
+
+    /**
+     * If current driver or client on a trip.
+     * @param  App\Trip $trip
+     * @return boolean
+     */
+    private function notOnTrip($trip)
+    {
+        if ($trip->status_id == 10 ||
+            $trip->status_id == 5  ||
+            $trip->status_id == 11 ||
+            $trip->status_id == 8  ||
+            $trip->status_id == 9  ||
+            $trip->status_id == 3  ||) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
