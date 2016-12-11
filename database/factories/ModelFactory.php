@@ -68,6 +68,14 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Car::class, function (Faker\Generator $faker) {
+    return [
+        'color' => 'black',
+        'number' => '00000',
+        'type_id' => 1,
+    ];
+});
+
 $factory->define(App\Location::class, function (Faker\Generator $faker) {
     $location = fakerLocation();
     $name = \GoogleMaps::load('geocoding')
