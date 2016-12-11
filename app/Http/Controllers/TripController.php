@@ -355,9 +355,9 @@ class TripController extends Controller
         }
 
         //
-        // DRIVER_ONWAY
+        // DRIVER_ARRIVED
         //
-        if ($trip->status_id == 7) {
+        if ($trip->status_id == 12) {
             $this->updateStatus($trip, 'trip_started');
             $this->updateDriverAvailability($driver, false);
             dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
@@ -383,6 +383,7 @@ class TripController extends Controller
         if (Auth::user()->role == 'client') {
             $client = Auth::user()->client()->first();
             $trip = $client->trips()->orderBy('id', 'desc')->first();
+            if ($trip->status_id array_key_exists(key, array))
             $driver = $trip->driver()->first();
             $car = Car::whereUserId($trip->driver_id)->first();
             $carType = $car->type()->first();
