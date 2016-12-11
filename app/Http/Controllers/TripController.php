@@ -387,7 +387,7 @@ class TripController extends Controller
                 return fail([
                         'title'  => 'Not on trip',
                         'detail' => 'Not on an active trip right now',
-                    ])
+                    ]);
             }
             $driver = $trip->driver()->first();
             $car = Car::whereUserId($trip->driver_id)->first();
@@ -407,7 +407,7 @@ class TripController extends Controller
                 return fail([
                         'title'  => 'Not on trip',
                         'detail' => 'Not on an active trip right now',
-                    ])
+                    ]);
             }
             return ok([
                     'client' => $trip->client()->first(),
