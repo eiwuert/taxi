@@ -14,12 +14,12 @@ class NearbyRequest extends Request
     public function rules()
     {
         return [
-            'lat'      => 'required|regex:^[+-]?\d+\.\d+$',
-            'long'     => 'required|regex:^[+-]?\d+\.\d+$',
-            'type'     => 'min:3|max:255|exists:car_types,name',
-            'currency' => 'size:3',
-            'distance' => 'numeric|min:1|max:5',
-            'limit'    => 'numeric|min:5|max:100',
+            'lat'      => ['required', 'regex:^[+-]?\d+\.\d+$'],
+            'long'     => ['required', 'regex:^[+-]?\d+\.\d+$'],
+            'type'     => ['min:3', 'max:255', 'exists:car_types,name'],
+            'currency' => ['size:3'],
+            'distance' => ['numeric', 'min:1', 'max:5'],
+            'limit'    => ['numeric', 'min:5', 'max:100'],
         ];
     }
 }
