@@ -1088,7 +1088,29 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "success": true,
+    "data": [
+        {
+            "result": "Driver is online."
+        }
+    ]
+}
+```
+
+> Example response - currently online
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Driver cannot go online",
+            "detail": "You are currently online.",
+            "status": 500
+        }
+    ]
+}
 ```
 
 ### HTTP Request
@@ -1128,7 +1150,29 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "success": true,
+    "data": [
+        {
+            "result": "Driver is offline."
+        }
+    ]
+}
+```
+
+> Example response - currently offline
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Driver cannot go offline",
+            "detail": "An onway driver cannot go offline.",
+            "status": 500
+        }
+    ]
+}
 ```
 
 ### HTTP Request
@@ -1337,8 +1381,8 @@ console.log(response);
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-lat | numeric |  required  | 
-long | numeric |  required  | 
+lat | numeric |  required  | `(d+).(d+)`
+long | numeric |  required  | `(d+).(d+)`
 distance | numeric |  min: `1`, max: `5`  | 
 limit | numeric |  min: `5`, max: `100`  | 
     
@@ -1367,6 +1411,25 @@ limit | numeric |  min: `5`, max: `100`  |
     ]
 }
 ```
+
+> Example response - Validation fails
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "lat": [
+                "The lat format is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+```
+
 ## Cancel taxi
 
 Cancel taxi by client
