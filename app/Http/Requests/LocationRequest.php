@@ -14,8 +14,8 @@ class LocationRequest extends Request
     public function rules()
     {
         return [
-            'lat'  => 'required',
-            'long' => 'required',
+            'lat'  => 'required|regex:^[+-]?\d+\.\d+$',
+            'long' => 'required|regex:^[+-]?\d+\.\d+$',
         ];
     }
 }

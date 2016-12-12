@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 /**
  * General Routes.
  */
+// DEPRECATE
 Route::post('password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail')
 	 ->name('resetPassword');
 
@@ -30,12 +31,15 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@client')
 		 ->name('registerClient');
 
+	// DEPRECATE
 	Route::post('register/social', 'Auth\RegisterController@socialClient')
 		 ->name('registerClientSocial');
 
+	// DEPRECATE
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginClient');
 
+	// DEPRECATE
 	Route::post('login/social', 'Auth\LoginController@loginSocial')
 		 ->name('loginClientSocial');
 
@@ -43,7 +47,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 		 ->name('verifyUser')
 		 ->middleware('auth:api', 'role:client');
 
-	Route::post('resend', 'SmsController@resend')
+	Route::get('resend', 'SmsController@resend')
 		 ->name('resendSMS')
 		 ->middleware('auth:api', 'role:client');
 
@@ -51,6 +55,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 		Route::post('location', 'LocationController@set')
 		 	 ->name('setLocation');
 
+		// DEPRECATE
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
 
@@ -58,6 +63,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 			Route::get('types', 'CarTypeController@all')
 			 	->name('carTypes');
 
+			// DEPRECATE
 			Route::get('search/{term}', 'CarTypeController@search')
 			 	 ->name('searchCarTypes');
 		});
@@ -92,6 +98,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')
 		 ->name('registerDriver');
 
+	// DEPRECATE
 	Route::post('login', 'Auth\LoginController@loginUser')
 		 ->name('loginDriver');
 
@@ -102,19 +109,23 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::get('offline', 'DriverController@offline')
 			 ->name('goOffline');
 
+		// DEPRECATE
 		Route::get('onway', 'DriverController@onway')
 			 ->name('goOnway');
 
+		// DEPRECATE
 		Route::get('available', 'DriverController@available')
 			 ->name('goAvailable');
 
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
+		// DEPRECATE
 		Route::get('location/{id}', 'LocationController@get')
 			 ->name('getLocation');
 
 		Route::group(['prefix' => 'car'], function() {
+			// DEPRECATE
 			Route::post('register', 'CarController@register')
 				 ->name('registerCar');
 
@@ -125,6 +136,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::get('profile', 'ProfileController@get')
 			 ->name('getDriverProfile');
 
+		// DEPRECATE
 		Route::post('profile', 'ProfileController@update')
 			 ->name('updateDriverProfile');
 
@@ -156,7 +168,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		 ->name('verifyUser')
 		 ->middleware('auth:api', 'role:driver');
 
-	Route::post('resend', 'SmsController@resend')
+	Route::get('resend', 'SmsController@resend')
 		 ->name('resendSMS')
 		 ->middleware('auth:api', 'role:driver');
 });

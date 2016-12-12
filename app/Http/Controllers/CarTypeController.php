@@ -14,7 +14,7 @@ class CarTypeController extends Controller
 	 */
     public function all()
     {
-    	return CarType::all();
+    	return ok([CarType::all()]);
     }
 
     /**
@@ -24,6 +24,6 @@ class CarTypeController extends Controller
      */
     public function search($term)
     {
-    	return CarType::search($term)->get();
+    	return ok([CarType::search($term)->get()]);
     }
 }
