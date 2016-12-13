@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
 use Auth;
 use App\User;
 use Validator;
+use Carbon\Carbon;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
@@ -84,8 +86,7 @@ class RegisterController extends Controller
      * Driver registration
      *
      * Initial step for driver to register, using phone no. as the primary param
-     * for login and validation. phone must be unique among all registered 
-     * drivers.
+     * for login and validation.
      * 
      * @param  UserRegisterRequest   $userRequest 
      * @param  DriverRegisterRequest $driverRequest
@@ -105,7 +106,7 @@ class RegisterController extends Controller
 
         Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
 
-        $response = $client->create($user->id, 'driver', url('/'), false, true);
+        $client = $client->create($user->id, 'driver', url('/'), true, false);
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
 
@@ -114,29 +115,30 @@ class RegisterController extends Controller
                         ->where('id', '<>', $user->id)
                         ->get(['id']);
 
-        \DB::table('oauth_access_tokens')
+        DB::table('oauth_access_tokens')
             ->whereIn('user_id', $toRevoke->flatten())
             ->update(['revoked' => true]);
 
-        $response = (new http())->post(route('issueToken'), [
-            'form_params' => [
-                'grant_type' => 'password',
-                'username' => $email,
-                'password' => $uuid,
-                'client_id' => $response->id,
-                'client_secret' => $response->secret,
-            ],
+        DB::table('oauth_personal_access_clients')->insert([
+            'client_id' => $client->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
-        return ok(json_decode((string) $response->getBody(), true));
+        $token = Auth::user()->createToken('client');
+
+        return ok([
+                'token_type'   => 'Bearer',
+                'access_token' => $token->accessToken,
+                'expires_at'   => $token->token->get(['expires_at'])[0]->expires_at,
+            ]);
     }
 
     /**
      * Client registration
      *
      * Initial step for client to register, using phone no. as the primary param
-     * for login and validation. phone must be unique among all registered 
-     * clients.
+     * for login and validation. 
      *
      * @param  UserRegisterRequest $userRequest
      * @param  ClientRegisterRequest $clientRequest
@@ -154,23 +156,25 @@ class RegisterController extends Controller
 
         $user = User::create($userRequest->all());
 
-        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
+        $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
-        $response = $client->create($user->id, 'client', url('/'), false, true);
+        $client = $client->create($user->id, 'client', url('/'), true, false);
+
+        DB::table('oauth_personal_access_clients')->insert([
+            'client_id' => $client->id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $token = Auth::user()->createToken('client');
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
 
-        $response = (new http())->post(route('issueToken'), [
-            'form_params' => [
-                'grant_type' => 'password',
-                'username' => $email,
-                'password' => $uuid,
-                'client_id' => $response->id,
-                'client_secret' => $response->secret,
-            ],
-        ]);
-
-        return ok(json_decode((string) $response->getBody(), true));
+        return ok([
+                'token_type'   => 'Bearer',
+                'access_token' => $token->accessToken,
+                'expires_at'   => $token->token->get(['expires_at'])[0]->expires_at,
+            ]);
     }
 
     /**
