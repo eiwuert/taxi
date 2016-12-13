@@ -96,10 +96,6 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
-		// DEPRECATE
-		Route::get('location/{id}', 'LocationController@get')
-			 ->name('getLocation');
-
 		Route::group(['prefix' => 'car'], function() {
 			// DEPRECATE
 			Route::post('register', 'CarController@register')
