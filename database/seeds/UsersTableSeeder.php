@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         factory(App\User::class, 5)->create();
 
-        factory(App\User::class, 50000)
+        factory(App\User::class, 100)
         	->states('driver')
         	->create()
             ->each(function ($u) {
@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 $u->car()->save(factory(App\Car::class)->make());
             });
 
-        factory(App\User::class, 200000)
+        factory(App\User::class, 100)
             ->states('client')
             ->create()
             ->each(function ($u) {
