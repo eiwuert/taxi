@@ -78,6 +78,9 @@ $factory->define(App\Car::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Location::class, function (Faker\Generator $faker) {
     $location = fakerLocation();
+
+    // SET LOCATION NAME
+    /*
     $name = \GoogleMaps::load('geocoding')
                       ->setParamByKey('latlng', $location['lat'] . ',' . $location['long'])
                       ->setParamByKey('mode', 'driving')
@@ -85,6 +88,8 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
                       ->setParamByKey('traffic_model', 'best_guess')
                       ->get('results.formatted_address');
     (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : $name ='';
+    */
+   $name = 'NOT SET';
 
     return [
         'latitude'  => $location['lat'],

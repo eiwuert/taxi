@@ -17,7 +17,7 @@ class CreateLocationsTable extends Migration
             $table->increments('id');
             $table->decimal('latitude', 8, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')
