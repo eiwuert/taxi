@@ -93,14 +93,6 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::get('offline', 'DriverController@offline')
 			 ->name('goOffline');
 
-		// DEPRECATE
-		Route::get('onway', 'DriverController@onway')
-			 ->name('goOnway');
-
-		// DEPRECATE
-		Route::get('available', 'DriverController@available')
-			 ->name('goAvailable');
-
 		Route::post('location', 'LocationController@set')
 			 ->name('setLocation');
 
