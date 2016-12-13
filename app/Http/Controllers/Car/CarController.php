@@ -19,16 +19,6 @@ class CarController extends Controller
      */
     public function info(Car $car)
     {
-    	$car = [];
-    	foreach(User::where('phone', Auth::user()->phone)->get() as $user) {
-    		if (! $user->car()->get()->isEmpty())
-    			$car = $user->car()->get();
-
-    	if (empty($car))
-    		return fail([
-    				'title'  => 'No car',
-    				'detail' => 'you donnot have registered car',
-    			]);
-    	}
+        return ok(Auth::user()->car()->get(), 200, [], false);
     }
 }
