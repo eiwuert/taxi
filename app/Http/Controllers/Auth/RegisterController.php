@@ -98,28 +98,21 @@ class RegisterController extends Controller
      * @param  UserRegisterRequest   $userRequest 
      * @param  DriverRegisterRequest $driverRequest
      * @param  ClientRepository      $client
-     * @return JSON
+     * @return json
      */
     public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest)
     {
-        $uuid = Uuid::generate(1)->string;
-        $userRequest['role']     = 'driver';
-        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
-        $userRequest['uuid']     = $uuid;
-        $userRequest['password'] = $uuid;
-        $userRequest['email']    = $email;
+        // Create new driver
+        $driver = $this->newDriver($userRequest, $driverRequest);
 
-        $user = User::create($userRequest->all());
+        // Revoke other access tokens for this driver
+        $this->revokeOtherAccessTokens($userRequest->phone, $driver->user_id);
+        
+        // Genrate new access token
+        $token = $this->newPersonalAccessToken($driver->id, 'driver');
 
-        Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
-
-        $client = $client->create($user->id, 'driver', url('/'), true, false);
-
-        event(new UserRegistered(Auth::loginUsingId($user->id)));
-
-        $this->revokeOtherAccessTokens($userRequest->phone, $user->id);
-
-        $token = $this->newPersonalAccessToken($client->id, 'driver');
+        // Fire user register listeners
+        event(new UserRegistered(Auth::loginUsingId($driver->user_id)));
 
         return ok([
                 'token_type'   => 'Bearer',
@@ -245,5 +238,27 @@ class RegisterController extends Controller
         $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
         return $this->client->create($user->id, 'client', url('/'), true, false);
+    }
+
+    /**
+     * Create new driver.
+     * @param  App\Http\Request\UserRegisterRequest $userRequest
+     * @param  App\Http\Request\ClientRegisterRequest $clientRequest
+     * @return \Laravel\Passport\ClientRepository
+     */
+    private function newDriver($userRequest, $driverRequest)
+    {
+        $uuid = Uuid::generate(1)->string;
+        $userRequest['role']     = 'driver';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $userRequest['uuid']     = $uuid;
+        $userRequest['password'] = $uuid;
+        $userRequest['email']    = $email;
+
+        $user = User::create($userRequest->all());
+
+        Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
+
+        return $this->client->create($user->id, 'driver', url('/'), true, false);
     }
 }
