@@ -225,6 +225,12 @@ class RegisterController extends Controller
         return Auth::user()->createToken($tokenName);
     }
 
+    /**
+     * Create new client.
+     * @param  App\Http\Request\UserRegisterRequest $userRequest
+     * @param  App\Http\Request\ClientRegisterRequest $clientRequest
+     * @return \Laravel\Passport\ClientRepository
+     */
     private function newClient($userRequest, $clientRequest)
     {
         $uuid = Uuid::generate(1)->string;
