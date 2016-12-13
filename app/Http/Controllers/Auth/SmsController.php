@@ -7,6 +7,7 @@ use Gate;
 use App\Sms;
 use App\User;
 use Carbon\Carbon;
+use App\Events\UserVerified;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
 use App\Http\Requests\SmsRequest;
@@ -33,6 +34,7 @@ class SmsController extends Controller
 
     	if ($sms->count()) {
     		if ($sms->first()->code == $request->code) {
+                event(new UserVerified(Auth::user()));
                 $this->verifyUser();
     			return ok([
     						'content' => 'Phone verified successfuly'
