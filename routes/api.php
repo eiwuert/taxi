@@ -104,25 +104,21 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::get('profile', 'ProfileController@get')
 			 ->name('getDriverProfile');
 
-		// DEPRECATE
-		Route::post('profile', 'ProfileController@update')
-			 ->name('updateDriverProfile');
-
 		Route::group(['middleware' => 'online'], function() {
-			Route::get('cancel', 'TripController@cancel')
-				 ->name('driverCancelTrip');
-
 			Route::get('accept', 'TripController@accept')
 				 ->name('driverAcceptTrip');
-
-			Route::get('start', 'TripController@start')
-				 ->name('driverStartTrip');
 
 			Route::get('arrived', 'TripController@arrived')
 				 ->name('driverArrived');
 
+			Route::get('start', 'TripController@start')
+				 ->name('driverStartTrip');
+
 			Route::get('end', 'TripController@end')
 				 ->name('driverEndTrip');
+
+			Route::get('cancel', 'TripController@cancel')
+				 ->name('driverCancelTrip');
 
 			Route::get('trip', 'TripController@trip')
 				 ->name('currentTrip');
