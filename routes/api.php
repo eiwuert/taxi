@@ -31,18 +31,6 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@client')
 		 ->name('registerClient');
 
-	// DEPRECATE
-	Route::post('register/social', 'Auth\RegisterController@socialClient')
-		 ->name('registerClientSocial');
-
-	// DEPRECATE
-	Route::post('login', 'Auth\LoginController@loginUser')
-		 ->name('loginClient');
-
-	// DEPRECATE
-	Route::post('login/social', 'Auth\LoginController@loginSocial')
-		 ->name('loginClientSocial');
-
 	Route::post('verify', 'SmsController@verify')
 		 ->name('verifyUser')
 		 ->middleware('auth:api', 'role:client');
@@ -97,10 +85,6 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@driver')
 		 ->name('registerDriver');
-
-	// DEPRECATE
-	Route::post('login', 'Auth\LoginController@loginUser')
-		 ->name('loginDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'hasCar', 'approved', 'verified']], function() {
 		Route::get('online', 'DriverController@online')
