@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trip;
 
 use DB;
 use Auth;
@@ -19,6 +19,7 @@ use App\Http\Requests\TripRequest;
 use App\Http\Requests\NearbyRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
+use App\Http\Controllers\Controller;
 
 class TripController extends Controller
 {

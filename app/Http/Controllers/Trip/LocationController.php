@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trip;
 
 use Auth;
 use GoogleMaps;
 use App\Location;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LocationRequest;
 
 class LocationController extends Controller

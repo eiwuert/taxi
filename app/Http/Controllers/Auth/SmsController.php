@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Gate;
@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
 use App\Http\Requests\SmsRequest;
+use App\Http\Controllers\Controller;
 
 class SmsController extends Controller
 {

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Trip;
 
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use \Laravel\Passport\ClientRepository;
 

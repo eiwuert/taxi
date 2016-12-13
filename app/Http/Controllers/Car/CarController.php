@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Car;
 
 use Auth;
 use App\Car;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\CarRequest;
+use App\Http\Controllers\Controller;
 
 class CarController extends Controller
 {

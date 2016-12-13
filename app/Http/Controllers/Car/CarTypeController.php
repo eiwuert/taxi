@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Car;
 
 use App\CarType;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CarTypeController extends Controller
 {
@@ -14,16 +15,6 @@ class CarTypeController extends Controller
 	 */
     public function all()
     {
-    	return ok([CarType::all()]);
-    }
-
-    /**
-     * Search car types.
-     * @param  string $term
-     * @return json
-     */
-    public function search($term)
-    {
-    	return ok([CarType::search($term)->get()]);
+    	return ok(CarType::all(), 200, [], false);
     }
 }
