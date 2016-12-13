@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
         	->create()
             ->each(function ($u) {
                 $u->driver()->save(factory(App\Driver::class)->make());
-                $u->locations()->save(factory(App\Location::class)->make());
+                for ($i = 0; $i <= 100; $i++)
+                    $u->locations()->save(factory(App\Location::class)->make());
                 $u->car()->save(factory(App\Car::class)->make());
             });
 
@@ -27,7 +28,8 @@ class UsersTableSeeder extends Seeder
             ->create()
             ->each(function ($u) {
                 $u->client()->save(factory(App\Client::class)->make());
-                $u->locations()->save(factory(App\Location::class)->make());
+                for ($i = 0; $i <= 100; $i++)
+                    $u->locations()->save(factory(App\Location::class)->make());
             });
     }
 }
