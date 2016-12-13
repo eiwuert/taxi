@@ -65,24 +65,12 @@ class ProfileController extends Controller
     			], 400);
     	}
 
-   		if ($this->type == 'client') {
-			Client::where('user_id', Auth::user()->id)
-				->first()
-				->fill($profileRequest->all())
-				->save();
-			return $this->get($profileRequest);
-		} elseif ($this->type == 'driver') {
-			Driver::where('user_id', Auth::user()->id)
-				->first()
-				->fill($profileRequest->all())
-				->save();
-			return $this->get($profileRequest);
-		} else {
-		    return fail([
-		            'title'  => 'Undefined type.',
-		            'detail' => 'You are using undefined type, please contact your adminstrator.'
-		        ], 400);
-		}
+		Client::where('user_id', Auth::user()->id)
+			->first()
+			->fill($profileRequest->all())
+			->save();
+
+		return $this->get($profileRequest);
     }
 
     /**

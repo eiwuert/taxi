@@ -19,14 +19,4 @@ class LocationController extends Controller
     {
         return ok([setLocation($request->lat, $request->long, 'TEST')]);
     }
-
-    /**
-     * Get location for given id.
-     * @param  Location $location
-     * @return json
-     */
-    public function get(Location $location)
-    {
-    	return ok([$location->get()]);
-    }
 }

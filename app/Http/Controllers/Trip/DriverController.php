@@ -11,56 +11,6 @@ use \Laravel\Passport\ClientRepository;
 
 class DriverController extends Controller
 {
-	/**
-	 * Create a new driver.
-     *
-     * @param  UserRequest $userRequest
-     * @param  RegisterRequest $registerRequest
-     * @param  ClientRepository $client
-	 * @return json
-	 */
-    public function register(UserRequest $userRequest, RegisterRequest $registerRequest, ClientRepository $client)
-    {
-        // Failure will handle with UserRequest
-        $user = User::create($userRequest->all());
-
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->driver()->create($registerRequest->all());
-
-        // Create password grant client
-        $response = $client->create($user->id, 'driver', url('/'), false, true);
-
-    	return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
-        ]);
-    }
-
-    /**
-     * Login drive.
-     * 
-     * @param  UserRequest
-     * @param  ClientRepository
-     * @return json
-     */
-    public function login(Request $request, ClientRepository $client)
-    {
-        if (Auth::attempt($request->all())) {
-            // A user can have multiple user secrets and ids
-            $response = $client->forUser(Auth::user()->id)[0];
-
-            return ok([
-                    'client_secret' => $response->secret,
-                    'client_id'     => $response->id,
-                ]);
-        } else {
-            return fail([
-                    'title'  => 'User credentials is not valid.',
-                    'detail' => 'You have entered email and password that can not be authenticated.'
-                ], 401);
-        }
-    }
-
     /**
      * Driver online
      *
@@ -121,6 +71,7 @@ class DriverController extends Controller
     /**
      * Driver onway
      *
+     * NOT USED
      * Make a driver onway, when a driver goes onway his/her availability will
      * set to false while he/she is still online An approved drvier can go 
      * to onway mode.
@@ -143,6 +94,7 @@ class DriverController extends Controller
     /**
      * Driver available
      *
+     * NOT USED
      * Make a driver available, when a driver goes available his/her availability 
      * will set to true while he/she is still online An approved drvier can go 
      * to available mode.
