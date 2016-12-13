@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Car;
 
 use Auth;
 use App\Car;
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\CarRequest;
@@ -18,6 +19,16 @@ class CarController extends Controller
      */
     public function info(Car $car)
     {
-    	return Auth::user()->car()->get();
+    	$car = [];
+    	foreach(User::where('phone', Auth::user()->phone)->get() as $user) {
+    		if (! $user->car()->get()->isEmpty())
+    			$car = $user->car()->get();
+
+    	if (empty($car))
+    		return fail([
+    				'title'  => 'No car',
+    				'detail' => 'you donnot have registered car',
+    			]);
+    	}
     }
 }

@@ -35,13 +35,14 @@ class HasCar
      */
     public function handle($request, Closure $next)
     {
-        if (! is_null($this->auth->user()->car()->first())) {
-            return $next($request);
-        } else {
-            return fail([
+        foreach(User::where('phone', $this->auth->user()->phone)->get() as $user) {
+            if (! $user->car()->get()->isEmpty()) {
+                return $next($request);
+            } else {
+                return fail([
                     'title'  => 'No car',
                     'detail' => 'You should contact your area car center to register your car.'
                 ], 401);
-        }
+            }
     }
 }
