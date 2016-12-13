@@ -150,39 +150,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Client social registraion
-     *
-     * Initial step for client to register, using phone no. as the primary param
-     * for login and validation. phone must be unique among all registered 
-     * clients.
-     * 
-     * @param  ClientRegisterSocialRequest    $socialRequest
-     * @param  RegisterRequest  $registerRequest
-     * @param  ClientRepository $client
-     * @return json
-     */
-    public function socialClient(ClientRegisterSocialRequest $socialRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
-    {
-        $socialRequest['role']  = 'client';
-        $socialRequest['email'] = $socialRequest['role'] . '_' . $socialRequest['phone'] . '@saamtaxi.com';
-        $socialRequest['password'] = $socialRequest->social_id;
-
-        // Failure will handle with UserRequest
-        $user = User::create($socialRequest->all());
-
-        // Failure will handle with RegisterRequest
-        Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
-
-        // Create password grant client
-        $response = $client->create($user->id, 'client', url('/'), false, true);
-
-        return ok([
-            'client_secret' => $response->secret,
-            'client_id'     => $response->id,
-        ]);
-    }
-
-    /**
      * Revoke other access tokens of given phone number and keep his/her current
      * access token functinal.
      * @param  string $phone
