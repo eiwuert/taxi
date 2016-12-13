@@ -11,7 +11,6 @@ use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
 use \Laravel\Passport\Passport;
-use \GuzzleHttp\Client as http;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use \Laravel\Passport\ClientRepository;
@@ -45,13 +44,21 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
+     * New client repository instance.
+     *
+     * @var  string
+     */
+    private $client;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ClientRepository $client)
     {
         $this->middleware('guest');
+        $this->client = $client;
     }
 
     /**
@@ -93,7 +100,7 @@ class RegisterController extends Controller
      * @param  ClientRepository      $client
      * @return JSON
      */
-    public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest, ClientRepository $client)
+    public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest)
     {
         $uuid = Uuid::generate(1)->string;
         $userRequest['role']     = 'driver';
@@ -110,22 +117,9 @@ class RegisterController extends Controller
 
         event(new UserRegistered(Auth::loginUsingId($user->id)));
 
-        $toRevoke = user::wherePhone($userRequest->phone)
-                        ->select('id')
-                        ->where('id', '<>', $user->id)
-                        ->get(['id']);
+        $this->revokeOtherAccessTokens($userRequest->phone, $user->id);
 
-        DB::table('oauth_access_tokens')
-            ->whereIn('user_id', $toRevoke->flatten())
-            ->update(['revoked' => true]);
-
-        DB::table('oauth_personal_access_clients')->insert([
-            'client_id' => $client->id,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        $token = Auth::user()->createToken('client');
+        $token = $this->newPersonalAccessToken($client->id, 'driver');
 
         return ok([
                 'token_type'   => 'Bearer',
@@ -140,35 +134,20 @@ class RegisterController extends Controller
      * Initial step for client to register, using phone no. as the primary param
      * for login and validation. 
      *
-     * @param  UserRegisterRequest $userRequest
-     * @param  ClientRegisterRequest $clientRequest
-     * @param  ClientRepository $client
+     * @param  App\Http\Request\UserRegisterRequest $userRequest
+     * @param  App\Http\Request\ClientRegisterRequest $clientRequest
      * @return json
      */
-    public function client(UserRegisterRequest $userRequest, ClientRegisterRequest $clientRequest, ClientRepository $client)
+    public function client(UserRegisterRequest $userRequest, ClientRegisterRequest $clientRequest)
     {
-        $uuid = Uuid::generate(1)->string;
-        $userRequest['role']     = 'client';
-        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
-        $userRequest['uuid']     = $uuid;
-        $userRequest['password'] = $uuid;
-        $userRequest['email']    = $email;
+        // Create new client
+        $client = $this->newClient($userRequest, $clientRequest);
 
-        $user = User::create($userRequest->all());
+        // Genrate new access token
+        $token = $this->newPersonalAccessToken($client->id, 'driver');
 
-        $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
-
-        $client = $client->create($user->id, 'client', url('/'), true, false);
-
-        DB::table('oauth_personal_access_clients')->insert([
-            'client_id' => $client->id,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-
-        $token = Auth::user()->createToken('client');
-
-        event(new UserRegistered(Auth::loginUsingId($user->id)));
+        // Fire user register listeners
+        event(new UserRegistered(Auth::loginUsingId($client->user_id)));
 
         return ok([
                 'token_type'   => 'Bearer',
@@ -208,5 +187,57 @@ class RegisterController extends Controller
             'client_secret' => $response->secret,
             'client_id'     => $response->id,
         ]);
+    }
+
+    /**
+     * Revoke other access tokens of given phone number and keep his/her current
+     * access token functinal.
+     * @param  string $phone
+     * @param  intger $currentUserId
+     * @return bool
+     */
+    private function revokeOtherAccessTokens($phone, $currentUserId)
+    {
+        $toRevoke = user::wherePhone($phone)
+                        ->select('id')
+                        ->where('id', '<>', $currentUserId)
+                        ->get(['id']);
+
+        DB::table('oauth_access_tokens')
+            ->whereIn('user_id', $toRevoke->flatten())
+            ->update(['revoked' => true]);
+    }
+
+    /**
+     * Create new personal access token for given client id.
+     * @param  integer $clientId
+     * @param  string $tokenName
+     * @return array
+     */
+    private function newPersonalAccessToken($clientId, $tokenName)
+    {
+        DB::table('oauth_personal_access_clients')->insert([
+            'client_id'  => $clientId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return Auth::user()->createToken($tokenName);
+    }
+
+    private function newClient($userRequest, $clientRequest)
+    {
+        $uuid = Uuid::generate(1)->string;
+        $userRequest['role']     = 'client';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $userRequest['uuid']     = $uuid;
+        $userRequest['password'] = $uuid;
+        $userRequest['email']    = $email;
+
+        $user = User::create($userRequest->all());
+
+        $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
+
+        return $this->client->create($user->id, 'client', url('/'), true, false);
     }
 }
