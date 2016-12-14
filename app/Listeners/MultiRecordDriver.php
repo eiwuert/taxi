@@ -45,14 +45,19 @@ class MultiRecordDriver
                 ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
-            $records = DB::table('drivers')
-                         ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten());
+            $count = DB::table('drivers')
+                         ->where('user_id', $event->user->id)->count();
 
-            if ($records->count() > 1) {
-                DB::table('drivers')->where('id', $records->orderBy('id', 'desc')->first()->id)
+            while ($count > 1) {
+                DB::table('drivers')
+                    ->where('id', DB::table('drivers')
+                                    ->where('user_id', $event->user->id)
+                                    ->orderBy('id', 'desc')
+                                    ->first()->id)
                     ->delete();
-            }
 
+                $count -= 1;
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Listeners;
 
+use DB;
+use App\User;
 use App\Events\UserVerified;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +28,22 @@ class MultiRecordClient
      */
     public function handle(UserVerified $event)
     {
-        //
+        DB::table('clients')
+            ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+            ->update(['user_id' => $event->user->id]);
+
+        $count = DB::table('clients')
+                     ->where('user_id', $event->user->id)->count();
+
+        while ($count > 1) {
+            DB::table('clients')
+                ->where('id', DB::table('clients')
+                                ->where('user_id', $event->user->id)
+                                ->orderBy('id', 'desc')
+                                ->first()->id)
+                ->delete();
+
+            $count -= 1;
+        }
     }
 }
