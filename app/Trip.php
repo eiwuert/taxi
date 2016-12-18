@@ -49,7 +49,7 @@ class Trip extends Model
      */
     public function status()
     {
-        return $this->hasOne('App\Status');
+        return $this->hasOne('App\Status', 'value', 'status_id');
     }
 
     /**
@@ -89,7 +89,7 @@ class Trip extends Model
      */
     public function rate()
     {
-        return $this->belongsTo('App\Rate');
+        return $this->hasOne('App\Rate');
     }
 
     /**

@@ -32,7 +32,7 @@ class IssueInvoice
     public function handle(RideAccepted $event)
     {
         $transaction = new TransactionLogic($event->type, $event->currency);
-        $invoice = $transaction->new($event->trip);
+        $invoice = $transaction->newTransaction($event->trip);
         $transaction = $event->trip->transaction()->create($invoice);
         DB::table('trips')->whereId($event->trip->id)
                           ->update(['transaction_id' => $transaction->id]);

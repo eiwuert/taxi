@@ -16,6 +16,19 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UserRegistered' => [
             'App\Listeners\SendSMSVerification',
         ],
+        'App\Events\RideAccepted' => [
+            'App\Listeners\IssueInvoice',
+        ],
+        'App\Events\TripEnded' => [
+            'App\Listeners\RateTrip',
+        ],
+        'App\Events\UserVerified' => [
+            'App\Listeners\MultiRecordClient',
+            'App\Listeners\MultiRecordDriver',
+        ],
+        'Laravel\Passport\Events\AccessTokenCreated' => [
+            'App\Listeners\RevokeOldTokens',
+        ],
     ];
 
     /**

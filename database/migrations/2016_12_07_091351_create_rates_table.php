@@ -17,6 +17,8 @@ class CreateRatesTable extends Migration
             $table->increments('id');
             $table->integer('client')->nullable();
             $table->integer('driver')->nullable();
+            $table->text('client_comment')->nullable();
+            $table->text('driver_comment')->nullable();
             $table->unsignedInteger('trip_id')->unique();
             $table->foreign('trip_id')
                   ->references('id')->on('trips')

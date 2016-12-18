@@ -54,6 +54,15 @@ class StatusTableSeeder extends Seeder
                 ], [
                     'name'  => 'driver_cancel_arrived_status',
                     'value' => 14,
+                ], [
+                    'name'  => 'driver_rated',
+                    'value' => 15,
+                ], [
+                    'name'  => 'client_rated',
+                    'value' => 16,
+                ], [
+                    'name'  => 'trip_is_over',
+                    'value' => 17,
                 ]
             ]);
     }

@@ -137,10 +137,10 @@ class RegisterController extends Controller
         $client = $this->newClient($userRequest, $clientRequest);
 
         // Genrate new access token
-        $token = $this->newPersonalAccessToken($client->id, 'driver');
+        $token = $this->newPersonalAccessToken($client['client']->id, 'driver');
 
         // Fire user register listeners
-        event(new UserRegistered(Auth::loginUsingId($client->user_id)));
+        event(new UserRegistered(Auth::loginUsingId($client['user']->id)));
 
         return ok([
                 'token_type'   => 'Bearer',
@@ -204,7 +204,10 @@ class RegisterController extends Controller
 
         $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
 
-        return $this->client->create($user->id, 'client', url('/'), true, false);
+        return [
+                'client' => $this->client->create($user->id, 'client', url('/'), true, false), 
+                'user'   => $user
+               ];
     }
 
     /**

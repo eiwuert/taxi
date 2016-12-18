@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Sms;
+use App\Rate;
+use App\Driver;
 use Carbon\Carbon;
 use App\Policies\SmsPolicy;
 use Laravel\Passport\Passport;
@@ -17,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Sms::class => SmsPolicy::class,
+        Sms::class  => SmsPolicy::class,
     ];
 
     /**
@@ -37,6 +39,24 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('verify', function ($user) {
             return $user->verified == false;
+        });
+
+        Gate::define('client', function ($user, $trip) {
+            return
+            (
+                (Driver::whereId($trip->driver_id)->first()->id === $trip->driver_id) &&
+                (is_null($trip->rate()->first()->client) ) && 
+                ( ($trip->status_id == 9) || ($trip->status_id == 15) )
+            );
+        });
+
+        Gate::define('driver', function ($user, $trip) {
+            return
+            (
+                (Driver::whereId($trip->driver_id)->first()->id === $trip->driver_id) &&
+                (is_null($trip->rate()->first()->driver) ) && 
+                ( ($trip->status_id == 9) || ($trip->status_id == 16) )
+            );
         });
     }
 }

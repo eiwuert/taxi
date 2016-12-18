@@ -36,7 +36,7 @@ class TransactionLogic
 	 * @param  App\Trip $trip
 	 * @return json
 	 */
-	public function new($trip)
+	public function newTransaction($trip)
 	{
 		$source   = $trip->source()->first();
 		$timezone = $this->timezone($source->latitude, $source->longitude);

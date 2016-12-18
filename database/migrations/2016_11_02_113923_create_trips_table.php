@@ -26,7 +26,7 @@ class CreateTripsTable extends Migration
                   ->onDelete('cascade');
             $table->unsignedInteger('status_id');
             $table->foreign('status_id')
-                  ->references('id')->on('status')
+                  ->references('value')->on('status')
                   ->onDelete('cascade');
             $table->unsignedInteger('source');
             $table->foreign('source')

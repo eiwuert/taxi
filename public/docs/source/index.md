@@ -1338,6 +1338,22 @@ type	| string | opional |
 }
 ```
 
+> Example response - cannot find distance
+
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip there!"
+        }
+    ]
+}
+
+```
+
 
 ## Nearby taxis
 
@@ -1862,6 +1878,140 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Fail",
             "detail": "You cannot got to this status from your current state",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+# Rate
+
+## Driver
+
+Rate of driver to client.
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/rate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/rate",
+    "method": "GET",
+    "data": {},
+    "headers": {
+    	"accept": "application/json",
+    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/rate`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Thanks for rating"
+        }
+    ]
+}
+```
+
+
+> Example response - Fail
+
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot rate",
+            "detail": "You cannot rate this trip",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+## Client
+
+Rate of client to driver.
+
+> Example request
+
+```bash
+curl "http://localhost/api/client/rate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/rate",
+    "method": "GET",
+    "data": {},
+    "headers": {
+    	"accept": "application/json",
+    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/client/rate`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Thanks for rating"
+        }
+    ]
+}
+```
+
+
+> Example response - Fail
+
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot rate",
+            "detail": "You cannot rate this trip",
             "status": 500
         }
     ]

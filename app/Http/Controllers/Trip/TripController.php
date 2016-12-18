@@ -36,7 +36,7 @@ class TripController extends Controller
         }
 
         if (is_null($tripRequest->type)) {
-            $tripRequest->currency = 'any';
+            $tripRequest->type = 'any';
         }
 
         $clientDeviceToken = Auth::user()->client()->first()->device_token;
@@ -49,12 +49,19 @@ class TripController extends Controller
         $source = setLocation($tripRequest->s_lat, $tripRequest->s_long);
         $destination = setLocation($tripRequest->d_lat, $tripRequest->d_long);
 
+        if (! @isset($matrix['duration']['text'])) {
+            return ok([
+                    'title'  => 'Not valid trip',
+                    'detail' => 'You cannot trip there!'
+                ]);
+        }
+
         // 
         // REQUEST_TAXI
         // 
         $trip_id = DB::table('trips')->insertGetId([
                         'client_id'       => Auth::user()->client()->first()->id,
-                        'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->id,
+                        'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
                         'source'          => $source->id,
                         'destination'     => $destination->id,
                         'eta_text'        => $matrix['duration']['text'],
@@ -91,6 +98,7 @@ class TripController extends Controller
                 'number'  => $car->number,
                 'color'  => $car->color,
                 'type'  => $carType->name,
+                'phone' => User::find($foundDriver->user_id)->phone,
             ];
 
             // 
@@ -98,7 +106,7 @@ class TripController extends Controller
             // 
             $trip->update([
                     'driver_id'              => $driver->id,
-                    'status_id'              => Status::where('name', 'client_found')->firstOrFail()->id,
+                    'status_id'              => Status::where('name', 'client_found')->firstOrFail()->value,
                     'etd_text'               => $driverToClient['duration']['text'],
                     'etd_value'              => $driverToClient['duration']['value'],
                     'driver_distance_text'   => $driverToClient['distance']['text'],
@@ -111,7 +119,7 @@ class TripController extends Controller
 
             dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $clientDeviceToken));
             dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driverDeviceToken));
-            event(new RideAccepted(Trip::whereId($trip_id)->first(), $tripRequest->type, $tripRequest->currency));
+            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest->currency));
 
             return ok([
                         'content'          => 'Trip request created successfully.',
@@ -129,7 +137,7 @@ class TripController extends Controller
             //  NO_DRIVER
             //  
             $trip->update([
-                    'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->id,
+                    'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->value,
                     'updated_at'             => Carbon::now(),
                 ]);
 
@@ -364,7 +372,7 @@ class TripController extends Controller
             dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'Trip started.',
-                    'detail' => 'Trip status changed from 2 to 6',
+                    'detail' => 'Trip status changed from 12 to 6',
                 ]);   
         } else {
             return fail([
@@ -390,8 +398,8 @@ class TripController extends Controller
                         'detail' => 'Not on an active trip right now',
                     ]);
             }
-            $driver = $trip->driver()->first();
-            $car = Car::whereUserId($trip->driver_id)->first();
+            $driver = Driver::where('id', $trip->first()->driver_id)->first();
+            $car = Car::whereUserId($driver->user_id)->first();
             $carType = $car->type()->first();
 
             return ok([
@@ -475,7 +483,7 @@ class TripController extends Controller
     private function updateStatus($trip, $name)
     {
         $trip->update([
-            'status_id' => Status::where('name', $name)->firstOrFail()->id,
+            'status_id' => Status::where('name', $name)->firstOrFail()->value,
         ]);
     }
 
@@ -502,13 +510,26 @@ class TripController extends Controller
     	 * @var QueryBuilder
     	 */
     	$pending = Auth::user()->client()->first()->trips()
-                              ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->id)
-                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->id)
-                              ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->id)
-                              ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->id)
-                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->id);
+                              ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->value);
 
-    	if ($pending->count()) {
+        $notRated = false;
+        // In case of first trip.
+        if (! is_null(Auth::user()->client()->first()->trips()->orderBy('id', 'desc')->first())) {
+            // A trip on TRIP_ENDED status can be rated.
+            if (Auth::user()->client()->first()
+                    ->trips()->orderBy('id', 'desc')->first()
+                    ->status_id == Status::where('name', 'trip_ended')->firstOrFail()->value){
+                $notRated = is_null(Auth::user()->client()->first()
+                                                ->trips()->orderBy('id', 'desc')->first()
+                                                ->rate()->first());
+            }
+        }
+
+    	if ($pending->count() || $notRated) {
     		return fail([
     				'title' => 'You have pending request',
     				'detail'=> 'Please address your pending trip request at first',

@@ -81,6 +81,10 @@ if (! function_exists('setLocation')) {
             (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
         }
 
+        if (@$name['status'] == 'ZERO_RESULTS') {
+            $name = 'NO RESULT';
+        }
+
         return \Auth::user()->locations()->create([
                     'latitude'  => $lat,
                     'longitude' => $long,

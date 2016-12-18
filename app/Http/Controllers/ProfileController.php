@@ -73,6 +73,11 @@ class ProfileController extends Controller
 		return $this->get($profileRequest);
     }
 
+    public function profile($image)
+    {
+    	dd($image);
+    }
+
     /**
      * Get appropriate user.
      * 

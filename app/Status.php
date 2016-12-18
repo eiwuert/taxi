@@ -30,6 +30,6 @@ class Status extends Model
      */
     public function trips()
     {
-        return $this->hasMany('App\Trip');
+        return $this->hasMany('App\Trip', 'status_id', 'value');
     }
 }
