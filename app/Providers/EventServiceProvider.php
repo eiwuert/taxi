@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\MultiRecordDriver',
         ],
         'Laravel\Passport\Events\AccessTokenCreated' => [
-            'App\Listeners\RevokeOldTokens',
+            /* */
         ],
     ];
 

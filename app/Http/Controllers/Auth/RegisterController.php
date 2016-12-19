@@ -140,7 +140,7 @@ class RegisterController extends Controller
         $token = $this->newPersonalAccessToken($client['client']->id, 'driver');
 
         // Fire user register listeners
-        event(new UserRegistered(Auth::loginUsingId($client['user']->id)));
+        event(new UserRegistered(Auth::loginUsingId($client['user']->user_id)));
 
         return ok([
                 'token_type'   => 'Bearer',
