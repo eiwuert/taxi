@@ -23,6 +23,14 @@ class SmsController extends Controller
 	 */
     public function verify(SmsRequest $request)
     {
+        if (Gate::denies('attempts', $this->getSMS())) {
+            //dd($this->getSMS()->first()->attempts);
+            return fail([
+                    'title'  => 'Exceed attempts tries',
+                    'detail' => 'You\'ve entered verification code wrong for too many times',
+                ]);            
+        }
+
         if (Gate::denies('verify')) {
             return fail([
                     'title'  => 'You are already verfied',
@@ -31,6 +39,7 @@ class SmsController extends Controller
         }
 
         $sms = $this->getSMS();
+        $sms->first()->increment('attempts');
 
     	if ($sms->count()) {
     		if ($sms->first()->code == $request->code) {

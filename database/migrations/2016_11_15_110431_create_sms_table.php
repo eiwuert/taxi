@@ -20,6 +20,7 @@ class CreateSmsTable extends Migration
                   ->references('id')->on('users')
                   ->onDelete('cascade');
             $table->unsignedInteger('code');
+            $table->unsignedInteger('attempts')->default(0);
             $table->timestamps();
         });
     }

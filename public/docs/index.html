@@ -386,6 +386,19 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
+<blockquote>
+<p>Example response - Too many attemps</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Exceed attempts tries",
+            "detail": "You've entered verification code wrong for too many times.",
+            "status": 500
+        }
+    ]
+}</code></pre>
 <h2>Driver</h2>
 <p>Verify registered driver</p>
 <blockquote>
@@ -1347,6 +1360,19 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
+<blockquote>
+<p>Example response - cannot find distance</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip there!"
+        }
+    ]
+}
+</code></pre>
 <h2>Nearby taxis</h2>
 <p>Find near by taxis</p>
 <blockquote>
@@ -1796,6 +1822,109 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Fail",
             "detail": "You cannot got to this status from your current state",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h1>Rate</h1>
+<h2>Driver</h2>
+<p>Rate of driver to client.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/rate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/rate",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/driver/rate</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Thanks for rating"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot rate",
+            "detail": "You cannot rate this trip",
+            "status": 500
+        }
+    ]
+}
+</code></pre>
+<h2>Client</h2>
+<p>Rate of client to driver.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/client/rate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/rate",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/client/rate</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Thanks for rating"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You cannot rate",
+            "detail": "You cannot rate this trip",
             "status": 500
         }
     ]

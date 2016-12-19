@@ -315,6 +315,21 @@ Parameter | Type | Status | Description
 }
 ```
 
+> Example response - Too many attemps
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Exceed attempts tries",
+            "detail": "You've entered verification code wrong for too many times.",
+            "status": 500
+        }
+    ]
+}
+```
+
 ## Driver
 
 Verify registered driver

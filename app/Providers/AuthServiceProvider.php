@@ -41,6 +41,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->verified == false;
         });
 
+        Gate::define('attempts', function ($user, $sms) {
+            return $sms->first()->attempts <= 3;
+        });
+
         Gate::define('client', function ($user, $trip) {
             return
             (
