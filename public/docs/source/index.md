@@ -2249,6 +2249,123 @@ $.ajax(settings).done(function (response) {
 
 ##client
 
+History of driver trips.
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/history" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/history",
+    "method": "GET",
+    "data": {},
+    "headers": {
+    	"accept": "application/json",
+    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/history`
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        [
+            {
+                "status_id": 17,
+                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
+                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
+                "eta_value": "1175",
+                "eta_text": "20 mins",
+                "distance_value": "16734",
+                "distance_text": "16.7 km",
+                "etd_value": "615",
+                "etd_text": "10 mins",
+                "driver_location": "TEST",
+                "driver_distance_value": "5668",
+                "driver_distance_text": "5.7 km",
+                "status_name": "trip_is_over",
+                "transaction": [
+                    {
+                        "entry": "2",
+                        "distance": "16734",
+                        "per_distance": "0.7",
+                        "distance_unit": "kilometer",
+                        "distance_value": "11.7",
+                        "time": "1175",
+                        "per_time": "0.3",
+                        "time_unit": "minute",
+                        "time_value": "5.9",
+                        "surcharge": "1",
+                        "currency": "USD",
+                        "timezone": "Asia/Tehran",
+                        "total": "19.6"
+                    }
+                ],
+                "rate": []
+            },
+            {
+                "status_id": 17,
+                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
+                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
+                "eta_value": "1175",
+                "eta_text": "20 mins",
+                "distance_value": "16734",
+                "distance_text": "16.7 km",
+                "etd_value": "615",
+                "etd_text": "10 mins",
+                "driver_location": "TEST",
+                "driver_distance_value": "5668",
+                "driver_distance_text": "5.7 km",
+                "status_name": "trip_is_over",
+                "transaction": [
+                    {
+                        "entry": "2",
+                        "distance": "16734",
+                        "per_distance": "0.7",
+                        "distance_unit": "kilometer",
+                        "distance_value": "11.7",
+                        "time": "1175",
+                        "per_time": "0.3",
+                        "time_unit": "minute",
+                        "time_value": "5.9",
+                        "surcharge": "1",
+                        "currency": "USD",
+                        "timezone": "Asia/Tehran",
+                        "total": "19.6"
+                    }
+                ],
+                "rate": [
+                    {
+                        "client": 1,
+                        "client_comment": "I could be dead in this fucking taxi"
+                    }
+                ]
+            }
+        ]
+    ]
+}
+```
+
 
 # Middlewares
 ##Authenticate
