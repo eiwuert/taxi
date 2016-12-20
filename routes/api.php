@@ -84,6 +84,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		Route::get('profile', 'ProfileController@get')
 			 ->name('getDriverProfile');
 
+		Route::get('history', 'Trip\HistoryController@driver')
+			 ->name('driverHistory');
+
 		Route::group(['middleware' => 'online'], function() {
 			Route::get('accept', 'Trip\TripController@accept')
 				 ->name('driverAcceptTrip');
@@ -105,9 +108,6 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 			Route::post('rate', 'Trip\RateController@driver')
 				 ->name('driverRate');
-
-			Route::get('history', 'Trip\HistoryController@driver')
-				 ->name('driverHistory');
 		});
 	});
 
