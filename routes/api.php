@@ -55,6 +55,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
 		Route::post('rate', 'Trip\RateController@client')
 			 ->name('clientRate');
+
+		Route::get('history', 'Trip\HistoryController@client')
+			 ->name('clientHistory');
 	});
 });
 
@@ -102,6 +105,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 
 			Route::post('rate', 'Trip\RateController@driver')
 				 ->name('driverRate');
+
+			Route::get('history', 'Trip\HistoryController@driver')
+				 ->name('driverHistory');
 		});
 	});
 
