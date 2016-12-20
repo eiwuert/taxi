@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
@@ -43,7 +44,9 @@ class CheckRole
                 ], 401);
         }
 
-        if ($role == 'client' && ! is_null($this->auth->guard('api')->user()->client()->first())) {
+        if ($role == 'client' && ! is_null(User::wherePhone($this->auth->guard('api')->user()->phone)
+                                                ->orderBy('id', 'desc')
+                                                ->first()->client()->first())) {
             return $next($request);
         } elseif ($role == 'driver' && ! is_null($this->auth->guard('api')->user()->driver()->first())) {
             return $next($request);

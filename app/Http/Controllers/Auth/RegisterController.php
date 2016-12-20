@@ -105,9 +105,6 @@ class RegisterController extends Controller
         // Create new driver
         $driver = $this->newDriver($userRequest, $driverRequest);
 
-        // Revoke other access tokens for this driver
-        $this->revokeOtherAccessTokens($userRequest->phone, $driver->user_id);
-        
         // Genrate new access token
         $token = $this->newPersonalAccessToken($driver->id, 'driver');
 
@@ -137,7 +134,7 @@ class RegisterController extends Controller
         $client = $this->newClient($userRequest, $clientRequest);
 
         // Genrate new access token
-        $token = $this->newPersonalAccessToken($client['client']->id, 'driver');
+        $token = $this->newPersonalAccessToken($client['client']->id, 'client');
 
         // Fire user register listeners
         event(new UserRegistered(Auth::loginUsingId($client['user']->user_id)));
@@ -147,25 +144,6 @@ class RegisterController extends Controller
                 'access_token' => $token->accessToken,
                 'expires_at'   => $token->token->get(['expires_at'])[0]->expires_at,
             ]);
-    }
-
-    /**
-     * Revoke other access tokens of given phone number and keep his/her current
-     * access token functinal.
-     * @param  string $phone
-     * @param  intger $currentUserId
-     * @return bool
-     */
-    private function revokeOtherAccessTokens($phone, $currentUserId)
-    {
-        $toRevoke = user::wherePhone($phone)
-                        ->select('id')
-                        ->where('id', '<>', $currentUserId)
-                        ->get(['id']);
-
-        DB::table('oauth_access_tokens')
-            ->whereIn('user_id', $toRevoke->flatten())
-            ->update(['revoked' => true]);
     }
 
     /**
