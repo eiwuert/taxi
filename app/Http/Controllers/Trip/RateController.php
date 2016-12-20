@@ -21,7 +21,8 @@ class RateController extends Controller
     public function client(RateRequest $request)
     {
 		if (Gate::allows('client', Auth::user()->client()->first()->trips()->orderBy('id', 'desc')->first())) {
-			$this->rateOfClient($request->stars);
+
+			$this->rateOfClient($request->stars, $request->comment);
 
 			$this->postRatingProcessing(Auth::user()->client()->first()
 													 ->trips()->orderBy('id', 'desc')
@@ -46,7 +47,8 @@ class RateController extends Controller
     public function driver(RateRequest $request)
     {
 		if (Gate::allows('driver', Auth::user()->driver()->first()->trips()->orderBy('id', 'desc')->first())) {
-			$this->rateOfDriver($request->stars);
+
+			$this->rateOfDriver($request->stars, $request->comment);
 
 			$this->postRatingProcessing(Auth::user()->driver()->first()
 													 ->trips()->orderBy('id', 'desc')
@@ -82,9 +84,10 @@ class RateController extends Controller
     /**
      * Update rate of client.
      * @param  integer $stars
+     * @param  text $comment
      * @return void
      */
-    private function rateOfClient($stars)
+    private function rateOfClient($stars, $comment)
     {
     	// Update rate
 		DB::table('rates')->where('trip_id', Auth::user()->client()->first()
@@ -92,6 +95,7 @@ class RateController extends Controller
 												 ->first()->id)
 			->update([
 					'client'  => $stars,
+					'client_comment' => $comment,
 				]);
 
 		// Update trip status
@@ -106,15 +110,17 @@ class RateController extends Controller
     /**
      * Update rate of driver.
      * @param  integer $stars
+     * @param  text $comment
      * @return void
      */
-    private function rateOfDriver($stars)
+    private function rateOfDriver($stars, $comment)
     {
 		DB::table('rates')->where('trip_id', Auth::user()->driver()->first()
 												 ->trips()->orderBy('id', 'desc')
 												 ->first()->id)
 			->update([
 					'driver'  => $stars,
+					'driver_comment' => $comment,
 				]);
 
 		DB::table('trips')->where('id', Auth::user()->driver()->first()

@@ -1900,6 +1900,24 @@ $.ajax(settings).done(function (response) {
 
 ```
 
+> Example response - validation failed
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "comment": [
+                "The comment may not be greater than 5000 characters."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+```
+
 # Rate
 
 ## Driver
@@ -1936,6 +1954,14 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/driver/rate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+stars | numeric |  required  | in: `1,2,3,4,5`
+comment | text |  optional  | max: `5000`
+
     
 > Example response
 
@@ -1966,6 +1992,44 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+
+> Example response - validation failed
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "stars": [
+                "The stars must be a number.",
+                "The selected stars is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+```
+
+> Example response - validation failed
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "comment": [
+                "The comment may not be greater than 5000 characters."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
 ```
 
 ## Client
@@ -2002,6 +2066,14 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/client/rate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+stars | numeric |  required  | in: `1,2,3,4,5`
+comment | text |  optional  | max: `5000`
+
     
 > Example response
 
@@ -2032,6 +2104,25 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+> Example response - validation failed
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "stars": [
+                "The stars must be a number.",
+                "The selected stars is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
 ```
 
 

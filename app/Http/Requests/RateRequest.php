@@ -14,7 +14,8 @@ class RateRequest extends Request
     public function rules()
     {
         return [
-            'stars' => 'required|min:1|max:5',
+            'stars' => 'required|numeric|in:1,2,3,4,5',
+            'comment' => 'max:5000',
         ];
     }
 }

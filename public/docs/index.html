@@ -1827,6 +1827,22 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<blockquote>
+<p>Example response - validation failed</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "comment": [
+                "The comment may not be greater than 5000 characters."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
 <h1>Rate</h1>
 <h2>Driver</h2>
 <p>Rate of driver to client.</p>
@@ -1854,6 +1870,31 @@ $.ajax(settings).done(function (response) {
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/driver/rate</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stars</td>
+<td>numeric</td>
+<td>required</td>
+<td>in: <code>1,2,3,4,5</code></td>
+</tr>
+<tr>
+<td>comment</td>
+<td>text</td>
+<td>optional</td>
+<td>max: <code>5000</code></td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1879,6 +1920,39 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<blockquote>
+<p>Example response - validation failed</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "stars": [
+                "The stars must be a number.",
+                "The selected stars is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - validation failed</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "comment": [
+                "The comment may not be greater than 5000 characters."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
 <h2>Client</h2>
 <p>Rate of client to driver.</p>
 <blockquote>
@@ -1905,6 +1979,31 @@ $.ajax(settings).done(function (response) {
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/client/rate</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stars</td>
+<td>numeric</td>
+<td>required</td>
+<td>in: <code>1,2,3,4,5</code></td>
+</tr>
+<tr>
+<td>comment</td>
+<td>text</td>
+<td>optional</td>
+<td>max: <code>5000</code></td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1930,6 +2029,23 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<blockquote>
+<p>Example response - validation failed</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "stars": [
+                "The stars must be a number.",
+                "The selected stars is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
 <h1>Middlewares</h1>
 <h2>Authenticate</h2>
 <p>Authorize the access token for countinue using protected routes. Given on <code>Authorization</code> header.</p>
