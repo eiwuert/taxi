@@ -129,5 +129,9 @@ class RateController extends Controller
 			->update([
 					'status_id' => Status::where('name', 'driver_rated')->first()->value,					
 				]);
+
+		$driver = Auth::user()->driver()->first();
+		$driver->available = true;
+        $driver->save();
     }
 }

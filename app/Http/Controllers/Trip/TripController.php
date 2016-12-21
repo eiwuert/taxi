@@ -39,7 +39,9 @@ class TripController extends Controller
             $tripRequest->type = 'any';
         }
 
-        $clientDeviceToken = Auth::user()->client()->first()->device_token;
+        $clientDeviceToken = User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
             dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
     		return $pending;
@@ -60,7 +62,9 @@ class TripController extends Controller
         // REQUEST_TAXI
         // 
         $trip_id = DB::table('trips')->insertGetId([
-                        'client_id'       => Auth::user()->client()->first()->id,
+                        'client_id'       => User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first()->id,
                         'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
                         'source'          => $source->id,
                         'destination'     => $destination->id,
@@ -184,7 +188,9 @@ class TripController extends Controller
     public function cancel()
     {
         if (Auth::user()->role == 'client') {
-            $client = Auth::user()->client()->first();
+            $client = User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first();
             $trip   = $client->trips()->orderBy('id', 'desc')->first();
             $driver = Driver::whereId($trip->driver_id)->first();
             $status = $trip->status_id;
@@ -390,7 +396,9 @@ class TripController extends Controller
     public function trip()
     {
         if (Auth::user()->role == 'client') {
-            $client = Auth::user()->client()->first();
+            $client = User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first();
             $trip = $client->trips()->orderBy('id', 'desc')->first();
             if ($this->notOnTrip($trip)) {
                 return fail([
@@ -436,7 +444,6 @@ class TripController extends Controller
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         if ($trip->status_id == 6) {
             $this->updateStatus($trip, 'trip_ended');
-            $this->updateDriverAvailability($driver, true);
             dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
             event(new TripEnded($trip));
             return ok([
@@ -509,7 +516,9 @@ class TripController extends Controller
     	 * @todo add more state for pending request
     	 * @var QueryBuilder
     	 */
-    	$pending = Auth::user()->client()->first()->trips()
+    	$pending = User::wherePhone(Auth::user()->phone)
+                              ->orderBy('id', 'desc')
+                              ->first()->client()->first()->trips()
                               ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->value)
                               ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
                               ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->value)
