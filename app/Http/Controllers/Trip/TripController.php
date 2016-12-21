@@ -514,22 +514,11 @@ class TripController extends Controller
                               ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
                               ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->value)
                               ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->value);
+                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'trip_ended')->firstOrFail()->value)
+                              ->orWhere('status_id', Status::where('name', 'driver_rated')->firstOrFail()->value);
 
-        $notRated = false;
-        // In case of first trip.
-        if (! is_null(Auth::user()->client()->first()->trips()->orderBy('id', 'desc')->first())) {
-            // A trip on TRIP_ENDED status can be rated.
-            if (Auth::user()->client()->first()
-                    ->trips()->orderBy('id', 'desc')->first()
-                    ->status_id == Status::where('name', 'trip_ended')->firstOrFail()->value){
-                $notRated = is_null(Auth::user()->client()->first()
-                                                ->trips()->orderBy('id', 'desc')->first()
-                                                ->rate()->first());
-            }
-        }
-
-    	if ($pending->count() || $notRated) {
+    	if ($pending->count()) {
     		return fail([
     				'title' => 'You have pending request',
     				'detail'=> 'Please address your pending trip request at first',
