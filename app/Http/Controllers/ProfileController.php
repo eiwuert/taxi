@@ -86,7 +86,9 @@ class ProfileController extends Controller
     private function user()
     {
 		if ($this->type == 'client') {
-			return $this->user = Auth::user()->client();
+			return $this->user = User::wherePhone(Auth::user()->phone)
+		                            ->orderBy('id', 'desc')
+		                            ->first()->client()->first();
 		} elseif ($this->type == 'driver') {
 			return $this->user = Auth::user()->driver();
 		} else {

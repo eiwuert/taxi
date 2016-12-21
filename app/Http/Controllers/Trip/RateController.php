@@ -20,13 +20,17 @@ class RateController extends Controller
 	 */
     public function client(RateRequest $request)
     {
-		if (Gate::allows('client', Auth::user()->client()->first()->trips()->orderBy('id', 'desc')->first())) {
+		if (Gate::allows('client', User::wherePhone(Auth::user()->phone)
+		                            ->orderBy('id', 'desc')
+		                            ->first()->client()->first()->trips()->orderBy('id', 'desc')->first())) {
 
 			$this->rateOfClient($request->stars, $request->comment);
 
-			$this->postRatingProcessing(Auth::user()->client()->first()
-													 ->trips()->orderBy('id', 'desc')
-													 ->first());
+			$this->postRatingProcessing(User::wherePhone(Auth::user()->phone)
+							                        ->orderBy('id', 'desc')
+							                        ->first()->client()->first()
+													->trips()->orderBy('id', 'desc')
+													->first());
 
 			return ok([
 						'title' => 'Thanks for rating',
@@ -90,7 +94,9 @@ class RateController extends Controller
     private function rateOfClient($stars, $comment)
     {
     	// Update rate
-		DB::table('rates')->where('trip_id', Auth::user()->client()->first()
+		DB::table('rates')->where('trip_id', User::wherePhone(Auth::user()->phone)
+												 ->orderBy('id', 'desc')
+												 ->first()->client()->first()
 												 ->trips()->orderBy('id', 'desc')
 												 ->first()->id)
 			->update([
@@ -99,7 +105,9 @@ class RateController extends Controller
 				]);
 
 		// Update trip status
-		DB::table('trips')->where('id', Auth::user()->client()->first()
+		DB::table('trips')->where('id', User::wherePhone(Auth::user()->phone)
+					                             ->orderBy('id', 'desc')
+					                             ->first()->client()->first()
 												 ->trips()->orderBy('id', 'desc')
 												 ->first()->id)
 			->update([
