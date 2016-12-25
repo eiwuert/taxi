@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Auth;
+use App\User;
 use App\Http\Requests\Request;
+use Illuminate\Validation\Rule;
 
 class ProfileRequest extends Request
 {
@@ -16,7 +19,14 @@ class ProfileRequest extends Request
         return [
             'first_name'   => 'max:255',
             'last_name'    => 'max:255',
-            'email'        => 'email|unique:clients,email|min:6|max:255',
+            'email'        => [
+                    Rule::unique('clients')->ignore(User::wherePhone(Auth::user()->phone)
+                                    ->orderBy('id', 'desc')
+                                    ->first()->client()->first()->email, 'email'),
+                    'min:6',
+                    'max:255',
+                    'email'
+                ],
             'gender'       => 'in:male,female,not specified',
             'address'      => 'min:3',
             'state'        => 'min:2|max:255',

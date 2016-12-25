@@ -20,13 +20,6 @@ class ProfileController extends Controller
 	private $type;
 
 	/**
-	 * User instance.
-	 * 
-	 * @var App\User
-	 */
-	private $user;
-
-	/**
 	 * Constructor function
 	 *
 	 * @param  Request $request
@@ -43,9 +36,9 @@ class ProfileController extends Controller
 	 * @param  Request $request
 	 * @return json
 	 */
-    public function get(Request $request)
+    public function get()
     {
-    	return ok($this->user()->first());
+    	return ok($this->user());
     }
 
     /**
@@ -65,17 +58,13 @@ class ProfileController extends Controller
     			], 400);
     	}
 
-		Client::where('user_id', Auth::user()->id)
-			->first()
+		User::wherePhone(Auth::user()->phone)
+            ->orderBy('id', 'desc')
+            ->first()->client()->first()
 			->fill($profileRequest->all())
 			->save();
 
 		return $this->get($profileRequest);
-    }
-
-    public function profile($image)
-    {
-    	dd($image);
     }
 
     /**
@@ -86,11 +75,16 @@ class ProfileController extends Controller
     private function user()
     {
 		if ($this->type == 'client') {
-			return $this->user = User::wherePhone(Auth::user()->phone)
+			$client = User::wherePhone(Auth::user()->phone)
 		                            ->orderBy('id', 'desc')
 		                            ->first()->client()->first();
+			$client = $client->toArray();
+			$client['phone'] = Auth::user()->phone;
+		    return $client;
 		} elseif ($this->type == 'driver') {
-			return $this->user = Auth::user()->driver();
+			$driver = Auth::user()->driver()->first()->toArray();
+			$driver['phone'] = Auth::user()->phone;
+			return $driver;
 		} else {
 		    return fail([
 		            'title'  => 'Undefined type.',
