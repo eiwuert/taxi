@@ -2388,6 +2388,23 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h1>Errors</h1>
+<h2>404</h2>
+<p>Requested route is not registered within the app.</p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Not found",
+            "detail": "Requested route not found",
+            "status": 404
+        }
+    ]
+}
+</code></pre>
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

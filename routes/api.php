@@ -119,3 +119,10 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		 ->name('resendSMS')
 		 ->middleware('auth:api', 'role:driver');
 });
+
+Route::any('{any}', function() {
+	return fail([
+			'title'  => 'Not found',
+			'detail' => 'Requested route not found',
+		], 404);
+})->where('any', '.*');

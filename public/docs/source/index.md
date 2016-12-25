@@ -2506,3 +2506,23 @@ Check if the current driver has a registered car.
 }
 
 ```
+
+#Errors
+##404
+Requested route is not registered within the app.
+
+> Example response
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not found",
+            "detail": "Requested route not found",
+            "status": 404
+        }
+    ]
+}
+
+```
