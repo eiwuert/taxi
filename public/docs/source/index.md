@@ -897,6 +897,7 @@ $.ajax(settings).done(function (response) {
             "id": 209,
             "first_name": null,
             "last_name": null,
+            "email": null,
             "gender": "not specified",
             "device_token": "kjflaj",
             "device_type": "ios",
@@ -951,7 +952,32 @@ $.ajax(settings).done(function (response) {
 > Example response:
 
 ```json
-null
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "first_name": null,
+            "last_name": null,
+            "email": null,
+            "gender": "not specified",
+            "device_token": "kjlfajl",
+            "device_type": "ios",
+            "online": false,
+            "approve": false,
+            "available": false,
+            "lang": "fa",
+            "address": null,
+            "state": "esfahan",
+            "country": "iran",
+            "zipcode": null,
+            "picture": "no-profile.png",
+            "user_id": 3,
+            "created_at": "2016-12-25 11:46:36",
+            "updated_at": "2016-12-25 11:46:36"
+        }
+    ]
+}
 ```
 
 ### HTTP Request
@@ -970,6 +996,7 @@ curl "http://localhost/api/client/profile" \
 -H "Authorization: Bearer LONG_ACCESS_TOKEN" \
     -d "first_name"="et" \
     -d "last_name"="et" \
+    -d "email"="et" \
     -d "gender"="male" \
     -d "lang"="fa" \
     -d "address"="et" \
@@ -989,6 +1016,7 @@ var settings = {
     "data": {
         "first_name": "et",
         "last_name": "et",
+        "email": "et",
         "gender": "male",
         "lang": "fa",
         "address": "et",
@@ -1018,6 +1046,7 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     first_name | string |  optional  | Maximum: `255`
     last_name | string |  optional  | Maximum: `255`
+    email | email | optional | Maximum: `255`, Minimum: `6`, `unique`
     gender | string |  optional  | `male`, `female` or `not specified`
     address | string |  optional  | Minimum: `3`
     state | string |  optional  | Minimum: `2` Maximum: `255`
@@ -1033,11 +1062,12 @@ Parameter | Type | Status | Description
     "success": true,
     "data": [
         {
-            "id": 209,
-            "first_name": "amirmasoud",
+            "id": 1,
+            "first_name": null,
             "last_name": null,
+            "email": null,
             "gender": "not specified",
-            "device_token": "kjflaj",
+            "device_token": "kjlfajl",
             "device_type": "ios",
             "lock": false,
             "lang": "fa",
@@ -1046,9 +1076,9 @@ Parameter | Type | Status | Description
             "country": null,
             "zipcode": null,
             "picture": "no-profile.png",
-            "user_id": 416,
-            "created_at": "2016-12-10 22:07:01",
-            "updated_at": "2016-12-11 00:28:30"
+            "user_id": 1,
+            "created_at": "2016-12-25 11:43:19",
+            "updated_at": "2016-12-25 11:43:19"
         }
     ]
 }

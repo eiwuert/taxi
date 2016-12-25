@@ -17,6 +17,7 @@ class CreateDriversTable extends Migration
             $table->increments('id');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->enum('gender', ['male', 'female', 'not specified'])->default('not specified');
             $table->string('device_token')->nullable();
             $table->enum('device_type', ['web', 'android', 'ios'])->default('web');
