@@ -132,6 +132,10 @@ class Driver extends Model
      */
     public function getPictureAttribute($picture)
     {
-        return asset($picture);
+        if ($picture != 'no-profile.png') {
+            return asset($picture);
+        } else {
+            return $picture;
+        }
     }
 }
