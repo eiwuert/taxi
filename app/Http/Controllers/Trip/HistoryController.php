@@ -46,9 +46,15 @@ class HistoryController extends Controller
     private function formatDriverTrips($trips)
     {
         $trips->each(function($t) {
+            $source = Location::whereId($t->source)->first();
+            $destination = Location::whereId($t->destination)->first();
             $t->status_name = Status::whereValue($t->status_id)->first()->name;
-            $t->source = Location::whereId($t->source)->first()->name;
-            $t->destination = Location::whereId($t->destination)->first()->name;
+            $t->source = $source->name;
+            $t->s_lat  = $source->latitude;
+            $t->s_long = $source->longitude;
+            $t->destination = $destination->name;
+            $t->d_lat  = $destination->latitude;
+            $t->d_long = $destination->longitude;
             $t->driver_location = Location::whereId($t->driver_location)->first()->name;
             $t->transaction = Transaction::whereId($t->transaction_id)->get(['entry', 'distance', 'per_distance', 
                 'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
@@ -58,7 +64,6 @@ class HistoryController extends Controller
             unset($t->id, 
                   $t->driver_id, 
                   $t->client_id, 
-                  $t->created_at, 
                   $t->updated_at, 
                   $t->transaction_id,
                   $t->rate_id);
@@ -75,9 +80,15 @@ class HistoryController extends Controller
     private function formatClientTrips($trips)
     {
         $trips->each(function($t) {
+            $source = Location::whereId($t->source)->first();
+            $destination = Location::whereId($t->destination)->first();
             $t->status_name = Status::whereValue($t->status_id)->first()->name;
-            $t->source = Location::whereId($t->source)->first()->name;
-            $t->destination = Location::whereId($t->destination)->first()->name;
+            $t->source = $source->name;
+            $t->s_lat  = $source->latitude;
+            $t->s_long = $source->longitude;
+            $t->destination = $destination->name;
+            $t->d_lat  = $destination->latitude;
+            $t->d_long = $destination->longitude;
             $t->driver_location = Location::whereId($t->driver_location)->first()->name;
             $t->transaction = Transaction::whereId($t->transaction_id)->get(['entry', 'distance', 'per_distance', 
                 'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
@@ -87,7 +98,6 @@ class HistoryController extends Controller
             unset($t->id, 
                   $t->driver_id, 
                   $t->client_id, 
-                  $t->created_at, 
                   $t->updated_at, 
                   $t->transaction_id,
                   $t->rate_id);

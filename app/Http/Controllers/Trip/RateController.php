@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Trip;
 use DB;
 use Auth;
 use Gate;
+use App\User;
 use App\Trip;
 use App\Rate;
 use App\Status;

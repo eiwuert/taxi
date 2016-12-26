@@ -406,7 +406,7 @@ class TripController extends Controller
                         'detail' => 'Not on an active trip right now',
                     ]);
             }
-            $driver = Driver::where('id', $trip->first()->driver_id)->first();
+            $driver = Driver::where('id', $trip->driver_id)->first();
             $car = Car::whereUserId($driver->user_id)->first();
             $carType = $car->type()->first();
 
@@ -427,7 +427,7 @@ class TripController extends Controller
                     ]);
             }
             return ok([
-                    'client' => $trip->client()->first(),
+                    'client' => Client::whereId($trip->client_id)->first(),
                     'trip'   => $trip,
                     'status' => Status::whereId($trip->id),
                 ]);
