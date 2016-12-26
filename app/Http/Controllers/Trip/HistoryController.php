@@ -26,7 +26,7 @@ class HistoryController extends Controller
                                                 ->where('role', 'client')
                                                 ->get(['id']))->get(['id']);
 
-        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)->get()));
+        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)->get()), 200, [], false);
     }
 
     /**
@@ -35,7 +35,7 @@ class HistoryController extends Controller
      */
     public function driver()
     {
-        return ok($this->formatDriverTrips(Auth::user()->driver()->first()->trips()->get()));
+        return ok($this->formatDriverTrips(Auth::user()->driver()->first()->trips()->get()), 200, [], false);
     }
 
     /**
