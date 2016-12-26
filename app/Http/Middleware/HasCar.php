@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
@@ -35,14 +36,13 @@ class HasCar
      */
     public function handle($request, Closure $next)
     {
-        foreach(User::where('phone', $this->auth->user()->phone)->get() as $user) {
-            if (! $user->car()->get()->isEmpty()) {
-                return $next($request);
-            } else {
-                return fail([
-                    'title'  => 'No car',
-                    'detail' => 'You should contact your area car center to register your car.'
-                ], 401);
-            }
+        if (! Auth::user()->car()->get()->isEmpty()) {
+            return $next($request);
+        } else {
+            return fail([
+                'title'  => 'No car',
+                'detail' => 'You should contact your area car center to register your car.'
+            ], 401);
+        }
     }
 }
