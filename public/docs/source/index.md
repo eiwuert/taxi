@@ -2216,6 +2216,11 @@ $.ajax(settings).done(function (response) {
                 "driver_distance_value": "5668",
                 "driver_distance_text": "5.7 km",
                 "status_name": "trip_is_over",
+                "s_lat": "35.712562",
+	             "s_long": "51.334494",
+	             "d_lat": "35.790818",
+	             "d_long": "51.416043",
+                "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
                         "entry": "2",
@@ -2280,12 +2285,12 @@ $.ajax(settings).done(function (response) {
 
 ##client
 
-History of driver trips.
+History of client trips.
 
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/history" \
+curl "http://localhost/api/client/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer LONG_ACCESS_TOKEN" \
 
@@ -2295,7 +2300,7 @@ curl "http://localhost/api/driver/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/history",
+    "url": "http://localhost/api/client/history",
     "method": "GET",
     "data": {},
     "headers": {
@@ -2311,7 +2316,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/history`
+`GET api/client/history`
 
     
 > Example response
@@ -2367,6 +2372,11 @@ $.ajax(settings).done(function (response) {
                 "driver_distance_value": "5668",
                 "driver_distance_text": "5.7 km",
                 "status_name": "trip_is_over",
+                "s_lat": "35.712562",
+	            "s_long": "51.334494",
+	            "d_lat": "35.790818",
+	            "d_long": "51.416043",
+                "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
                         "entry": "2",
