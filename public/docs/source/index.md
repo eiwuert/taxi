@@ -2202,7 +2202,6 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
-        [
             {
                 "status_id": 17,
                 "source": "استان تهران، تهران، بزرگراه چمران، ایران",
@@ -2274,7 +2273,6 @@ $.ajax(settings).done(function (response) {
                     }
                 ]
             }
-        ]
     ]
 }
 ```
@@ -2322,7 +2320,6 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
-        [
             {
                 "status_id": 17,
                 "source": "استان تهران، تهران، بزرگراه چمران، ایران",
@@ -2394,7 +2391,6 @@ $.ajax(settings).done(function (response) {
                     }
                 ]
             }
-        ]
     ]
 }
 ```
