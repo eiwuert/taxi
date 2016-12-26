@@ -54,6 +54,17 @@ class Client extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = $picture->store('public/profile/client');
+        $this->attributes['picture'] = $picture->store('public/storage/profile/client');
+    }
+
+    /**
+     * Get full path to profile picture url.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function getPictureAttribute($picture)
+    {
+        return asset($picture);
     }
 }

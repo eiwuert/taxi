@@ -121,6 +121,17 @@ class Driver extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = $picture->store('public/profile/driver');
+        $this->attributes['picture'] = $picture->store('public/storage/profile/driver');
+    }
+
+    /**
+     * Get full path to profile picture url.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function getPictureAttribute($picture)
+    {
+        return asset($picture);
     }
 }
