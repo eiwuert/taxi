@@ -2366,7 +2366,8 @@ $.ajax(settings).done(function (response) {
                         "total": "19.6"
                     }
                 ],
-                "rate": []
+                "rate": [],
+                "driver": []
             },
             {
                 "status_id": 17,
@@ -2404,6 +2405,33 @@ $.ajax(settings).done(function (response) {
                         "total": "19.6"
                     }
                 ],
+	            "driver": {
+	                "id": 1,
+	                "first_name": null,
+	                "last_name": null,
+	                "email": null,
+	                "gender": "not specified",
+	                "device_token": "kjlfajl",
+	                "device_type": "ios",
+	                "online": true,
+	                "approve": true,
+	                "available": true,
+	                "lang": "fa",
+	                "address": null,
+	                "state": "esfahan",
+	                "country": "iran",
+	                "zipcode": null,
+	                "picture": "no-profile.png",
+	                "user_id": 4,
+	                "created_at": "2016-12-25 11:46:36",
+	                "updated_at": "2016-12-27 08:14:17",
+	                "car": {
+	                    "number": "00000",
+	                    "color": "pink",
+	                    "type": "van"
+	                },
+	                "phone": "0987897582"
+	            }
                 "rate": [
                     {
                         "client": 1,

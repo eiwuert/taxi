@@ -30,19 +30,31 @@ class MultiRecordDriver
     {
         if ($event->user->role == 'driver') {
             DB::table('locations')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+                ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                        ->whereVerified(true)
+                                        ->where('role', 'driver')
+                                        ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
             DB::table('cars')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+                ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                        ->whereVerified(true)
+                                        ->where('role', 'driver')
+                                        ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
             DB::table('cars')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+                ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                        ->whereVerified(true)
+                                        ->where('role', 'driver')
+                                        ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
             DB::table('drivers')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+                ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                        ->whereVerified(true)
+                                        ->where('role', 'driver')
+                                        ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
             $count = DB::table('drivers')

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Trip;
 
 use Auth;
+use App\Car;
 use App\User;
 use App\Rate;
 use App\Trip;
 use App\Client;
+use App\Driver;
 use App\Status;
 use App\Location;
 use App\Transaction;
@@ -94,6 +96,22 @@ class HistoryController extends Controller
                 'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
                 'timezone', 'total']);
             $t->rate = Rate::whereId($t->rate_id)->get(['client', 'client_comment']);
+            if (! is_null($t->driver_id)) {
+                $driver = Driver::whereId($t->driver_id)->first();
+                $car = Car::whereUserId($driver->user_id)->first();
+                $carType = $car->type()->first();
+                unset($car->id, 
+                      $car->user_id, 
+                      $car->type_id, 
+                      $car->created_at, 
+                      $car->updated_at);
+                $t->driver = $driver;
+                $t->driver->car = $car;
+                $t->driver->car->type = $carType->name;
+                $t->driver->phone = User::whereId($driver->user_id)->first()->phone;
+            } else {
+                $t->driver = [];
+            }
 
             unset($t->id, 
                   $t->driver_id, 

@@ -29,7 +29,10 @@ class MultiRecordClient
     public function handle(UserVerified $event)
     {
         DB::table('clients')
-            ->whereIn('user_id', User::where('phone', $event->user->phone)->get(['id'])->flatten())
+            ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                    ->whereVerified(true)
+                                    ->where('role', 'client')
+                                    ->get(['id'])->flatten())
             ->update(['user_id' => $event->user->id]);
 
         $count = DB::table('clients')
