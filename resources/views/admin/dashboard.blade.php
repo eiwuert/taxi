@@ -2,11 +2,11 @@
 
 @section('header')
 Dashboard
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">Dashboard</li>
-@stop
+@endsection
 
 
 @section('content')
@@ -24,4 +24,4 @@ Dashboard
 		<info-box text='income' number='{{ $income }}' color='aqua' icon='ion-cash'></info-box>
 	</div>
 </div>
-@stop
+@endsection

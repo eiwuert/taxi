@@ -2,18 +2,18 @@
 
 @section('header')
 Dashboard
-@stop
+@endsection
 
 @section('desc')
 description
-@stop
+@endsection
 
 @section('breadcrumb')
 <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
 <li class="active">Here</li>
-@stop
+@endsection
 
 
 @section('content')
 content
-@stop
+@endsection

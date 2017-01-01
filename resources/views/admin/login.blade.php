@@ -31,6 +31,4 @@
         </div>
         <!-- /.login-box-body -->
     </div>
-    @stop
-    @section('footer')
-    @stop
+@endsection

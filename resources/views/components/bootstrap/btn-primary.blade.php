@@ -1,1 +1,1 @@
-<btn-primary add-class="{{ $addClass }}" text="{{ $text }}"></btn-primary>
+<btn-primary add-class="{{ isset($addClass) ? $addClass : '' }}" text="{{ $text }}"></btn-primary>

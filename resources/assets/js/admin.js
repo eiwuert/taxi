@@ -33,6 +33,11 @@ Vue.component(
     require('./components/bootstrap/btn-link.vue')
 );
 
+Vue.component(
+    'alert-success',
+    require('./components/bootstrap/alert-success.vue')
+);
+
 const app = new Vue({
     el: '#admin'
 });

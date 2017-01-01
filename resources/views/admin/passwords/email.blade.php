@@ -1,0 +1,24 @@
+@extends('admin.includes.page')
+@section('content')
+<body class="hold-transition login-page">
+    <div class="login-box" id="admin">
+        <div class="login-logo">
+            <a href="{{ url('/') }}"><b>SAAM</b>Taxi</a>
+            <p>Reset Password</p>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            @if (session('status'))
+            <alert-success text="{{ session('status') }}"></alert-success>
+            @endif
+            <form role="form" method="POST" action="{{ url('/password/email') }}">
+                {{ csrf_field() }}
+                @include('components.bootstrap.email')
+                @include('components.bootstrap.btn-primary', [
+                    'text' => 'Send Password Reset Link',
+                    'addClass' => 'btn-flat btn-block'])
+            </form>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+@endsection
