@@ -102,4 +102,19 @@ class Trip extends Model
     {
         return $query->where('created_at', '<', Carbon::now()->subMinute($minute)->toDateTimeString());
     }
+
+    /**
+     * Scope a query to count all finished trips.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFinishedCount($query)
+    {
+        // TRIP_ENDED
+        // DRIVER_RATED
+        // CLIENT_RATED
+        // TRIP_IS_OVER
+        return $query->whereIn('status_id', [9, 15, 16, 17])
+                     ->count();
+    }
 }
