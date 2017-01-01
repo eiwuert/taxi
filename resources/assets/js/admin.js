@@ -18,6 +18,21 @@ Vue.component(
     require('./components/bootstrap/Password.vue')
 );
 
+Vue.component(
+    'checkbox',
+    require('./components/bootstrap/checkbox.vue')
+);
+
+Vue.component(
+    'btn-primary',
+    require('./components/bootstrap/btn-primary.vue')
+);
+
+Vue.component(
+    'btn-link',
+    require('./components/bootstrap/btn-link.vue')
+);
+
 const app = new Vue({
     el: '#admin'
 });

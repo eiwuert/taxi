@@ -1,0 +1,1 @@
+<btn-primary add-class="{{ $addClass }}" text="{{ $text }}"></btn-primary>

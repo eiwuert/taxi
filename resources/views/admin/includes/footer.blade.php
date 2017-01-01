@@ -12,7 +12,7 @@
 <!-- ./wrapper -->
 
 <script src="{{ elixir('js/admin/admin.js') }}"></script>
-@yield('footer', '')
+@stack('js')
 
 </body>
 </html>

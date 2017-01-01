@@ -6,7 +6,7 @@
   <title>SAAMTaxi &bull; @yield('title', '')</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
-  @yield('style', '')
+  @stack('style')
 
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
