@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -113,5 +114,55 @@ class User extends Authenticatable
     public function sms()
     {
         return $this->hasMany('App\Sms');
+    }
+
+    /**
+     * Scope a query to get all verified clients.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVerifiedClients($query)
+    {
+        return $query->where('role', 'client')
+                     ->where('verified', true);
+    }
+
+    /**
+     * Scope a query to get all verified drivers.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVerifiedDrivers($query)
+    {
+        return $query->where('role', 'driver')
+                     ->where('verified', true);
+    }
+
+    /**
+     * Scope a query to count all verified clients.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeClientsCount($query)
+    {
+        return $query->select(['phone', 'verified'])
+                        ->distinct()
+                        ->verifiedClients()
+                        ->get()
+                        ->count();
+    }
+
+    /**
+     * Scope a query to count all verified drivers.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDriversCount($query)
+    {
+        return $query->select(['phone', 'verified'])
+                        ->distinct()
+                        ->verifiedDrivers()
+                        ->get()
+                        ->count();
     }
 }
