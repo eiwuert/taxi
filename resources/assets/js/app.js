@@ -33,6 +33,11 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+Vue.component(
+    'bs-input',
+    require('./components/bootstrap/input.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });

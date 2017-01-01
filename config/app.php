@@ -170,7 +170,9 @@ return [
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-        
+        Collective\Html\HtmlServiceProvider::class,
+        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -179,6 +181,7 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TransactionServiceProvider::class,
 
     ],
 
@@ -230,7 +233,8 @@ return [
         'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'HTML' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

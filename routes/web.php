@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+	Route::get('login', 'AuthController@form');
+	Route::post('login', 'AuthController@login');
+	Route::get('dashboard', 'DashboardController@index');
+	Route::resource('drivers', 'DriverController@index');
+});
+
 Route::get('/home', 'HomeController@index');
