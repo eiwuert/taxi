@@ -38,6 +38,11 @@ Vue.component(
     require('./components/bootstrap/alert-success.vue')
 );
 
+Vue.component(
+    'alert-danger',
+    require('./components/bootstrap/alert-danger.vue')
+);
+
 const app = new Vue({
     el: '#admin'
 });

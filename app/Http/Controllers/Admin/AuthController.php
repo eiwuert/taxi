@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Admin\LoginRequest;
 
 class AuthController extends Controller
@@ -13,7 +15,11 @@ class AuthController extends Controller
 	 */
     public function form()
     {
-    	return view('admin.login');
+        if (Auth::check()) {
+    	   return redirect(route('dashboard')); 
+        } else {
+           return view('admin.login'); 
+        }
     }
 
     /**
@@ -22,6 +28,17 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-    	
+        if (Auth::attempt(['password' => $request->password,
+                            'email' => $request->email,
+                            'verified' => true,
+                            'role' => 'web'])) {
+            return redirect()->intended(route('dashboard'));
+        } else {
+            /**
+             * @todo translate
+             */
+            return redirect()->back()
+                ->with('status', 'Check your credentials');
+        }
     }
 }

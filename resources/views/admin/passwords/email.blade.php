@@ -8,9 +8,7 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            @if (session('status'))
-            <alert-success text="{{ session('status') }}"></alert-success>
-            @endif
+            @include('components.bootstrap.success-status')
             <form role="form" method="POST" action="{{ url('/password/email') }}">
                 {{ csrf_field() }}
                 @include('components.bootstrap.email')

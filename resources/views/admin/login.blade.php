@@ -8,8 +8,8 @@
         <!-- /.login-logo -->
         <div class="login-box-body">
             <form action="{{ url('admin/login') }}" method="POST" role="form">
-                {{-- @include('admin.errors.form', ['errors' => $errors]) --}}
                 {{ csrf_field() }}
+                @include('components.bootstrap.danger-status')
                 @include('components.bootstrap.email')
                 @include('components.bootstrap.password')
                 <div class="row">
