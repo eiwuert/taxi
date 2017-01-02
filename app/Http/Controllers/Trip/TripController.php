@@ -43,7 +43,6 @@ class TripController extends Controller
                             ->orderBy('id', 'desc')
                             ->first()->client()->first()->device_token;
     	if ($pending = $this->pendingRequestTaxi()) {
-            dispatch(new SendClientNotification('Pending trips', 'You have pending trips', $clientDeviceToken));
     		return $pending;
         }
 
@@ -119,10 +118,10 @@ class TripController extends Controller
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            //$this->updateDriverAvailability($driver, false);
+            $this->updateDriverAvailability($driver, false);
 
-            dispatch(new SendClientNotification('Waiting for driver', 'We are searching for a driver', $clientDeviceToken));
-            dispatch(new SendDriverNotification('New trip request', 'There is a client waiting for trip', $driverDeviceToken));
+            dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
+            dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
             event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest->currency));
 
             return ok([
@@ -145,7 +144,7 @@ class TripController extends Controller
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('No driver', 'There is no driver available', $clientDeviceToken));
+            dispatch(new SendClientNotification('no_driver_found', '1', $clientDeviceToken));
 
             return fail([
                 'title'       => 'No driver available',
@@ -222,7 +221,7 @@ class TripController extends Controller
                 case '2':
                     $this->updateStatus($trip, 'cancel_request_taxi');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    dispatch(new SendDriverNotification('trip_cancelled_by_client', '1', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from 2 to 10',
@@ -235,7 +234,7 @@ class TripController extends Controller
                 case '7':
                     $this->updateStatus($trip, 'cancel_onway_driver');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    dispatch(new SendDriverNotification('client_cancelled_onway_driver', '2', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from 7 to 11',
@@ -246,9 +245,9 @@ class TripController extends Controller
                 // DRIVER_ARRIVED
                 //
                 case '12':
-                    $this->updateStatus($trip, 'client_canceled_arrived_cancel');
+                    $this->updateStatus($trip, 'client_canceled_arrived_driver');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendDriverNotification('Trip cancelled', 'Client cancelled the trip', Driver::whereId($trip->driver_id)->first()->device_token));
+                    dispatch(new SendDriverNotification('client_canceled_arrived_driver', '3', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from 12 to 13',
@@ -279,7 +278,7 @@ class TripController extends Controller
                 case '6':
                     $this->updateStatus($trip, 'driver_reject_started_trip');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendClientNotification('Trip cancelled', 'Driver cancelled the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    dispatch(new SendClientNotification('started_trip_cancelled_by_driver', '2', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from 6 to 8',
@@ -292,7 +291,7 @@ class TripController extends Controller
                 case '2':
                     $this->updateStatus($trip, 'reject_client_found');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendCLientNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    dispatch(new SendCLientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 2 to 4',
@@ -305,7 +304,7 @@ class TripController extends Controller
                 case '12':
                     $this->updateStatus($trip, 'driver_cancel_arrived_status');
                     $this->updateDriverAvailability($driver, true);
-                    dispatch(new SendCLientNotification('Trip rejected', 'Driver rejected the trip', Client::whereId($trip->client_id)->first()->device_token));
+                    dispatch(new SendCLientNotification('arrived_driver_cancelled_trip', '4', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 12 to 14',
@@ -341,7 +340,7 @@ class TripController extends Controller
         if ($trip->status_id == 2) {
             $this->updateStatus($trip, 'driver_onway');
             $this->updateDriverAvailability($driver, false);
-            dispatch(new SendClientNotification('Driver onway', 'Driver onway to you', Client::whereId($trip->client_id)->first()->device_token));
+            dispatch(new SendClientNotification('driver_onway', '5', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'You are onway.',
                     'detail' => 'Trip status changed from 2 to 7',
@@ -375,7 +374,7 @@ class TripController extends Controller
         if ($trip->status_id == 12) {
             $this->updateStatus($trip, 'trip_started');
             $this->updateDriverAvailability($driver, false);
-            dispatch(new SendClientNotification('Trip started', 'Trip started', Client::whereId($trip->client_id)->first()->device_token));
+            dispatch(new SendClientNotification('trip_started', '6', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'Trip started.',
                     'detail' => 'Trip status changed from 12 to 6',
@@ -444,7 +443,7 @@ class TripController extends Controller
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         if ($trip->status_id == 6) {
             $this->updateStatus($trip, 'trip_ended');
-            dispatch(new SendClientNotification('Trip ended', 'Trip ended', Client::whereId($trip->client_id)->first()->device_token));
+            dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($trip->client_id)->first()->device_token));
             event(new TripEnded($trip));
             return ok([
                     'title'  => 'Trip ended.',
@@ -468,7 +467,7 @@ class TripController extends Controller
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         if ($trip->status_id == 7) {
             $this->updateStatus($trip, 'driver_arrived');
-            dispatch(new SendClientNotification('Driver arrived', 'Driver arrived', Client::whereId($trip->client_id)->first()->device_token));
+            dispatch(new SendClientNotification('driver_arrived', '8', Client::whereId($trip->client_id)->first()->device_token));
             return ok([
                     'title'  => 'Waiting for client.',
                     'detail' => 'Trip status changed from 7 to 12.',

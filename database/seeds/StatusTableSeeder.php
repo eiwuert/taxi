@@ -49,7 +49,7 @@ class StatusTableSeeder extends Seeder
                     'name'  => 'driver_arrived',
                     'value' => 12,
                 ], [
-                    'name'  => 'client_canceled_arrived_cancel',
+                    'name'  => 'client_canceled_arrived_driver',
                     'value' => 13,
                 ], [
                     'name'  => 'driver_cancel_arrived_status',

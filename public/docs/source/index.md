@@ -6,6 +6,7 @@ language_tabs:
 - javascript
 
 includes:
+    - fcm
 
 search: true
 

@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function form()
     {
         if (Auth::check()) {
-    	   return redirect(route('dashboard')); 
+    	   return redirectg(route('dashboard')); 
         } else {
            return view('admin.login'); 
         }
