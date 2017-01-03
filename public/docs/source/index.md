@@ -1501,6 +1501,135 @@ limit | numeric |  min: `5`, max: `100`  |
 }
 ```
 
+## Current
+
+Current state of the client trip
+
+> Example request
+
+```bash
+curl "http://localhost/api/client/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/client/triip",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+    	"accept": "application/json",
+    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/client/trip`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "driver": {
+                "id": 1,
+                "first_name": null,
+                "last_name": null,
+                "email": null,
+                "gender": "not specified",
+                "device_token": "kjlfajl",
+                "device_type": "ios",
+                "online": true,
+                "approve": true,
+                "available": false,
+                "lang": "fa",
+                "address": null,
+                "state": "esfahan",
+                "country": "iran",
+                "zipcode": null,
+                "picture": "no-profile.png",
+                "user_id": 13,
+                "created_at": "2016-12-25 11:46:36",
+                "updated_at": "2017-01-03 10:27:28"
+            },
+            "trip": {
+                "id": 9,
+                "driver_id": 1,
+                "client_id": 3,
+                "status_id": 7,
+                "source": 18,
+                "destination": 19,
+                "eta_value": "1175",
+                "eta_text": "20 mins",
+                "distance_value": "16734",
+                "distance_text": "16.7 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_location": 13,
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m",
+                "created_at": "2017-01-03 10:27:27",
+                "updated_at": "2017-01-03 10:27:45",
+                "transaction_id": 4,
+                "rate_id": null
+            },
+            "status": {
+                "id": 7,
+                "name": "driver_onway",
+                "value": 7,
+                "created_at": null,
+                "updated_at": null
+            },
+            "car": {
+                "id": 0,
+                "number": "00000",
+                "color": "pink",
+                "user_id": 13,
+                "type_id": 2,
+                "created_at": "2016-12-26 15:28:40",
+                "updated_at": "2016-12-26 15:28:40"
+            },
+            "type": {
+                "id": 2,
+                "name": "van",
+                "created_at": "2016-12-25 11:41:41",
+                "updated_at": "2016-12-25 11:41:41"
+            }
+        }
+    ]
+}
+
+```
+
+> Example response - Not on an active trip
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not on trip",
+            "detail": "Not on an active trip right now",
+            "status": 500
+        }
+    ]
+}
+```
+
+
 ## Cancel taxi
 
 Cancel taxi by client
@@ -1568,6 +1697,7 @@ console.log(response);
 }
 
 ```
+
 
 # Trip - driver
 
@@ -1951,6 +2081,114 @@ $.ajax(settings).done(function (response) {
     ]
 }
 ```
+
+## Current
+
+Current state of driver trip
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/trip",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+    	"accept": "application/json",
+    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/driver/trip`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "client": {
+                "id": 3,
+                "first_name": null,
+                "last_name": null,
+                "email": null,
+                "gender": "not specified",
+                "device_token": "kjlfajl",
+                "device_type": "ios",
+                "lock": false,
+                "lang": "fa",
+                "address": null,
+                "state": null,
+                "country": null,
+                "zipcode": null,
+                "picture": "no-profile.png",
+                "user_id": 13,
+                "created_at": "2016-12-27 08:27:13",
+                "updated_at": "2016-12-27 08:27:13"
+            },
+            "trip": {
+                "id": 11,
+                "driver_id": 1,
+                "client_id": 3,
+                "status_id": 7,
+                "source": 22,
+                "destination": 23,
+                "eta_value": "1175",
+                "eta_text": "20 mins",
+                "distance_value": "16734",
+                "distance_text": "16.7 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_location": 13,
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m",
+                "created_at": "2017-01-03 10:40:22",
+                "updated_at": "2017-01-03 10:40:34",
+                "transaction_id": 5,
+                "rate_id": null
+            },
+            "status": {}
+        }
+    ]
+}
+
+```
+
+> Example response - Not on an active trip
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not on trip",
+            "detail": "Not on an active trip right now",
+            "status": 500
+        }
+    ]
+}
+
+```
+
+
 
 # Rate
 
