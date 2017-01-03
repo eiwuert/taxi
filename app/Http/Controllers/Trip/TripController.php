@@ -544,6 +544,10 @@ class TripController extends Controller
      */
     private function notOnTrip($trip)
     {
+        if (is_null($trip)) {
+            return true;
+        }
+
         if ($trip->status_id == 10 ||
             $trip->status_id == 5  ||
             $trip->status_id == 11 ||
