@@ -15,12 +15,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
-	Route::get('login', 'AuthController@form')
-        ->name('login');
-    Route::post('login', 'AuthController@login');
+Route::get('admin/login', 'Admin\AuthController@form')
+    ->name('login');
+Route::post('admin/login', 'Admin\AuthController@login');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 
+            'middleware' => ['auth', 'can:access', 'verified']], function() {
 	Route::get('dashboard', 'DashboardController@index')
         ->name('dashboard');
 	Route::resource('drivers', 'DriverController@index');

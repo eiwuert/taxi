@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Auth;
+use Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

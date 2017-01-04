@@ -62,5 +62,9 @@ class AuthServiceProvider extends ServiceProvider
                 ( ($trip->status_id == 9) || ($trip->status_id == 16) )
             );
         });
+
+        Gate::define('access', function ($user) {
+            return $user->role == 'web';
+        });
     }
 }

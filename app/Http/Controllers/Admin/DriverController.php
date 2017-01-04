@@ -15,7 +15,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::paginate(1);
+        $drivers = Driver::paginate(config('admin.perPage'));
         return view('admin.drivers.index', compact('drivers'));
     }
 
@@ -26,7 +26,8 @@ class DriverController extends Controller
      */
     public function create()
     {
-        //
+        // Driver cannot be registered through web application at current moment they should go and
+        // register through the mobile application.
     }
 
     /**
@@ -37,7 +38,7 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // No creation.
     }
 
     /**
@@ -46,9 +47,9 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Driver $driver)
     {
-        //
+        dd($driver);
     }
 
     /**

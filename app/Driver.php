@@ -94,6 +94,26 @@ class Driver extends Model
     }
 
     /**
+     * get driver state
+     */
+    public function state()
+    {
+        if ($this->online) {
+            return (object) ['color' => 'success',
+                            'name' => 'Online'];
+        } else if (! $this->approve) {
+            return (object) ['color' => 'danger',
+                            'name' => 'not approved'];
+        } else if ($this->online && ! $this->available) {
+            return (object) ['color' => 'primary',
+                            'name' => 'on-way'];
+        } else {
+            return (object) ['color' => 'warning',
+                            'name' => 'Offline'];
+        }
+    }
+
+    /**
      * A driver can have one user.
      * 
      * @return hasOne

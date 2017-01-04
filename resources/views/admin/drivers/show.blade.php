@@ -11,18 +11,10 @@ Drivers
 @endsection
 @section('content')
 <div class="row">
-  <div class="col-md-3">
-    <info-box text="Online" number="{{ $countOfOnlineDrivers }}" color="green" icon="ion-record"></info-box>
-  </div>
-  <div class="col-md-3">
-    <info-box text="On way" number="{{ $countOfOnWayDrivers }}" color="blue" icon="ion-record"></info-box>
-  </div>
-  <div class="col-md-3">
-    <info-box text="Inapproved" number="{{ $countOfInapproveDrivers }}" color="red" icon="ion-record"></info-box>
-  </div>
-  <div class="col-md-3">
-    <info-box text="Offline" number="{{ $countOfOfflineDrivers }}" color="orange" icon="ion-record"></info-box>
-  </div>
+  <div class="col-md-3"><info-box text="Online" number="{{ $countOfOnlineDrivers }}" color="green" icon="ion-record"></info-box></div>
+  <div class="col-md-3"><info-box text="On way" number="{{ $countOfOnWayDrivers }}" color="blue" icon="ion-record"></info-box></div>
+  <div class="col-md-3"><info-box text="Inapproved" number="{{ $countOfInapproveDrivers }}" color="red" icon="ion-record"></info-box></div>
+  <div class="col-md-3"><info-box text="Offline" number="{{ $countOfOfflineDrivers }}" color="orange" icon="ion-record"></info-box></div>
 </div>
 <div class="row">
   <div class="col-xs-12">
@@ -42,7 +34,6 @@ Drivers
       <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
           <tbody><tr>
-            <th></th>
             <th>first name</th>
             <th>last name</th>
             <th>status</th>
@@ -50,9 +41,7 @@ Drivers
             <th>country</th>
             <th></th>
           </tr>
-          @foreach($drivers as $driver)
           <tr>
-            <td>{{ HTML::image('img/' . $driver->picture, 'driver picture', ['class' => 'img-circle', 'width' => '24']) }}</td>
             <td>{{ $driver->first_name }}</td>
             <td>{{ $driver->last_name }}</td>
             <td><span class="label label-{{ $driver->state()->color }}">{{ $driver->state()->name }}</span></td>
@@ -67,7 +56,6 @@ Drivers
               <a href="#"><button class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Decline</button></a>
             </td>
           </tr>
-          @endforeach
         </tbody></table>
       </div>
       <!-- /.box-body -->
