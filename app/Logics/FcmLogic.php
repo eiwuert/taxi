@@ -2,6 +2,7 @@
 
 namespace App\Logics;
 
+use Log;
 use Auth;
 use GuzzleHttp\Client;
 
@@ -49,6 +50,7 @@ class FcmLogic
                 ],
             ]
         );
+        Log::info('FCM response: ', (array) $response);
         return $response;
 	}
 

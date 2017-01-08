@@ -23,11 +23,11 @@ class SmsController extends Controller
 	 */
     public function verify(SmsRequest $request)
     {
-        if (Gate::denies('attempts', $this->getSMS())) {
+        if (is_null($this->getSMS()->first())) {
             return fail([
-                    'title'  => 'Exceed attempts tries',
-                    'detail' => 'You\'ve entered verification code wrong for too many times',
-                ]);            
+                    'title'  => 'Please ask for verification again',
+                    'detail' => 'There is no active code for verifying this phone number.'
+                ]);
         }
 
         if (Gate::denies('verify')) {
@@ -35,6 +35,13 @@ class SmsController extends Controller
                     'title'  => 'You are already verfied',
                     'detail' => 'You are verfied, there is no need for verify again.'
                 ]);
+        }
+
+        if (Gate::denies('attempts', $this->getSMS())) {
+            return fail([
+                    'title'  => 'Exceed attempts tries',
+                    'detail' => 'You\'ve entered verification code wrong for too many times',
+                ]);            
         }
 
         $sms = $this->getSMS();
