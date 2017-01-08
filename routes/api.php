@@ -69,9 +69,6 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		 ->name('registerDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function() {
-		Route::get('fcm', function() {
-					dispatch(new \App\Jobs\SendDriverNotification('trip_cancelled_by_client', '1', \App\Driver::whereUserId(Auth::user()->id)->first()->device_token));
-				});
 		Route::get('online', 'Trip\DriverController@online')
 			 ->name('goOnline');
 
