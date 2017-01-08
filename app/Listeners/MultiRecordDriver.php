@@ -55,7 +55,7 @@ class MultiRecordDriver
                                         ->whereVerified(true)
                                         ->where('role', 'driver')
                                         ->get(['id'])->flatten())
-                ->update(['user_id' => $event->user->id]);
+                ->update(['user_id' => $event->user->id, 'device_token' => $event->user->device_token]);
 
             $count = DB::table('drivers')
                          ->where('user_id', $event->user->id)->count();
