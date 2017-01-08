@@ -16,6 +16,11 @@ use Illuminate\Http\Request;
 /**
  * Client Routes.
  */
+
+Route::get('fcm', function() {
+	return dispatch(new \App\Jobs\SendDriverNotification('test', 'test test', 'cVWr22bihRw:APA91bEFdsQvTcUMVDv77Tt-YJZHsWC4eHjj1WOJuy7g-2qOoeGjOPD8qNnvc4oE_aaxk9LXBnfZBZ53Jl_SYTJDCPl6upolKfY4SN5Mpw3uBhYVDkVObDrIzlFOkGrv3qv7a6WFDE2A'));
+});
+
 Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 	Route::post('register', 'Auth\RegisterController@client')
 		 ->name('registerClient');
