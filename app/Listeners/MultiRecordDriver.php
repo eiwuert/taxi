@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use DB;
 use App\User;
+use App\Driver;
 use App\Events\UserVerified;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,19 +44,12 @@ class MultiRecordDriver
                                         ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
-            DB::table('cars')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)
-                                        ->whereVerified(true)
-                                        ->where('role', 'driver')
-                                        ->get(['id'])->flatten())
-                ->update(['user_id' => $event->user->id]);
-
             DB::table('drivers')
                 ->whereIn('user_id', User::where('phone', $event->user->phone)
                                         ->whereVerified(true)
                                         ->where('role', 'driver')
                                         ->get(['id'])->flatten())
-                ->update(['user_id' => $event->user->id, 'device_token' => $event->user->device_token]);
+                ->update(['user_id' => $event->user->id, 'device_token' => Driver::whereUserId($event->user->id)->first()->device_token]);
 
             $count = DB::table('drivers')
                          ->where('user_id', $event->user->id)->count();
