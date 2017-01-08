@@ -120,7 +120,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		 ->middleware('auth:api', 'role:driver');
 
 	Route::get('fcm', function() {
-		dispatch(new \App\Jobs\SendDriverNotification('trip_cancelled_by_client', '1', \App\Driver::whereUserId(Auth::user()->id)));
+		dispatch(new \App\Jobs\SendDriverNotification('trip_cancelled_by_client', '1', \App\Driver::whereUserId(Auth::user()->id)->first()->device_token));
 	});
 });
 
