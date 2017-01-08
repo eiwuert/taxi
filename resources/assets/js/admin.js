@@ -43,6 +43,11 @@ Vue.component(
     require('./components/bootstrap/alert-danger.vue')
 );
 
+Vue.component(
+    'tag',
+    require('./components/bootstrap/tag.vue')
+);
+
 const app = new Vue({
     el: '#admin'
 });

@@ -53,15 +53,15 @@ Drivers
           @foreach($drivers as $driver)
           <tr>
             <td>{{ HTML::image('img/' . $driver->picture, 'driver picture', ['class' => 'img-circle', 'width' => '24']) }}</td>
-            <td>{{ $driver->first_name }}</td>
-            <td>{{ $driver->last_name }}</td>
-            <td><span class="label label-{{ $driver->state()->color }}">{{ $driver->state()->name }}</span></td>
+            <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
+            <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
+            <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
             <td>{{ $driver->state }}</td>
             <td>{{ $driver->country }}</td>
             <td>
               <a href="#"><button class="btn btn-primary btn-xs"><span class="fa fa-edit fa-fw"></span></button></a>
               <a href="#"><button class="btn btn-danger btn-xs"><span class="fa fa-trash fa-fw"></span></button></a>
-              <a href="{{ route('drivers.show', $driver->id) }}"><button class="btn btn-default btn-xs"><span class="fa fa-arrow-right fa-fw"></span></button></a>
+              <a href="{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}"><button class="btn btn-default btn-xs"><span class="fa fa-arrow-right fa-fw"></span></button></a>
               |
               <a href="#"><button class="btn btn-success btn-xs"><span class="fa fa-check"></span> Approve</button></a>
               <a href="#"><button class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Decline</button></a>

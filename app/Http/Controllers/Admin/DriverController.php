@@ -49,7 +49,7 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-        dd($driver);
+        return view('admin.drivers.show', compact('driver'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Rate;
 use Illuminate\Database\Eloquent\Model;
 
 class Driver extends Model
@@ -157,5 +158,40 @@ class Driver extends Model
         } else {
             return $picture;
         }
+    }
+
+    /**
+     * Count of trips that drivers had.
+     * @return numeric
+     */
+    public function countOfTrips()
+    {
+        return $this->trips()->count();
+    }
+
+    /**
+     * Get driver income
+     * @return numeric
+     */
+    public function income()
+    {
+        $income = 0;
+        $this->trips()->each(function ($t) use (& $income) {
+            $income += $t->transaction()->sum('total');
+        });
+        return number_format($income);
+    }
+
+    /**
+     * Get driver average rate
+     * @return float
+     */
+    public function rate()
+    {
+        $rate = Rate::whereIn('trip_id', $this->trips()
+                                            ->get(['id'])
+                                            ->flatten())
+                    ->avg('client');
+        return number_format($rate, 2);
     }
 }

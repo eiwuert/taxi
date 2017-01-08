@@ -647,7 +647,6 @@ Parameter | Type | Status | Description
 {
     "success": true,
     "data": [
-        [
             {
                 "latitude": "32.637724",
                 "longitude": "51.682108",
@@ -657,7 +656,6 @@ Parameter | Type | Status | Description
                 "created_at": "2016-12-10 22:26:25",
                 "id": 418
             }
-        ]
     ]
 }
 
@@ -736,7 +734,6 @@ Parameter | Type | Status | Description
 {
     "success": true,
     "data": [
-        [
             {
                 "latitude": "32.637724",
                 "longitude": "51.682108",
@@ -746,7 +743,6 @@ Parameter | Type | Status | Description
                 "created_at": "2016-12-10 22:26:25",
                 "id": 418
             }
-        ]
     ]
 }
 

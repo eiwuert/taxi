@@ -27,7 +27,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
             'middleware' => ['auth', 'can:access', 'verified']], function() {
 	Route::get('dashboard', 'DashboardController@index')
         ->name('dashboard');
-	Route::resource('drivers', 'DriverController@index');
+	Route::resource('drivers', 'DriverController');
 });
 
 Route::get('/home', 'HomeController@index');
