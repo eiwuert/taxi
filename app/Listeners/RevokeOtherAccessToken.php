@@ -11,16 +11,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class RevokeOtherAccessToken
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  UserVerified  $event
@@ -29,10 +19,22 @@ class RevokeOtherAccessToken
     public function handle(UserVerified $event)
     {
         if ($event->user->role == 'driver') {
+            // DRIVER
             $toRevoke = User::wherePhone($event->user->phone)
                             ->select('id')
                             ->where('id', '<>', $event->user->id)
                             ->where('role', 'driver')
+                            ->get(['id']);
+
+            DB::table('oauth_access_tokens')
+                ->whereIn('user_id', $toRevoke->flatten())
+                ->update(['revoked' => true]);
+        } else if ($event->user->role == 'client') {
+            // CLIENT
+            $toRevoke = User::wherePhone($event->user->phone)
+                            ->select('id')
+                            ->where('id', '<>', $event->user->id)
+                            ->where('role', 'client')
                             ->get(['id']);
 
             DB::table('oauth_access_tokens')
