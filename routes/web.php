@@ -10,6 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('hash', function() {
+    return \Hash::make(123456);
+});
 
 Route::get('/', function () {
     return view('welcome');

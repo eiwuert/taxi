@@ -1,3 +1,4 @@
+
 @extends('admin.includes.layout')
 
 @section('header')
@@ -21,7 +22,7 @@ Dashboard
 		<info-box text='trips' number='{{ $trips }}' color='aqua' icon='ion-android-navigate'></info-box>
 	</div>
 	<div class="col-md-3">
-		<info-box text='income' number='{{ $income }}' color='aqua' icon='ion-cash'></info-box>
+		<info-box text='income' number='{{ $income  }}' color='aqua' icon='ion-cash'></info-box>
 	</div>
 </div>
 @endsection
