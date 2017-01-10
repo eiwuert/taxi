@@ -59,12 +59,11 @@ Drivers
             <td>{{ $driver->state }}</td>
             <td>{{ $driver->country }}</td>
             <td>
-              <a href="#"><button class="btn btn-primary btn-xs"><span class="fa fa-edit fa-fw"></span></button></a>
-              <a href="#"><button class="btn btn-danger btn-xs"><span class="fa fa-trash fa-fw"></span></button></a>
-              <a href="{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}"><button class="btn btn-default btn-xs"><span class="fa fa-arrow-right fa-fw"></span></button></a>
-              |
-              <a href="#"><button class="btn btn-success btn-xs"><span class="fa fa-check"></span> Approve</button></a>
-              <a href="#"><button class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Decline</button></a>
+              <a href="{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}">
+                <button class="btn btn-default btn-xs">
+                  <span class="fa fa-arrow-right fa-fw"></span>
+                </button>
+              </a>
             </td>
           </tr>
           @endforeach

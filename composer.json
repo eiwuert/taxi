@@ -13,7 +13,8 @@
         "webpatser/laravel-uuid": "2.*",
         "guzzlehttp/guzzle": "^6.2",
         "laravelcollective/html": "dev-master",
-        "appzcoder/crud-generator": "^2.0"
+        "appzcoder/crud-generator": "^2.0",
+        "laracasts/flash": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

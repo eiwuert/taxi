@@ -34,7 +34,30 @@ Drivers
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <div class="row">
+                <div class="col-md-6 col-xs-12">
+                @include('admin.drivers.includes.delete', 
+                        ['driver' => $driver, 
+                        'addClass' => 'btn-block',
+                        'icon' => 'trash',
+                        'text' => 'Delete'])
+                </div>
+                <div class="col-md-6 col-xs-12">
+                @if ($driver->approve == true)
+                  @include('admin.drivers.includes.decline', 
+                        ['driver' => $driver, 
+                        'addClass' => 'btn-block',
+                        'icon' => 'times',
+                        'text' => 'Decline'])
+                @else
+                  @include('admin.drivers.includes.approve', 
+                        ['driver' => $driver, 
+                        'addClass' => 'btn-block',
+                        'icon' => 'check',
+                        'text' => 'Approve'])
+                @endif
+                </div>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>

@@ -78,11 +78,35 @@ class DriverController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Driver $driver
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Driver $driver)
     {
-        //
+        $driver->delete();
+        flash('Driver soft deleted', 'success');
+        return redirect(route('drivers.index'));
+    }
+
+    public function approve(Driver $driver)
+    {
+        $driver = Driver::whereId($driver->id)->firstOrFail();
+        $driver->approve = true;
+        $driver->online = false;
+        $driver->available = false;
+        $driver->update();
+        flash('Driver approved', 'success');
+        return redirect(route('drivers.index'));
+    }
+
+    public function decline(Driver $driver)
+    {
+        $driver = Driver::whereId($driver->id)->firstOrFail();
+        $driver->approve = false;
+        $driver->online = false;
+        $driver->available = false;
+        $driver->update();
+        flash('Driver declined', 'success');
+        return redirect(route('drivers.index'));
     }
 }

@@ -16,6 +16,7 @@
 
     <!-- Main content -->
     <section class="content">
+      @include('components.bootstrap.flash')
       @yield('content')
     </section>
   </div>

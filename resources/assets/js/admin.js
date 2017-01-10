@@ -29,6 +29,16 @@ Vue.component(
 );
 
 Vue.component(
+    'btn-danger',
+    require('./components/bootstrap/btn-danger.vue')
+);
+
+Vue.component(
+    'btn-success',
+    require('./components/bootstrap/btn-success.vue')
+);
+
+Vue.component(
     'btn-link',
     require('./components/bootstrap/btn-link.vue')
 );

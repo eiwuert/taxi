@@ -31,6 +31,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
 	Route::get('dashboard', 'DashboardController@index')
         ->name('dashboard');
 	Route::resource('drivers', 'DriverController');
+    Route::post('drivers/approve/{driver}', 'DriverController@approve');
+    Route::post('drivers/decline/{driver}', 'DriverController@decline');
 });
 
 Route::get('/home', 'HomeController@index');
