@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserVerified' => [
             'App\Listeners\MultiRecordClient',
+            'App\Listeners\CreateDriverCar',
             'App\Listeners\MultiRecordDriver',
             'App\Listeners\RevokeOtherAccessToken',
         ],

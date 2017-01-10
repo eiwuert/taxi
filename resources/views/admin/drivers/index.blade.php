@@ -53,11 +53,11 @@ Drivers
         <table class="table table-hover">
           <tbody><tr>
             <th></th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>status</th>
-            <th>state</th>
-            <th>country</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Status</th>
+            <th>State</th>
+            <th>Phone</th>
             <th></th>
           </tr>
           @foreach($drivers as $driver)
@@ -67,7 +67,7 @@ Drivers
             <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
             <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
             <td>{{ $driver->state }}</td>
-            <td>{{ $driver->country }}</td>
+            <td>{{ $driver->phoneNumber() }}</td>
             <td>
               <a href="{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}">
                 <button class="btn btn-default btn-xs">

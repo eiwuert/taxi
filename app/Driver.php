@@ -2,7 +2,11 @@
 
 namespace App;
 
+use App\Car;
+use App\User;
 use App\Rate;
+use App\CarType;
+use App\Location;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,6 +34,7 @@ class Driver extends Model
         'device_type',
         'lang',
         'state',
+        'email',
         'country',
         'address',
         'zipcode',
@@ -126,7 +131,7 @@ class Driver extends Model
      */
     public function state()
     {
-        if ($this->online) {
+        if ($this->online && $this->available && $this->approve) {
             return (object) ['color' => 'success',
                             'name' => 'Online'];
         } else if (! $this->approve) {
@@ -134,7 +139,7 @@ class Driver extends Model
                             'name' => 'not approved'];
         } else if ($this->online && ! $this->available) {
             return (object) ['color' => 'primary',
-                            'name' => 'on-way'];
+                            'name' => 'onway'];
         } else {
             return (object) ['color' => 'warning',
                             'name' => 'Offline'];
@@ -159,6 +164,16 @@ class Driver extends Model
     public function trips()
     {
         return $this->hasMany('App\Trip');
+    }
+
+    /**
+     * Inverse trips
+     * 
+     * @return hasMany
+     */
+    public function inverseTrips()
+    {
+        return $this->trips()->orderBy('id', 'desc');
     }
 
     /**
@@ -220,5 +235,49 @@ class Driver extends Model
                                             ->flatten())
                     ->avg('client');
         return number_format($rate, 2);
+    }
+
+    /**
+     * Get the last location of the driver.
+     * @return string
+     */
+    public function lastLocation()
+    {
+        $location = Location::whereUserId($this->user_id)
+                            ->orderBy('id', 'desc')
+                            ->first();
+
+        if (is_null($location)) {
+            return 'Not found';
+        } else {
+            return $location->name;
+        }
+    }
+
+    /**
+     * Get the car of the driver.
+     * @return [type] [description]
+     */
+    public function car()
+    {
+        return Car::whereUserId($this->user_id)->first();
+    }
+
+    /**
+     * list of car types.
+     * @return array
+     */
+    public function carTypesPluck()
+    {
+        return CarType::pluck('name', 'id');
+    }
+
+    /**
+     * Get driver phone number
+     * @return string
+     */
+    public function phoneNumber()
+    {
+        return User::whereId($this->user_id)->first()->phone;
     }
 }

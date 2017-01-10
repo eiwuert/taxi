@@ -32,6 +32,10 @@ elixir(mix => {
         .webpack('plugins/iCheck/icheck.min.js', 
                  'public/js/admin/iCheck.js', 'resources/assets/bower/AdminLTE')
         //.version('js/admin/iCheck.js')
+        .webpack(['plugins/input-mask/jquery.inputmask.js',
+                  'plugins/input-mask/jquery.inputmask.extensions.js',
+                  'plugins/input-mask/jquery.inputmask.regex.extensions.js'],
+                'public/js/admin/jquery.inputmask.js', 'resources/assets/bower/AdminLTE')
         .copy('resources/assets/bower/AdminLTE/dist/img', 'public/img')
         .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/css/fonts')
         .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin');

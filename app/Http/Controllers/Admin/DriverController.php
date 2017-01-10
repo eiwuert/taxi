@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use App\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,9 +71,11 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Driver $driver)
     {
-        //
+        $driver->update($request->all());
+        flash('Driver updated', 'success');
+        return redirect()->back();
     }
 
     /**
@@ -163,6 +166,8 @@ class DriverController extends Controller
                         ->orWhere('country', 'like', "%$q%")
                         ->orWhere('address', 'like', "%$q%")
                         ->orWhere('zipcode', 'like', "%$q%")
+                        ->orWhereIn('user_id', User::where('phone', 'like', "%$q%")
+                                                    ->get(['id'])->flatten())
                         ->paginate(config('admin.perPage'));
 
         return view('admin.drivers.index', compact('drivers'));

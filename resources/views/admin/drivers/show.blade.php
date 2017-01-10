@@ -66,21 +66,21 @@ Drivers
           <!-- About Me Box -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
+              <h3 class="box-title">About {{ $driver->first_name }}</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+              <strong><i class="fa fa-info-circle margin-r-5"></i> Status</strong>
 
               <p class="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
+                <tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag>
               </p>
 
               <hr>
 
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Last Location</strong>
 
-              <p class="text-muted">Malibu, California</p>
+              <p class="text-muted">{{ $driver->lastLocation() }}</p>
 
               <hr>
 
@@ -109,99 +109,125 @@ Drivers
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
-              <li><a href="#settings" data-toggle="tab">Settings</a></li>
+              <li><a href="#info" data-toggle="tab">Info</a></li>
+              <li><a href="#car" data-toggle="tab">Car</a></li>
             </ul>
             <div class="tab-content">
               <!-- /.tab-pane -->
               <div class="active tab-pane" id="timeline">
                 <!-- The timeline -->
                 <ul class="timeline timeline-inverse">
-                  <!-- timeline time label -->
-                  <li class="time-label">
-                        <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
-                  </li>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-envelope bg-blue"></i>
+                  @foreach($driver->inverseTrips()->get() as $t)
+                    <!-- timeline time label -->
+                    <li class="time-label">
+                          <span class="label-primary">
+                            {{ $t->updated_at->diffForHumans() }}
+                          </span>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+                    <li>
+                      <i class="fa fa-motorcycle label-primary"></i>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ $t->created_at->diffForHumans() }}</span>
 
-                      <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                        <h3 class="timeline-header"><tag color="primary">{{ $t->statusName() }}</tag></h3>
 
-                      <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
+                        <div class="timeline-body">
+                          <p><b>From: </b>{{ $t->sourceName() }}</p>
+                          <p><b>To: </b>{{ $t->destinationName() }}</p>
+                          <p><b>Distance: </b>{{ $t->distance_text }}</p>
+                          <p><b>Time: </b>{{ $t->eta_text }}</p>
+                          <p><b>Distance to client: </b>{{ $t->driver_distance_text }}</p>
+                          <p><b>Time to client: </b>{{ $t->etd_text }}</p>
+                        </div>
                       </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-primary btn-xs">Read more</a>
-                        <a class="btn btn-danger btn-xs">Delete</a>
+                    </li>
+                    <!-- END timeline item -->
+                    @if (! is_null($t->firstTransaction()))
+                    <!-- timeline item -->
+                    <li>
+                      <i class="fa fa-money bg-aqua"></i>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ ($t->firstTransaction()->created_at->diffForHumans()) }}</span>
+
+                        <h3 class="timeline-header">Transaction</h3>
+
+                        <div class="timeline-body">
+                          <p><b>Entry: </b>{{ $t->sourceName() }}</p>
+                          <p><b>Distance: </b>{{ $t->firstTransaction()->distance_value }}</p>
+                          <p><b>Time: </b>{{ $t->firstTransaction()->time_value }}</p>
+                          <p><b>Surcharge: </b>{{ $t->firstTransaction()->surcharge }}</p>
+                          <p><b>Currency: </b>{{ $t->firstTransaction()->currency }}</p>
+                          <p><b>Timezone: </b>{{ $t->firstTransaction()->timezone }}</p>
+                          <p><b>Total: </b>{{ $t->firstTransaction()->total }}</p>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-user bg-aqua"></i>
+                    </li>
+                    <!-- END timeline item -->
+                    @endif
+                    @if (! is_null($t->rate()->first()))
+                    @if ($t->rataOfClientToDriver()->client != '')
+                    <!-- timeline item -->
+                    <li>
+                      <i class="fa fa-star bg-yellow"></i>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                      <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate()->first()->created_at->diffForHumans() }}</span>
 
-                      <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
-                      </h3>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-comments bg-yellow"></i>
+                        <h3 class="timeline-header">Client @include('admin.includes.stars', ['stars' => $t->rataOfClientToDriver()->client ])</h3>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                      <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                      <div class="timeline-body">
-                        Take me to your leader!
-                        Switzerland is small and neutral!
-                        We are more like Germany, ambitious and misunderstood!
+                        <div class="timeline-body">
+                          {{ $t->rataOfClientToDriver()->client_comment }}
+                        </div>
                       </div>
-                      <div class="timeline-footer">
-                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                    </li>
+                    <!-- END timeline item -->
+                    @endif
+                    @if ($t->rateOfDriverToClient()->driver != '')
+                    <!-- timeline item -->
+                    <li>
+                      <i class="fa fa-star bg-yellow"></i>
+
+                      <div class="timeline-item">
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate()->first()->created_at->diffForHumans() }}</span>
+
+                        <h3 class="timeline-header">Driver @include('admin.includes.stars', ['stars' => $t->rateOfDriverToClient()->driver ])</h3>
+
+                        <div class="timeline-body">
+                          {{ $t->rateOfDriverToClient()->driver_comment }}
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
-                  <!-- timeline time label -->
-                  <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
-                  </li>
-                  <!-- /.timeline-label -->
-                  <!-- timeline item -->
-                  <li>
-                    <i class="fa fa-camera bg-purple"></i>
+                    </li>
+                    <!-- END timeline item -->
+                    @endif
+                    @endif
+                    <!-- timeline item -->
+                    <li>
+                      <i class="fa fa-user bg-purple"></i>
 
-                    <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+                      <div class="timeline-item">
+                        @foreach ($t->client()->get() as $c)
+                        <span class="time"><i class="fa fa-clock-o"></i> {{ $c->created_at->diffForHumans() }}</span>
 
-                      <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                        <h3 class="timeline-header">{{ $c->first_name or 'null' }} {{ $c->last_name or 'null' }}</h3>
 
-                      <div class="timeline-body">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                        <img src="http://placehold.it/150x100" alt="..." class="margin">
+                        <div class="timeline-body">
+                          <p><b>Phone: </b>{{ $c->phoneNumber() }}</p>
+                          <p><b>Email: </b>{{ $c->email or 'null' }}</p>
+                          <p><b>Gender: </b>{{ $c->gender or 'null' }}</p>
+                          <p><b>Device type: </b>{{ $c->device_type or 'null' }}</p>
+                          <p><b>Address: </b>{{ $c->address or 'null' }}</p>
+                          <p><b>State: </b>{{ $c->state or 'null' }}</p>
+                          <p><b>Country: </b>{{ $c->country or 'null' }}</p>
+                          <p><b>Zipcode: </b>{{ $c->zipcode or 'null' }}</p>
+                        </div>
+                        @endforeach
                       </div>
-                    </div>
-                  </li>
-                  <!-- END timeline item -->
+                    </li>
+                    <!-- END timeline item -->
+                  @endforeach
                   <li>
                     <i class="fa fa-clock-o bg-gray"></i>
                   </li>
@@ -209,58 +235,130 @@ Drivers
               </div>
               <!-- /.tab-pane -->
 
-              <div class="tab-pane" id="settings">
-                <form class="form-horizontal">
+              <div class="tab-pane" id="info">
+                {!! Form::model($driver, ['method' => 'PATCH', 'action' => ['Admin\DriverController@update', $driver->id], 'class' => 'form-horizontal']) !!}
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
+                    {!! Form::label('phone', 'Phone: ', ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                      {!! Form::text('phone', $driver->PhoneNumber(), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
+                    {!! Form::label('first_name', 'First name: ', ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
+                    {!! Form::label('last_name', 'Last name: ', ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Name">
+                      {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
+                    {!! Form::label('email', 'Email: ', ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                      {!! Form::text('email', null, ['class' => 'form-control']) !!}
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
+                    {!! Form::label('gender', 'Gender: ', ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                      {!! Form::select('gender', ['male' => 'male', 'female' => 'female', 'not specified'=>'not specified'], 
+                                      null, ['class' => 'form-control']) !!}
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
+                    {!! Form::label('address', 'Address: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('state', 'State: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('state', null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('country', 'Country: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('country', null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('zipcode', 'Zip code: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="box-group" id="accordion">
+                    <div class="panel box box-primary">
+                      <div class="box-header">
+                        <h4 class="box-title">
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="">
+                            More <i class="fa fa-angle-down"></i>
+                          </a>
+                        </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="box-body">
+                          <div class="form-group">
+                            {!! Form::label('lang', 'Lang: ', ['class' => 'col-sm-2 control-label']) !!}
+                            <div class="col-sm-10">
+                              {!! Form::select('lang', ['fa' => 'Farsi', 'en' => 'English', 'ku' => 'Kurdi'], null, ['class' => 'form-control']) !!}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            {!! Form::label('device_token', 'Device token: ', ['class' => 'col-sm-2 control-label']) !!}
+                            <div class="col-sm-10">
+                              {!! Form::text('device_token', null, ['class' => 'form-control']) !!}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            {!! Form::label('device_type', 'Device type: ', ['class' => 'col-sm-2 control-label']) !!}
+                            <div class="col-sm-10">
+                              {!! Form::select('device_type', ['android' => 'Android', 'ios' => 'iOS', 'web' => 'Web'], null, ['class' => 'form-control']) !!}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                   </div>
-                </form>
+                {!! Form::close() !!}
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="car">
+                {!! Form::model($driver->car(), ['method' => 'PATCH', 'action' => ['Admin\CarController@update', $driver->car()], 'class' => 'form-horizontal']) !!}
+                  <div class="form-group">
+                    {!! Form::label('number', 'Number: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('number', null, ['class' => 'form-control data-mask-plate', 'dir' => 'auto']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('color', 'Color: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::text('color', null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    {!! Form::label('type_id', 'Type: ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                      {!! Form::select('type_id', $driver->carTypesPluck(), null, ['class' => 'form-control']) !!}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                {!!  Form::close() !!}
               </div>
               <!-- /.tab-pane -->
             </div>
@@ -273,3 +371,12 @@ Drivers
       <!-- /.row -->
 
 @endsection
+
+@push('js')
+  <script src="{{ elixir('js/admin/jquery.inputmask.js') }}"></script>
+  <script type="text/javascript">
+    $(function () { 
+      $(".data-mask-plate").inputmask();
+    });
+  </script>
+@endpush

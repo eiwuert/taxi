@@ -71,4 +71,13 @@ class Client extends Model
             return $picture;
         }
     }
+
+    /**
+     * Get client phone number
+     * @return string
+     */
+    public function phoneNumber()
+    {
+        return User::whereId($this->user_id)->first()->phone;
+    }
 }

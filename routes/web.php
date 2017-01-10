@@ -38,6 +38,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     Route::post('drivers/approve/{driver}', 'DriverController@approve');
     Route::post('drivers/decline/{driver}', 'DriverController@decline');
     Route::resource('drivers', 'DriverController');
+
+    // CAR
+    Route::resource('cars', 'CarController');
 });
 
 Route::get('/home', 'HomeController@index');
