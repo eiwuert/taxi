@@ -6,7 +6,7 @@ drivers
 Drivers
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="fa fa-dashboard"></i> dashboard</a></li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
 <li class="active">drivers</li>
 @endsection
 @section('content')
@@ -38,12 +38,14 @@ Drivers
       <div class="box-header">
         <h3 class="box-title">List</h3>
         <div class="box-tools">
+          {!! Form::open(['action' => 'Admin\DriverController@search', 'method' => 'get']) !!}
           <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+            <input type="text" name="q" class="form-control pull-right" placeholder="Search" value="{{ Request::get('q') }}">
             <div class="input-group-btn">
               <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
             </div>
           </div>
+          {!! Form::close() !!}
         </div>
       </div>
       <!-- /.box-header -->

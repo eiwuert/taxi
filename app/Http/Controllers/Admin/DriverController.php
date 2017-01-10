@@ -123,7 +123,7 @@ class DriverController extends Controller
     /**
      * Filter status modes.
      * @param  string $status
-     * @return redirect
+     * @return view
      */
     public function status(Request $request)
     {
@@ -143,6 +143,28 @@ class DriverController extends Controller
             $drivers = Driver::paginate(config('admin.perPage'));
         }
         
+        return view('admin.drivers.index', compact('drivers'));
+    }
+
+    /**
+     * Search on everything
+     * @param  Request $request
+     * @return view
+     */
+    public function search(Request $request)
+    {
+        // No space after and before the query
+        $q = trim($request->q);
+
+        $drivers = Driver::where('first_name', 'like', "%$q%")
+                        ->orWhere('last_name', 'like', "%$q%")
+                        ->orWhere('gender', 'like', "%$q%")
+                        ->orWhere('state', 'like', "%$q%")
+                        ->orWhere('country', 'like', "%$q%")
+                        ->orWhere('address', 'like', "%$q%")
+                        ->orWhere('zipcode', 'like', "%$q%")
+                        ->paginate(config('admin.perPage'));
+
         return view('admin.drivers.index', compact('drivers'));
     }
 }

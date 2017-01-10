@@ -33,6 +33,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     // DRIVERS
     Route::get('drivers/filter', 'DriverController@status')
         ->name('driverFilter');
+    Route::get('drivers/search', 'DriverController@search')
+        ->name('driverSeach');
     Route::post('drivers/approve/{driver}', 'DriverController@approve');
     Route::post('drivers/decline/{driver}', 'DriverController@decline');
     Route::resource('drivers', 'DriverController');
