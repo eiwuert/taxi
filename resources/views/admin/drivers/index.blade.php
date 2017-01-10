@@ -12,16 +12,24 @@ Drivers
 @section('content')
 <div class="row">
   <div class="col-md-3">
-    <info-box text="Online" number="{{ $countOfOnlineDrivers }}" color="green" icon="ion-record"></info-box>
+    <a href="{{ route('driverFilter') . '?status=online' }}">
+      <info-box text="Online" number="{{ $countOfOnlineDrivers }}" color="green" icon="ion-record"></info-box>
+    </a>
   </div>
   <div class="col-md-3">
-    <info-box text="On way" number="{{ $countOfOnWayDrivers }}" color="blue" icon="ion-record"></info-box>
+    <a href="{{ route('driverFilter') . '?status=onway' }}">
+      <info-box text="On way" number="{{ $countOfOnWayDrivers }}" color="blue" icon="ion-record"></info-box>
+    </a>
   </div>
   <div class="col-md-3">
-    <info-box text="Inapproved" number="{{ $countOfInapproveDrivers }}" color="red" icon="ion-record"></info-box>
+    <a href="{{ route('driverFilter') . '?status=inapprove' }}">
+      <info-box text="Inapproved" number="{{ $countOfInapproveDrivers }}" color="red" icon="ion-record"></info-box>
+    </a>
   </div>
   <div class="col-md-3">
-    <info-box text="Offline" number="{{ $countOfOfflineDrivers }}" color="orange" icon="ion-record"></info-box>
+    <a href="{{ route('driverFilter') . '?status=offline' }}">
+      <info-box text="Offline" number="{{ $countOfOfflineDrivers }}" color="orange" icon="ion-record"></info-box>
+    </a>
   </div>
 </div>
 <div class="row">

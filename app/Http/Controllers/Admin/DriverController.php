@@ -88,6 +88,11 @@ class DriverController extends Controller
         return redirect(route('drivers.index'));
     }
 
+    /**
+     * Approve a driver.
+     * @param  \App\Driver $driver
+     * @return redirect
+     */
     public function approve(Driver $driver)
     {
         $driver = Driver::whereId($driver->id)->firstOrFail();
@@ -99,6 +104,11 @@ class DriverController extends Controller
         return redirect(route('drivers.index'));
     }
 
+    /**
+     * Decline a driver.
+     * @param  \App\Driver $driver
+     * @return redirect
+     */
     public function decline(Driver $driver)
     {
         $driver = Driver::whereId($driver->id)->firstOrFail();
@@ -108,5 +118,31 @@ class DriverController extends Controller
         $driver->update();
         flash('Driver declined', 'success');
         return redirect(route('drivers.index'));
+    }
+
+    /**
+     * Filter status modes.
+     * @param  string $status
+     * @return redirect
+     */
+    public function status(Request $request)
+    {
+        if ($request->status == 'online') {
+            // online
+            $drivers = Driver::online()->paginate(config('admin.perPage'));
+        } else if ($request->status == 'offline') {
+            // offline
+            $drivers = Driver::offline()->paginate(config('admin.perPage'));
+        } else if ($request->status == 'onway') {
+            // onway
+            $drivers = Driver::onway()->paginate(config('admin.perPage'));
+        } else if ($request->status == 'inapprove') {
+            // inapprove
+            $drivers = Driver::inapprove()->paginate(config('admin.perPage'));
+        } else {
+            $drivers = Driver::paginate(config('admin.perPage'));
+        }
+        
+        return view('admin.drivers.index', compact('drivers'));
     }
 }

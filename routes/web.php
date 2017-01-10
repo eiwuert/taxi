@@ -30,9 +30,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
             'middleware' => ['auth', 'can:access', 'verified']], function() {
 	Route::get('dashboard', 'DashboardController@index')
         ->name('dashboard');
-	Route::resource('drivers', 'DriverController');
+    // DRIVERS
+    Route::get('drivers/filter', 'DriverController@status')
+        ->name('driverFilter');
     Route::post('drivers/approve/{driver}', 'DriverController@approve');
     Route::post('drivers/decline/{driver}', 'DriverController@decline');
+    Route::resource('drivers', 'DriverController');
 });
 
 Route::get('/home', 'HomeController@index');
