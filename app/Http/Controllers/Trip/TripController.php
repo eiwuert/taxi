@@ -436,10 +436,18 @@ class TripController extends Controller
                         'detail' => 'Not on an active trip right now',
                     ]);
             }
+            $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+            $source = $trip->source()->first(['latitude', 'longitude', 'name']);
+            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            $status = Status::whereId($trip->status_id)->first(['name', 'value']);
+            unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location);
             return ok([
-                    'client' => Client::whereId($trip->client_id)->first(),
+                    'client' => $client,
                     'trip'   => $trip,
-                    'status' => Status::whereId($trip->id),
+                    'status' => $status,
+                    'source' => $source,
+                    'destination' => $destination,
                 ]);
         }
     }
