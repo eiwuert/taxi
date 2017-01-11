@@ -1514,7 +1514,7 @@ curl "http://localhost/api/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/triip",
+    "url": "http://localhost/api/client/trip",
     "method": "GET",
     "data": {
 },
@@ -1541,68 +1541,48 @@ $.ajax(settings).done(function (response) {
     "data": [
         {
             "driver": {
-                "id": 1,
-                "first_name": null,
-                "last_name": null,
-                "email": null,
-                "gender": "not specified",
-                "device_token": "kjlfajl",
-                "device_type": "ios",
-                "online": true,
-                "approve": true,
-                "available": false,
-                "lang": "fa",
-                "address": null,
-                "state": "esfahan",
-                "country": "iran",
-                "zipcode": null,
-                "picture": "no-profile.png",
-                "user_id": 13,
-                "created_at": "2016-12-25 11:46:36",
-                "updated_at": "2017-01-03 10:27:28"
+                "first_name": "amirmasoud",
+                "last_name": "sheydaei",
+                "email": "amirmasood33@gmail.com",
+                "gender": "male",
+                "picture": "no-profile.png"
             },
             "trip": {
-                "id": 9,
-                "driver_id": 1,
-                "client_id": 3,
-                "status_id": 7,
-                "source": 18,
-                "destination": 19,
-                "eta_value": "1175",
-                "eta_text": "20 mins",
-                "distance_value": "16734",
-                "distance_text": "16.7 km",
-                "etd_value": "0",
-                "etd_text": "1 min",
-                "driver_location": 13,
-                "driver_distance_value": "0",
-                "driver_distance_text": "1 m",
-                "created_at": "2017-01-03 10:27:27",
-                "updated_at": "2017-01-03 10:27:45",
-                "transaction_id": 4,
-                "rate_id": null
+                "eta_value": "909",
+                "eta_text": "15 mins",
+                "distance_value": "14910",
+                "distance_text": "14.9 km",
+                "etd_value": "434",
+                "etd_text": "7 mins",
+                "driver_distance_value": "5602",
+                "driver_distance_text": "5.6 km"
             },
             "status": {
-                "id": 7,
-                "name": "driver_onway",
-                "value": 7,
-                "created_at": null,
-                "updated_at": null
+                "name": "client_found",
+                "value": 2
             },
             "car": {
-                "id": 0,
-                "number": "00000",
+                "number": "11ب111 ایران 11",
                 "color": "pink",
-                "user_id": 13,
-                "type_id": 2,
-                "created_at": "2016-12-26 15:28:40",
-                "updated_at": "2016-12-26 15:28:40"
+                "type_id": 3
             },
             "type": {
-                "id": 2,
-                "name": "van",
-                "created_at": "2016-12-25 11:41:41",
-                "updated_at": "2016-12-25 11:41:41"
+                "name": "sport"
+            },
+            "source": {
+                "latitude": "34.015588",
+                "longitude": "51.363886",
+                "name": "استان اصفهان، کاشان، بلوار علامه قطب راوندی، ایران"
+            },
+            "destination": {
+                "latitude": "33.946671",
+                "longitude": "51.373260",
+                "name": "استان اصفهان، کاشان، خیابان امیرکبیر، ایران"
+            },
+            "driver_location": {
+                "latitude": "34.016307",
+                "longitude": "51.373416",
+                "name": "TEST"
             }
         }
     ]
@@ -1732,7 +1712,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/driver/cancel`
+`GET api/driver/accept`
     
 > Example response
 
@@ -2206,7 +2186,7 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/driver/rate",
-    "method": "GET",
+    "method": "POST",
     "data": {},
     "headers": {
     	"accept": "application/json",
@@ -2221,7 +2201,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/rate`
+`POST api/driver/rate`
 
 #### Parameters
 
@@ -2318,7 +2298,7 @@ var settings = {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost/api/client/rate",
-    "method": "GET",
+    "method": "POST",
     "data": {},
     "headers": {
     	"accept": "application/json",
@@ -2333,7 +2313,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/client/rate`
+`POST api/client/rate`
 
 #### Parameters
 
