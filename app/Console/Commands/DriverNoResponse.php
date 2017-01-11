@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use DB;
-use App\trip;
+use App\Trip;
 use App\Status;
 use Carbon\Carbon;
 use App\Client;
