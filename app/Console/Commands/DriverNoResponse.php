@@ -53,19 +53,11 @@ class driverNoResponse extends Command
         foreach($trips as $trip) {
             DB::table('trips')->where('id', $trip->id)
               ->update([
-                    'driver_id'              => null,
                     'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->id,
-                    'etd_text'               => null,
-                    'etd_value'              => null,
-                    'driver_distance_text'   => null,
-                    'driver_distance_value'  => null,
-                    'driver_location'        => null,
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            dispatch(new SendClientNotification('No one accepted', 'No one accepted your trip.', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
-            dispatch(new SendDriverNotification('You didn\'t respond', 'You are going offline', Driver::where('id', $trip->driver_id)->firstOrFail()->device_token));
-
+            dispatch(new SendDriverNotification('4', 'no_reponse_going_offline', Driver::where('id', $trip->driver_id)->firstOrFail()->device_token));
 
             DB::table('drivers')
               ->where('id', $trip->driver_id)

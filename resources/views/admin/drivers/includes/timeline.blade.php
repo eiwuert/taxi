@@ -15,7 +15,7 @@
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header"><tag color="primary">{{ $t->statusName() }}</tag></h3>
       <div class="timeline-body">
-        <p><b>From: </b></p>
+        <p><b>From: </b>{{ $t->sourceName() }}</p>
         <p><b>To: </b>{{ $t->destinationName() }}</p>
         <p><b>Distance: </b>{{ $t->distance_text }}</p>
         <p><b>Time: </b>{{ $t->eta_text }}</p>

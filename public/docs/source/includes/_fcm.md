@@ -22,3 +22,4 @@ Body | Header
 1 | `trip_cancelled_by_client`
 2 | `client_cancelled_onway_driver`
 3 | `client_canceled_arrived_driver`
+4 | `no_reponse_going_offline`
