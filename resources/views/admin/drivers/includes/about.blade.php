@@ -11,7 +11,7 @@
       @if ($driver->state()->name == 'Online')
       @include('admin.drivers.includes.offline',
       ['driver' => $driver,
-      'addClass' => 'btn-block',
+      'addClass' => 'btn-block btn-xs',
       'icon' => 'check',
       'text' => 'Offline'])
       @endif
