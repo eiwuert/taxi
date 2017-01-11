@@ -57,24 +57,18 @@ Drivers
             <th>Last name</th>
             <th>Status</th>
             <th>State</th>
+            <th>Country</th>
             <th>Phone</th>
-            <th></th>
           </tr>
           @foreach($drivers as $driver)
-          <tr>
+          <tr onclick="window.document.location='{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}';" style="cursor: pointer;">
             <td>{{ HTML::image('img/' . $driver->picture, 'driver picture', ['class' => 'img-circle', 'width' => '24']) }}</td>
             <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
             <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
             <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
             <td>{{ $driver->state }}</td>
+            <td>{{ $driver->country }}</td>
             <td>{{ $driver->phoneNumber() }}</td>
-            <td>
-              <a href="{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}">
-                <button class="btn btn-default btn-xs">
-                  <span class="fa fa-arrow-right fa-fw"></span>
-                </button>
-              </a>
-            </td>
           </tr>
           @endforeach
         </tbody></table>

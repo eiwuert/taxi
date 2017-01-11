@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
         ->name('driverFilter');
     Route::get('drivers/search', 'DriverController@search')
         ->name('driverSeach');
+    Route::post('drivers/offline/{driver}', 'DriverController@offline');
     Route::post('drivers/approve/{driver}', 'DriverController@approve');
     Route::post('drivers/decline/{driver}', 'DriverController@decline');
     Route::resource('drivers', 'DriverController');

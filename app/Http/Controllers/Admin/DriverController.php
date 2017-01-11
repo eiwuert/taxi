@@ -61,7 +61,7 @@ class DriverController extends Controller
      */
     public function edit($id)
     {
-        //
+        // It's showing within the index page.
     }
 
     /**
@@ -171,5 +171,19 @@ class DriverController extends Controller
                         ->paginate(config('admin.perPage'));
 
         return view('admin.drivers.index', compact('drivers'));
+    }
+
+    /**
+     * Make an driver offline manually
+     * @return view
+     */
+    public function offline(Driver $driver)
+    {
+        $driver = Driver::whereId($driver->id)->firstOrFail();
+        $driver->online = false;
+        $driver->available = false;
+        $driver->update();
+        flash('Driver is offline now', 'success');
+        return redirect(route('drivers.index'));
     }
 }

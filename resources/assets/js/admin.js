@@ -44,6 +44,11 @@ Vue.component(
 );
 
 Vue.component(
+    'btn-warning',
+    require('./components/bootstrap/btn-warning.vue')
+);
+
+Vue.component(
     'alert-success',
     require('./components/bootstrap/alert-success.vue')
 );

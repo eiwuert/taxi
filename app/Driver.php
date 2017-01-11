@@ -221,7 +221,7 @@ class Driver extends Model
         $this->trips()->each(function ($t) use (& $income) {
             $income += $t->transaction()->sum('total');
         });
-        return number_format($income);
+        return number_format($income * .87, 2);
     }
 
     /**
