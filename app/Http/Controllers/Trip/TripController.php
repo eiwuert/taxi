@@ -191,7 +191,9 @@ class TripController extends Controller
                             ->orderBy('id', 'desc')
                             ->first()->client()->first();
             $trip   = $client->trips()->orderBy('id', 'desc')->first();
-            $driver = Driver::whereId($trip->driver_id)->first();
+            if (! is_null($trip->driver_id)) {
+                $driver = Driver::whereId($trip->driver_id)->first();
+            }
             $status = $trip->status_id;
             /**
              * Cancel by CLIENT
@@ -405,16 +407,25 @@ class TripController extends Controller
                         'detail' => 'Not on an active trip right now',
                     ]);
             }
-            $driver = Driver::where('id', $trip->driver_id)->first();
-            $car = Car::whereUserId($driver->user_id)->first();
-            $carType = $car->type()->first();
 
+            $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+            $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
+            $carType = $car->type()->first(['name']);
+            $source = $trip->source()->first(['latitude', 'longitude', 'name']);
+            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            $status = Status::whereId($trip->status_id)->first(['name', 'value']);
+            $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
+            unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location);
             return ok([
                     'driver' => $driver,
                     'trip'   => $trip,
-                    'status' => Status::whereId($trip->status_id)->first(),
+                    'status' => $status,
                     'car'    => $car,
                     'type'   => $carType,
+                    'source' => $source,
+                    'destination' => $destination,
+                    'driver_location' => $driverLocation,
                 ]);
         } else if(Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();

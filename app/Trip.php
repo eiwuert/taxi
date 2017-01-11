@@ -147,6 +147,16 @@ class Trip extends Model
     }
 
     /**
+     * A trip can have one driver destination location.
+     * 
+     * @return hasOne
+     */
+    public function driverLocation()
+    {
+        return $this->hasOne('App\Location', 'id', 'driver_location');
+    }
+
+    /**
      * Destination name
      * 
      * @return string

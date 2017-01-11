@@ -1,6 +1,6 @@
 <!-- The timeline -->
 <ul class="timeline timeline-inverse">
-  @foreach($driver->inverseTrips()->get() as $t)
+  @foreach($driver->inverseTrips()->with('rate', 'transaction')->get() as $t)
   <!-- timeline time label -->
   <li class="time-label">
     <span class="label-primary">
@@ -15,7 +15,7 @@
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header"><tag color="primary">{{ $t->statusName() }}</tag></h3>
       <div class="timeline-body">
-        <p><b>From: </b>{{ $t->sourceName() }}</p>
+        <p><b>From: </b></p>
         <p><b>To: </b>{{ $t->destinationName() }}</p>
         <p><b>Distance: </b>{{ $t->distance_text }}</p>
         <p><b>Time: </b>{{ $t->eta_text }}</p>
@@ -25,7 +25,7 @@
     </div>
   </li>
   <!-- END timeline item -->
-  @if (! is_null($transaction = $t->firstTransaction()))
+  @if (! is_null($transaction = $t->transaction))
   <!-- timeline item -->
   <li>
     <i class="fa fa-money bg-aqua"></i>
@@ -33,7 +33,7 @@
       <span class="time"><i class="fa fa-clock-o"></i> {{ ($transaction->created_at->diffForHumans()) }}</span>
       <h3 class="timeline-header">Transaction</h3>
       <div class="timeline-body">
-        <p><b>Entry: </b>{{ $t->sourceName() }}</p>
+        <p><b>Entry: </b></p>
         <p><b>Distance: </b>{{ $transaction->distance_value }}</p>
         <p><b>Time: </b>{{ $transaction->time_value }}</p>
         <p><b>Surcharge: </b>{{ $transaction->surcharge }}</p>
@@ -45,13 +45,13 @@
   </li>
   <!-- END timeline item -->
   @endif
-  @if (! is_null($rate = $t->rate()->first()))
+  @if (! is_null($t->rate))
   @if ($t->rataOfClientToDriver()->client != '')
   <!-- timeline item -->
   <li>
     <i class="fa fa-star bg-yellow"></i>
     <div class="timeline-item">
-      <span class="time"><i class="fa fa-clock-o"></i> {{ $rate->created_at->diffForHumans() }}</span>
+      <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header">Client @include('admin.includes.stars', ['stars' => $t->rataOfClientToDriver()->client ])</h3>
       <div class="timeline-body">
         {{ $t->rataOfClientToDriver()->client_comment }}
@@ -65,7 +65,7 @@
   <li>
     <i class="fa fa-star bg-yellow"></i>
     <div class="timeline-item">
-      <span class="time"><i class="fa fa-clock-o"></i> {{ $rate->created_at->diffForHumans() }}</span>
+      <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header">Driver @include('admin.includes.stars', ['stars' => $t->rateOfDriverToClient()->driver ])</h3>
       <div class="timeline-body">
         {{ $t->rateOfDriverToClient()->driver_comment }}
