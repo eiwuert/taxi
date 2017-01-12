@@ -1278,9 +1278,7 @@ $.ajax(settings).done(function (response) {
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_long": "maiores", \ 
-   -d "type": "maiores", \ 
-</code></pre>
+   -d "d_long": "maiores", \ </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
@@ -1291,7 +1289,6 @@ $.ajax(settings).done(function (response) {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
-        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -1334,11 +1331,6 @@ $.ajax(settings).done(function (response) {
 <td>d_long</td>
 <td>numeric</td>
 <td>required</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>opional</td>
 </tr>
 </tbody>
 </table>
@@ -2692,6 +2684,10 @@ $.ajax(settings).done(function (response) {
 <tr>
 <td>3</td>
 <td><code>client_canceled_arrived_driver</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>no_reponse_going_offline</code></td>
 </tr>
 </tbody>
 </table>

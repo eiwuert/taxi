@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use DB;
+use App\Car;
 use App\User;
 use App\Driver;
 use App\Events\UserVerified;
@@ -37,12 +38,21 @@ class MultiRecordDriver
                                         ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
-            DB::table('cars')
-                ->whereIn('user_id', User::where('phone', $event->user->phone)
-                                        ->whereVerified(true)
-                                        ->where('role', 'driver')
-                                        ->get(['id'])->flatten())
-                ->update(['user_id' => $event->user->id]);
+            $updated = DB::table('cars')
+                        ->whereIn('user_id', User::where('phone', $event->user->phone)
+                                                ->whereVerified(true)
+                                                ->where('role', 'driver')
+                                                ->get(['id'])->flatten())
+                        ->update(['user_id' => $event->user->id]);
+
+            if (! $updated) {
+                Car::insert([
+                    'number' => '000000',
+                    'color' => 'pink',
+                    'user_id' => $event->user->id,
+                    'type_id' => 1,
+                ]);
+            }
 
             DB::table('drivers')
                 ->whereIn('user_id', User::where('phone', $event->user->phone)

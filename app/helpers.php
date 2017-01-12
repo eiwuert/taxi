@@ -69,7 +69,7 @@ if (! function_exists('setLocation')) {
      * @param  string   $name
      * @return integer Location id
      */
-    function setLocation($lat, $long, $name = '')
+    function setLocation($lat, $long, $userId, $name = '')
     {
         if ($name == '') {
             $name = \GoogleMaps::load('geocoding')
@@ -84,8 +84,12 @@ if (! function_exists('setLocation')) {
         if (@$name['status'] == 'ZERO_RESULTS') {
             $name = 'NO RESULT';
         }
-
-        return \Auth::user()->locations()->create([
+        if (is_null($userId)) {
+            $user = \Auth::user();
+        } else {
+            $user = \App\User::find($userId);
+        }
+        return $user->locations()->create([
                     'latitude'  => $lat,
                     'longitude' => $long,
                     'name'      => $name,
@@ -128,7 +132,7 @@ if (! function_exists('nearby')) {
      * @param  integer  $limit
      * @return PDO
      */
-    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5)
+    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5, $exclude = 0)
     {
         if ($type == 'any') {
             $type = "SELECT id FROM car_types";
@@ -137,6 +141,7 @@ if (! function_exists('nearby')) {
                      FROM car_types
                      WHERE name = '$type'";
         }
+        
         $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
         FROM (
         SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
@@ -159,6 +164,7 @@ if (! function_exists('nearby')) {
                         WHERE online = true
                         AND approve = true
                         AND available = true
+                        AND id NOT IN ( $exclude )
                     ) 
                     AND id IN (
                         SELECT user_id
@@ -173,6 +179,9 @@ if (! function_exists('nearby')) {
             ORDER BY distance ASC
             LIMIT $limit";
 
-        return \DB::select(DB::raw($query));
+        return [
+            'result' => \DB::select(DB::raw($query)),
+            'exclude' => $exclude
+            ];
     }
 }

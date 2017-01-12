@@ -10,12 +10,20 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('hash', function() {
-    return \Hash::make(123456);
-});
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('trip', function() {
+            $exclude = \App\Trip::orWhere('status_id', '<>', \App\Status::where('name', 'trip_is_over')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', \App\Status::where('name', 'client_rated')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', \App\Status::where('name', 'driver_rated')->firstOrFail()->value)
+                            ->orWhere('client_id', 101)
+                            ->orWhere('created_at', '<', \Carbon\Carbon::now()->subMinutes(20)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
+    $toExclude = [];
+    foreach ($exclude as $e) {
+        if (! is_null($e->driver_id))
+            $toExclude[] = $e->driver_id;
+    }
+    return implode(',', $toExclude);
 });
 
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');

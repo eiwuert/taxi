@@ -19,7 +19,7 @@ class CreateDriverCar
      */
     public function handle(UserVerified $event)
     {
-        if ($event->user->role == 'driver') {
+        if ($event->user->role == 'driver' && ! Car::whereUserId($event->user->id)->exists()) {
             Car::insert([
                     'number' => '000000',
                     'color' => 'pink',

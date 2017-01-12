@@ -1285,8 +1285,6 @@ curl "http://localhost/api/client/trip" \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_long": "maiores", \ 
-   -d "type": "maiores", \ 
-
 ```
 
 ```javascript
@@ -1300,7 +1298,6 @@ var settings = {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
-        "type": "amet",
 },
     "headers": {
     	"accept": "application/json",
@@ -1325,7 +1322,6 @@ s_lat | numeric |  required  |
 s_long | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_long | numeric |  required  | 
-type	| string | opional |
     
 > Example response
 

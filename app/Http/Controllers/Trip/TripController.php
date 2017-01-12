@@ -21,6 +21,7 @@ use App\Http\Requests\NearbyRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Http\Controllers\Controller;
+use App\Repositories\TripRepository;
 
 class TripController extends Controller
 {
@@ -30,9 +31,9 @@ class TripController extends Controller
 	 * Request taxi by client.
 	 * @return json
 	 */
-    public function requestTaxi(TripRequest $tripRequest)
+    public function requestTaxi(TripRequest $tripRequest, TripRepository $trip)
     {
-        dispatchNow(new RequestTaxi($tripRequest));
+        return $trip->requestTaxi($tripRequest->all());
     }
 
     /**
@@ -50,7 +51,7 @@ class TripController extends Controller
             $request->distance = 1;
         }
 
-        if (is_null($request->type)) {
+         if (is_null($request->type)) {
             $request->type = 'any';
         }
 
@@ -58,7 +59,7 @@ class TripController extends Controller
                                 $request->long,
                                 $request->type,   
                                 $request->distance, 
-                                $request->limit), 200, [], false);
+                                $request->limit)['result'], 200, [], false);
     }
 
     /**
@@ -75,7 +76,11 @@ class TripController extends Controller
             if (! is_null($trip->driver_id)) {
                 $driver = Driver::whereId($trip->driver_id)->first();
             }
-            $status = $trip->status_id;
+            if (! is_null($trip->status_id)) {
+                $status = $trip->status_id;
+            } else {
+                $status = 0;
+            }
             /**
              * Cancel by CLIENT
              */
@@ -86,12 +91,18 @@ class TripController extends Controller
                 // REJECT_CLIENT_FOUND
                 //
                 case '1':
+                    $this->updateStatus($trip, 'cancel_request_taxi');
+
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from ' . $status . ' to 10',
+                        ]);
+                    break;
                 case '3':
                 case '4':
                     $this->updateStatus($trip, 'cancel_request_taxi');
-                    if (! is_null($driver)) {
-                        $this->updateDriverAvailability($driver, true);
-                    }
+                    $this->updateDriverAvailability($driver, true);
+
                     return ok([
                             'title'  => 'Trip cancelled.',
                             'detail' => 'Trip status changed from ' . $status . ' to 10',
@@ -149,8 +160,12 @@ class TripController extends Controller
             }
         } else if (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
-            $trip   = $driver->trips()->orderBy('id', 'desc')->first();;
-            $status = $trip->status_id;
+            $trip   = $driver->trips()->orderBy('id', 'desc')->first();
+            if (! is_null($trip)) {
+                $status = $trip->status_id;
+            } else {
+                $status = 0;
+            }
             //
             // Cancel by DRIVER
             //
@@ -175,6 +190,19 @@ class TripController extends Controller
                     $this->updateStatus($trip, 'reject_client_found');
                     $this->updateDriverAvailability($driver, true);
                     dispatch(new SendCLientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
+                    $tripRepository = new TripRepository();
+                    $tripRequest = [
+                        's_lat'  => $trip->source()->first()->latitude,
+                        's_long' => $trip->source()->first()->longitude,
+                        'd_lat'  => $trip->destination()->first()->latitude,
+                        'd_long' => $trip->destination()->first()->longitude,
+                    ];
+                    $exclude = $tripRepository->excludeDriver($trip->client_id);
+                    if ($exclude['count'] < 10) {
+                        $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
+                    } else {
+                        dispatch(new SendClientNotification('1', 'no_driver_found', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
+                    }
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 2 to 4',
@@ -220,6 +248,12 @@ class TripController extends Controller
     {
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to start',
+                ]);
+        }
         if ($trip->status_id == 2) {
             $this->updateStatus($trip, 'driver_onway');
             $this->updateDriverAvailability($driver, false);
@@ -341,6 +375,12 @@ class TripController extends Controller
     {
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You have no trip to end or you cannot end trip now.',
+                ]);
+        }
         if ($trip->status_id == 6) {
             $this->updateStatus($trip, 'trip_ended');
             dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($trip->client_id)->first()->device_token));
@@ -365,6 +405,12 @@ class TripController extends Controller
     {
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'You cannot got to this status from your current state',
+                ]);
+        }
         if ($trip->status_id == 7) {
             $this->updateStatus($trip, 'driver_arrived');
             dispatch(new SendClientNotification('driver_arrived', '8', Client::whereId($trip->client_id)->first()->device_token));
@@ -403,38 +449,6 @@ class TripController extends Controller
     {
         $driver->available = $state;
         $driver->save();
-    }
-
-    /**
-     * Check pending request for current client that is requesting a new taxi.
-     * @return json
-     */
-    private function pendingRequestTaxi()
-    {
-    	/**
-    	 * @todo add more state for pending request
-    	 * @var QueryBuilder
-    	 */
-    	$pending = User::wherePhone(Auth::user()->phone)
-                              ->orderBy('id', 'desc')
-                              ->first()->client()->first()->trips()
-                              ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'trip_ended')->firstOrFail()->value)
-                              ->orWhere('status_id', Status::where('name', 'driver_rated')->firstOrFail()->value);
-
-    	if ($pending->count()) {
-    		return fail([
-    				'title' => 'You have pending request',
-    				'detail'=> 'Please address your pending trip request at first',
-    				'trips' => $pending->get(),
-    			]);
-    	}
-
-    	return false;
     }
 
     /**

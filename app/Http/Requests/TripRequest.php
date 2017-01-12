@@ -18,8 +18,8 @@ class TripRequest extends Request
             's_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_lat'    => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
-            'type'     => ['min:3', 'max:255', 'exists:car_types,name'],
-            'currency' => ['size:3'],
+            // 'type'     => ['min:3', 'max:255', 'exists:car_types,name'],
+            // 'currency' => ['size:3'],
         ];
     }
 }
