@@ -202,9 +202,9 @@ class Trip extends Model
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopePassed($query, $minute = 2)
+    public function scopePassed($query, $seconds = 35)
     {
-        return $query->where('created_at', '<', Carbon::now()->subMinute($minute)->toDateTimeString());
+        return $query->where('created_at', '<', Carbon::now()->subSeconds($seconds)->toDateTimeString());
     }
 
     /**
