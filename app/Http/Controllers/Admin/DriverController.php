@@ -159,14 +159,15 @@ class DriverController extends Controller
         // No space after and before the query
         $q = trim($request->q);
 
-        $drivers = Driver::where('first_name', 'like', "%$q%")
-                        ->orWhere('last_name', 'like', "%$q%")
-                        ->orWhere('gender', 'like', "%$q%")
-                        ->orWhere('state', 'like', "%$q%")
-                        ->orWhere('country', 'like', "%$q%")
-                        ->orWhere('address', 'like', "%$q%")
-                        ->orWhere('zipcode', 'like', "%$q%")
-                        ->orWhereIn('user_id', User::where('phone', 'like', "%$q%")
+        $drivers = Driver::where('first_name', 'ilike', "%$q%")
+                        ->orWhere('last_name', 'ilike', "%$q%")
+                        ->orWhere('email', 'ilike', "%$q%")
+                        ->orWhere('gender', 'ilike', "%$q%")
+                        ->orWhere('state', 'ilike', "%$q%")
+                        ->orWhere('country', 'ilike', "%$q%")
+                        ->orWhere('address', 'ilike', "%$q%")
+                        ->orWhere('zipcode', 'ilike', "%$q%")
+                        ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")
                                                     ->get(['id'])->flatten())
                         ->paginate(config('admin.perPage'));
 

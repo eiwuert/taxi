@@ -324,6 +324,7 @@ class TripController extends Controller
             }
 
             $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+            $driver->phone = $driver->user->phone;
             $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
             $carType = $car->type()->first(['name']);
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
@@ -331,7 +332,7 @@ class TripController extends Controller
             $status = Status::whereId($trip->status_id)->first(['name', 'value']);
             $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
             unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
-                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location);
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
             return ok([
                     'driver' => $driver,
                     'trip'   => $trip,
@@ -352,11 +353,12 @@ class TripController extends Controller
                     ]);
             }
             $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+            $client->phone = $client->user->phone;
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
             $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
             $status = Status::whereId($trip->status_id)->first(['name', 'value']);
             unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
-                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location);
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return ok([
                     'client' => $client,
                     'trip'   => $trip,

@@ -1541,7 +1541,8 @@ $.ajax(settings).done(function (response) {
                 "last_name": "sheydaei",
                 "email": "amirmasood33@gmail.com",
                 "gender": "male",
-                "picture": "no-profile.png"
+                "picture": "no-profile.png",
+                "phone": "+0983832063488"
             },
             "trip": {
                 "eta_value": "909",
@@ -2101,7 +2102,8 @@ $.ajax(settings).done(function (response) {
                 "first_name": "amir",
                 "last_name": "amiri",
                 "gender": "not specified",
-                "picture": "no-profile.png"
+                "picture": "no-profile.png",
+                "phone": "+0983832063488"
             },
             "trip": {
                 "eta_value": "909",

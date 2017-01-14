@@ -33,7 +33,7 @@ class Client extends Model
      */
     public function user()
     {
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->belongsTo('App\User');
     }
 
     /**
@@ -79,5 +79,41 @@ class Client extends Model
     public function phoneNumber()
     {
         return User::whereId($this->user_id)->first()->phone;
+    }
+
+    /**
+     * Scope a query to only include locked clients.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLocked($query)
+    {
+        return $query->where('lock', true);
+    }
+
+    /**
+     * Scope a query to only include unlocked clients.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeUnlocked($query)
+    {
+        return $query->where('lock', false);
+    }
+
+    /**
+     * get client state
+     */
+    public function state()
+    {
+        if ($this->lock) {
+            return (object) ['color' => 'danger',
+                            'name' => '<i class="ion-locked"></i>'];
+        } else {
+            return (object) ['color' => 'success',
+                            'name' => '<i class="ion-unlocked"></i>'];
+        }
     }
 }

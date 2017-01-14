@@ -22,6 +22,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'admin.drivers.index', 'App\Http\ViewComposers\DriverComposer'
         );
+
+        View::composer(
+            'admin.clients.index', 'App\Http\ViewComposers\ClientComposer'
+        );
     }
 
     /**
