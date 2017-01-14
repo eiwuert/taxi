@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Logics;
+namespace App\Repositories;
 
 use Log;
 use Auth;
 use GuzzleHttp\Client;
 
-class FcmLogic
+class FcmRepository
 {
     /**
      * instance of Guzzle
@@ -29,8 +29,8 @@ class FcmLogic
      * @param  string $device_token
      * @return Response
      */
-	private function message($title, $message, $device_token)
-	{
+    private function message($title, $message, $device_token)
+    {
         if (debug_backtrace()[1]['function'] == 'to_driver') {
             $server_key = config('fcm.driver_server_key');
         } else if (debug_backtrace()[1]['function'] == 'to_client') {
@@ -53,7 +53,7 @@ class FcmLogic
         Log::info('device_token_' . debug_backtrace()[1]['function'], (array) $device_token);
         Log::info('FCM response: ', (array) $response);
         return $response;
-	}
+    }
 
     /**
      * Send FCM message to driver.

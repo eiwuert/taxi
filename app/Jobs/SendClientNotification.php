@@ -2,8 +2,8 @@
 
 namespace App\Jobs;
 
-use App\Logics\FcmLogic;
 use Illuminate\Bus\Queueable;
+use App\Repositories\FcmRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,7 +38,7 @@ class SendClientNotification implements ShouldQueue
      */
     public function handle()
     {
-        $fcm = new FcmLogic();
+        $fcm = new FcmRepository();
         $fcm->to_client($this->title, $this->message, $this->device_token);
     }
 }
