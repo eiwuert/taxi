@@ -5,21 +5,21 @@ namespace App\Console\Commands;
 use File;
 use Illuminate\Console\Command;
 
-class MakeLogic extends Command
+class MakeRepository extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:logic {name}';
+    protected $signature = 'make:repository {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new logic class';
+    protected $description = 'Create a new repository class';
 
     /**
      * Create a new command instance.
@@ -38,13 +38,13 @@ class MakeLogic extends Command
      */
     public function handle()
     {
-        if (File::exists('app/Logics/' . $this->argument('name') . '.php')) {
+        if (File::exists('app/Repositories/' . $this->argument('name') . '.php')) {
             $this->error($this->argument('name') . ' class already exists.');
         } else {
-            File::put('app/Logics/' . $this->argument('name') . '.php', 
+            File::put('app/Repositories/' . $this->argument('name') . '.php', 
 "<?php
 
-namespace App\Logics;
+namespace App\Repositories;
 
 class {$this->argument('name')}
 {

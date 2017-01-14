@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\MakeLogic::class,
+        Commands\MakeRepository::class,
         Commands\DriverNoResponse::class,
         Commands\MakeAdmin::class,
     ];
