@@ -7,7 +7,7 @@
 @endpush
 
 @push('js')
-<script src="{{ elixir('js/admin/icheck.js') }}"></script>
+<script src="{{ elixir('js/admin/iCheck.js') }}"></script>
 <script>
     $(function () {
         $('input').iCheck({
