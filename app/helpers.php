@@ -48,7 +48,7 @@ if (! function_exists('fail')) {
             return $factory;
         }
 
-        $content['status'] = $status;
+        $content['code'] = $status;
         $content = [
             'success' => false,
             'data'    => [$content]
