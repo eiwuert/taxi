@@ -106,7 +106,7 @@ Parameter | Type | Status | Description
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -127,7 +127,7 @@ Parameter | Type | Status | Description
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -282,7 +282,7 @@ Parameter | Type | Status | Description
         {
             "title": "You are already verfied",
             "detail": "You are verfied, there is no need for verify again.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -296,7 +296,7 @@ Parameter | Type | Status | Description
         {
             "title": "Please ask for verification again",
             "detail": "There is no active code for verifying this phone number.",
-            "status": 404
+            "code": 404
         }
     ]
 }
@@ -310,7 +310,7 @@ Parameter | Type | Status | Description
         {
             "title": "Wrong code",
             "detail": "You have entered wrong verification code, please check your code again.",
-            "status": 404
+            "code": 404
         }
     ]
 }
@@ -325,7 +325,7 @@ Parameter | Type | Status | Description
         {
             "title": "Exceed attempts tries",
             "detail": "You've entered verification code wrong for too many times.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -397,7 +397,7 @@ Parameter | Type | Status | Description
         {
             "title": "You are already verfied",
             "detail": "You are verfied, there is no need for verify again.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -411,7 +411,7 @@ Parameter | Type | Status | Description
         {
             "title": "Please ask for verification again",
             "detail": "There is no active code for verifying this phone number.",
-            "status": 404
+            "code": 404
         }
     ]
 }
@@ -425,7 +425,7 @@ Parameter | Type | Status | Description
         {
             "title": "Wrong code",
             "detail": "You have entered wrong verification code, please check your code again.",
-            "status": 404
+            "code": 404
         }
     ]
 }
@@ -491,7 +491,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "You are already verfied",
             "detail": "You are verfied, there is no need for verify again.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -505,7 +505,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "You have requested for sms before",
             "detail": "You have asked for resending sms less than 2 minutes ago.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -568,7 +568,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "You are already verfied",
             "detail": "You are verfied, there is no need for verify again.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -582,7 +582,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "You have requested for sms before",
             "detail": "You have asked for resending sms less than 2 minutes ago.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -673,7 +673,7 @@ Parameter | Type | Status | Description
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -761,7 +761,7 @@ Parameter | Type | Status | Description
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -1096,7 +1096,7 @@ Parameter | Type | Status | Description
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -1158,7 +1158,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Driver cannot go online",
             "detail": "You are currently online.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1220,7 +1220,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Driver cannot go offline",
             "detail": "An onway driver cannot go offline.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1373,7 +1373,7 @@ d_long | numeric |  required  |
                     "updated_at": "2016-11-29 15:24:33"
                 }
             ],
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1487,7 +1487,7 @@ limit | numeric |  min: `5`, max: `100`  |
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -1595,7 +1595,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Not on trip",
             "detail": "Not on an active trip right now",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1663,7 +1663,7 @@ console.log(response);
         {
             "title": "You cannot do this.",
             "detail": "You cannot cancel your ride on this status.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1733,7 +1733,7 @@ console.log(response);
         {
             "title": "Fail",
             "detail": "You have no trip to start",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1799,7 +1799,7 @@ console.log(response);
         {
             "title": "Wait",
             "detail": "You still do not have trip, please wait.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1815,7 +1815,7 @@ console.log(response);
         {
             "title": "Fail",
             "detail": "You have no trip to start",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1881,7 +1881,7 @@ console.log(response);
         {
             "title": "Fail",
             "detail": "You have no trip to end or you cannot end trip now.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -1963,7 +1963,7 @@ console.log(response);
         {
             "title": "You cannot do this.",
             "detail": "You cannot cancel your ride on this status.",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -2029,7 +2029,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Fail",
             "detail": "You cannot got to this status from your current state",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -2048,7 +2048,7 @@ $.ajax(settings).done(function (response) {
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -2141,7 +2141,7 @@ $.ajax(settings).done(function (response) {
         {
             "title": "Not on trip",
             "detail": "Not on an active trip right now",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -2219,7 +2219,7 @@ comment | text |  optional  | max: `5000`
         {
             "title": "You cannot rate",
             "detail": "You cannot rate this trip",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -2240,7 +2240,7 @@ comment | text |  optional  | max: `5000`
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -2258,7 +2258,7 @@ comment | text |  optional  | max: `5000`
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -2331,7 +2331,7 @@ comment | text |  optional  | max: `5000`
         {
             "title": "You cannot rate",
             "detail": "You cannot rate this trip",
-            "status": 500
+            "code": 500
         }
     ]
 }
@@ -2351,7 +2351,7 @@ comment | text |  optional  | max: `5000`
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
-            "status": 422
+            "code": 422
         }
     ]
 }
@@ -2656,7 +2656,7 @@ Authorize the access token for countinue using protected routes. Given on `Autho
         {
             "title": "You are not authorized to access",
             "detail": "You're not authorized to access this route of the application, please check your token privileges.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2671,7 +2671,7 @@ Check if the current driver is an approved driver to go online.
         {
             "title":  "Not an approved driver",
             "detail": "You should contact your area car center to begin approving proccess.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2689,7 +2689,7 @@ Client access token and driver access token are different and a client cannot ac
         {
             "title"  : "You are not authorized to access",
             "detail" : "You're not authorized to access this route of the application, please check your token privileges.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2707,7 +2707,7 @@ Check if the current user(driver or client) has verified phone number.
         {
             "title"  : "Not a verified user",
             "detail" : "You should verify your phone number first.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2725,7 +2725,7 @@ Check if the current driver is online.
         {
             "title"  : "Not an online driver",
             "detail" : "You should go online first.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2743,7 +2743,7 @@ Check if the current driver has a registered car.
         {
             "title": "No car",
             "detail": "You should contact your area car center to register your car.",
-            "status": 401
+            "code": 401
         }
     ]
 }
@@ -2763,7 +2763,7 @@ Requested route is not registered within the app.
         {
             "title": "Not found",
             "detail": "Requested route not found",
-            "status": 404
+            "code": 404
         }
     ]
 }
