@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\MakeLogic::class,
         Commands\DriverNoResponse::class,
+        Commands\MakeAdmin::class,
     ];
 
     /**

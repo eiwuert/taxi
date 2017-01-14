@@ -18,6 +18,6 @@ class LocationController extends Controller
 	 */
     public function set(LocationRequest $request)
     {
-        return ok(setLocation($request->lat, $request->long, 'TEST'));
+        return ok(setLocation($request->lat, $request->long, null, 'TEST'));
     }
 }

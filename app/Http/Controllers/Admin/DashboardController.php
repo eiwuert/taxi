@@ -8,7 +8,7 @@ use App\Trip;
 use App\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Helpers\Contracts\TransactionContract;
+use App\Repositories\TransactionRepository;
 
 class DashboardController extends Controller
 {
@@ -16,7 +16,7 @@ class DashboardController extends Controller
 	 * Dashboard page.
 	 * @return view
 	 */
-    public function index(TransactionContract $transaction)
+    public function index(TransactionRepository $transaction)
     {
     	$clients = number_format(User::clientsCount());
     	$drivers = number_format(User::driversCount());

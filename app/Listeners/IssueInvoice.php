@@ -5,8 +5,8 @@ namespace App\Listeners;
 use DB;
 use App\Transaction;
 use App\Events\RideAccepted;
-use App\Logics\TransactionLogic;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Repositories\TransactionRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class IssueInvoice
@@ -31,8 +31,8 @@ class IssueInvoice
      */
     public function handle(RideAccepted $event)
     {
-        $transaction = new TransactionLogic($event->type, $event->currency);
-        $invoice = $transaction->newTransaction($event->trip);
+        $transaction = new TransactionRepository();
+        $invoice = $transaction->newTransaction($event->trip, $event->type, $event->currency);
         $transaction = $event->trip->transaction()->create($invoice);
         DB::table('trips')->whereId($event->trip->id)
                           ->update(['transaction_id' => $transaction->id]);

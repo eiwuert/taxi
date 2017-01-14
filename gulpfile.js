@@ -23,20 +23,18 @@ elixir(mix => {
         'dist/css/AdminLTE.css',
         'dist/css/skins/skin-blue.css',
         ], 'public/css/admin/admin.css', 'resources/assets/bower/AdminLTE')
-        //.version('css/admin/admin.css')
         .styles('plugins/iCheck/square/blue.css', 
                 'public/css/admin/iCheckBlue.css', 'resources/assets/bower/AdminLTE')
-        //.version('css/admin/iCheckBlue.css')
         .webpack('admin.js', 'public/js/admin/admin.js')
-        //.version('js/admin/admin.js')
         .webpack('plugins/iCheck/icheck.min.js', 
                  'public/js/admin/iCheck.js', 'resources/assets/bower/AdminLTE')
-        //.version('js/admin/iCheck.js')
         .webpack(['plugins/input-mask/jquery.inputmask.js',
                   'plugins/input-mask/jquery.inputmask.extensions.js',
                   'plugins/input-mask/jquery.inputmask.regex.extensions.js'],
                 'public/js/admin/jquery.inputmask.js', 'resources/assets/bower/AdminLTE')
         .copy('resources/assets/bower/AdminLTE/dist/img', 'public/img')
         .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/css/fonts')
-        .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin');
+        .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin')
+        .version(['css/admin/admin.css', 'js/admin/admin.js', 'js/admin/iCheck.js',
+                'js/admin/jquery.inputmask.js']);
 });

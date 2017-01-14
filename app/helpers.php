@@ -69,7 +69,7 @@ if (! function_exists('setLocation')) {
      * @param  string   $name
      * @return integer Location id
      */
-    function setLocation($lat, $long, $userId, $name = '')
+    function setLocation($lat, $long, $userId = null, $name = '')
     {
         if ($name == '') {
             $name = \GoogleMaps::load('geocoding')
@@ -84,11 +84,13 @@ if (! function_exists('setLocation')) {
         if (@$name['status'] == 'ZERO_RESULTS') {
             $name = 'NO RESULT';
         }
+
         if (is_null($userId)) {
             $user = \Auth::user();
         } else {
             $user = \App\User::find($userId);
         }
+
         return $user->locations()->create([
                     'latitude'  => $lat,
                     'longitude' => $long,

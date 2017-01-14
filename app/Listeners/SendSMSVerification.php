@@ -3,8 +3,8 @@
 namespace App\Listeners;
 
 use App\Sms;
-use App\Logics\SmsLogic;
 use App\Events\UserRegistered;
+use App\Repositories\SmsRepository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -12,7 +12,7 @@ class SendSMSVerification
 {
     /**
      * SMS instance
-     * @var \App\Logics\SmsLogic
+     * @var \App\Repositories\SmsRepository
      */
     private $sms;
 
@@ -23,7 +23,7 @@ class SendSMSVerification
      */
     public function __construct()
     {
-        $this->sms = new SmsLogic();
+        $this->sms = new SmsRepository();
     }
 
     /**

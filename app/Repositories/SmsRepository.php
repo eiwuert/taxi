@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Logics;
+namespace App\Repositories;
 
 use Log;
 use Auth;
 use GuzzleHttp\Client;
 
-class SmsLogic
+class SmsRepository
 {
     /**
      * instance of Guzzle
