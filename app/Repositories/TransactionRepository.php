@@ -3,6 +3,10 @@
 namespace App\Repositories;
 
 use DB;
+use App\Trip;
+use GoogleMaps;
+use App\CarType;
+use Carbon\Carbon;
 use App\Transaction;
 
 class TransactionRepository
