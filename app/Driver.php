@@ -151,6 +151,17 @@ class Driver extends Model
     }
 
     /**
+     * Save user profile picture.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function setPictureAttribute($picture)
+    {
+        $this->attributes['picture'] = basename($picture->store($this->picturePath));
+    }
+
+    /**
      * get driver state
      */
     public function state()
@@ -201,17 +212,6 @@ class Driver extends Model
     }
 
     /**
-     * Save user profile picture.
-     * 
-     * @param  string $picture
-     * @return string
-     */
-    public function setPictureAttribute($picture)
-    {
-        $this->attributes['picture'] = basename($picture->store($this->picturePath));
-    }
-
-    /**
      * Get full path to profile picture url.
      * 
      * @param  string $picture
@@ -220,7 +220,7 @@ class Driver extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset('storage/profile/driver/' . $picture);
+            return asset($this->picturePath . $picture);
         } else {
             return $picture;
         }

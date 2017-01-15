@@ -6,6 +6,7 @@ use DB;
 use Auth;
 use App\User;
 use Validator;
+use App\Driver;
 use Carbon\Carbon;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
@@ -202,7 +203,6 @@ class RegisterController extends Controller
         $userRequest['uuid']     = $uuid;
         $userRequest['password'] = $uuid;
         $userRequest['email']    = $email;
-
         $user = User::create($userRequest->all());
 
         Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());

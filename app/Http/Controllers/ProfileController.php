@@ -70,7 +70,8 @@ class ProfileController extends Controller
 
     public function updateDriver(DriverProfileRequest $request)
     {
-        Auth::user()->driver()->update($request->all());
+        Auth::user()->driver()->orderBy('id', 'desc')
+                    ->first()->fill($request->all())->save();
         return $this->get();
     }
 
