@@ -2193,7 +2193,7 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-stars | numeric |  required  | in: `1,2,3,4,5`
+stars | numeric |  required  | float between `1.0` to `5.0`
 comment | text |  optional  | max: `5000`
 
     
@@ -2305,7 +2305,7 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-stars | numeric |  required  | in: `1,2,3,4,5`
+stars | numeric |  required  | float between `1.0` to `5.0`
 comment | text |  optional  | max: `5000`
 
     
