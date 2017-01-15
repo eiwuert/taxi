@@ -42,6 +42,28 @@ class Driver extends Model
         'picture',
     ];
 
+    public static $sortable = [
+        'first_name' => 'First name', 
+        'last_name' => 'Last name',
+        'email' => 'Email',
+        'gender' => 'Gender',
+        'device_type' => 'Device type',
+        'lang' => 'Language',
+        'state' => 'State',
+        'country' => 'Country',
+        'address' => 'Address',
+        'zipcode' => 'Zip code',
+        'created_at' => 'Created time',
+        'updated_at' => 'Updated time',
+    ];
+
+    private $picturePath;
+
+    public function __construct()
+    {
+        $this->picturePath = 'storage/profile/driver/';
+    }
+
     /**
      * Scope a query to only include offline drivers.
      * online    0
@@ -185,7 +207,7 @@ class Driver extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store('public/profile/driver'));
+        $this->attributes['picture'] = basename($picture->store($this->picturePath));
     }
 
     /**
@@ -280,5 +302,18 @@ class Driver extends Model
     public function phoneNumber()
     {
         return User::whereId($this->user_id)->first()->phone;
+    }
+
+    /**
+     * Get driver picture url.
+     * @return String
+     */
+    public function getPicture()
+    {
+        if ($this->picture == 'no-profile.png') {
+            return asset('img/no-profile.png');
+        } else {
+            return $this->picture;
+        }
     }
 }

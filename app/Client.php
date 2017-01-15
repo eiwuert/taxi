@@ -37,7 +37,16 @@ class Client extends Model
         'country' => 'Country',
         'address' => 'Address',
         'zipcode' => 'Zip code',
+        'created_at' => 'Created time',
+        'updated_at' => 'Updated time',
     ];
+
+    private $picturePath;
+
+    public function __construct()
+    {
+        $this->picturePath = 'storage/profile/client/';
+    }
 
     /**
      * A client can have one user.
@@ -67,7 +76,7 @@ class Client extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store('public/profile/client'));
+        $this->attributes['picture'] = basename($picture->store($this->picturePath));
     }
 
     /**
@@ -79,7 +88,7 @@ class Client extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset('storage/profile/client/' . $picture);
+            return asset($this->picturePath . $picture);
         } else {
             return $picture;
         }
@@ -160,7 +169,7 @@ class Client extends Model
         $this->trips()->finished()->each(function ($t) use (& $disbursement) {
             $disbursement += $t->transaction()->sum('total');
         });
-        return number_format($disbursement * .87, 2);
+        return number_format($disbursement, 2);
     }
 
     /**
@@ -190,6 +199,19 @@ class Client extends Model
             return 'Not found';
         } else {
             return $location->name;
+        }
+    }
+
+    /**
+     * Get client picture url.
+     * @return String
+     */
+    public function getPicture()
+    {
+        if ($this->picture == 'no-profile.png') {
+            return asset('img/no-profile.png');
+        } else {
+            return $this->picture;
         }
     }
 }
