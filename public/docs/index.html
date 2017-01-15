@@ -982,8 +982,103 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/driver/profile</code></p>
-<h2>Update</h2>
-<p>Update <code>client</code> profile data. please note that driver profile is not updatable.</p>
+<h2>Update - Driver</h2>
+<p>Update <code>driver</code> profile data.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://localhost/api/driver/profile" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+    -d "picture"="et" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/profile",
+    "method": "POST",
+    "data": {
+        "picture": "et"
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/driver/profile</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>picture</td>
+<td>image</td>
+<td>optional</td>
+<td>Must be an image (jpeg, png, bmp, gif, or svg) Maximum: <code>512</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "id": 102,
+            "first_name": "Amirmasoud",
+            "last_name": "Sheidayi",
+            "email": "amirmasoud@mysite.com",
+            "gender": "male",
+            "device_token": "qqqqqqqq5",
+            "device_type": "ios",
+            "online": true,
+            "approve": true,
+            "available": true,
+            "lang": "fa",
+            "address": "Iran",
+            "state": "Tehran",
+            "country": "Iran",
+            "zipcode": "123456",
+            "picture": "http://92.222.150.222/saam/public/storage/profile/driver/1c192ae561e6c5aa9dd29301728c95de.jpeg",
+            "user_id": 207,
+            "created_at": "2017-01-15 06:56:04",
+            "updated_at": "2017-01-15 12:41:36",
+            "deleted_at": null,
+            "phone": "098789000001"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Validation failed</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "picture": [
+                "The picture field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
+<h2>Update - Client</h2>
+<p>Update <code>client</code> profile data.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>

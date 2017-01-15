@@ -9,6 +9,7 @@ use App\Driver;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Http\Requests\DriverProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -64,7 +65,13 @@ class ProfileController extends Controller
 			->fill($profileRequest->all())
 			->save();
 
-		return $this->get($profileRequest);
+		return $this->get();
+    }
+
+    public function updateDriver(DriverProfileRequest $request)
+    {
+        Auth::user()->driver()->update($request->all());
+        return $this->get();
     }
 
     /**

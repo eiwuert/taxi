@@ -983,9 +983,105 @@ $.ajax(settings).done(function (response) {
 `GET api/driver/profile`
 
 
-## Update
+## Update - Driver
 
-Update `client` profile data. please note that driver profile is not updatable.
+Update `driver` profile data.
+
+> Example request
+
+```bash
+curl "http://localhost/api/driver/profile" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+    -d "picture"="et" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost/api/driver/profile",
+    "method": "POST",
+    "data": {
+        "picture": "et"
+},
+    "headers": {
+    	"accept": "application/json",
+     	"authorization": "Bearer LONG_ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/driver/profile`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    picture | image |  optional  | Must be an image (jpeg, png, bmp, gif, or svg) Maximum: `512`
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 102,
+            "first_name": "Amirmasoud",
+            "last_name": "Sheidayi",
+            "email": "amirmasoud@mysite.com",
+            "gender": "male",
+            "device_token": "qqqqqqqq5",
+            "device_type": "ios",
+            "online": true,
+            "approve": true,
+            "available": true,
+            "lang": "fa",
+            "address": "Iran",
+            "state": "Tehran",
+            "country": "Iran",
+            "zipcode": "123456",
+            "picture": "http://92.222.150.222/saam/public/storage/profile/driver/1c192ae561e6c5aa9dd29301728c95de.jpeg",
+            "user_id": 207,
+            "created_at": "2017-01-15 06:56:04",
+            "updated_at": "2017-01-15 12:41:36",
+            "deleted_at": null,
+            "phone": "098789000001"
+        }
+    ]
+}
+```
+
+> Example response - Validation failed
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "picture": [
+                "The picture field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+```
+
+## Update - Client
+
+Update `client` profile data.
 
 > Example request
 
@@ -1101,6 +1197,7 @@ Parameter | Type | Status | Description
     ]
 }
 ```
+
 
 
 # Driver
