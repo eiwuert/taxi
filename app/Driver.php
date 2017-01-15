@@ -5,6 +5,7 @@ namespace App;
 use App\Car;
 use App\User;
 use App\Rate;
+use App\Status;
 use App\CarType;
 use App\Location;
 use Illuminate\Database\Eloquent\Model;
@@ -184,7 +185,7 @@ class Driver extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = $picture->store('public/storage/profile/driver');
+        $this->attributes['picture'] = basename($picture->store('public/profile/driver'));
     }
 
     /**
@@ -196,7 +197,7 @@ class Driver extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset($picture);
+            return asset('storage/profile/driver/' . $picture);
         } else {
             return $picture;
         }
@@ -218,7 +219,7 @@ class Driver extends Model
     public function income()
     {
         $income = 0;
-        $this->trips()->each(function ($t) use (& $income) {
+        $this->trips()->finished()->each(function ($t) use (& $income) {
             $income += $t->transaction()->sum('total');
         });
         return number_format($income * .87, 2);

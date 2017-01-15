@@ -26,6 +26,19 @@ class Client extends Model
         'picture',
     ];
 
+    public static $sortable = [
+        'first_name' => 'First name', 
+        'last_name' => 'Last name',
+        'email' => 'Email',
+        'gender' => 'Gender',
+        'device_type' => 'Device type',
+        'lang' => 'Language',
+        'state' => 'State',
+        'country' => 'Country',
+        'address' => 'Address',
+        'zipcode' => 'Zip code',
+    ];
+
     /**
      * A client can have one user.
      * 
@@ -54,7 +67,7 @@ class Client extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = $picture->store('public/storage/profile/client');
+        $this->attributes['picture'] = basename($picture->store('public/profile/client'));
     }
 
     /**
@@ -66,7 +79,7 @@ class Client extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset($picture);
+            return asset('storage/profile/client/' . $picture);
         } else {
             return $picture;
         }
@@ -89,7 +102,7 @@ class Client extends Model
      */
     public function scopeLocked($query)
     {
-        return $query->where('lock', true);
+        return $query->where('lock', 1);
     }
 
     /**
@@ -100,8 +113,9 @@ class Client extends Model
      */
     public function scopeUnlocked($query)
     {
-        return $query->where('lock', false);
+        return $query->where('lock', 0);
     }
+
 
     /**
      * get client state
@@ -114,6 +128,68 @@ class Client extends Model
         } else {
             return (object) ['color' => 'success',
                             'name' => '<i class="ion-unlocked"></i>'];
+        }
+    }
+
+    /**
+     * Inverse trips
+     * 
+     * @return hasMany
+     */
+    public function inverseTrips()
+    {
+        return $this->trips()->orderBy('id', 'desc');
+    }
+
+    /**
+     * Count of trips that client had.
+     * @return numeric
+     */
+    public function countOfTrips()
+    {
+        return $this->trips()->count();
+    }
+
+    /**
+     * Get client disbursement
+     * @return numeric
+     */
+    public function disbursement()
+    {
+        $disbursement = 0;
+        $this->trips()->finished()->each(function ($t) use (& $disbursement) {
+            $disbursement += $t->transaction()->sum('total');
+        });
+        return number_format($disbursement * .87, 2);
+    }
+
+    /**
+     * Get client average rate
+     * @return float
+     */
+    public function rate()
+    {
+        $rate = Rate::whereIn('trip_id', $this->trips()
+                                            ->get(['id'])
+                                            ->flatten())
+                    ->avg('driver');
+        return number_format($rate, 2);
+    }
+
+    /**
+     * Get the last location of the client.
+     * @return string
+     */
+    public function lastLocation()
+    {
+        $location = Location::whereUserId($this->user_id)
+                            ->orderBy('id', 'desc')
+                            ->first();
+
+        if (is_null($location)) {
+            return 'Not found';
+        } else {
+            return $location->name;
         }
     }
 }
