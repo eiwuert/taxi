@@ -43,8 +43,9 @@ class Client extends Model
 
     private $picturePath;
 
-    public function __construct()
+    public function __construct($attributes = array())
     {
+        parent::__construct($attributes);
         $this->picturePath = 'storage/profile/client/';
     }
 
