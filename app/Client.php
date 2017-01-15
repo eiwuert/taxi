@@ -41,14 +41,6 @@ class Client extends Model
         'updated_at' => 'Updated time',
     ];
 
-    private $picturePath;
-
-    public function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->picturePath = 'storage/profile/client/';
-    }
-
     /**
      * A client can have one user.
      * 
@@ -77,7 +69,7 @@ class Client extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store($this->picturePath));
+        $this->attributes['picture'] = basename($picture->store('public/profile/client/'));
     }
 
     /**
@@ -89,7 +81,7 @@ class Client extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset($this->picturePath . $picture);
+            return asset('storage/profile/client/' . $picture);
         } else {
             return $picture;
         }

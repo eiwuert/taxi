@@ -57,14 +57,6 @@ class Driver extends Model
         'updated_at' => 'Updated time',
     ];
 
-    private $picturePath;
-
-    public function __construct($attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->picturePath = 'storage/profile/driver/';
-    }
-
     /**
      * Scope a query to only include offline drivers.
      * online    0
@@ -158,7 +150,7 @@ class Driver extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store($this->picturePath));
+        $this->attributes['picture'] = basename($picture->store('public/profile/driver/'));
     }
 
     /**
@@ -220,7 +212,7 @@ class Driver extends Model
     public function getPictureAttribute($picture)
     {
         if ($picture != 'no-profile.png') {
-            return asset($this->picturePath . $picture);
+            return asset('storage/profile/driver/' . $picture);
         } else {
             return $picture;
         }
