@@ -6,14 +6,15 @@ clients
 Client
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active">drivers</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
+<li><a href="{{ route('clients.index') }}"><i class="ion-android-walk"></i> clients</a></li>
+<li class="active">{{ $client->first_name }} {{ $client->last_name }}</li>
 @endsection
 @section('content')
 <div class="row">
   <div class="col-md-3">
-    @include('admin.drivers.includes.profile', ['driver' => $driver])
-    @include('admin.drivers.includes.about', ['driver' => $driver])
+    @include('admin.clients.includes.profile', ['client' => $client])
+    @include('admin.clients.includes.about', ['client' => $client])
   </div>
   <!-- /.col -->
   <div class="col-md-9">
@@ -21,19 +22,14 @@ Client
       <ul class="nav nav-tabs">
         <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
         <li><a href="#info" data-toggle="tab">Info</a></li>
-        <li><a href="#car" data-toggle="tab">Car</a></li>
       </ul>
       <div class="tab-content">
         <div class="active tab-pane" id="timeline">
-          @include('admin.drivers.includes.timeline', ['driver' => $driver])
+          @include('admin.clients.includes.timeline', ['client' => $client])
         </div>
         <!-- /.tab-pane -->
         <div class="tab-pane" id="info">
-          @include('admin.drivers.edit', ['driver' => $driver])
-        </div>
-        <!-- /.tab-pane -->
-        <div class="tab-pane" id="car">
-          @include('admin.cars.edit', ['car' => $driver->car()])
+          @include('admin.clients.edit', ['client' => $client])
         </div>
         <!-- /.tab-pane -->
       </div>
@@ -45,11 +41,3 @@ Client
 </div>
 <!-- /.row -->
 @endsection
-@push('js')
-<script src="{{ elixir('js/admin/jquery.inputmask.js') }}"></script>
-<script type="text/javascript">
-$(function () {
-  $(".data-mask-plate").inputmask();
-});
-</script>
-@endpush

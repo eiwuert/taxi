@@ -1,5 +1,5 @@
-{!! Form::open(['action' => ['Admin\DriverController@offline', $driver], 'method' => 'POST']) !!}
-@include('components.bootstrap.btn-warning', [
+{!! Form::open(['action' => ['Admin\ClientController@destroy', $client], 'method' => 'DELETE']) !!}
+@include('components.bootstrap.btn-danger', [
       'addClass' => isset($addClass) ? $addClass : '',
       'text' => isset($text) ? $text : '',
       'icon' => isset($icon) ? $icon : ''

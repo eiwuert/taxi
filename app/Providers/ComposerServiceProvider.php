@@ -26,6 +26,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'admin.clients.index', 'App\Http\ViewComposers\ClientComposer'
         );
+
+        View::composer(
+            'admin.trips.index', 'App\Http\ViewComposers\TripComposer'
+        );
     }
 
     /**

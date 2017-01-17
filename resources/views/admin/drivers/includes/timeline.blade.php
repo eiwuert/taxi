@@ -33,7 +33,7 @@
       <span class="time"><i class="fa fa-clock-o"></i> {{ ($transaction->created_at->diffForHumans()) }}</span>
       <h3 class="timeline-header">Transaction</h3>
       <div class="timeline-body">
-        <p><b>Entry: </b></p>
+        <p><b>Entry: </b>{{ $transaction->entry }}</p>
         <p><b>Distance: </b>{{ $transaction->distance_value }}</p>
         <p><b>Time: </b>{{ $transaction->time_value }}</p>
         <p><b>Surcharge: </b>{{ $transaction->surcharge }}</p>
@@ -79,20 +79,18 @@
   <li>
     <i class="fa fa-user bg-purple"></i>
     <div class="timeline-item">
-      @foreach ($t->client()->get() as $c)
-      <span class="time"><i class="fa fa-clock-o"></i> {{ $c->created_at->diffForHumans() }}</span>
-      <h3 class="timeline-header">{{ $c->first_name or 'null' }} {{ $c->last_name or 'null' }}</h3>
+      <span class="time"><i class="fa fa-clock-o"></i> {{ $t->client->created_at->diffForHumans() }}</span>
+      <h3 class="timeline-header"><a href="{{ route('clients.show', [$t->client]) }}">{{ $t->client->first_name or 'null' }} {{ $t->client->last_name or 'null' }}</a></h3>
       <div class="timeline-body">
-        <p><b>Phone: </b>{{ $c->phoneNumber() }}</p>
-        <p><b>Email: </b>{{ $c->email or 'null' }}</p>
-        <p><b>Gender: </b>{{ $c->gender or 'null' }}</p>
-        <p><b>Device type: </b>{{ $c->device_type or 'null' }}</p>
-        <p><b>Address: </b>{{ $c->address or 'null' }}</p>
-        <p><b>State: </b>{{ $c->state or 'null' }}</p>
-        <p><b>Country: </b>{{ $c->country or 'null' }}</p>
-        <p><b>Zipcode: </b>{{ $c->zipcode or 'null' }}</p>
+        <p><b>Phone: </b>{{ $t->client->phoneNumber() }}</p>
+        <p><b>Email: </b>{{ $t->client->email or 'null' }}</p>
+        <p><b>Gender: </b>{{ $t->client->gender or 'null' }}</p>
+        <p><b>Device type: </b>{{ $t->client->device_type or 'null' }}</p>
+        <p><b>Address: </b>{{ $t->client->address or 'null' }}</p>
+        <p><b>State: </b>{{ $t->client->state or 'null' }}</p>
+        <p><b>Country: </b>{{ $t->client->country or 'null' }}</p>
+        <p><b>Zipcode: </b>{{ $t->client->zipcode or 'null' }}</p>
       </div>
-      @endforeach
     </div>
   </li>
   <!-- END timeline item -->

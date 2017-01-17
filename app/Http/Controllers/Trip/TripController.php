@@ -201,6 +201,7 @@ class TripController extends Controller
                     if ($exclude['count'] < 10) {
                         $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
                     } else {
+                        $this->updateStatus($trip, 'no_driver');
                         dispatch(new SendClientNotification('1', 'no_driver_found', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
                     }
                     return ok([

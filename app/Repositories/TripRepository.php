@@ -184,6 +184,11 @@ class TripRepository
                           ->orWhere('status_id', Status::where('name', 'driver_rated')->firstOrFail()->value);
 
         if ($pending->count()) {
+            if (env('APP_ENV', 'production') == 'local') {
+                $this->updateDriverAvailability($pending->first()->driver, true);
+                $this->updateStatus($pending->first(), 'reject_client_found');
+                return false;
+            }
             return fail([
                     'title' => 'You have pending request',
                     'detail'=> 'Please address your pending trip request at first',
@@ -192,6 +197,19 @@ class TripRepository
         }
 
         return false;
+    }
+
+    /**
+     * Update trip status.
+     * @param  App\Trip $trip
+     * @param  string $name status name
+     * @return void
+     */
+    private function updateStatus($trip, $name)
+    {
+        $trip->update([
+            'status_id' => Status::where('name', $name)->firstOrFail()->value,
+        ]);
     }
 
     /**
@@ -231,4 +249,31 @@ class TripRepository
             ];
     }
 
+    /**
+     * COunt of finished trips.
+     * @return Numeric
+     */
+    public function countOfFinishedTrips()
+    {
+        $finishedCount = Trip::finishedCount();
+        if (is_object($finishedCount)) {
+            return 0;
+        } else {
+            return number_format($finishedCount, 2);
+        }
+    }
+
+    /**
+     * Count of cancelled trips.
+     * @return Numeric
+     */
+    public function countOfCancelledTrips()
+    {
+        $canceledCount = Trip::canceledCount();
+        if (is_object($canceledCount)) {
+            return 0;
+        } else {
+            return number_format($canceledCount, 2);
+        }
+    }
 }

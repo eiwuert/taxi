@@ -128,24 +128,37 @@ class DriverController extends Controller
      * @param  string $status
      * @return view
      */
-    public function status(Request $request)
+    public function filter(Request $request, Driver $drivers)
     {
+        $drivers = $drivers->with('user');
         if ($request->status == 'online') {
             // online
-            $drivers = Driver::online()->paginate(config('admin.perPage'));
+            $drivers = Driver::online();
         } else if ($request->status == 'offline') {
             // offline
-            $drivers = Driver::offline()->paginate(config('admin.perPage'));
+            $drivers = Driver::offline();
         } else if ($request->status == 'onway') {
             // onway
-            $drivers = Driver::onway()->paginate(config('admin.perPage'));
+            $drivers = Driver::onway();
         } else if ($request->status == 'inapprove') {
             // inapprove
-            $drivers = Driver::inapprove()->paginate(config('admin.perPage'));
-        } else {
-            $drivers = Driver::paginate(config('admin.perPage'));
+            $drivers = Driver::inapprove();
         }
-        
+
+        if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Driver::$sortable)) {
+            $drivers = $drivers->orderBy($request->sortby, $request->orderby);
+        }
+
+        if (isset($request->count)) {
+            if ($request->count == 15 || $request->count == 30) {
+                $drivers = $drivers->paginate($request->count);
+            } else {
+                $drivers = $drivers->paginate(Driver::count());
+            }
+        } else {
+            $drivers = $drivers->paginate(config('admin.perPage'));
+        }
+
         return view('admin.drivers.index', compact('drivers'));
     }
 

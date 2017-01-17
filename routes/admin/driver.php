@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'drivers'], function() {
-    Route::get('filter', 'DriverController@status')
+    Route::get('filter', 'DriverController@filter')
         ->name('drivers.filter');
     Route::get('search', 'DriverController@search')
         ->name('drivers.search');

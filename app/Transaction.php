@@ -46,7 +46,7 @@ class Transaction extends Model
      */
     public function type()
     {
-        return $this->hasOne('App\CarType');
+        return $this->hasOne('App\CarType', 'id', 'car_type_id');
     }
 
     /**
@@ -57,5 +57,14 @@ class Transaction extends Model
     public function scopeIncome($query)
     {
         return $query->whereIn('trip_id', Trip::whereIn('status_id', [9, 15, 16, 17])->get());
+    }
+
+    /**
+     * Total cost without surcharge.
+     * @return Numeric
+     */
+    public function withoutSurcharge()
+    {
+        return number_format($this->entry + $this->distance_value + $this->time_value, 2);
     }
 }

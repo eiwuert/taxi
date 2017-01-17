@@ -7,7 +7,7 @@ Drivers
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active">drivers</li>
+<li class="active"><i class="ion-model-s"></i> drivers</li>
 @endsection
 @section('content')
 <div class="row">
@@ -34,7 +34,28 @@ Drivers
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div class="box">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <i class="fa fa-filter"></i>
+        <h3 class="box-title">Filter</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        {!! Form::open(['action' => 'Admin\DriverController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
+        @include('components.bootstrap.select', ['name' => 'sortby', 
+                                                'label' => 'Sort by', 
+                                                'items' => \App\Driver::$sortable])
+        @include('components.bootstrap.select', ['name' => 'orderby', 
+                                                'label' => 'Order by', 
+                                                'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
+        @include('components.bootstrap.select', ['name' => 'count', 
+                                                'label' => 'Count', 
+                                                'items' => [15 => 15, 30 => 30, 'all' => 'All']])
+        {!! Form::close() !!}
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <div class="box box-solid">
       <div class="box-header">
         <h3 class="box-title">List</h3>
         <div class="box-tools">
@@ -62,7 +83,7 @@ Drivers
           </tr>
           @foreach($drivers as $driver)
           <tr onclick="window.document.location='{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}';" style="cursor: pointer;">
-            <td>{{ HTML::image('img/' . $driver->picture, 'driver picture', ['class' => 'img-circle', 'width' => '24']) }}</td>
+            <td><img src="{{ $driver->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
             <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
             <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
             <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
@@ -75,7 +96,7 @@ Drivers
       </div>
       <!-- /.box-body -->
       <div class="box-footer clearfix">
-        {{ $drivers->links() }}
+      @include('admin.includes.pagination', ['resource' => $drivers])
       </div>
     </div>
     <!-- /.box -->

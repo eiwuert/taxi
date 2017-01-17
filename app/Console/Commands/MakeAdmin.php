@@ -50,6 +50,7 @@ class MakeAdmin extends Command
                     'email' => $email,
                     'password' => bcrypt($password),
                     'phone' => '00000000',
+                    'verified' => true
                 ]);
             $this->info("New admin created.");
         }

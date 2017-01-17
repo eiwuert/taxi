@@ -1,7 +1,7 @@
 <!-- Profile Image -->
 <div class="box box-primary">
   <div class="box-body box-profile">
-    {{ HTML::image('img/' . $driver->picture, 'User profile picture', ['class' => 'profile-user-img img-responsive img-circle']) }}
+    <img src="{{ $driver->getPicture() }}" alt="User profile picture" class="profile-user-img img-responsive img-circle">
     <h3 class="profile-username text-center">{{ $driver->first_name or 'empty' }} {{ $driver->last_name or 'empty' }}</h3>
     <p class="text-muted text-center">Driver</p>
     <ul class="list-group list-group-unbordered">

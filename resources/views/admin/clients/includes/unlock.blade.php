@@ -1,5 +1,5 @@
-{!! Form::open(['action' => ['Admin\DriverController@decline', $driver], 'method' => 'POST']) !!}
-@include('components.bootstrap.btn-danger', [
+{!! Form::open(['action' => ['Admin\ClientController@unlock', $client], 'method' => 'POST']) !!}
+@include('components.bootstrap.btn-success', [
       'addClass' => isset($addClass) ? $addClass : '',
       'text' => isset($text) ? $text : '',
       'icon' => isset($icon) ? $icon : ''

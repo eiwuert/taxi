@@ -19,8 +19,10 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        <li><a href="{{ route('drivers.index') }}"><i class='ion-model-s'></i> <span>Drivers</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('dashboard'))) ? 'active' : '' }}"><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('drivers.index'))) ? 'active' : '' }}"><a href="{{ route('drivers.index') }}"><i class='ion-model-s'></i><span> Drivers</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('clients.index'))) ? 'active' : '' }}"><a href="{{ route('clients.index') }}"><i class='ion-android-walk'></i><span> Clients</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('trips.index'))) ? 'active' : '' }}"><a href="{{ route('trips.index') }}"><i class='ion-android-navigate'></i><span> Trips</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
             <span class="pull-right-container">

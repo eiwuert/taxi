@@ -93,7 +93,7 @@ class User extends Authenticatable
      */
     public function driver()
     {
-        return $this->hasOne('App\Driver');
+        return $this->HasMany('App\Driver');
     }
 
     /**

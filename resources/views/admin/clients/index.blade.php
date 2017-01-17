@@ -7,24 +7,45 @@ Clients
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active">clients</li>
+<li class="active"><i class="ion-android-walk"></i> clients</li>
 @endsection
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <a href="{{ route('clients.filter') . '?status=unlock' }}">
+    <a href="{{ route('clients.filter') . '?status=unlocked' }}">
       <info-box text="Unlocked" number="{{ $countOfUnockedClients }}" color="green" icon="ion-unlocked"></info-box>
     </a>
   </div>
   <div class="col-md-6">
-    <a href="{{ route('clients.filter') . '?status=lock' }}">
+    <a href="{{ route('clients.filter') . '?status=locked' }}">
       <info-box text="Locked" number="{{ $countOfLockedClients }}" color="red" icon="ion-locked"></info-box>
     </a>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <div class="box">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <i class="fa fa-filter"></i>
+        <h3 class="box-title">Filter</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        {!! Form::open(['action' => 'Admin\ClientController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
+        @include('components.bootstrap.select', ['name' => 'sortby', 
+                                                'label' => 'Sort by', 
+                                                'items' => \App\Client::$sortable])
+        @include('components.bootstrap.select', ['name' => 'orderby', 
+                                                'label' => 'Order by', 
+                                                'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
+        @include('components.bootstrap.select', ['name' => 'count', 
+                                                'label' => 'Count', 
+                                                'items' => [15 => 15, 30 => 30, 'all' => 'All']])
+        {!! Form::close() !!}
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <div class="box box-solid">
       <div class="box-header">
         <h3 class="box-title">List</h3>
         <div class="box-tools">
@@ -40,8 +61,10 @@ Clients
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-          <tbody><tr>
+        <table class="table table-striped table-hover">
+          <tbody>
+          <tr>
+          <tr>
             <th></th>
             <th>First name</th>
             <th>Last name</th>
@@ -51,7 +74,7 @@ Clients
           </tr>
           @foreach($clients as $client)
           <tr onclick="window.document.location='{{ action('Admin\ClientController@show', ['id' => $client->id]) }}';" style="cursor: pointer;">
-            <td>{{ HTML::image('img/' . $client->picture, 'driver picture', ['class' => 'img-circle', 'width' => '24']) }}</td>
+            <td><img src="{{ $client->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
             <td>{!! $client->first_name or '<tag color="default"></tag>' !!}</td>
             <td>{!! $client->last_name or '<tag color="default"></tag>' !!}</td>
             <td>{{ $client->country }}</td>
@@ -63,7 +86,7 @@ Clients
       </div>
       <!-- /.box-body -->
       <div class="box-footer clearfix">
-        {{ $clients->links() }}
+      @include('admin.includes.pagination', ['resource' => $clients])
       </div>
     </div>
     <!-- /.box -->

@@ -10,6 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('password', function() {
+ return \Hash::make('123456');
+});
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
@@ -26,6 +29,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     require base_path('routes/admin/driver.php');
     // CLIENT
     require base_path('routes/admin/client.php');
+    // TRIP
+    require base_path('routes/admin/trip.php');
 
     // CAR
     Route::resource('cars', 'CarController');

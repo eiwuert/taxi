@@ -32,6 +32,12 @@ elixir(mix => {
                   'plugins/input-mask/jquery.inputmask.extensions.js',
                   'plugins/input-mask/jquery.inputmask.regex.extensions.js'],
                 'public/js/admin/jquery.inputmask.js', 'resources/assets/bower/AdminLTE')
+        .styles('plugins/select2/select2.min.css', 
+                'public/css/admin/select2.css', 'resources/assets/bower/AdminLTE')
+        .webpack('plugins/select2/select2.full.min.js', 
+                 'public/js/admin/select2.js', 'resources/assets/bower/AdminLTE')
+        .webpack('plugins/chartjs/chart.min.js', 
+                 'public/js/admin/chart.js', 'resources/assets/bower/AdminLTE')
         .copy('resources/assets/bower/AdminLTE/dist/img', 'public/img')
         .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/css/fonts')
         .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin')

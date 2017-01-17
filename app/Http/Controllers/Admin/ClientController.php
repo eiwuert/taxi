@@ -16,7 +16,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::paginate(config('admin.perPage'));
+        $clients = Client::with('user')->paginate(config('admin.perPage'));
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -96,16 +96,29 @@ class ClientController extends Controller
      * @param  string $status
      * @return view
      */
-    public function status(Request $request)
+    public function filter(Request $request, Client $clients)
     {
+        $clients = $clients->with('user');
         if ($request->status == 'locked') {
-            $clients = Client::locked()->paginate(config('admin.perPage'));
+            $clients = Client::locked();
         } else if ($request->status == 'unlocked') {
-            $clients = Client::unlocked()->paginate(config('admin.perPage'));
-        }  else {
-            $clients = Client::paginate(config('admin.perPage'));
+            $clients = Client::unlocked();
         }
-        
+
+        if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Client::$sortable)) {
+            $clients = $clients->orderBy($request->sortby, $request->orderby);
+        }
+
+        if (isset($request->count)) {
+            if ($request->count == 15 || $request->count == 30) {
+                $clients = $clients->paginate($request->count);
+            } else {
+                $clients = $clients->paginate(Client::count());
+            }
+        } else {
+            $clients = $clients->paginate(config('admin.perPage'));
+        }
+
         return view('admin.clients.index', compact('clients'));
     }
 

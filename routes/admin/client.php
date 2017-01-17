@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'clients'], function() {
-    Route::get('filter', 'ClientController@status')
+    Route::get('filter', 'ClientController@filter')
         ->name('clients.filter');
     Route::get('search', 'ClientController@search')
         ->name('clients.search');

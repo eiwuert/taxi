@@ -29,7 +29,7 @@ class Trip extends Model
      */
     public function driver()
     {
-        return $this->hasOne('App\Driver', 'user_id', 'driver_id');
+        return $this->hasOne('App\Driver', 'id', 'driver_id');
     }
 
     /**
@@ -220,6 +220,37 @@ class Trip extends Model
         // TRIP_IS_OVER
         return $query->whereIn('status_id', [9, 15, 16, 17])
                      ->count();
+    }
+
+    /**
+     * Scope a query to count all canceled trips.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCanceledCount($query)
+    {
+        // CANCEL_REQUEST_TAXI
+        // NO_RESPONSE
+        // CANCEL_ONWAY_DRIVER
+        // DRIVER_REJECT_STARTED_TRIP
+        // DRIVER_CANCEL_ARRIVED_STATUS
+        // NO_DRIVER
+        return $query->whereIn('status_id', [10, 3, 11, 8, 14, 5])
+                     ->count();
+    }
+
+    /**
+     * Scope a query to get all finished trips.
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFinished($query)
+    {
+        // TRIP_ENDED
+        // DRIVER_RATED
+        // CLIENT_RATED
+        // TRIP_IS_OVER
+        return $query->whereIn('status_id', [9, 15, 16, 17]);
     }
 
     /**

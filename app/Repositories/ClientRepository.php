@@ -21,6 +21,6 @@ class ClientRepository
      */
     public function countOfLockedClients()
     {
-        Client::locked()->count();
+        return Client::locked()->count();
     }
 }
