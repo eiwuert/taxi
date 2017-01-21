@@ -184,6 +184,19 @@ class TripController extends Controller
                     break;
 
                 //
+                // DRIVER_ONWAY
+                //
+                case '7':
+                    $this->updateStatus($trip, 'cancel_onway_driver');
+                    $this->updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 7 to 11',
+                        ]);
+                    break;
+
+                //
                 // CLIENT_FOUND
                 //
                 case '2':
@@ -202,7 +215,7 @@ class TripController extends Controller
                         $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
                     } else {
                         $this->updateStatus($trip, 'no_driver');
-                        dispatch(new SendClientNotification('1', 'no_driver_found', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
+                        dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
                     }
                     return ok([
                             'title'  => 'Trip rejected.',
