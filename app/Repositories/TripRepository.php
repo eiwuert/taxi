@@ -231,12 +231,20 @@ class TripRepository
      */
     public function excludeDriver($clientId)
     {
-        $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
-                        ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
-                        ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
-                        ->orWhere('client_id', $clientId)
-                        ->orWhere('created_at', '<', Carbon::now()->subMinutes(15)->toDateTimeString())
-                        ->get(['driver_id'])->flatten();
+        if (env('APP_ENV', 'production') == 'local') {
+            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
+                            ->orWhere('client_id', $clientId)
+                            ->get(['driver_id'])->flatten();
+        } else {
+            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
+                            ->orWhere('client_id', $clientId)
+                            ->orWhere('created_at', '<', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
+        }
         $toExclude = [];
         foreach ($exclude as $e) {
             if (! is_null($e->driver_id))
@@ -275,5 +283,34 @@ class TripRepository
         } else {
             return number_format($canceledCount, 2);
         }
+    }
+
+    /**
+     * Calculate trips percentages for each status in current month.
+     * @return array
+     */
+    public function calculateTripPercentages()
+    {
+        $count = DB::table('trips')
+                    ->select('status_id', DB::raw('count(*) as total'))
+                    ->whereBetween('created_at', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
+                    ->groupby('status_id')
+                    ->get();
+        $total = Trip::whereBetween('created_at', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
+                    ->count();
+        $status = [];
+        foreach ($count as $c) {
+            $status[$c->status_id] = $c->total;
+        }
+
+        foreach (range(1, 17) as $i) {
+            if (array_key_exists($i, $status)) {
+                continue;
+            } else {
+                $status[$i] = 0;
+            }
+        }
+        $status['total'] = $total;
+        return $status;
     }
 }
