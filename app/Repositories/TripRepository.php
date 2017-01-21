@@ -242,7 +242,7 @@ class TripRepository
                             ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
                             ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
                             ->orWhere('client_id', $clientId)
-                            ->orWhere('created_at', '<', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->orWhere('created_at', '<', Carbon::now()->subSecond()->toDateTimeString())
                             ->get(['driver_id'])->flatten();
         }
         $toExclude = [];
