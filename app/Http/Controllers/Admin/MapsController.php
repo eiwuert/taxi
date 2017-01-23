@@ -55,7 +55,7 @@ class MapsController extends Controller
             $filteredDrivers = $filteredDrivers->onway()->get();
         } else {
             // All
-            $filteredDrivers = $filteredDrivers->whereId(true);
+            $filteredDrivers = $filteredDrivers->get();
         }
         foreach ($filteredDrivers as $fd) {
             $drivers[] = $fd->lastLatLng();
