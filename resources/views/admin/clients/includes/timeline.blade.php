@@ -53,9 +53,11 @@
     <div class="timeline-item">
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header">Client @include('admin.includes.stars', ['stars' => $t->rataOfClientToDriver()->client ])</h3>
+      @if( $t->rataOfClientToDriver()->client_comment != '' )
       <div class="timeline-body">
         {{ $t->rataOfClientToDriver()->client_comment }}
       </div>
+      @endif
     </div>
   </li>
   @endif
@@ -67,9 +69,11 @@
     <div class="timeline-item">
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header">Driver @include('admin.includes.stars', ['stars' => $t->rateOfDriverToClient()->driver ])</h3>
+      @if( $t->rateOfDriverToClient()->driver_comment != '' )
       <div class="timeline-body">
         {{ $t->rateOfDriverToClient()->driver_comment }}
       </div>
+      @endif
     </div>
   </li>
   <!-- END timeline item -->
