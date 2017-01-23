@@ -31,6 +31,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'admin.trips.index', 'App\Http\ViewComposers\TripComposer'
         );
+
+        View::composer(
+            'admin.components.googlemaps-markers', 'App\Http\ViewComposers\GoogleMapsMarkersComposer'
+        );
     }
 
     /**

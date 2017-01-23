@@ -29,7 +29,7 @@ Maps
 </div>
 <div class="row">
   <div class="col-xs-12">
-  @include('admin.components.googlemaps-markers', ['drivers' => $drivers])
+  @include('admin.components.googlemaps-markers')
   </div>
 </div>
 @endsection

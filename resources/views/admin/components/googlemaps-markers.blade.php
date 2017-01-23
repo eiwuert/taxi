@@ -32,7 +32,6 @@
     @endif
     var neighborhoods = {!! $drivers !!};
     var info = {!! $info !!};
-    var id = {!! $id !!};
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       center: {lat: 35.757610, lng: 51.409954}

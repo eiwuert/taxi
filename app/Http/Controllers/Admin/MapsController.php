@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\LocationRepository;
 
 class MapsController extends Controller
 {
@@ -12,13 +13,9 @@ class MapsController extends Controller
      * Show all available drivers on the map.
      * @return view
      */
-    public function index(Request $request)
+    public function index()
     {
-        $data = $this->getDrivers($request);
-        return view('admin.maps.index')->withDrivers(str_replace('"', '', json_encode($data['drivers'])))
-                                       ->withInfo(json_encode($data['info']))
-                                       ->withId(json_encode($data['id']));
-
+        return view('admin.maps.index');
     }
 
     /**
@@ -27,11 +24,7 @@ class MapsController extends Controller
      */
     public function fullscreen(Request $request)
     {
-        $data = $this->getDrivers($request);
-        return view('admin.maps.fullscreen')->withDrivers(str_replace('"', '', json_encode($data['drivers'])))
-                                            ->withBody('sidebar-collapse')
-                                            ->withInfo(json_encode($data['info']))
-                                            ->withId(json_encode($data['id']));
+        return view('admin.maps.fullscreen')->withBody('sidebar-collapse');
     }
 
     /**
@@ -40,6 +33,7 @@ class MapsController extends Controller
      */
     private function getDrivers($request)
     {
+        // return LocationRepository::driversOnMap($request->status);
         $drivers = [];
         $info = [];
         $id = [];
@@ -60,12 +54,10 @@ class MapsController extends Controller
         foreach ($filteredDrivers as $fd) {
             $drivers[] = $fd->lastLatLng();
             $info[] = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $fd]) . '">' . $fd->first_name . ' ' . $fd->last_name . '</a></p>';
-            $id[] = $fd->id;
         }
         return [
             'drivers' => $drivers,
             'info' => $info,
-            'id' => $id,
         ];
     }
 
