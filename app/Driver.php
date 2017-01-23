@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cache;
 use App\Car;
 use App\User;
 use App\Rate;
@@ -276,11 +277,20 @@ class Driver extends Model
      */
     public function lastLatLng()
     {
-        $location = Location::whereUserId($this->user_id)
+        if (Cache::has('location_' . $this->user_id)) {
+            return Cache::get('location_' . $this->user_id);
+        } else {
+            $location = Location::whereUserId($this->user_id)
                             ->orderBy('id', 'desc')
                             ->first();
-
-        return ['lat' => $location->latitude, 'lng' => $location->longitude];
+            if (is_null($location)) {
+                $location = new Location();
+                $location->latitude = 0.0;
+                $location->longitude = 0.0;
+            }
+            Cache::forever('location_' . $this->user_id, ['lat' => $location->latitude, 'lng' => $location->longitude]);
+            return ['lat' => $location->latitude, 'lng' => $location->longitude];
+        }
     }
 
     /**
