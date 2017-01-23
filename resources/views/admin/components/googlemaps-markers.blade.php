@@ -28,7 +28,7 @@
     var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
     var height = (height - 162) + 'px;'
     document.getElementById('map').setAttribute("style","min-height: " + height);
-    window.scrollTo(0, 50);
+    window.scrollTo(0, 100);
     @endif
     var neighborhoods = {!! $drivers !!};
     var info = {!! $info !!};

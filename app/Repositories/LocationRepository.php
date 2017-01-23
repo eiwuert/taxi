@@ -34,7 +34,7 @@ class LocationRepository
         }
         foreach ($driverWithFilter as $driver) {
             $drivers[] = $driver->lastLatLng();
-            $info[] = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . $driver->first_name . ' ' . $driver->last_name . '</a></p>';
+            $info[] = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . ($driver->first_name or 'empty') . ' ' . ($driver->last_name or 'empty') . '</a></p>';
         }
         return [
             'drivers' => str_replace('"', '', json_encode($drivers)),
