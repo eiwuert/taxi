@@ -271,6 +271,19 @@ class Driver extends Model
     }
 
     /**
+     * Get the last LatLng of the driver.
+     * @return string
+     */
+    public function lastLatLng()
+    {
+        $location = Location::whereUserId($this->user_id)
+                            ->orderBy('id', 'desc')
+                            ->first();
+
+        return ['lat' => $location->latitude, 'lng' => $location->longitude];
+    }
+
+    /**
      * Get the car of the driver.
      * @return [type] [description]
      */

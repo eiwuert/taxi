@@ -15,8 +15,8 @@
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header"><tag color="primary">{{ $t->statusName() }}</tag></h3>
       <div class="timeline-body">
-        <p><b>From: </b>{{ $t->sourceName() }}</p>
-        <p><b>To: </b>{{ $t->destinationName() }}</p>
+        <p><b>From: </b>{{ is_null($t->sourceName()) ? "<tag></tag>" : $t->sourceName() }}</p>
+        <p><b>To: </b>{{ is_null($t->destinationName()) ? "<tag></tag>" : $t->destinationName() }}</p>
         <p><b>Distance: </b>{{ $t->distance_text }}</p>
         <p><b>Time: </b>{{ $t->eta_text }}</p>
         <p><b>Distance to client: </b>{{ $t->driver_distance_text }}</p>
@@ -75,6 +75,7 @@
   <!-- END timeline item -->
   @endif
   @endif
+  @if (! is_null($t->driver))
   <!-- timeline item -->
   <li>
     <i class="fa fa-user bg-purple"></i>
@@ -94,6 +95,7 @@
     </div>
   </li>
   <!-- END timeline item -->
+  @endif
   @endforeach
   <li>
     <i class="fa fa-clock-o bg-gray"></i>

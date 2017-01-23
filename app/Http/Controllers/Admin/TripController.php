@@ -7,6 +7,7 @@ use App\Trip;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\TripRepository;
 
 class TripController extends Controller
 {
@@ -17,15 +18,10 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::paginate(config('admin.perPage'));
-        $count = DB::table('trips')
-                    ->select('status_id', DB::raw('count(*) as total'))
-                    ->whereBetween('created_at', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
-                    ->groupby('status_id')
-                    ->get();
-        $total = Trip::whereBetween('created_at', [Carbon::today()->startOfMonth(), Carbon::today()->endOfMonth()])
-                    ->count();
-        return view('admin.trips.index', compact('trips', 'count', 'total'));
+        $tripRepository = new TripRepository();
+        $progress = $tripRepository->calculateTripPercentages();
+        $trips = Trip::orderBy('created_at', 'desc')->paginate(config('admin.perPage'));
+        return view('admin.trips.index', compact('trips', 'count', 'progress'));
     }
 
     /**

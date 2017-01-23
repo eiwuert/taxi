@@ -90,7 +90,7 @@ if (! function_exists('setLocation')) {
         } else {
             $user = \App\User::find($userId);
         }
-
+        \Cache::forever('testkey', 'tes  kj lkjl jkljljlk');
         return $user->locations()->create([
                     'latitude'  => $lat,
                     'longitude' => $long,

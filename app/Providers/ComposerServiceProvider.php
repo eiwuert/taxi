@@ -20,7 +20,8 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            'admin.drivers.index', 'App\Http\ViewComposers\DriverComposer'
+            ['admin.drivers.index',
+            'admin.maps.*',], 'App\Http\ViewComposers\DriverComposer'
         );
 
         View::composer(

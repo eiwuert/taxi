@@ -13,7 +13,9 @@
 <script>
   function initMap() {
     var to = { lat: {{ $trip->destination()->first()->latitude }}, lng: {{ $trip->destination()->first()->longitude }} };
+    @if($trip->driverLocation != '')
     var driverLocation = { lat: {{ $trip->driverLocation->latitude }}, lng: {{ $trip->driverLocation->longitude }} };
+    @endif
     var from = { lat: {{ $trip->source()->first()->latitude }}, lng: {{ $trip->source()->first()->longitude }} };
 
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -28,10 +30,16 @@
 
     // Set destination, origin and travel mode.
     var request = {
+      @if(is_null($trip->driverLocation))
+      origin: from,
+      destination: to,
+      travelMode: 'DRIVING'
+      @else
       origin: driverLocation,
       destination: to,
       waypoints: [{location: from, stopover: true}],
       travelMode: 'DRIVING'
+      @endif
     };
 
     // Pass the directions request to the directions service.

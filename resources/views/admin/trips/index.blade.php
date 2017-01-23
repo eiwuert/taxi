@@ -38,69 +38,29 @@ Trips
             <div class="box-body">
               <div class="row">
                 <div class="col-md-4">
-                  {{ $count->status_id }}
-                  @include('admin.components.progress', ['name' => 'Driver rejected client', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
+                  @include('admin.components.progress', ['name' => 'Driver rejected client', 'progress' => $progress['4'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'No driver', 'progress' => $progress['5'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Driver rejected started trip', 'progress' => $progress['8'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Driver rejected on arrived status', 'progress' => $progress['14'], 'total' => $progress['total']])
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
+                  @include('admin.components.progress', ['name' => 'Client canceled requested taxi', 'progress' => $progress['10'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Client canceled onway driver', 'progress' => $progress['11'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Client canceled arrived driver', 'progress' => $progress['13'], 'total' => $progress['total']])
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
-                  @include('admin.components.progress', ['name' => 'name', 'progress' => 12.5, 'total' => 100])
+                  @include('admin.components.progress', ['name' => 'Trip is over', 'progress' => $progress['17'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Trip ended not rated', 'progress' => $progress['9'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Driver rated not yet client', 'progress' => $progress['15'], 'total' => $progress['total']])
+                  @include('admin.components.progress', ['name' => 'Client rated not yet driver', 'progress' => $progress['16'], 'total' => $progress['total']])
                 </div>
                 <!-- /.col -->
               </div>
               <!-- /.row -->
             </div>
             <!-- ./box-body -->
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">$35,210.43</h5>
-                    <span class="description-text">TOTAL REVENUE</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
-                    <span class="description-text">TOTAL COST</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
-                    <span class="description-text">TOTAL PROFIT</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-3 col-xs-6">
-                  <div class="description-block">
-                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
-              </div>
-              <!-- /.row -->
-            </div>
-            <!-- /.box-footer -->
           </div>
           <!-- /.box -->
         </div>
@@ -146,7 +106,7 @@ Trips
             <td>{{ $trip->sourceName() }}</td>
             <td>{{ $trip->destinationName() }}</td>
             <td>{{ $trip->distance_text }}</td>
-            <td>{{ $trip->transaction->total }} {{ $trip->transaction->currency }}</td>
+            <td>{!! $trip->transaction->total or '<tag color="default"></tag>' !!} {!! $trip->transaction->currency or '<tag color="default"></tag>' !!}</td>
             <td>{{ $trip->eta_text }}</td>
             <td>{{ $trip->created_at->diffForHumans() }}</td>
             <td>

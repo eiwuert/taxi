@@ -16,14 +16,14 @@ Trip
         @include('admin.drivers.includes.user-widget', ['driver' => $trip->driver])
     </div>
     <!-- /.col -->
-    <div class="col-md-6">
+    <div  class=@if(!is_null($trip->driver))"col-md-6"@else"col-md-12"@endif>
         @include('admin.clients.includes.user-widget', ['client' => $trip->client])
     </div>
     <!-- /.col -->
 </div>
 <!-- /.row -->
 <div class="row">
-    <div class="col-md-6">
+    <div class=@if(!is_null($trip->driver))"col-md-6"@else"col-md-12"@endif>
         @include('admin.components.googlemaps-directions', ['trip' => $trip, 'height' => '282px'])
     </div>
     <!-- /.col -->

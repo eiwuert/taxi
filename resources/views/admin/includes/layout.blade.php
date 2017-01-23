@@ -5,7 +5,7 @@
   <div class="content-wrapper" id="admin">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+      <h1 id="@yield('header')">
         @yield('header')
         <small>@yield('desc', '')</small>
       </h1>

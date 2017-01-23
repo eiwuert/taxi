@@ -1,3 +1,4 @@
+@if (!is_null($driver))
 <div class="box box-widget widget-user">
   <!-- Add the bg color to the header using any of the bg-* classes -->
   <div class="widget-user-header bg-gray disabled color-palette">
@@ -6,7 +7,7 @@
     <h6><a href="{{ route('drivers.show', [$driver]) }}" target="blank"><i class="ion-share"></i> Go to profile</a></h6>
   </div>
   <div class="widget-user-image">
-    <img class="img-circle" src="{{ $driver->picture }}" alt="User Avatar">
+    <img class="img-circle" src="{{ $driver->picture or asset('img/no-profile.jpg') }}" alt="User Avatar">
   </div>
   <div class="box-footer">
     <div class="row">
@@ -38,3 +39,4 @@
     <!-- /.row -->
   </div>
 </div>
+@endif

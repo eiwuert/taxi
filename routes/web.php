@@ -13,6 +13,10 @@
 Route::get('password', function() {
  return \Hash::make('123456');
 });
+Route::get('redis', function() {
+    //\Cache::forever('key', 'value');
+    return \Cache::get('key');
+});
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
@@ -31,9 +35,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     require base_path('routes/admin/client.php');
     // TRIP
     require base_path('routes/admin/trip.php');
-
     // CAR
     Route::resource('cars', 'CarController');
+    // MAP
+    Route::get('maps', 'MapsController@index')
+        ->name('maps.index');
+    Route::get('maps/fullscreen', 'MapsController@fullscreen')
+        ->name('maps.fullscreen');
+    Route::get('maps/locations', 'MapsController@getDriversJson')
+        ->name('getDriversJson');
+    Route::get('maps/locations/{driver}', 'MapsController@getDriverJson')
+        ->name('getDriverJson');
 });
 
 Route::get('/home', 'HomeController@index');

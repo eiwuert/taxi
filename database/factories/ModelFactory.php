@@ -88,7 +88,6 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
     (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : $name ='';
     */
    $name = 'NOT SET';
-
     return [
         'latitude'  => $location['lat'],
         'longitude' => $location['long'],

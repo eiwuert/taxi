@@ -1,4 +1,4 @@
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini {{ $body or '' }}">
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -7,7 +7,7 @@
     <!-- Logo -->
     <a href="{{ route('dashboard') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>{{ $saam }}</b>{{ $taxi }}</span>
+      <span class="logo-mini"><b>{{ $saam[0] }}</b>{{ $taxi[0] }}</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>{{ $saam }}</b>{{ $taxi }}</span>
     </a>

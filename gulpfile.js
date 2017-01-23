@@ -39,7 +39,7 @@ elixir(mix => {
         .webpack('plugins/chartjs/chart.min.js', 
                  'public/js/admin/chart.js', 'resources/assets/bower/AdminLTE')
         .copy('resources/assets/bower/AdminLTE/dist/img', 'public/img')
-        .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/css/fonts')
+        .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/build/css/fonts')
         .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin')
         .version(['css/admin/admin.css', 'js/admin/admin.js', 'js/admin/iCheck.js',
                 'js/admin/jquery.inputmask.js']);

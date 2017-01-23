@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Console\Commands;
-use Webpatser\Uuid\Uuid;
+
+use DB;
 use App\User;
+use Webpatser\Uuid\Uuid;
 use Illuminate\Console\Command;
 
 class MakeAdmin extends Command
@@ -44,7 +46,7 @@ class MakeAdmin extends Command
         } else {
             $password = $this->secret('Enter password: ');
             $this->info("Creating new admin...");
-            User::create([
+            DB::table('users')->insert([
                     'uuid' => Uuid::generate(1)->string,
                     'role' => 'web',
                     'email' => $email,
