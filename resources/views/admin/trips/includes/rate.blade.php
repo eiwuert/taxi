@@ -15,7 +15,7 @@
             <!-- /.direct-chat-info -->
             <img class="direct-chat-img" src="{{ $trip->driver->getPicture() }}" alt="Message User Image"><!-- /.direct-chat-img -->
             <div class="direct-chat-text">
-                {{  $trip->rate->driver_comment }}
+                {!!  $trip->rate->driver_comment or '<tag color="default"></tag>' !!}
             </div>
             <!-- /.direct-chat-text -->
         </div>
@@ -31,7 +31,7 @@
             <!-- /.direct-chat-info -->
             <img class="direct-chat-img" src="{{ $trip->client->getPicture() }}" alt="Message User Image"><!-- /.direct-chat-img -->
             <div class="direct-chat-text">
-                {{ $trip->rate->client_comment }}
+                {!! $trip->rate->client_comment or '<tag color="default"></tag>' !!}
             </div>
             <!-- /.direct-chat-text -->
         </div>
