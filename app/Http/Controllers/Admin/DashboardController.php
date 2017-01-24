@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
     	$clients = number_format(User::clientsCount());
     	$drivers = number_format(User::driversCount());
-        $tripCount = Trip::finishedCount();
+        $tripCount = Trip::count();
     	$trips   = is_object($tripCount) ? 0 : $tripCount;
     	$income  = number_format($transaction->income(), 2);
 

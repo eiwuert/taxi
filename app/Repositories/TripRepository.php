@@ -316,9 +316,10 @@ class TripRepository
 
     /**
      * Count of each day of month finished trip to draw on the chart.
+     * @param  String $filter apply filter on returned chart
      * @return array
      */
-    public function dailyFinishedTripsOnMonth()
+    public function dailyFinishedTripsOnMonth($filter = null)
     {
         // Goes to start of month
         $startOfMonth = Carbon::now()->startOfMonth()->month;
@@ -326,8 +327,14 @@ class TripRepository
         // Loop through days
         $add = 1;
         while(Carbon::now()->month == $startOfMonth) {
-            $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), Carbon::now()->startOfMonth()->addDay($add)])
-                        ->count();
+            if (is_null($filter)) {
+                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), Carbon::now()->startOfMonth()->addDay($add)])
+                            ->count();
+            } else {
+                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), Carbon::now()->startOfMonth()->addDay($add)])
+                            ->whereStatusId(Status::whereName($filter)->first()->id)
+                            ->count();
+            }
             $dailyFinishedTripsOnMonth[] = [Carbon::now()->startOfDay()->addDay($add)->day, $total];
             $startOfMonth = Carbon::now()->startOfMonth()->addDay($add)->month;
         }
