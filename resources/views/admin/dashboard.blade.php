@@ -28,10 +28,10 @@ Dashboard
 </div>
 <div class="row">
 	<div class="col-md-6">
-		@include('admin.components.googlemaps-markers', ['drivers' => $drivers])
+		@include('admin.components.googlemaps-markers', ['height' => '302px'])
 	</div>
 	<div class="col-md-6">
-		
+		@include('admin.charts.flot-line', ['title' => 'Trips'])
 	</div>
 </div>
 @endsection

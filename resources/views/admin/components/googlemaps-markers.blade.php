@@ -1,7 +1,8 @@
 @if(! str_contains(Request::url(), route('maps.fullscreen')))
 <div class="box box-solid">
-  <div class="box-header">
-    <h3 class="box-title">Directions</h3>
+  <div class="box-header with-border">
+    <i class="fa fa-map-marker" aria-hidden="true"></i>
+    <h3 class="box-title">Markers</h3>
     <div class="box-tools">
     <a href="{{ route('maps.fullscreen') }}">Go full screen <i class="ion-arrow-expand"></i></a>
     </div>
@@ -49,12 +50,11 @@
     clearMarkers();
     updateMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
-      addMarkerWithTimeout(neighborhoods[i], 300, info[i]);
+      addMarkerWithTimeout(neighborhoods[i], info[i]);
     }
   }
 
-  function addMarkerWithTimeout(position, timeout, info) {
-    window.setTimeout(function() {
+  function addMarkerWithTimeout(position, info) {
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(position.lat), lng: parseFloat(position.lng)},
         map: map,
@@ -68,7 +68,6 @@
           infoWindow.open(map, marker);
         }
       })(marker));
-    }, timeout);
   }
 
   function clearMarkers() {
@@ -79,7 +78,7 @@
   }
 
   function updateMarkers() {
-    setTimeout(updateMarkers, 10000);
+    setTimeout(this.updateMarkers, 10000);
     var newDrivers = [];
     var newInfo = [];
     var xmlhttp = new XMLHttpRequest();

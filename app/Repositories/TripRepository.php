@@ -313,4 +313,24 @@ class TripRepository
         $status['total'] = $total;
         return $status;
     }
+
+    /**
+     * Count of each day of month finished trip to draw on the chart.
+     * @return array
+     */
+    public function dailyFinishedTripsOnMonth()
+    {
+        // Goes to start of month
+        $startOfMonth = Carbon::now()->startOfMonth()->month;
+        $dailyFinishedTripsOnMonth = [];
+        // Loop through days
+        $add = 1;
+        while(Carbon::now()->month == $startOfMonth) {
+            $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), Carbon::now()->startOfMonth()->addDay($add)])
+                        ->count();
+            $dailyFinishedTripsOnMonth[] = [Carbon::now()->startOfDay()->addDay($add)->day, $total];
+            $startOfMonth = Carbon::now()->startOfMonth()->addDay($add)->month;
+        }
+        return $dailyFinishedTripsOnMonth;
+    }
 }

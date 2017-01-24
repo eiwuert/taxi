@@ -125,6 +125,18 @@ if (! function_exists('getDistanceMatrix')) {
     }  
 }
 
+if (! function_exists('js_josn')) {
+    /**
+     * Convert the array data to js specific json data.
+     * @param  array $data
+     * @return String
+     */
+    function js_json($data)
+    {
+        return str_replace('"', '', json_encode($data));
+    }
+}
+
 if (! function_exists('nearby')) {
     /**
      * Find nearby
