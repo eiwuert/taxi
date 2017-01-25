@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use DB;
+use App\Web;
 use App\User;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Console\Command;
@@ -46,7 +47,8 @@ class MakeAdmin extends Command
         } else {
             $password = $this->secret('Enter password: ');
             $this->info("Creating new admin...");
-            DB::table('users')->insert([
+            $userId = 
+                DB::table('users')->insert([
                     'uuid' => Uuid::generate(1)->string,
                     'role' => 'web',
                     'email' => $email,
@@ -54,6 +56,11 @@ class MakeAdmin extends Command
                     'phone' => '00000000',
                     'verified' => true
                 ]);
+            User::whereEmail($email)->firstOrFail()->web()
+                                    ->create([
+                                        'first_name' => 'Beautiful',
+                                        'last_name'  => 'Admin',
+                                    ]);
             $this->info("New admin created.");
         }
     }
