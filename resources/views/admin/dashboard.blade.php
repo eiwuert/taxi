@@ -7,7 +7,7 @@ Dashboard
 @endsection
 
 @section('breadcrumb')
-<li class="active">Dashboard</li>
+<li class="active"><i class="fa fa-dashboard"></i> Dashboard</li>
 @endsection
 
 
@@ -35,3 +35,12 @@ Dashboard
 	</div>
 </div>
 @endsection
+
+@push('js')
+<script type="text/javascript">
+Echo.private(`App.User.209`)
+    .listen('*', (e) => {
+        console.log(e);
+    });
+</script>
+@endpush

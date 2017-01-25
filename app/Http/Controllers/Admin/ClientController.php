@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\User;
 use App\Client;
 use Illuminate\Http\Request;
@@ -107,6 +108,21 @@ class ClientController extends Controller
 
         if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Client::$sortable)) {
             $clients = $clients->orderBy($request->sortby, $request->orderby);
+        }
+
+        if (isset($request->ids)) {
+            $ids = explode(',', str_replace(' ', '', $request->ids));
+            // If ids are set of numbers separated with comma 1,2,3,4
+            $validate = preg_match('/^[0-9,]+$/', $request->ids);
+            if ($validate) {
+                $clients = $clients->whereIn('id', $ids);
+            }
+            /**
+             * Mark as read notifications for new clients
+             */
+            if (isset($request->markAsRead)) {
+                Auth::user()->markNewClientsNotificationsAsRead();
+            }
         }
 
         if (isset($request->count)) {

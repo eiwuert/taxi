@@ -6,12 +6,11 @@ use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserRegistered implements ShouldQueue
+class UserRegistered implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -25,5 +24,20 @@ class UserRegistered implements ShouldQueue
     public function __construct(User $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return array
+     */
+    public function broadcastOn()
+    {
+        return new PrivateChannel('App.User.209');
+        $channels = [];
+        foreach(User::whereRole('web')->get() as $admin) {
+            $channels[] = new PrivateChannel('App.User.' . $admin->id);
+        }
+        return $channels;
     }
 }

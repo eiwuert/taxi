@@ -26,22 +26,30 @@
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning">{{ Auth::user()->unreadNotifications->count() }}</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
+                  @if (Auth::user()->countOfRegisteredClients() > 0)
                   <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    <a href="{{ route('clients.filter') }}?ids={!! Auth::user()->newClientIds() !!}&markAsRead=&#10003;">
+                      {!! Auth::user()->newClientsNotificationText() !!}
                     </a>
                   </li>
                   <!-- end notification -->
+                  @endif
+                  @if (Auth::user()->countOfRegisteredDrivers())
+                  <li><!-- start notification -->
+                    <a href="{{ route('drivers.filter') }}?ids={!! Auth::user()->newDriverIds() !!}&markAsRead=&#10003;">
+                      {!! Auth::user()->newDriversNotificationText() !!}
+                    </a>
+                  </li>
+                  <!-- end notification -->
+                  @endif
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
           <!-- User Account Menu -->

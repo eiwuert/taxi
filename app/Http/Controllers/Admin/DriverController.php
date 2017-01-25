@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use App\User;
+use Validator;
 use App\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -147,6 +149,21 @@ class DriverController extends Controller
 
         if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Driver::$sortable)) {
             $drivers = $drivers->orderBy($request->sortby, $request->orderby);
+        }
+
+        if (isset($request->ids)) {
+            $ids = explode(',', str_replace(' ', '', $request->ids));
+            // If ids are set of numbers separated with comma 1,2,3,4
+            $validate = preg_match('/^[0-9,]+$/', $request->ids);
+            if ($validate) {
+                $drivers = $drivers->whereIn('id', $ids);
+            }
+            /**
+             * Mark as read notifications for new drivers
+             */
+            if (isset($request->markAsRead)) {
+                Auth::user()->markNewDriversNotificationsAsRead();
+            }
         }
 
         if (isset($request->count)) {
