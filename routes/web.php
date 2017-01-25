@@ -11,15 +11,8 @@
 |
 */
 Route::get('/', 'HomeController@index');
-Route::post('logout', 'Auth\LoginController@logout');
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+require base_path('routes/admin/auth.php');
 
-Route::get('admin/login', 'Admin\AuthController@form')
-    ->name('login');
-Route::post('admin/login', 'Admin\AuthController@login');
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 
             'middleware' => ['auth', 'can:access', 'verified']], function() {
 	Route::get('dashboard', 'DashboardController@index')
@@ -33,14 +26,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     // CAR
     Route::resource('cars', 'CarController');
     // MAP
-    Route::get('maps', 'MapsController@index')
-        ->name('maps.index');
-    Route::get('maps/fullscreen', 'MapsController@fullscreen')
-        ->name('maps.fullscreen');
-    Route::get('maps/locations', 'MapsController@getDriversJson')
-        ->name('getDriversJson');
-    Route::get('maps/locations/{driver}', 'MapsController@getDriverJson')
-        ->name('getDriverJson');
+    require base_path('routes/admin/maps.php');
 });
 
 Route::get('/home', 'HomeController@index');

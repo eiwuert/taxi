@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Routes for trips.
+ */
 Route::group(['prefix' => 'trips'], function() {
     Route::get('filter', 'TripController@filter')
         ->name('trips.filter');

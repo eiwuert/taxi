@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Routes for clients.
+ */
 Route::group(['prefix' => 'clients'], function() {
     Route::get('filter', 'ClientController@filter')
         ->name('clients.filter');

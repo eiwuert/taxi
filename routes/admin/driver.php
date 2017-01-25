@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Routes for drivers.
+ */
 Route::group(['prefix' => 'drivers'], function() {
     Route::get('filter', 'DriverController@filter')
         ->name('drivers.filter');
