@@ -21,6 +21,7 @@ class CreateWebsTable extends Migration
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
+            $table->string('picture')->default('no-profile.png');
             $table->timestamps();
         });
     }

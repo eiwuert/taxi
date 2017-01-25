@@ -104,7 +104,7 @@ class User extends Authenticatable
      */
     public function web()
     {
-        return $this->hasMany('App\Web')->first();
+        return $this->hasMany('App\Web');
     }
 
     /**
