@@ -10,13 +10,7 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('password', function() {
- return \Hash::make('123456');
-});
-Route::get('redis', function() {
-    //\Cache::forever('key', 'value');
-    return \Cache::get('key');
-});
+Route::get('/', 'HomeController@index');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');

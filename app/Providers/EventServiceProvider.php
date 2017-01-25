@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\UserRegistered' => [
             'App\Listeners\SendSMSVerification',
+            'App\Listeners\NotifyAdmins',
         ],
         'App\Events\RideAccepted' => [
             'App\Listeners\IssueInvoice',
