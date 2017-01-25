@@ -7,7 +7,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          {{ HTML::image('img/user2-160x160.jpg', 'User Image', ['class' => 'img-circle']) }}
+          {{ HTML::image(Auth::user()->web()->first()->getPicture(), 'User Image', ['class' => 'img-circle']) }}
         </div>
         <div class="pull-left info">
           <p>{{ $first_name }}</p>

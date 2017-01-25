@@ -25,4 +25,17 @@ class Web extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get admin picture url.
+     * @return String
+     */
+    public function getPicture()
+    {
+        if ($this->picture == 'no-profile.png') {
+            return asset('img/no-profile.png');
+        } else {
+            return $this->picture;
+        }
+    }
 }
