@@ -3,6 +3,7 @@
 namespace App;
 
 use Auth;
+use Carbon\Carbon;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -164,5 +165,117 @@ class User extends Authenticatable
                         ->verifiedDrivers()
                         ->get()
                         ->count();
+    }
+
+    /**
+     * Count of unread notifications that are belongs to registered clients.
+     * @return Numeric
+     */
+    public function countOfRegisteredClients()
+    {
+        $count = 0;
+        foreach ($this->unreadNotifications as $noti) {
+            if ($noti->type == 'App\Notifications\ClientCreated') {
+                $count += 1;
+            }
+        }
+        return $count;
+    }
+
+    /**
+     * Count of unread notifications that are belongs to registered drivers.
+     * @return Numeric
+     */
+    public function countOfRegisteredDrivers()
+    {
+        $count = 0;
+        foreach ($this->unreadNotifications as $noti) {
+            if ($noti->type == 'App\Notifications\DriverCreated') {
+                $count += 1;
+            }
+        }
+        return $count;
+    }
+
+    /**
+     * new clients notifications text.
+     * @return String
+     */
+    public function newClientsNotificationText()
+    {
+        if ($this->countOfRegisteredClients() == 1) {
+            return '<i class="ion-android-walk text-aqua"></i> ' . $this->countOfRegisteredClients() . ' new client registered';
+        } else {
+            return '<i class="ion-android-walk text-aqua"></i> ' . $this->countOfRegisteredClients() . ' new clients registered';
+        }
+    }
+
+    /**
+     * new drivers notifications text.
+     * @return String
+     */
+    public function newDriversNotificationText()
+    {
+        if ($this->countOfRegisteredDrivers() == 1) {
+            return '<i class="ion-model-s text-aqua"></i> ' . $this->countOfRegisteredDrivers() . ' new driver registered';
+        } else {
+            return '<i class="ion-model-s text-aqua"></i> ' . $this->countOfRegisteredDrivers() . ' new drivers registered';
+        }
+    }
+
+    /**
+     * new driver ids.
+     * @return String
+     */
+    public function newDriverIds()
+    {
+        $driverIds = [];
+        foreach ($this->unreadNotifications as $noti) {
+            if ($noti->type == 'App\Notifications\DriverCreated') {
+                $driverIds[] = $noti->data['driver_id'];
+            }
+        }
+        return implode(',', $driverIds);
+    }
+
+    /**
+     * new client ids.
+     * @return String
+     */
+    public function newClientIds()
+    {
+        $clientIds = [];
+        foreach ($this->unreadNotifications as $noti) {
+            if ($noti->type == 'App\Notifications\ClientCreated') {
+                $clientIds[] = $noti->data['client_id'];
+            }
+        }
+        return implode(',', $clientIds);
+    }
+
+    /**
+     * Mark new drivers notifications as read for all administrators
+     * @return void
+     */
+    public function markNewDriversNotificationsAsRead()
+    {
+        foreach(User::whereRole('web')->get() as $admin) {
+            $admin->unreadNotifications()
+                  ->whereType('App\Notifications\DriverCreated')
+                  ->update(['read_at' => Carbon::now()]);
+        }
+    }
+
+    /**
+     * Mark new clients notifications as read for all administrators
+     * @return void
+     */
+    public function markNewClientsNotificationsAsRead()
+    {
+        foreach(User::whereRole('web')->get() as $admin) {
+            $admin->unreadNotifications()
+                  ->whereType('App\Notifications\ClientCreated')
+                  ->update(['read_at' => Carbon::now()]);
+        }
     }
 }

@@ -168,11 +168,12 @@ return [
          */
         Laravel\Passport\PassportServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
-        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+        //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
 
         /*
          * Application Service Providers...

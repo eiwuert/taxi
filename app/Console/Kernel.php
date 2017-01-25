@@ -26,8 +26,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('driver:noresponse')
-                 ->everyMinute();
+        $schedule->command('driver:noresponse')->everyMinute();
+        $schedule->command('monitor:check-uptime')->everyMinute();
+        $schedule->command('monitor:check-certificate')->daily();
     }
 
     /**
