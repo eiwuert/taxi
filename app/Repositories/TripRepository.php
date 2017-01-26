@@ -61,7 +61,7 @@ class TripRepository
         // 
         // REQUEST_TAXI
         // 
-        $trip_id = DB::table('trips')->insertGetId([
+        $trip_id = DB::table('trips')->insert([
                         'client_id'       => $client->id,
                         'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
                         'source'          => $source->id,
@@ -74,7 +74,8 @@ class TripRepository
                         'updated_at'      => Carbon::now(),
                     ]);
 
-        $trip = DB::table('trips')->where('id', $trip_id);
+        $trip = DB::table('trips')->where('client_id', $client->id)
+                    ->whereStatusId(Status::where('name', 'request_taxi')->firstOrFail()->value);
 
         /**
          * If there is one available driver within 1KM.
@@ -185,8 +186,12 @@ class TripRepository
 
         if ($pending->count()) {
             if (env('APP_ENV', 'production') == 'local') {
-                $this->updateDriverAvailability($pending->first()->driver, true);
-                $this->updateStatus($pending->first(), 'reject_client_found');
+                if (is_null($pending->first()->driver)) {
+                    $this->updateStatus($pending->first(), 'no_driver');
+                } else {
+                    $this->updateDriverAvailability($pending->first()->driver, true);
+                    $this->updateStatus($pending->first(), 'reject_client_found');
+                }
                 return false;
             }
             return fail([
