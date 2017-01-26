@@ -50,14 +50,14 @@
     }
     clearMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
-      addMarkerWithTimeout(neighborhoods[i], info[i]);
+      addMarker(neighborhoods[i], info[i]);
     }
     setTimeout(function() {
       updateMarkers();
     }, refreshTime);
   }
 
-  function addMarkerWithTimeout(position, info) {
+  function addMarker(position, info) {
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(position.lat), lng: parseFloat(position.lng)},
         map: map,
@@ -92,7 +92,7 @@
             newInfo = JSON.parse(xmlhttp.responseText).info;
             clearMarkers();
             for (var i = 0; i < newDrivers.length; i++) {
-              addMarkerWithTimeout(newDrivers[i], 300, newInfo[i]);
+              addMarker(newDrivers[i], newInfo[i]);
             }
            }
            else if (xmlhttp.status == 400) {
