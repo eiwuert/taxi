@@ -68,6 +68,11 @@ class ProfileController extends Controller
 		return $this->get();
     }
 
+    /**
+     * Update driver profile.
+     * @param  DriverProfileRequest $request
+     * @return json
+     */
     public function updateDriver(DriverProfileRequest $request)
     {
         Auth::user()->driver()->orderBy('id', 'desc')
