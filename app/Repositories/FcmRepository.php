@@ -43,6 +43,7 @@ class FcmRepository
                     "data"         => ["team" => $title, "message" => $message],
                     "to"           => $device_token,
                     "time_to_live" => config('fcm.timeout'),
+                    "priority"     => config('fcm.priority'),
                 ],
                 'headers' => [
                     'Authorization' => 'key=' . $server_key,

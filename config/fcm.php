@@ -8,4 +8,5 @@ return [
 	'send_url'		    => 'https://fcm.googleapis.com/fcm/send',
 	'group_url'		    => 'https://android.googleapis.com/gcm/notification',
 	'timeout'           => 30.0, // in second
+    'priority'          => 'high', // or normal (default is normal)
 ];
