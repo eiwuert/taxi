@@ -33,7 +33,6 @@ class RateTrip
         if (is_null(Rate::whereTripId($event->trip->id)->first())) {
             $trip = Trip::find($event->trip->id);
             $rate = $trip->rate()->save(new Rate());
-            $trip->rate()->attach($rate_id);
         }
     }
 }
