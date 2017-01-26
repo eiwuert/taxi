@@ -22,6 +22,7 @@
   var markers = [];
   var map;
   var image = "{{ asset('img/driver.png') }}";
+  var refreshTime = 10000;
   function initMap() {
     @if(str_contains(Request::url(), route('maps.fullscreen')))
     var body = document.body,
@@ -31,8 +32,8 @@
     document.getElementById('map').setAttribute("style","min-height: " + height);
     window.scrollTo(0, 100);
     @endif
-    var neighborhoods = {!! $drivers !!};
-    var info = {!! $info !!};
+    var neighborhoods = @jsonify($drivers);
+    var info = @jsonify($info);
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       center: {lat: 35.757610, lng: 51.409954}
@@ -48,10 +49,12 @@
       });
     }
     clearMarkers();
-    updateMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
       addMarkerWithTimeout(neighborhoods[i], info[i]);
     }
+    setTimeout(function() {
+      updateMarkers();
+    }, refreshTime);
   }
 
   function addMarkerWithTimeout(position, info) {
@@ -78,7 +81,7 @@
   }
 
   function updateMarkers() {
-    setTimeout(this.updateMarkers, 10000);
+    setTimeout(this.updateMarkers, refreshTime);
     var newDrivers = [];
     var newInfo = [];
     var xmlhttp = new XMLHttpRequest();

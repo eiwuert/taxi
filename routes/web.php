@@ -10,6 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('jsonify', function() {
+    dd(\App\Repositories\LocationRepository::driversOnMap('online'));
+});
 Route::get('/', 'HomeController@index');
 require base_path('routes/admin/auth.php');
 

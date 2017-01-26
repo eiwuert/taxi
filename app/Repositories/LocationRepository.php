@@ -29,7 +29,7 @@ class LocationRepository
                 $driverWithFilter = $driverWithFilter->onway()->get();
                 break;
             default:
-                $driverWithFilter = $driverWithFilter->offline()->get();
+                $driverWithFilter = $driverWithFilter->get();
                 break;
         }
         foreach ($driverWithFilter as $driver) {
@@ -37,8 +37,8 @@ class LocationRepository
             $info[] = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' . (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
         }
         return [
-            'drivers' => str_replace('"', '', json_encode($drivers)),
-            'info' => json_encode($info),
+            'drivers' => $drivers,
+            'info' => $info,
         ];
     }
 }

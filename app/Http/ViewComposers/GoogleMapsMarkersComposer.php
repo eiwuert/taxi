@@ -30,7 +30,7 @@ class GoogleMapsMarkersComposer
      */
     public function compose(View $view)
     {
-        $data = LocationRepository::driversOnMap($this->request);
+        $data = LocationRepository::driversOnMap($this->request->status);
         $view->with('drivers', $data['drivers']);
         $view->with('info', $data['info']);
     }

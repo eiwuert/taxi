@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Auth;
+use Blade;
 use Request;
 use Illuminate\Support\Facades\View;
 use Laravel\Dusk\DuskServiceProvider;
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('saam', 'SAAM');
         View::share('taxi', 'TAXI');
+        Blade::directive('jsonify', function ($expression) {
+            return "<?php echo json_encode($expression); ?>";
+        });
     }
 
     /**
