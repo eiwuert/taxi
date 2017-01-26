@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" :class="'btn btn-primary ' + addClass">{{ text }}</button>
+    <button :type="type" :class="'btn btn-primary ' + addClass"><i :class="'fa fa-fw fa-' + icon"></i> {{ text }}</button>
 </template>
 
 <script>
@@ -16,6 +16,10 @@
             text: {
                 type: String,
                 default: ''
+            },
+            icon: {
+                type: String,
+                default:''
             }
         }
     }

@@ -30,6 +30,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('driver:noresponse')->everyMinute();
         $schedule->command('monitor:check-uptime')->everyMinute();
         $schedule->command('monitor:check-certificate')->daily();
+        $schedule->command('backup:clean')->daily()->at('01:00');
+        $schedule->command('backup:run')->daily()->at('02:00');
     }
 
     /**

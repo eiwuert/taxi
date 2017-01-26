@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" :class="'btn btn-danger ' + addClass"><i :class="'fa fa-' + icon"></i> {{ text }}</button>
+    <button :type="type" :class="'btn btn-danger ' + addClass"><i :class="'fa fa-fw fa-' + icon"></i> {{ text }}</button>
 </template>
 
 <script>

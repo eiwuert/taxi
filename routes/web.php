@@ -22,14 +22,16 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
         ->name('dashboard');
     // DRIVERS
     require base_path('routes/admin/driver.php');
-    // CLIENT
+    // CLIENTS
     require base_path('routes/admin/client.php');
-    // TRIP
+    // TRIPS
     require base_path('routes/admin/trip.php');
-    // CAR
+    // CARS
     Route::resource('cars', 'CarController');
-    // MAP
-    require base_path('routes/admin/maps.php');
+    // MAPS
+    require base_path('routes/admin/map.php');
+    // SETTINGS
+    require base_path('routes/admin/setting.php');
 });
 
 Route::get('/home', 'HomeController@index');
