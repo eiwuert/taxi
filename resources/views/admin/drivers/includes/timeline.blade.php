@@ -1,6 +1,6 @@
 <!-- The timeline -->
 <ul class="timeline timeline-inverse">
-  @foreach($driver->inverseTrips()->with('rate', 'transaction')->get() as $t)
+  @foreach($driver->inverseTrips()->with('rate', 'transaction')->paginate(config('admin.perPage')) as $t)
   <!-- timeline time label -->
   <li class="time-label">
     <span class="label-primary">
