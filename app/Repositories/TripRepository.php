@@ -75,7 +75,9 @@ class TripRepository
                     ]);
 
         $trip = DB::table('trips')->where('client_id', $client->id)
-                    ->whereStatusId(Status::where('name', 'request_taxi')->firstOrFail()->value);
+                    ->whereStatusId(Status::where('name', 'request_taxi')->firstOrFail()->value)
+                    ->orderBy('id', 'desc');
+        $trip_id = $trip->first()->id;
 
         /**
          * If there is one available driver within 1KM.
