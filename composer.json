@@ -17,7 +17,8 @@
         "predis/predis": "^1.1",
         "laravel/dusk": "^1.0",
         "spatie/laravel-uptime-monitor": "^2.0",
-        "spatie/laravel-backup": "^4.4"
+        "spatie/laravel-backup": "^4.4",
+        "folklore/graphql": "~1.0.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

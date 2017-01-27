@@ -7,6 +7,6 @@ return [
 	'driver_sender_id'  => env('FCM_DRIVER_SENDER_ID', 'Your sender id'),
 	'send_url'		    => 'https://fcm.googleapis.com/fcm/send',
 	'group_url'		    => 'https://android.googleapis.com/gcm/notification',
-	'timeout'           => 30.0, // in second
+	'timeout'           => 40.0, // in second (default four weeks)
     'priority'          => 'high', // or normal (default is normal)
 ];

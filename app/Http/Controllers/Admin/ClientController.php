@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use App\User;
+use DateTime;
 use App\Client;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\FilterRepository;
 
 class ClientController extends Controller
 {
@@ -123,6 +126,10 @@ class ClientController extends Controller
             if (isset($request->markAsRead)) {
                 Auth::user()->markNewClientsNotificationsAsRead();
             }
+        }
+
+        if (isset($request->date_range)) {
+            $clients = FilterRepository::daterange($request->date_range, $clients);
         }
 
         if (isset($request->count)) {

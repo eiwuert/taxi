@@ -174,6 +174,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        // @todo
+        // Folklore\GraphQL\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -236,6 +238,8 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        // @todo
+        //'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
     ],
 
 ];

@@ -51,6 +51,8 @@ Drivers
         @include('components.bootstrap.select', ['name' => 'count', 
                                                 'label' => 'Count', 
                                                 'items' => [15 => 15, 30 => 30, 'all' => 'All']])
+        @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
+                                                          'label' => 'Date range'])
         {!! Form::close() !!}
       </div>
       <!-- /.box-body -->

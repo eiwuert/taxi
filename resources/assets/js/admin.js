@@ -63,6 +63,11 @@ Vue.component(
     require('./components/bootstrap/tag.vue')
 );
 
+Vue.component(
+    'bs-input',
+    require('./components/bootstrap/input.vue')
+);
+
 const app = new Vue({
     el: '#admin'
 });

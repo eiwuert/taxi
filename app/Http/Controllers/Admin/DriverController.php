@@ -8,6 +8,7 @@ use Validator;
 use App\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\FilterRepository;
 
 class DriverController extends Controller
 {
@@ -164,6 +165,10 @@ class DriverController extends Controller
             if (isset($request->markAsRead)) {
                 Auth::user()->markNewDriversNotificationsAsRead();
             }
+        }
+
+        if (isset($request->date_range)) {
+            $drivers = FilterRepository::daterange($request->date_range, $drivers);
         }
 
         if (isset($request->count)) {

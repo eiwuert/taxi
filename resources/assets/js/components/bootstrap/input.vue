@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label :for="id">{{ label }}</label>
-        <input :type="type" :class="className" :id="id" :placeholder="placeholder">
+        <input :type="type" :class="className" :id="id" :placeholder="placeholder" :name="name">
     </div>
 </template>
 
@@ -25,6 +25,9 @@
             className: {
                 type: String,
                 default: 'form-control'
+            },
+            name: {
+                type: String
             }
         }
     }

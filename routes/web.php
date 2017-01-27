@@ -11,7 +11,8 @@
 |
 */
 Route::get('jsonify', function() {
-    dd(\App\Repositories\LocationRepository::driversOnMap('online'));
+    config(['app.timezone' => 'America/Chicago']);
+    return config('app.timezone');
 });
 Route::get('/', 'HomeController@index');
 require base_path('routes/admin/auth.php');
