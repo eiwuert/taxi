@@ -105,4 +105,5 @@
     <i class="fa fa-clock-o bg-gray"></i>
   </li>
 </ul>
+@include('admin.includes.pagination', ['resource' => $client->inverseTrips()->with('rate', 'transaction')->paginate(config('admin.perPage'))])
 <!-- END The timeline -->
