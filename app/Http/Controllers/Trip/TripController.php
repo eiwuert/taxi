@@ -297,6 +297,7 @@ class TripController extends Controller
 
         if ($trip->status_id == 10 ||
             $trip->status_id == 5  ||
+            $trip->status_id == 4  ||
             $trip->status_id == 11 ||
             $trip->status_id == 8  ||
             $trip->status_id == 9  ||

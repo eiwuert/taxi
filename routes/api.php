@@ -70,6 +70,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 		 ->name('registerDriver');
 
 	Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function() {
+		Route::get('status', function() {
+		    return ok(['online' => \Auth::user()->driver[0]->online]);
+		});
 		Route::get('online', 'Trip\DriverController@online')
 			 ->name('goOnline');
 
