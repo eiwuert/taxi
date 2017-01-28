@@ -7,7 +7,7 @@
     <h6><a href="{{ route('drivers.show', [$driver]) }}" target="blank"><i class="ion-share"></i> Go to profile</a></h6>
   </div>
   <div class="widget-user-image">
-    <img class="img-circle" src="{{ $driver->picture or asset('img/no-profile.jpg') }}" alt="User Avatar">
+    <img class="img-circle" src="{{ $driver->getPicture() }}" alt="User Avatar">
   </div>
   <div class="box-footer">
     <div class="row">

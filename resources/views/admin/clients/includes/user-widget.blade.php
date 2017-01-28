@@ -6,7 +6,7 @@
     <h6><a href="{{ route('clients.show', [$client]) }}" target="blank"><i class="ion-share"></i> Go to profile</a></h6>
   </div>
   <div class="widget-user-image">
-    <img class="img-circle" src="{{ $client->picture }}" alt="User Avatar">
+    <img class="img-circle" src="{{ $client->getPicture() }}" alt="User Avatar">
   </div>
   <div class="box-footer">
     <div class="row">
