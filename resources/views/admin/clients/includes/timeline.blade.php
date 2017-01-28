@@ -101,6 +101,19 @@
   <!-- END timeline item -->
   @endif
   @endforeach
+  @if (is_null($client->trips))
+  <li>
+    <i class="fa fa-pause" aria-hidden="true"></i>
+    <div class="timeline-item">
+    <h3 class="timeline-header">Fresh as a daisy</a></h3>
+    <div class="timeline-body">
+      <br>
+      <p class="text-center">Nothing to show here...</p>
+      <br>
+    </div>
+  </div>
+  </li>
+  @endif
   <li>
     <i class="fa fa-clock-o bg-gray"></i>
   </li>
