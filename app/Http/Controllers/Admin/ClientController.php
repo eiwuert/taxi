@@ -156,7 +156,7 @@ class ClientController extends Controller
         $client->lock = true;
         $client->update();
         flash('Client locked', 'success');
-        return redirect()->route('clients.index');
+        return back();
     }
 
     /**
@@ -170,7 +170,7 @@ class ClientController extends Controller
         $client->lock = false;
         $client->update();
         flash('Client unlocked', 'success');
-        return redirect()->route('clients.index');
+        return back();
     }
 
     /**
