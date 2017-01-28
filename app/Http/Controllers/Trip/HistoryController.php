@@ -91,7 +91,9 @@ class HistoryController extends Controller
             $t->destination = $destination->name;
             $t->d_lat  = $destination->latitude;
             $t->d_long = $destination->longitude;
-            $t->driver_location = Location::whereId($t->driver_location)->first()->name;
+            if (! is_null($t->driverLocation)) {
+              $t->driver_location = $t->driverLocation->name;
+            }
             $t->transaction = Transaction::whereId($t->transaction_id)->get(['entry', 'distance', 'per_distance', 
                 'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
                 'timezone', 'total']);
