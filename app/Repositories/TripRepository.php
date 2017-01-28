@@ -553,7 +553,7 @@ class TripRepository
         $trip = Trip::find($trip);
         self::updateStatus($trip, 'trip_is_over_by_admin');
         if(! is_null($trip->driver)) {
-            self::updateDriverAvailability($driver, true);
+            self::updateDriverAvailability($trip->driver, true);
             dispatch(new SendDriverNotification('trip_is_over_by_admin', '5', $trip->driver->device_token));
         }
         dispatch(new SendClientNotification('trip_is_over_by_admin', '9', $trip->client->device_token));
