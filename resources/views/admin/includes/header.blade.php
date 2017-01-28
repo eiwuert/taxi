@@ -26,7 +26,7 @@
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">{{ Auth::user()->unreadNotifications->count() }}</span>
+              <span class="label label-warning">{{ (Auth::user()->unreadNotifications->count() > 99) ? '99+' : Auth::user()->unreadNotifications->count() }}</span>
             </a>
             <ul class="dropdown-menu">
               <li>
