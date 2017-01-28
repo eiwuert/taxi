@@ -107,7 +107,7 @@ class DriverController extends Controller
         $driver->available = false;
         $driver->update();
         flash('Driver approved', 'success');
-        return redirect(route('drivers.index'));
+        return back();
     }
 
     /**
@@ -123,7 +123,7 @@ class DriverController extends Controller
         $driver->available = false;
         $driver->update();
         flash('Driver declined', 'success');
-        return redirect(route('drivers.index'));
+        return back();
     }
 
     /**
