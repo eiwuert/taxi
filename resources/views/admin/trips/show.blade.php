@@ -3,7 +3,7 @@
 Trip
 @endsection
 @section('header')
-Trip
+Trip @if($trip->status_id != 18) <a href="{{ route('trips.hardCancel', ['trip' => $trip]) }}"><btn-danger add-class='btn-xs' text='hard canel' icon='trash' type='button'></btn-danger></a> @endif
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
