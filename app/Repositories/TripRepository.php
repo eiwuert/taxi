@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Trip;
 use App\Driver;
+use Validator;
 use App\Status;
 use App\Location;
 use Carbon\Carbon;
@@ -22,7 +23,7 @@ class TripRepository
      *
      * @return void
      */
-    public function requestTaxi($tripRequest, $exclude = 0, $userId = null)
+    public static function requestTaxi($tripRequest, $exclude = 0, $userId = null)
     {
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
@@ -43,7 +44,7 @@ class TripRepository
         }
 
         $clientDeviceToken = $client->device_token;
-        if ($pending = $this->pendingRequestTaxi($userId)) {
+        if ($pending = self::pendingRequestTaxi($userId)) {
             return $pending;
         }
 
@@ -121,7 +122,7 @@ class TripRepository
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            $this->updateDriverAvailability($driver, false);
+            self::updateDriverAvailability($driver, false);
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
@@ -161,7 +162,7 @@ class TripRepository
      * Check pending request for current client that is requesting a new taxi.
      * @return json
      */
-    private function pendingRequestTaxi($userId)
+    private static function pendingRequestTaxi($userId)
     {
         /**
          * @todo add more state for pending request
@@ -189,10 +190,10 @@ class TripRepository
         if ($pending->count()) {
             if (env('APP_ENV', 'production') == 'local') {
                 if (is_null($pending->first()->driver)) {
-                    $this->updateStatus($pending->first(), 'no_driver');
+                    self::updateStatus($pending->first(), 'no_driver');
                 } else {
-                    $this->updateDriverAvailability($pending->first()->driver, true);
-                    $this->updateStatus($pending->first(), 'reject_client_found');
+                    self::updateDriverAvailability($pending->first()->driver, true);
+                    self::updateStatus($pending->first(), 'reject_client_found');
                 }
                 return false;
             }
@@ -212,7 +213,7 @@ class TripRepository
      * @param  string $name status name
      * @return void
      */
-    private function updateStatus($trip, $name)
+    private static function updateStatus($trip, $name)
     {
         $trip->update([
             'status_id' => Status::where('name', $name)->firstOrFail()->value,
@@ -225,7 +226,7 @@ class TripRepository
      * @param  boolean $state
      * @return void
      */
-    private function updateDriverAvailability($driver, $state)
+    private static function updateDriverAvailability($driver, $state)
     {
         $driver->available = $state;
         $driver->save();
@@ -236,7 +237,7 @@ class TripRepository
      * @param  integer $clientId
      * @return string
      */
-    public function excludeDriver($clientId)
+    public static function excludeDriver($clientId)
     {
         if (env('APP_ENV', 'production') == 'local') {
             $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
@@ -346,5 +347,216 @@ class TripRepository
             $startOfMonth = Carbon::now()->startOfMonth()->addDay($add)->month;
         }
         return $dailyFinishedTripsOnMonth;
+    }
+
+    /**
+     * Cancel trip.
+     * @return json
+     */
+    public static function cancelTrip()
+    {
+        if (Auth::user()->role == 'client') {
+            $client = User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first();
+            $trip   = $client->trips()->orderBy('id', 'desc')->first();
+            if (! is_null($trip->driver_id)) {
+                $driver = Driver::whereId($trip->driver_id)->first();
+            }
+            if (! is_null($trip->status_id)) {
+                $status = $trip->status_id;
+            } else {
+                $status = 0;
+            }
+            /**
+             * Cancel by CLIENT
+             */
+            switch ($status) {
+                //
+                // REQUEST_TAXI
+                // NO_RESPONSE
+                // REJECT_CLIENT_FOUND
+                //
+                case '1':
+                    self::updateStatus($trip, 'cancel_request_taxi');
+
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from ' . $status . ' to 10',
+                        ]);
+                    break;
+                case '3':
+                case '4':
+                    self::updateStatus($trip, 'cancel_request_taxi');
+                    self::updateDriverAvailability($driver, true);
+
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from ' . $status . ' to 10',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    self::updateStatus($trip, 'cancel_request_taxi');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('trip_cancelled_by_client', '1', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 2 to 10',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ONWAY
+                //
+                case '7':
+                    self::updateStatus($trip, 'cancel_onway_driver');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('client_cancelled_onway_driver', '2', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 7 to 11',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ARRIVED
+                //
+                case '12':
+                    self::updateStatus($trip, 'client_canceled_arrived_driver');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendDriverNotification('client_canceled_arrived_driver', '3', Driver::whereId($trip->driver_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 12 to 13',
+                        ]);
+                    break;
+
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
+        } else if (Auth::user()->role == 'driver') {
+            $driver = Auth::user()->driver()->first();
+            $trip   = $driver->trips()->orderBy('id', 'desc')->first();
+            if (! is_null($trip)) {
+                $status = $trip->status_id;
+            } else {
+                $status = 0;
+            }
+            //
+            // Cancel by DRIVER
+            //
+            switch ($status) {
+                //
+                // TRIP_STARTED
+                //
+                case '6':
+                    self::updateStatus($trip, 'driver_reject_started_trip');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('started_trip_cancelled_by_driver', '2', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 6 to 8',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ONWAY
+                //
+                case '7':
+                    self::updateStatus($trip, 'cancel_onway_driver');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip cancelled.',
+                            'detail' => 'Trip status changed from 7 to 11',
+                        ]);
+                    break;
+
+                //
+                // CLIENT_FOUND
+                //
+                case '2':
+                    self::updateStatus($trip, 'reject_client_found');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
+                    $tripRepository = new TripRepository();
+                    $tripRequest = [
+                        's_lat'  => $trip->source()->first()->latitude,
+                        's_long' => $trip->source()->first()->longitude,
+                        'd_lat'  => $trip->destination()->first()->latitude,
+                        'd_long' => $trip->destination()->first()->longitude,
+                    ];
+                    $exclude = $tripRepository->excludeDriver($trip->client_id);
+                    if ($exclude['count'] < 10) {
+                        $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
+                    } else {
+                        self::updateStatus($trip, 'no_driver');
+                        dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
+                    }
+                    return ok([
+                            'title'  => 'Trip rejected.',
+                            'detail' => 'Trip status changed from 2 to 4',
+                        ]);
+                    break;
+
+                //
+                // DRIVER_ARRIVED
+                //
+                case '12':
+                    self::updateStatus($trip, 'driver_cancel_arrived_status');
+                    self::updateDriverAvailability($driver, true);
+                    dispatch(new SendClientNotification('arrived_driver_cancelled_trip', '4', Client::whereId($trip->client_id)->first()->device_token));
+                    return ok([
+                            'title'  => 'Trip rejected.',
+                            'detail' => 'Trip status changed from 12 to 14',
+                        ]);
+                    break;
+                
+                //
+                // CANCEL FAIL
+                //
+                default:
+                    return fail([
+                            'title'  => 'You cannot do this.',
+                            'detail' => 'You cannot cancel your ride on this status.',
+                        ]);
+                    break;
+            }
+        } else {
+            return fail([
+                    'title'  => 'Fail',
+                    'detail' => 'Fail',
+                ]);
+        }
+    }
+
+    /**
+     * Cancel a trip by admin.
+     * @return boolean
+     */
+    public static function hardCancel($trip)
+    {
+        if (!Trip::whereId($trip)->exists()) {
+            return back();
+        }
+        $trip = Trip::find($trip);
+        self::updateStatus($trip, 'trip_is_over_by_admin');
+        if(! is_null($trip->driver)) {
+            self::updateDriverAvailability($driver, true);
+            dispatch(new SendDriverNotification('trip_is_over_by_admin', '5', $trip->driver->device_token));
+        }
+        dispatch(new SendClientNotification('trip_is_over_by_admin', '9', $trip->client->device_token));
+        return back();
     }
 }

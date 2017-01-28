@@ -69,6 +69,9 @@ class Trip extends Model
     public function statusName()
     {
         switch ($this->status()->first()->name) {
+            case 'trip_is_over_by_admin':
+                return 'Ended by admin';
+                break;
             case 'trip_is_over':
                 return 'Ended';
                 break;

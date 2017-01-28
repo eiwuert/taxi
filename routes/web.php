@@ -10,10 +10,6 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('jsonify', function() {
-    config(['app.timezone' => 'America/Chicago']);
-    return config('app.timezone');
-});
 Route::get('/', 'HomeController@index');
 require base_path('routes/admin/auth.php');
 

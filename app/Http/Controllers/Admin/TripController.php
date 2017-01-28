@@ -90,4 +90,10 @@ class TripController extends Controller
     {
         //
     }
+
+    public function cancel($trip)
+    {
+        flash('Trip ended.', 'success');
+        return TripRepository::hardCancel($trip);
+    }
 }

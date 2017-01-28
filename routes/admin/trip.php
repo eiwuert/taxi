@@ -7,5 +7,7 @@ Route::group(['prefix' => 'trips'], function() {
         ->name('trips.filter');
     Route::get('search', 'TripController@search')
         ->name('trips.search');
+    Route::get('cancel/{trip}', 'TripController@cancel')
+        ->name('trips.hardCancel');
 });
 Route::resource('trips', 'TripController');

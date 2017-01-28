@@ -63,6 +63,9 @@ class StatusTableSeeder extends Seeder
                 ], [
                     'name'  => 'trip_is_over',
                     'value' => 17,
+                ], [
+                    'name'  => 'trip_is_over_by_admin',
+                    'value' => 18,
                 ]
             ]);
     }
