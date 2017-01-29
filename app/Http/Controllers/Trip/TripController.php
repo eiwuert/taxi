@@ -160,7 +160,7 @@ class TripController extends Controller
             $carType = $car->type()->first(['name']);
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
             $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
-            $status = Status::whereId($trip->status_id)->first(['name', 'value']);
+            $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
             $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
             unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
@@ -187,7 +187,7 @@ class TripController extends Controller
             $client->phone = $client->user->phone;
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
             $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
-            $status = Status::whereId($trip->status_id)->first(['name', 'value']);
+            $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
             unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return ok([
