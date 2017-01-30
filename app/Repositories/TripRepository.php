@@ -263,6 +263,8 @@ class TripRepository
                 $toExclude[] = $e->driver_id;
         }
 
+        Log::info('To exclude: ', $toExclude);
+
         return [
                 'count' => count($toExclude),
                 'result' => implode(',', $toExclude)
