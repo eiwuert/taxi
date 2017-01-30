@@ -241,7 +241,13 @@ class TripRepository
     public static function excludeDriver($clientId)
     {
         if (env('APP_ENV', 'production') == 'local') {
-            $toExclude = [0];
+            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
+                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
+                            ->orWhere('client_id', $clientId);
+            $exclude = $exclude->whereDate('created_at', '<=', Carbon::now())
+                                ->whereDate('created_at', '>=', Carbon::now()->subMinutes(1)->toDateTimeString())
+                                ->get(['driver_id'])->flatten();
         } else {
             $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
                             ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
@@ -250,11 +256,11 @@ class TripRepository
             $exclude = $exclude->whereDate('created_at', '<=', Carbon::now())
                                 ->whereDate('created_at', '>=', Carbon::now()->subMinutes(15)->toDateTimeString())
                                 ->get(['driver_id'])->flatten();
-            $toExclude = [];
-            foreach ($exclude as $e) {
-                if (! is_null($e->driver_id))
-                    $toExclude[] = $e->driver_id;
-            }
+        }
+        $toExclude = [];
+        foreach ($exclude as $e) {
+            if (! is_null($e->driver_id))
+                $toExclude[] = $e->driver_id;
         }
 
         return [
