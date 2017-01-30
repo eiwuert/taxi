@@ -241,24 +241,20 @@ class TripRepository
     public static function excludeDriver($clientId)
     {
         if (env('APP_ENV', 'production') == 'local') {
-            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
-                            ->orWhere('client_id', $clientId)
-                            ->orWhere('created_at', '<', Carbon::now()->subSecond(60)->toDateTimeString())
-                            ->get(['driver_id'])->flatten();
+            $toExclude = [0];
         } else {
             $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
                             ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
                             ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
-                            ->orWhere('client_id', $clientId)
-                            ->orWhere('created_at', '<', Carbon::now()->subMinutes(15)->toDateTimeString())
-                            ->get(['driver_id'])->flatten();
-        }
-        $toExclude = [];
-        foreach ($exclude as $e) {
-            if (! is_null($e->driver_id))
-                $toExclude[] = $e->driver_id;
+                            ->orWhere('client_id', $clientId);
+            $exclude = $exclude->whereDate('created_at', '<=', Carbon::now())
+                                ->whereDate('created_at', '>=', Carbon::now()->subMinutes(15)->toDateTimeString())
+                                ->get(['driver_id'])->flatten();
+            $toExclude = [];
+            foreach ($exclude as $e) {
+                if (! is_null($e->driver_id))
+                    $toExclude[] = $e->driver_id;
+            }
         }
 
         return [
@@ -500,13 +496,12 @@ class TripRepository
                         'd_long' => $trip->destination()->first()->longitude,
                     ];
                     $exclude = $tripRepository->excludeDriver($trip->client_id);
-                    $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
-/*                    if ($exclude['count'] < 10) {
+                    if ($exclude['count'] < 10) {
                         $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
                     } else {
                         self::updateStatus($trip, 'no_driver');
                         dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
-                    }*/
+                    }
                     return ok([
                             'title'  => 'Trip rejected.',
                             'detail' => 'Trip status changed from 2 to 4',

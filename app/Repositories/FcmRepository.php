@@ -51,6 +51,7 @@ class FcmRepository
                 ],
             ]
         );
+        Log::log('info', $title . ' -> ' . $message);
         Log::info('device_token_' . debug_backtrace()[1]['function'], (array) $device_token);
         Log::info('FCM response: ', (array) $response);
         return $response;
