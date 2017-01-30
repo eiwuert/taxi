@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use DB;
+use Log;
 use Auth;
 use App\User;
 use App\Trip;
