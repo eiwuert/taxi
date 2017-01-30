@@ -46,9 +46,9 @@ class SendSMSVerification
             ]);
 
         if ($event->user->role == 'client') {
-            $this->sms->send($event->user->client()->first()->phone, $code);
+            $this->sms->send($event->user->phone, $code);
         } else if ($event->user->role == 'driver') {
-            $this->sms->send($event->user->driver()->first()->phone, $code);
+            $this->sms->send($event->user->phone, $code);
         }
     }
 }
