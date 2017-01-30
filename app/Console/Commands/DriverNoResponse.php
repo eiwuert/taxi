@@ -79,11 +79,12 @@ class driverNoResponse extends Command
                 'd_long' => $prevTrip->destination()->first()->longitude,
             ];
             $exclude = TripRepository::excludeDriver($prevTrip->client_id);
-            if ($exclude['count'] < 10) {
+            TripRepository::requestTaxi($tripRequest, $exclude['result'], Client::find($prevTrip->client_id)->user->id);
+            /* if ($exclude['count'] < 10) {
                 TripRepository::requestTaxi($tripRequest, $exclude['result'], Client::find($prevTrip->client_id)->user->id);
             } else {
                 dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
-            }
+            }*/
         }
     }
 }
