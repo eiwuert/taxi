@@ -60,46 +60,6 @@ if (! function_exists('fail')) {
     }
 }
 
-if (! function_exists('setLocation')) {
-    /**
-     * Return a new location id that has been saved.
-     *
-     * @param  decimal  $lat
-     * @param  decimal  $long
-     * @param  string   $name
-     * @return integer Location id
-     */
-    function setLocation($lat, $long, $userId = null, $name = '')
-    {
-        if ($name == '') {
-            $name = \GoogleMaps::load('geocoding')
-                              ->setParamByKey('latlng', $lat . ',' . $long)
-                              ->setParamByKey('mode', 'driving')
-                              ->setParamByKey('language', 'FA')
-                              ->setParamByKey('traffic_model', 'best_guess')
-                              ->get('results.formatted_address');
-            (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
-        }
-
-        if (@$name['status'] == 'ZERO_RESULTS') {
-            $name = 'NO RESULT';
-        }
-
-        if (is_null($userId)) {
-            $user = \Auth::user();
-        } else {
-            $user = \App\User::find($userId);
-        }
-        //\Cache::forever('location_' . $user->id, ['lat' => $lat, 'lng' => $long]);
-        return $user->locations()->create([
-                    'latitude'  => $lat,
-                    'longitude' => $long,
-                    'name'      => $name,
-                ]);
-
-    }
-}
-
 if (! function_exists('getDistanceMatrix')) {
     /**
      * Get distance matrix response.

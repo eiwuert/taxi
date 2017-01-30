@@ -8,6 +8,7 @@ use App\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LocationRequest;
+use App\Repositories\LocationRepository;
 
 class LocationController extends Controller
 {
@@ -18,6 +19,6 @@ class LocationController extends Controller
 	 */
     public function set(LocationRequest $request)
     {
-        return ok(setLocation($request->lat, $request->long, null, 'TEST'));
+        return ok(LocationRepository::set($request->lat, $request->long, null, 'TEST'));
     }
 }

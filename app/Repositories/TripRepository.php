@@ -17,6 +17,7 @@ use App\Events\RideAccepted;
 use App\Http\Requests\TripRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
+use App\Repositories\LocationRepository;
 
 class TripRepository
 {
@@ -51,8 +52,8 @@ class TripRepository
         }
 
         $matrix = getDistanceMatrix($tripRequest);
-        $source = setLocation($tripRequest['s_lat'], $tripRequest['s_long'], $userId);
-        $destination = setLocation($tripRequest['d_lat'], $tripRequest['d_long'], $userId);
+        $source = LocationRepository::set($tripRequest['s_lat'], $tripRequest['s_long'], $userId);
+        $destination = LocationRepository::set($tripRequest['d_lat'], $tripRequest['d_long'], $userId);
 
         if (! @isset($matrix['duration']['text'])) {
             return ok([
@@ -242,29 +243,26 @@ class TripRepository
     public static function excludeDriver($clientId)
     {
         if (env('APP_ENV', 'production') == 'local') {
-            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
-                            ->orWhere('client_id', $clientId);
-            $exclude = $exclude->whereDate('created_at', '<=', Carbon::now())
-                                ->whereDate('created_at', '>=', Carbon::now()->subMinutes(1)->toDateTimeString())
-                                ->get(['driver_id'])->flatten();
+            $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
+                            ->where('client_id', $clientId)
+                            ->where('created_at', '>', Carbon::now()->subMinutes(1)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
         } else {
-            $exclude = Trip::orWhere('status_id', '<>', Status::where('name', 'trip_is_over')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'client_rated')->firstOrFail()->value)
-                            ->orWhere('status_id', '<>', Status::where('name', 'driver_rated')->firstOrFail()->value)
-                            ->orWhere('client_id', $clientId);
-            $exclude = $exclude->whereDate('created_at', '<=', Carbon::now())
-                                ->whereDate('created_at', '>=', Carbon::now()->subMinutes(15)->toDateTimeString())
-                                ->get(['driver_id'])->flatten();
+            $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
+                            ->where('client_id', $clientId)
+                            ->whereDate('created_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
         }
         $toExclude = [];
         foreach ($exclude as $e) {
             if (! is_null($e->driver_id))
                 $toExclude[] = $e->driver_id;
         }
-
+        //$toExclude = array_unique($toExclude);
         Log::info('To exclude: ', $toExclude);
+        if (empty($toExclude)) {
+            $toExclude = [0];
+        }
 
         return [
                 'count' => count($toExclude),

@@ -277,9 +277,9 @@ class Driver extends Model
      */
     public function lastLatLng()
     {
-/*        if (Cache::has('location_' . $this->user_id)) {
+        if (Cache::has('location_' . $this->user_id)) {
             return Cache::get('location_' . $this->user_id);
-        } else {*/
+        } else {
             $location = Location::whereUserId($this->user_id)
                             ->orderBy('id', 'desc')
                             ->first();
@@ -290,7 +290,7 @@ class Driver extends Model
             }
             Cache::forever('location_' . $this->user_id, ['lat' => $location->latitude, 'lng' => $location->longitude]);
             return ['lat' => $location->latitude, 'lng' => $location->longitude];
-        //}
+        }
     }
 
     /**
