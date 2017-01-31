@@ -18,6 +18,9 @@ class SmsRepository
      */
     public function send($to, $message)
     {
+        if (env('APP_ENV', 'production') == 'local') {
+            return true;
+        }
         if (env('SMS') == 'ir') {
             return $this->sendIR($to, $message);
         } else {
