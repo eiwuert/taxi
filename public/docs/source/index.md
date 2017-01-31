@@ -7,7 +7,8 @@ language_tabs:
 
 includes:
     - fcm
-     - status
+    - status
+
 search: true
 
 toc_footers:
