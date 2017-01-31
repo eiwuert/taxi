@@ -13,6 +13,7 @@ Body | Header
 6 | `trip_started`
 7 | `trip_ended`
 8 | `driver_arrived`
+9 | `trip_is_over_by_admin`
 
 ### Driver
 
@@ -23,3 +24,4 @@ Body | Header
 2 | `client_cancelled_onway_driver`
 3 | `client_canceled_arrived_driver`
 4 | `no_reponse_going_offline`
+5 | `trip_is_over_by_admin`

@@ -7,7 +7,7 @@ language_tabs:
 
 includes:
     - fcm
-
+     - status
 search: true
 
 toc_footers:
@@ -24,7 +24,7 @@ for login and validation.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/register" \
+curl "https://saamtaxi.net/v1/api/client/register" \
 -H "Accept: application/json" \
     -d "phone"="sunt" \
     -d "login_by"="sunt" \
@@ -38,7 +38,7 @@ curl "http://localhost/api/client/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/register",
+    "url": "https://saamtaxi.net/v1/api/client/register",
     "method": "POST",
     "data": {
         "phone": "sunt",
@@ -53,7 +53,7 @@ var settings = {
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -142,7 +142,7 @@ for login and validation.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/register" \
+curl "https://saamtaxi.net/v1/api/driver/register" \
 -H "Accept: application/json" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
@@ -158,7 +158,7 @@ curl "http://localhost/api/driver/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/register",
+    "url": "https://saamtaxi.net/v1/api/driver/register",
     "method": "POST",
     "data": {
         "phone": "eaque",
@@ -170,12 +170,12 @@ var settings = {
         "device_type": "manual"
 },
     "headers": {
-    	 "accept": "application/json"
+         "accept": "application/json"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -223,10 +223,10 @@ Verify registered client
 > Example request
 
 ```bash
-curl "http://localhost/api/client/verify" \
+curl "https://saamtaxi.net/v1/api/client/verify" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
-	-d "code"="55555" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "code"="55555" \
 
 ```
 
@@ -234,19 +234,19 @@ curl "http://localhost/api/client/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/verify",
+    "url": "https://saamtaxi.net/v1/api/client/verify",
     "method": "POST",
     "data": {
         "code": "amet",
 },
     "headers": {
-    	 "accept": "application/json",
-    	 "authorization": "Bearer LONG_ACCESS_TOKEN"
+         "accept": "application/json",
+         "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -338,10 +338,10 @@ Verify registered driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/verify" \
+curl "https://saamtaxi.net/v1/api/driver/verify" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
-	-d "code"="eaque" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "code"="eaque" \
 
 ```
 
@@ -349,19 +349,19 @@ curl "http://localhost/api/driver/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/verify",
+    "url": "https://saamtaxi.net/v1/api/driver/verify",
     "method": "POST",
     "data": {
         "code": "amet",
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -441,9 +441,9 @@ Resend SMS for client
 > Example request
 
 ```bash
-curl "http://localhost/api/client/resend" \
+curl "https://saamtaxi.net/v1/api/client/resend" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -451,17 +451,17 @@ curl "http://localhost/api/client/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/resend",
+    "url": "https://saamtaxi.net/v1/api/client/resend",
     "method": "GET",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -518,9 +518,9 @@ Resend SMS for driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/resend" \
+curl "https://saamtaxi.net/v1/api/driver/resend" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -528,17 +528,17 @@ curl "http://localhost/api/driver/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/resend",
+    "url": "https://saamtaxi.net/v1/api/driver/resend",
     "method": "GET",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -600,9 +600,9 @@ Set current location of client.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/location" \
+curl "https://saamtaxi.net/v1/api/client/location" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
     -d "long"="neque" \
 
@@ -612,20 +612,20 @@ curl "http://localhost/api/client/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/location",
+    "url": "https://saamtaxi.net/v1/api/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
         "long": "neque",
 },
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -687,9 +687,9 @@ Set current location of driver.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/location" \
+curl "https://saamtaxi.net/v1/api/driver/location" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
     -d "long"="atque" \
 
@@ -699,20 +699,20 @@ curl "http://localhost/api/driver/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/location",
+    "url": "https://saamtaxi.net/v1/api/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
         "long": "atque",
 },
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -775,25 +775,25 @@ Parameter | Type | Status | Description
 > Example request
 
 ```bash
-curl "http://localhost/api/client/car/types" \
+curl "https://saamtaxi.net/v1/api/client/car/types" \
 -H "Accept: application/json"
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/car/types",
+    "url": "https://saamtaxi.net/v1/api/client/car/types",
     "method": "GET",
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -803,49 +803,49 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
-		    {
-		        "id": 1,
-		        "name": "luxury",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 2,
-		        "name": "van",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 3,
-		        "name": "sport",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 4,
-		        "name": "sedans",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 5,
-		        "name": "economy",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 6,
-		        "name": "off-roader",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    },
-		    {
-		        "id": 7,
-		        "name": "motorcycle",
-		        "created_at": "2016-12-09 22:22:17",
-		        "updated_at": "2016-12-09 22:22:17"
-		    }
-	]
+            {
+                "id": 1,
+                "name": "luxury",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 2,
+                "name": "van",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 3,
+                "name": "sport",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 4,
+                "name": "sedans",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 5,
+                "name": "economy",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 6,
+                "name": "off-roader",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            },
+            {
+                "id": 7,
+                "name": "motorcycle",
+                "created_at": "2016-12-09 22:22:17",
+                "updated_at": "2016-12-09 22:22:17"
+            }
+    ]
 }
 ```
 
@@ -862,25 +862,25 @@ Get client profile data.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/profile" \
+curl "https://saamtaxi.net/v1/api/client/profile" \
 -H "Accept: application/json"
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/profile",
+    "url": "https://saamtaxi.net/v1/api/client/profile",
     "method": "GET",
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -925,25 +925,25 @@ Get driver profile data.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/profile" \
+curl "https://saamtaxi.net/v1/api/driver/profile" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/profile",
+    "url": "https://saamtaxi.net/v1/api/driver/profile",
     "method": "GET",
     "headers": {
-	   "accept": "application/json",
-      	"authorization": "Bearer LONG_ACCESS_TOKEN"
+       "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -990,9 +990,9 @@ Update `driver` profile data.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/profile" \
+curl "https://saamtaxi.net/v1/api/driver/profile" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
     -d "picture"="et" \
 
 ```
@@ -1001,19 +1001,19 @@ curl "http://localhost/api/driver/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/profile",
+    "url": "https://saamtaxi.net/v1/api/driver/profile",
     "method": "POST",
     "data": {
         "picture": "et"
 },
     "headers": {
-    	"accept": "application/json",
-     	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1086,9 +1086,9 @@ Update `client` profile data.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/profile" \
+curl "https://saamtaxi.net/v1/api/client/profile" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
     -d "first_name"="et" \
     -d "last_name"="et" \
     -d "email"="et" \
@@ -1106,7 +1106,7 @@ curl "http://localhost/api/client/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/profile",
+    "url": "https://saamtaxi.net/v1/api/client/profile",
     "method": "POST",
     "data": {
         "first_name": "et",
@@ -1121,13 +1121,13 @@ var settings = {
         "picture": "et"
 },
     "headers": {
-    	"accept": "application/json",
-     	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1211,25 +1211,25 @@ set to true as well. An approved drvier can go to online mode.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/online" \
+curl "https://saamtaxi.net/v1/api/driver/online" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/online",
+    "url": "https://saamtaxi.net/v1/api/driver/online",
     "method": "GET",
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1273,25 +1273,25 @@ set to false as well. An approved drvier can go to offline mode.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/offline" \
+curl "https://saamtaxi.net/v1/api/driver/offline" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/offline",
+    "url": "https://saamtaxi.net/v1/api/driver/offline",
     "method": "GET",
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1327,6 +1327,65 @@ $.ajax(settings).done(function (response) {
 `GET api/driver/offline`
 
 
+## Get status
+
+Get status of the driver, Online or Offline
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/v1/api/driver/status" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/v1/api/driver/status",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response - Online driver
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "online": true
+        }
+    ]
+}
+```
+
+> Example response - Offline driver
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "online": false
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/driver/status`
+
+
 # Car
 
 ## Info
@@ -1334,25 +1393,25 @@ $.ajax(settings).done(function (response) {
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/car/info" \
+curl "https://saamtaxi.net/v1/api/driver/car/info" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/car/info",
+    "url": "https://saamtaxi.net/v1/api/driver/car/info",
     "method": "GET",
     "headers": {
-    	 "accept": "application/json",
-        "authorization": "Bearer LONG_ACCESS_TOKEN"
+         "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1375,9 +1434,9 @@ Request new taxi by client
 > Example request
 
 ```bash
-curl "http://localhost/api/client/trip" \
+curl "https://saamtaxi.net/v1/api/client/trip" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
@@ -1388,7 +1447,7 @@ curl "http://localhost/api/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/trip",
+    "url": "https://saamtaxi.net/v1/api/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -1397,13 +1456,13 @@ var settings = {
         "d_long": "amet",
 },
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1500,9 +1559,9 @@ Find near by taxis
 > Example request
 
 ```bash
-curl "http://localhost/api/client/nearby" \
+curl "https://saamtaxi.net/v1/api/client/nearby" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
    -d "long": "maiores", \
    -d "distance": "maiores", \
@@ -1514,7 +1573,7 @@ curl "http://localhost/api/client/nearby" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/trip",
+    "url": "https://saamtaxi.net/v1/api/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -1524,7 +1583,7 @@ var settings = {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -1535,7 +1594,7 @@ console.log(response);
 
 
 ### HTTP Request
-`POST api/client/trip`
+`POST api/client/nearby`
 
 #### Parameters
 
@@ -1597,9 +1656,9 @@ Current state of the client trip
 > Example request
 
 ```bash
-curl "http://localhost/api/client/trip" \
+curl "https://saamtaxi.net/v1/api/client/trip" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -1607,18 +1666,18 @@ curl "http://localhost/api/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/trip",
+    "url": "https://saamtaxi.net/v1/api/client/trip",
     "method": "GET",
     "data": {
 },
     "headers": {
-    	"accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -1707,9 +1766,9 @@ Cancel taxi by client
 > Example request
 
 ```bash
-curl "http://localhost/api/client/cancel" \
+curl "https://saamtaxi.net/v1/api/client/cancel" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -1717,13 +1776,13 @@ curl "http://localhost/api/client/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/cancel",
+    "url": "https://saamtaxi.net/v1/api/client/cancel",
     "method": "GET",
     "data": {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -1779,9 +1838,9 @@ Accept ride by driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/accept" \
+curl "https://saamtaxi.net/v1/api/driver/accept" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -1789,13 +1848,13 @@ curl "http://localhost/api/driver/accept" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/accept",
+    "url": "https://saamtaxi.net/v1/api/driver/accept",
     "method": "GET",
     "data": {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -1845,9 +1904,9 @@ Start ride by driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/start" \
+curl "https://saamtaxi.net/v1/api/driver/start" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -1855,13 +1914,13 @@ curl "http://localhost/api/driver/start" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/start",
+    "url": "https://saamtaxi.net/v1/api/driver/start",
     "method": "GET",
     "data": {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -1927,9 +1986,9 @@ End ride by driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/end" \
+curl "https://saamtaxi.net/v1/api/driver/end" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -1937,13 +1996,13 @@ curl "http://localhost/api/driver/end" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/end",
+    "url": "https://saamtaxi.net/v1/api/driver/end",
     "method": "GET",
     "data": {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -1993,9 +2052,9 @@ Cancel ride by driver
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/cancel" \
+curl "https://saamtaxi.net/v1/api/driver/cancel" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2003,13 +2062,13 @@ curl "http://localhost/api/driver/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/cancel",
+    "url": "https://saamtaxi.net/v1/api/driver/cancel",
     "method": "GET",
     "data": {
 },
         "headers": {
     "accept": "application/json",
-    "authorization": "Bearer LONG_ACCESS_TOKEN"
+    "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
@@ -2075,9 +2134,9 @@ When drive arrives at departure location.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/arrived" \
+curl "https://saamtaxi.net/v1/api/driver/arrived" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2085,17 +2144,17 @@ curl "http://localhost/api/driver/arrived" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/arrived",
+    "url": "https://saamtaxi.net/v1/api/driver/arrived",
     "method": "GET",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2159,9 +2218,9 @@ Current state of driver trip
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/trip" \
+curl "https://saamtaxi.net/v1/api/driver/trip" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2169,18 +2228,18 @@ curl "http://localhost/api/driver/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/trip",
+    "url": "https://saamtaxi.net/v1/api/driver/trip",
     "method": "GET",
     "data": {
 },
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2258,9 +2317,9 @@ Rate of driver to client.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/rate" \
+curl "https://saamtaxi.net/v1/api/driver/rate" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2268,17 +2327,17 @@ curl "http://localhost/api/driver/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/rate",
+    "url": "https://saamtaxi.net/v1/api/driver/rate",
     "method": "POST",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2370,9 +2429,9 @@ Rate of client to driver.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/rate" \
+curl "https://saamtaxi.net/v1/api/client/rate" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2380,17 +2439,17 @@ curl "http://localhost/api/client/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/rate",
+    "url": "https://saamtaxi.net/v1/api/client/rate",
     "method": "POST",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2465,9 +2524,9 @@ History of driver trips.
 > Example request
 
 ```bash
-curl "http://localhost/api/driver/history" \
+curl "https://saamtaxi.net/v1/api/driver/history" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2475,17 +2534,17 @@ curl "http://localhost/api/driver/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/driver/history",
+    "url": "https://saamtaxi.net/v1/api/driver/history",
     "method": "GET",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2513,12 +2572,12 @@ $.ajax(settings).done(function (response) {
                 "driver_location": "TEST",
                 "driver_distance_value": "5668",
                 "driver_distance_text": "5.7 km",
-					"status_name": "trip_is_over",
-					"s_lat": "35.712562",
-					"s_long": "51.334494",
-					"d_lat": "35.790818",
-					"d_long": "51.416043",
-					"created_at": "2016-12-26 12:06:21",
+                    "status_name": "trip_is_over",
+                    "s_lat": "35.712562",
+                    "s_long": "51.334494",
+                    "d_lat": "35.790818",
+                    "d_long": "51.416043",
+                    "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
                         "entry": "2",
@@ -2552,11 +2611,11 @@ $.ajax(settings).done(function (response) {
                 "driver_distance_value": "5668",
                 "driver_distance_text": "5.7 km",
                 "status_name": "trip_is_over",
-					"s_lat": "35.712562",
-					"s_long": "51.334494",
-					"d_lat": "35.790818",
-					"d_long": "51.416043",
-					"created_at": "2016-12-26 12:06:21",
+                    "s_lat": "35.712562",
+                    "s_long": "51.334494",
+                    "d_lat": "35.790818",
+                    "d_long": "51.416043",
+                    "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
                         "entry": "2",
@@ -2593,9 +2652,9 @@ History of client trips.
 > Example request
 
 ```bash
-curl "http://localhost/api/client/history" \
+curl "https://saamtaxi.net/v1/api/client/history" \
 -H "Accept: application/json" \
--H "Authorization: Bearer LONG_ACCESS_TOKEN" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
 
 ```
 
@@ -2603,17 +2662,17 @@ curl "http://localhost/api/client/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost/api/client/history",
+    "url": "https://saamtaxi.net/v1/api/client/history",
     "method": "GET",
     "data": {},
     "headers": {
-    	"accept": "application/json",
-    	"authorization": "Bearer LONG_ACCESS_TOKEN"
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-	console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2642,11 +2701,11 @@ $.ajax(settings).done(function (response) {
                 "driver_distance_value": "5668",
                 "driver_distance_text": "5.7 km",
                 "status_name": "trip_is_over",
-					"s_lat": "35.712562",
-					"s_long": "51.334494",
-					"d_lat": "35.790818",
-					"d_long": "51.416043",
-					"created_at": "2016-12-26 12:06:21",
+                    "s_lat": "35.712562",
+                    "s_long": "51.334494",
+                    "d_lat": "35.790818",
+                    "d_long": "51.416043",
+                    "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
                         "entry": "2",
@@ -2682,9 +2741,9 @@ $.ajax(settings).done(function (response) {
                 "driver_distance_text": "5.7 km",
                 "status_name": "trip_is_over",
                 "s_lat": "35.712562",
-	            "s_long": "51.334494",
-	            "d_lat": "35.790818",
-	            "d_long": "51.416043",
+                "s_long": "51.334494",
+                "d_lat": "35.790818",
+                "d_long": "51.416043",
                 "created_at": "2016-12-26 12:06:21",
                 "transaction": [
                     {
@@ -2703,33 +2762,33 @@ $.ajax(settings).done(function (response) {
                         "total": "19.6"
                     }
                 ],
-	            "driver": {
-	                "id": 1,
-	                "first_name": null,
-	                "last_name": null,
-	                "email": null,
-	                "gender": "not specified",
-	                "device_token": "kjlfajl",
-	                "device_type": "ios",
-	                "online": true,
-	                "approve": true,
-	                "available": true,
-	                "lang": "fa",
-	                "address": null,
-	                "state": "esfahan",
-	                "country": "iran",
-	                "zipcode": null,
-	                "picture": "no-profile.png",
-	                "user_id": 4,
-	                "created_at": "2016-12-25 11:46:36",
-	                "updated_at": "2016-12-27 08:14:17",
-	                "car": {
-	                    "number": "00000",
-	                    "color": "pink",
-	                    "type": "van"
-	                },
-	                "phone": "0987897582"
-	            }
+                "driver": {
+                    "id": 1,
+                    "first_name": null,
+                    "last_name": null,
+                    "email": null,
+                    "gender": "not specified",
+                    "device_token": "kjlfajl",
+                    "device_type": "ios",
+                    "online": true,
+                    "approve": true,
+                    "available": true,
+                    "lang": "fa",
+                    "address": null,
+                    "state": "esfahan",
+                    "country": "iran",
+                    "zipcode": null,
+                    "picture": "no-profile.png",
+                    "user_id": 4,
+                    "created_at": "2016-12-25 11:46:36",
+                    "updated_at": "2016-12-27 08:14:17",
+                    "car": {
+                        "number": "00000",
+                        "color": "pink",
+                        "type": "van"
+                    },
+                    "phone": "0987897582"
+                }
                 "rate": [
                     {
                         "client": 1,

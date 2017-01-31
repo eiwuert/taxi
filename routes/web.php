@@ -10,8 +10,22 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('/', 'HomeController@index');
+Route::get('test', function() {
+/*$exclude = \App\Trip::whereNotIn('status_id', [15, 16, 17])
+                    ->where('client_id', 102)
+                    ->where('created_at', '>', \Carbon\Carbon::today()->subMinutes(2)->toDateTimeString())
+                    ->get(['driver_id'])->flatten();
+$toExclude = [];
+foreach ($exclude as $e) {
+    if (! is_null($e->driver_id))
+        $toExclude[] = $e->driver_id;
+}
+$toExclude = array_unique($toExclude);
+dd($toExclude);*/
+\App\Repositories\LocationRepository::set(0.0, 0.0, 1);
+});
 require base_path('routes/admin/auth.php');
+Route::get('/', 'HomeController@index');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 
             'middleware' => ['auth', 'can:access', 'verified']], function() {
