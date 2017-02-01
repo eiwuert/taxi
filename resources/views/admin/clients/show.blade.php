@@ -18,6 +18,7 @@ Client
   </div>
   <!-- /.col -->
   <div class="col-md-9">
+    @include('admin.errors.form')
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
