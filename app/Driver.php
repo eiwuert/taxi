@@ -9,6 +9,7 @@ use App\Rate;
 use App\Status;
 use App\CarType;
 use App\Location;
+use App\Repositories\DriverRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -331,5 +332,43 @@ class Driver extends Model
         } else {
             return $this->picture;
         }
+    }
+
+    /**
+     * Make driver offline.
+     * @return boolean
+     */
+    public function goOffline()
+    {
+        // Driver can go offline?
+        if (!$this->available) {
+            return false;
+        }
+
+        // Online    false
+        // Available false
+        if (DriverRepository::updateFlags(false, false)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Make driver online
+     * @return boolean
+     */
+    public function goOnline()
+    {
+        // Driver can go online?
+        if ($this->online) {
+            return false;
+        }
+
+        // Online    true
+        // Available true
+        if (DriverRepository::updateFlags(true, true)) {
+            return true;
+        }
+        return false;
     }
 }

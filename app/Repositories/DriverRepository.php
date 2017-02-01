@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Auth;
 use App\Driver;
 
 class DriverRepository
@@ -40,5 +41,19 @@ class DriverRepository
     public function countOfOfflineDrivers()
     {
         return Driver::offline()->count();
+    }
+
+    /**
+     * Set online and available flags.
+     * @param  boolean $online
+     * @param  boolean $available
+     * @return boolean
+     */
+    public static function updateFlags($online, $available)
+    {
+        $driver = Auth::user()->driver()->first();
+        $driver->online    = $online;
+        $driver->available = $available;
+        return $driver->save();
     }
 }

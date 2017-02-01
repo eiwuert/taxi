@@ -1317,7 +1317,7 @@ $.ajax(settings).done(function (response) {
     "data": [
         {
             "title": "Driver cannot go offline",
-            "detail": "An onway driver cannot go offline.",
+            "detail": "An onway or currently online driver cannot go offline.",
             "code": 500
         }
     ]
