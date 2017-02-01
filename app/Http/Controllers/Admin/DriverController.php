@@ -9,6 +9,7 @@ use App\Driver;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FilterRepository;
+use App\Http\Requests\Admin\DriverRequest;
 
 class DriverController extends Controller
 {
@@ -74,7 +75,7 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Driver $driver)
+    public function update(DriverRequest $request, Driver $driver)
     {
         $driver->update($request->all());
         flash('Driver updated', 'success');
