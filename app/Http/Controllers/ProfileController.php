@@ -101,7 +101,7 @@ class ProfileController extends Controller
 		} else {
 		    return fail([
 		            'title'  => 'Undefined type.',
-		            'detail' => 'You are using undefined type, please contact your adminstrator.'
+		            'detail' => 'You are using undefined type, please contact your administrator.'
 		        ], 400);
 		}
     }
