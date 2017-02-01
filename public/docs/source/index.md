@@ -25,7 +25,7 @@ for login and validation.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/register" \
+curl "https://saamtaxi.net/api/v1/client/register" \
 -H "Accept: application/json" \
     -d "phone"="sunt" \
     -d "login_by"="sunt" \
@@ -39,7 +39,7 @@ curl "https://saamtaxi.net/v1/api/client/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/register",
+    "url": "https://saamtaxi.net/api/v1/client/register",
     "method": "POST",
     "data": {
         "phone": "sunt",
@@ -143,7 +143,7 @@ for login and validation.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/register" \
+curl "https://saamtaxi.net/api/v1/driver/register" \
 -H "Accept: application/json" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
@@ -159,7 +159,7 @@ curl "https://saamtaxi.net/v1/api/driver/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/register",
+    "url": "https://saamtaxi.net/api/v1/driver/register",
     "method": "POST",
     "data": {
         "phone": "eaque",
@@ -224,7 +224,7 @@ Verify registered client
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/verify" \
+curl "https://saamtaxi.net/api/v1/client/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="55555" \
@@ -235,7 +235,7 @@ curl "https://saamtaxi.net/v1/api/client/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/verify",
+    "url": "https://saamtaxi.net/api/v1/client/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -339,7 +339,7 @@ Verify registered driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/verify" \
+curl "https://saamtaxi.net/api/v1/driver/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="eaque" \
@@ -350,7 +350,7 @@ curl "https://saamtaxi.net/v1/api/driver/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/verify",
+    "url": "https://saamtaxi.net/api/v1/driver/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -442,7 +442,7 @@ Resend SMS for client
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/resend" \
+curl "https://saamtaxi.net/api/v1/client/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -452,7 +452,7 @@ curl "https://saamtaxi.net/v1/api/client/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/resend",
+    "url": "https://saamtaxi.net/api/v1/client/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -519,7 +519,7 @@ Resend SMS for driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/resend" \
+curl "https://saamtaxi.net/api/v1/driver/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -529,7 +529,7 @@ curl "https://saamtaxi.net/v1/api/driver/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/resend",
+    "url": "https://saamtaxi.net/api/v1/driver/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -601,7 +601,7 @@ Set current location of client.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/location" \
+curl "https://saamtaxi.net/api/v1/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -613,7 +613,7 @@ curl "https://saamtaxi.net/v1/api/client/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/location",
+    "url": "https://saamtaxi.net/api/v1/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -688,7 +688,7 @@ Set current location of driver.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/location" \
+curl "https://saamtaxi.net/api/v1/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -700,7 +700,7 @@ curl "https://saamtaxi.net/v1/api/driver/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/location",
+    "url": "https://saamtaxi.net/api/v1/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -776,7 +776,7 @@ Parameter | Type | Status | Description
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/car/types" \
+curl "https://saamtaxi.net/api/v1/client/car/types" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -785,7 +785,7 @@ curl "https://saamtaxi.net/v1/api/client/car/types" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/car/types",
+    "url": "https://saamtaxi.net/api/v1/client/car/types",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -863,7 +863,7 @@ Get client profile data.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/profile" \
+curl "https://saamtaxi.net/api/v1/client/profile" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -872,7 +872,7 @@ curl "https://saamtaxi.net/v1/api/client/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/profile",
+    "url": "https://saamtaxi.net/api/v1/client/profile",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -926,7 +926,7 @@ Get driver profile data.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/profile" \
+curl "https://saamtaxi.net/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -935,7 +935,7 @@ curl "https://saamtaxi.net/v1/api/driver/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/profile",
+    "url": "https://saamtaxi.net/api/v1/driver/profile",
     "method": "GET",
     "headers": {
        "accept": "application/json",
@@ -991,7 +991,7 @@ Update `driver` profile data.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/profile" \
+curl "https://saamtaxi.net/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "picture"="et" \
@@ -1002,7 +1002,7 @@ curl "https://saamtaxi.net/v1/api/driver/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/profile",
+    "url": "https://saamtaxi.net/api/v1/driver/profile",
     "method": "POST",
     "data": {
         "picture": "et"
@@ -1087,7 +1087,7 @@ Update `client` profile data.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/profile" \
+curl "https://saamtaxi.net/api/v1/client/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "first_name"="et" \
@@ -1107,7 +1107,7 @@ curl "https://saamtaxi.net/v1/api/client/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/profile",
+    "url": "https://saamtaxi.net/api/v1/client/profile",
     "method": "POST",
     "data": {
         "first_name": "et",
@@ -1212,7 +1212,7 @@ set to true as well. An approved drvier can go to online mode.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/online" \
+curl "https://saamtaxi.net/api/v1/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1221,7 +1221,7 @@ curl "https://saamtaxi.net/v1/api/driver/online" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/online",
+    "url": "https://saamtaxi.net/api/v1/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1274,7 +1274,7 @@ set to false as well. An approved drvier can go to offline mode.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/offline" \
+curl "https://saamtaxi.net/api/v1/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1283,7 +1283,7 @@ curl "https://saamtaxi.net/v1/api/driver/offline" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/offline",
+    "url": "https://saamtaxi.net/api/v1/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1335,7 +1335,7 @@ Get status of the driver, Online or Offline
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/status" \
+curl "https://saamtaxi.net/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1344,7 +1344,7 @@ curl "https://saamtaxi.net/v1/api/driver/status" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/status",
+    "url": "https://saamtaxi.net/api/v1/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1394,7 +1394,7 @@ $.ajax(settings).done(function (response) {
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/car/info" \
+curl "https://saamtaxi.net/api/v1/driver/car/info" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1403,7 +1403,7 @@ curl "https://saamtaxi.net/v1/api/driver/car/info" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/car/info",
+    "url": "https://saamtaxi.net/api/v1/driver/car/info",
     "method": "GET",
     "headers": {
          "accept": "application/json",
@@ -1435,7 +1435,7 @@ Request new taxi by client
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/trip" \
+curl "https://saamtaxi.net/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -1448,7 +1448,7 @@ curl "https://saamtaxi.net/v1/api/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/trip",
+    "url": "https://saamtaxi.net/api/v1/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -1560,7 +1560,7 @@ Find near by taxis
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/nearby" \
+curl "https://saamtaxi.net/api/v1/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -1574,7 +1574,7 @@ curl "https://saamtaxi.net/v1/api/client/nearby" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/nearby",
+    "url": "https://saamtaxi.net/api/v1/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -1657,7 +1657,7 @@ Current state of the client trip
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/trip" \
+curl "https://saamtaxi.net/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -1667,7 +1667,7 @@ curl "https://saamtaxi.net/v1/api/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/trip",
+    "url": "https://saamtaxi.net/api/v1/client/trip",
     "method": "GET",
     "data": {
 },
@@ -1767,7 +1767,7 @@ Cancel taxi by client
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/cancel" \
+curl "https://saamtaxi.net/api/v1/client/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -1777,7 +1777,7 @@ curl "https://saamtaxi.net/v1/api/client/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/cancel",
+    "url": "https://saamtaxi.net/api/v1/client/cancel",
     "method": "GET",
     "data": {
 },
@@ -1839,7 +1839,7 @@ Accept ride by driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/accept" \
+curl "https://saamtaxi.net/api/v1/driver/accept" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -1849,7 +1849,7 @@ curl "https://saamtaxi.net/v1/api/driver/accept" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/accept",
+    "url": "https://saamtaxi.net/api/v1/driver/accept",
     "method": "GET",
     "data": {
 },
@@ -1905,7 +1905,7 @@ Start ride by driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/start" \
+curl "https://saamtaxi.net/api/v1/driver/start" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -1915,7 +1915,7 @@ curl "https://saamtaxi.net/v1/api/driver/start" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/start",
+    "url": "https://saamtaxi.net/api/v1/driver/start",
     "method": "GET",
     "data": {
 },
@@ -1987,7 +1987,7 @@ End ride by driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/end" \
+curl "https://saamtaxi.net/api/v1/driver/end" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -1997,7 +1997,7 @@ curl "https://saamtaxi.net/v1/api/driver/end" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/end",
+    "url": "https://saamtaxi.net/api/v1/driver/end",
     "method": "GET",
     "data": {
 },
@@ -2053,7 +2053,7 @@ Cancel ride by driver
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/cancel" \
+curl "https://saamtaxi.net/api/v1/driver/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2063,7 +2063,7 @@ curl "https://saamtaxi.net/v1/api/driver/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/cancel",
+    "url": "https://saamtaxi.net/api/v1/driver/cancel",
     "method": "GET",
     "data": {
 },
@@ -2135,7 +2135,7 @@ When drive arrives at departure location.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/arrived" \
+curl "https://saamtaxi.net/api/v1/driver/arrived" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2145,7 +2145,7 @@ curl "https://saamtaxi.net/v1/api/driver/arrived" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/arrived",
+    "url": "https://saamtaxi.net/api/v1/driver/arrived",
     "method": "GET",
     "data": {},
     "headers": {
@@ -2219,7 +2219,7 @@ Current state of driver trip
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/trip" \
+curl "https://saamtaxi.net/api/v1/driver/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2229,7 +2229,7 @@ curl "https://saamtaxi.net/v1/api/driver/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/trip",
+    "url": "https://saamtaxi.net/api/v1/driver/trip",
     "method": "GET",
     "data": {
 },
@@ -2318,7 +2318,7 @@ Rate of driver to client.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/rate" \
+curl "https://saamtaxi.net/api/v1/driver/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2328,7 +2328,7 @@ curl "https://saamtaxi.net/v1/api/driver/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/rate",
+    "url": "https://saamtaxi.net/api/v1/driver/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -2430,7 +2430,7 @@ Rate of client to driver.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/rate" \
+curl "https://saamtaxi.net/api/v1/client/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2440,7 +2440,7 @@ curl "https://saamtaxi.net/v1/api/client/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/rate",
+    "url": "https://saamtaxi.net/api/v1/client/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -2525,7 +2525,7 @@ History of driver trips.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/driver/history" \
+curl "https://saamtaxi.net/api/v1/driver/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2535,7 +2535,7 @@ curl "https://saamtaxi.net/v1/api/driver/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/history",
+    "url": "https://saamtaxi.net/api/v1/driver/history",
     "method": "GET",
     "data": {},
     "headers": {
@@ -2653,7 +2653,7 @@ History of client trips.
 > Example request
 
 ```bash
-curl "https://saamtaxi.net/v1/api/client/history" \
+curl "https://saamtaxi.net/api/v1/client/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2663,7 +2663,7 @@ curl "https://saamtaxi.net/v1/api/client/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/history",
+    "url": "https://saamtaxi.net/api/v1/client/history",
     "method": "GET",
     "data": {},
     "headers": {

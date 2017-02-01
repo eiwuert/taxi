@@ -47,7 +47,7 @@ for login and validation.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/register" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/register" \
 -H "Accept: application/json" \
     -d "phone"="sunt" \
     -d "login_by"="sunt" \
@@ -58,7 +58,7 @@ for login and validation.</p>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/register",
+    "url": "https://saamtaxi.net/api/v1/client/register",
     "method": "POST",
     "data": {
         "phone": "sunt",
@@ -181,7 +181,7 @@ for login and validation.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/register" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/register" \
 -H "Accept: application/json" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
@@ -194,7 +194,7 @@ for login and validation.</p>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/register",
+    "url": "https://saamtaxi.net/api/v1/driver/register",
     "method": "POST",
     "data": {
         "phone": "eaque",
@@ -293,7 +293,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/verify" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="55555" \
@@ -301,7 +301,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/verify",
+    "url": "https://saamtaxi.net/api/v1/client/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -404,7 +404,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/verify" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="eaque" \
@@ -412,7 +412,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/verify",
+    "url": "https://saamtaxi.net/api/v1/driver/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -503,14 +503,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/resend" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/resend",
+    "url": "https://saamtaxi.net/api/v1/client/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -566,14 +566,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/resend" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/resend",
+    "url": "https://saamtaxi.net/api/v1/driver/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -630,7 +630,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/location" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -639,7 +639,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/location",
+    "url": "https://saamtaxi.net/api/v1/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -718,7 +718,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/location" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -727,7 +727,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/location",
+    "url": "https://saamtaxi.net/api/v1/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -806,13 +806,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/car/types" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/car/types" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/car/types",
+    "url": "https://saamtaxi.net/api/v1/client/car/types",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -881,13 +881,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/profile" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/profile" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/profile",
+    "url": "https://saamtaxi.net/api/v1/client/profile",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -933,13 +933,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/profile" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/profile",
+    "url": "https://saamtaxi.net/api/v1/driver/profile",
     "method": "GET",
     "headers": {
        "accept": "application/json",
@@ -987,7 +987,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/profile" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "picture"="et" \
@@ -995,7 +995,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/profile",
+    "url": "https://saamtaxi.net/api/v1/driver/profile",
     "method": "POST",
     "data": {
         "picture": "et"
@@ -1082,7 +1082,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/profile" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "first_name"="et" \
@@ -1099,7 +1099,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/profile",
+    "url": "https://saamtaxi.net/api/v1/client/profile",
     "method": "POST",
     "data": {
         "first_name": "et",
@@ -1241,13 +1241,13 @@ set to true as well. An approved drvier can go to online mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/online" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/online",
+    "url": "https://saamtaxi.net/api/v1/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1290,13 +1290,13 @@ set to false as well. An approved drvier can go to offline mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/offline" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/offline",
+    "url": "https://saamtaxi.net/api/v1/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1338,13 +1338,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/status" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/status",
+    "url": "https://saamtaxi.net/api/v1/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1384,13 +1384,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/car/info" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/car/info" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/car/info",
+    "url": "https://saamtaxi.net/api/v1/driver/car/info",
     "method": "GET",
     "headers": {
          "accept": "application/json",
@@ -1413,7 +1413,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/trip" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -1423,7 +1423,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/trip",
+    "url": "https://saamtaxi.net/api/v1/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -1545,7 +1545,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/nearby" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -1556,7 +1556,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/nearby",
+    "url": "https://saamtaxi.net/api/v1/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -1655,14 +1655,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/trip" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/trip",
+    "url": "https://saamtaxi.net/api/v1/client/trip",
     "method": "GET",
     "data": {
 },
@@ -1751,14 +1751,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/cancel" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/cancel",
+    "url": "https://saamtaxi.net/api/v1/client/cancel",
     "method": "GET",
     "data": {
 },
@@ -1805,14 +1805,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/accept" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/accept" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/accept",
+    "url": "https://saamtaxi.net/api/v1/driver/accept",
     "method": "GET",
     "data": {
 },
@@ -1858,14 +1858,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/start" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/start" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/start",
+    "url": "https://saamtaxi.net/api/v1/driver/start",
     "method": "GET",
     "data": {
 },
@@ -1925,14 +1925,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/end" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/end" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/end",
+    "url": "https://saamtaxi.net/api/v1/driver/end",
     "method": "GET",
     "data": {
 },
@@ -1978,14 +1978,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/cancel" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/cancel",
+    "url": "https://saamtaxi.net/api/v1/driver/cancel",
     "method": "GET",
     "data": {
 },
@@ -2043,14 +2043,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/arrived" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/arrived" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/arrived",
+    "url": "https://saamtaxi.net/api/v1/driver/arrived",
     "method": "GET",
     "data": {},
     "headers": {
@@ -2111,14 +2111,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/trip" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/trip",
+    "url": "https://saamtaxi.net/api/v1/driver/trip",
     "method": "GET",
     "data": {
 },
@@ -2194,14 +2194,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/rate" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/rate",
+    "url": "https://saamtaxi.net/api/v1/driver/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -2303,14 +2303,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/rate" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/rate",
+    "url": "https://saamtaxi.net/api/v1/client/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -2397,14 +2397,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/driver/history" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/driver/history",
+    "url": "https://saamtaxi.net/api/v1/driver/history",
     "method": "GET",
     "data": {},
     "headers": {
@@ -2512,14 +2512,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/v1/api/client/history" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/v1/api/client/history",
+    "url": "https://saamtaxi.net/api/v1/client/history",
     "method": "GET",
     "data": {},
     "headers": {
