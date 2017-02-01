@@ -55,7 +55,7 @@ class ProfileController extends Controller
     	if(empty($profileRequest->all())) {
     		return fail([
     				'title'  => 'Empty request is prohibited',
-    				'detail' => 'All profile fields are optional, but empty requst is prohibited'
+    				'detail' => 'All profile fields are optional, but empty request is prohibited'
     			], 400);
     	}
 
