@@ -82,4 +82,27 @@ class LocationRepository
                     'name'      => $name,
                 ]);
     }
+
+    /**
+     * Get Gelcoding name.
+     * @param  decimal $lat 
+     * @param  decimal $long
+     * @return string
+     */
+    public static function getGeocoding($lat, $long)
+    {
+        $name = GoogleMaps::load('geocoding')
+                          ->setParamByKey('latlng', $lat . ',' . $long)
+                          ->setParamByKey('mode', 'driving')
+                          ->setParamByKey('language', 'FA')
+                          ->setParamByKey('traffic_model', 'best_guess')
+                          ->get('results.formatted_address');
+        (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
+
+        if (@$name['status'] == 'ZERO_RESULTS') {
+            $name = 'NO RESULT';
+        }
+
+        return $name;
+    }
 }

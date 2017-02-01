@@ -34,6 +34,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
         Route::post('trip', 'Trip\TripController@requestTaxi')
              ->name('requestTaxi');
 
+        Route::post('calculate', 'Trip\TripController@calculate')
+             ->name('calculateTrip');
+
         Route::post('nearby', 'Trip\TripController@nearbyTaxi')
              ->name('nearbyTaxi');
 

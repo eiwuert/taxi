@@ -307,4 +307,13 @@ class TripController extends Controller
             return false;
         }
     }
+
+    /**
+     * Calculate distance and cost between 2 point.
+     * @return json
+     */
+    public function calculate(TripRequest $tripRequest)
+    {
+        return TripRepository::calculate($tripRequest);
+    }
 }

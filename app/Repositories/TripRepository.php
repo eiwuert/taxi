@@ -18,6 +18,7 @@ use App\Http\Requests\TripRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\LocationRepository;
+use App\Repositories\TransactionRepository;
 
 class TripRepository
 {
@@ -563,5 +564,26 @@ class TripRepository
         }
         dispatch(new SendClientNotification('trip_is_over_by_admin', '9', $trip->client->device_token));
         return back();
+    }
+
+    /**
+     * Calculate distance and cost between 2 points.
+     * @return json
+     */
+    public static function calculate($tripRequest)
+    {
+        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
+        $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
+        $distanceMatrix = getDistanceMatrix($tripRequest); // 'distance', 'duration'
+        $transactions = (new TransactionRepository())->calculate($tripRequest->s_lat, $tripRequest->s_long, 
+                                             $distanceMatrix['distance']['value'], 
+                                             $distanceMatrix['duration']['value'], 'USD');
+        return ok([
+                'source'       => $source,
+                'destination'  => $destination,
+                'distance'     => $distanceMatrix['distance'],
+                'duration'     => $distanceMatrix['duration'],
+                'transactions' => $transactions,
+            ]);
     }
 }

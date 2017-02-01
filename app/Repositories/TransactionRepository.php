@@ -65,6 +65,57 @@ class TransactionRepository
     }
 
     /**
+     * Calculate new transaction.
+     * @param  App\Trip $trip
+     * @param String $type
+     * @param String $currency
+     * @return json
+     */
+    public function calculate($lat, $long, $distance_value, $eta_value, $currency)
+    {
+        $this->currency = $currency;
+        $timezone = $this->timezone($lat, $long);
+        $transactions = [];
+        $types = [];
+        foreach (config('fare.USD') as $type => $rules) {
+            $this->type = $type;
+            $this->rules($type);
+            $transactions[] = $this->transaction($distance_value, $eta_value, $timezone);
+        }
+        return $transactions;
+    }
+
+    /**
+     * Transaction array.
+     * @param  string $distance_value
+     * @param  string $eat_value
+     * @param  string $timezone
+     * @return array
+     */
+    private function transaction($distance_value, $eta_value, $timezone)
+    {
+        return $transaction = [
+            'car_type'       => $this->type,
+            'car_type_id'    => CarType::whereName($this->type)->first()->id,
+            'currency'       => $this->currency,
+            'entry'          => $this->entry(),
+            'distance'       => $distance_value,
+            'per_distance'   => $this->perDistance(),
+            'distance_unit'  => $this->distanceUnit(),
+            'distance_value' => round($this->perDistance() * $this->distanceValue($distance_value), 1),
+            'time'           => $eta_value,
+            'per_time'       => $this->perTime(),
+            'time_unit'      => $this->timeUnit(),
+            'time_value'     => round($this->perTime() * $this->timeValue($eta_value), 1),
+            'surcharge'      => $this->surcharge($timezone),
+            'timezone'       => $timezone,
+            'total'          => ( $this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
+                                                 + round($this->perTime()     * $this->timeValue($eta_value), 1))
+                                                 * $this->surcharge($timezone),
+        ];
+    }
+
+    /**
      * Get entry fee.
      * @return float
      */
