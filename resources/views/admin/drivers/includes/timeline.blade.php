@@ -99,7 +99,7 @@
   </li>
   <!-- END timeline item -->
   @endforeach
-  @if (is_null($driver->trips))
+  @if ($driver->trips->isEmpty())
   <li>
     <i class="fa fa-pause" aria-hidden="true"></i>
     <div class="timeline-item">
