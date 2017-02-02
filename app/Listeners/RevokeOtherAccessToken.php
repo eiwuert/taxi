@@ -28,6 +28,7 @@ class RevokeOtherAccessToken
 
             DB::table('oauth_access_tokens')
                 ->whereIn('user_id', $toRevoke->flatten())
+                ->where('name', 'driver')
                 ->update(['revoked' => true]);
         } else if ($event->user->role == 'client') {
             // CLIENT
@@ -39,6 +40,7 @@ class RevokeOtherAccessToken
 
             DB::table('oauth_access_tokens')
                 ->whereIn('user_id', $toRevoke->flatten())
+                ->where('name', 'client')
                 ->update(['revoked' => true]);
         }
     }

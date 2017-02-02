@@ -12,14 +12,12 @@ use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
 use \Laravel\Passport\Passport;
-use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use \Laravel\Passport\ClientRepository;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\DriverRegisterRequest;
 use App\Http\Requests\ClientRegisterRequest;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Http\Requests\ClientRegisterSocialRequest;
 use \Laravel\Passport\Http\Controllers\AccessTokenController;
 
 class RegisterController extends Controller

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\API\V2;
 
 use App\Http\Requests\Request;
 
-class UserLoginRequest extends Request
+class LocationRequest extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,8 @@ class UserLoginRequest extends Request
     public function rules()
     {
         return [
-            'password'     => 'required|min:6|max:255',
-            'phone'        => 'required|exists:users,phone',
+            'lat'  => 'required|regex:/^[+-]?\d+\.\d+$/',
+            'lng' => 'required|regex:/^[+-]?\d+\.\d+$/',
         ];
     }
 }

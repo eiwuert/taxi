@@ -5,6 +5,7 @@ namespace App\Repositories;
 use DB;
 use Log;
 use Auth;
+use App\Car;
 use App\User;
 use App\Trip;
 use Validator;
@@ -13,6 +14,7 @@ use App\Client;
 use App\Status;
 use App\Location;
 use Carbon\Carbon;
+use App\Events\TripEnded;
 use App\Events\RideAccepted;
 use App\Http\Requests\TripRequest;
 use App\Jobs\SendClientNotification;
@@ -29,6 +31,11 @@ class TripRepository
      */
     public static function requestTaxi($tripRequest, $exclude = 0, $userId = null)
     {
+        if (isset($tripRequest['s_lng'])) {
+            $tripRequest['s_long'] = $tripRequest['s_lng'];
+            $tripRequest['d_long'] = $tripRequest['d_lng'];
+        }
+
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
         }
@@ -572,9 +579,20 @@ class TripRepository
      */
     public static function calculate($tripRequest)
     {
-        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
+        // API V2
+        if (isset($tripRequest->s_lng)) {
+            $tripRequest->s_long = $tripRequest->s_lng;
+            $tripRequest->d_long = $tripRequest->d_lng;
+        }
+        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_ldfng);
         $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
         $distanceMatrix = getDistanceMatrix($tripRequest); // 'distance', 'duration'
+        if (!isset($distanceMatrix['distance'])) {
+            return fail([
+                    'title'  => 'Failed',
+                    'detail' => 'Failed to intact with Google Maps'
+                ]);
+        }
         $transactions = (new TransactionRepository())->calculate($tripRequest->s_lat, $tripRequest->s_long, 
                                              $distanceMatrix['distance']['value'], 
                                              $distanceMatrix['duration']['value'], 'USD');
@@ -585,5 +603,218 @@ class TripRepository
                 'duration'     => $distanceMatrix['duration'],
                 'transactions' => $transactions,
             ]);
+    }
+
+    /**
+     * Accept trip.
+     * @return boolean
+     */
+    public static function accept()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return false;
+        }
+        if ($trip->status_id == 2) {
+            self::updateStatus($trip, 'driver_onway');
+            self::updateDriverAvailability($driver, false);
+            dispatch(new SendClientNotification('driver_onway', '5', Client::whereId($trip->client_id)->first()->device_token));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Start trip.
+     * @return boolean
+     */
+    public static function start()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null ($trip)) {
+            return false;
+        }
+
+        //
+        // DRIVER_ARRIVED
+        //
+        if ($trip->status_id == 12) {
+            self::updateStatus($trip, 'trip_started');
+            dispatch(new SendClientNotification('trip_started', '6', Client::whereId($trip->client_id)->first()->device_token));
+            return true;   
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Driver arrived.
+     * @return boolean
+     */
+    public static function arrived()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return false;
+        }
+        if ($trip->status_id == 7) {
+            self::updateStatus($trip, 'driver_arrived');
+            dispatch(new SendClientNotification('driver_arrived', '8', Client::whereId($trip->client_id)->first()->device_token));
+            return true; 
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * End trip.
+     * @return boolean
+     */
+    public static function end()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        if (is_null($trip)) {
+            return false;
+        }
+        if ($trip->status_id == 6) {
+            self::updateStatus($trip, 'trip_ended');
+            dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($trip->client_id)->first()->device_token));
+            event(new TripEnded($trip));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Current state of the trip.
+     * @return json
+     */
+    public static function trip()
+    {
+        if (Auth::user()->role == 'client') {
+            $client = User::wherePhone(Auth::user()->phone)
+                            ->orderBy('id', 'desc')
+                            ->first()->client()->first();
+            $trip = $client->trips()->orderBy('id', 'desc')->first();
+            if (self::notOnTrip($trip)) {
+                return false;
+            }
+
+            $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+            $driver->phone = $driver->user->phone;
+            $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
+            $carType = $car->type()->first(['name']);
+            $source = $trip->source()->first(['latitude', 'longitude', 'name']);
+            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
+            $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
+            unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
+            return [
+                    'driver' => $driver,
+                    'trip'   => $trip,
+                    'status' => $status,
+                    'car'    => $car,
+                    'type'   => $carType,
+                    'source' => $source,
+                    'destination' => $destination,
+                    'driver_location' => $driverLocation,
+                ];
+        } else if(Auth::user()->role == 'driver') {
+            $driver = Auth::user()->driver()->first();
+            $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            if (self::notOnTrip($trip)) {
+                return false;
+            }
+            $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+            $client->phone = $client->user->phone;
+            $source = $trip->source()->first(['latitude', 'longitude', 'name']);
+            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
+            unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+                $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
+            return [
+                    'client' => $client,
+                    'trip'   => $trip,
+                    'status' => $status,
+                    'source' => $source,
+                    'destination' => $destination,
+                ];
+        }
+    }
+
+    /**
+     * If current driver or client on a trip.
+     * @param  App\Trip $trip
+     * @return boolean
+     */
+    private static function notOnTrip($trip)
+    {
+        if (is_null($trip)) {
+            return true;
+        }
+
+        if (Auth::user()->role == 'client' &&
+            // DRIVER_RATED
+            $trip->status_id   ==  16) {
+            return true;
+        }
+
+        if (Auth::user()->role == 'driver' &&
+            // DRIVER_RATED
+            $trip->status_id   ==  15) {
+            return true;
+        }
+
+        if ($trip->status_id == 10 ||
+            $trip->status_id == 5  ||
+            $trip->status_id == 4  ||
+            $trip->status_id == 11 ||
+            $trip->status_id == 8  ||
+            $trip->status_id == 13 ||
+            $trip->status_id == 14 ||
+            $trip->status_id == 17 ||
+            $trip->status_id == 3  ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get nearby drivers.
+     * @param App\Http\Requests\NearbyRequest $request
+     * @return array
+     */
+    public static function nearby($request)
+    {
+        // API V2
+        if (isset($request->lng)) {
+            $request->long = $request->lng;
+        }
+
+        if (is_null($request->limit)) {
+            $request->limit = 5;
+        }
+
+        if (is_null($request->distance)) {
+            $request->distance = 1;
+        }
+
+         if (is_null($request->type)) {
+            $request->type = 'any';
+        }
+
+        return nearby($request->lat, 
+                                $request->long,
+                                $request->type,   
+                                $request->distance, 
+                                $request->limit)['result'];
     }
 }

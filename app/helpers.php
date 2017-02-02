@@ -69,6 +69,11 @@ if (! function_exists('getDistanceMatrix')) {
      */
     function getDistanceMatrix($location)
     {
+        // API V2
+        if (isset($location['s_lng'])) {
+            $location['s_long'] = $location['s_lng'];
+            $location['d_long'] = $location['d_lng'];
+        }
         $distance = \GoogleMaps::load('distancematrix')
                                 ->setParamByKey('origins', $location['s_lat'] . ',' . $location['s_long'])
                                 ->setParamByKey('destinations', $location['d_lat'] . ',' . $location['d_long'])                      
