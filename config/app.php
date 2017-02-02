@@ -168,12 +168,13 @@ return [
          */
         Laravel\Passport\PassportServiceProvider::class,
         GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
-        //Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
 
@@ -238,6 +239,7 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         // @todo
         //'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
     ],

@@ -57,14 +57,14 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              {{ HTML::image(Auth::user()->web()->first()->getPicture(), 'User Image', ['class' => 'user-image']) }}
+              {{ HTML::image(Auth::user()->web->picture, 'User Image', ['class' => 'user-image']) }}
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ $first_name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                {{ HTML::image(Auth::user()->web()->first()->getPicture(), 'User Image', ['class' => 'img-circle']) }}
+                {{ HTML::image(Auth::user()->web->picture, 'User Image', ['class' => 'img-circle']) }}
 
                 <p>
                   {{ $first_name }} {{ $last_name }}
@@ -73,7 +73,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('webs.edit') }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"  

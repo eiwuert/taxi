@@ -18,7 +18,9 @@
         "laravel/dusk": "^1.0",
         "spatie/laravel-uptime-monitor": "^2.0",
         "spatie/laravel-backup": "^4.4",
-        "folklore/graphql": "~1.0.0"
+        "folklore/graphql": "~1.0.0",
+        "mpociot/laravel-apidoc-generator": "^2.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -41,6 +43,8 @@
     },
     "autoload-dev": {
         "classmap": [
+            "tests/ApiAuthClientCase.php",
+            "tests/ApiAuthDriverCase.php",
             "tests/TestCase.php"
         ]
     },

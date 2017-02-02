@@ -38,9 +38,9 @@ Dashboard
 
 @push('js')
 <script type="text/javascript">
-Echo.private(`App.User.209`)
-    .listen('*', (e) => {
-        console.log(e);
+Echo.private(`App.User.{{ Auth::user()->id }}`)
+    .listen('UserRegistered', (e) => {
+        console.log(e.update);
     });
 </script>
 @endpush

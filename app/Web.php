@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Image;
+use Storage;
 use Illuminate\Database\Eloquent\Model;
 
 class Web extends Model
@@ -14,6 +16,7 @@ class Web extends Model
     protected $fillable = [
         'first_name', 
         'last_name',
+        'picture',
     ];
 
     /**
@@ -27,15 +30,32 @@ class Web extends Model
     }
 
     /**
-     * Get admin picture url.
-     * @return String
+     * Save user profile picture.
+     * 
+     * @param  string $picture
+     * @return string
      */
-    public function getPicture()
+    public function setPictureAttribute($picture)
     {
-        if ($this->picture == 'no-profile.png') {
-            return asset('img/no-profile.png');
+        $name = $this->attributes['picture'] = basename($picture->store('public/profile/web/'));
+        $img = Image::make('storage/profile/web/' . $name);
+        $img->fit(128);
+        Storage::delete('storage/profile/web/' . $name);
+        $img->save('storage/profile/web/' . $name);
+    }
+
+    /**
+     * Get full path to profile picture url.
+     * 
+     * @param  string $picture
+     * @return string
+     */
+    public function getPictureAttribute($picture)
+    {
+        if ($picture != 'no-profile.png') {
+            return asset('storage/profile/web/' . $picture);
         } else {
-            return $this->picture;
+            return asset('img/' . $picture);
         }
     }
 }
