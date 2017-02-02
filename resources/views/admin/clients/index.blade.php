@@ -45,6 +45,7 @@ Clients
                                                           'label' => 'Date range'])
         {!! Form::close() !!}
       <!-- /.box-body -->
+      </div>
     </div>
     <div class="box box-solid">
       <div class="box-header">
@@ -62,6 +63,7 @@ Clients
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
+        @if(!$clients->isEmpty())
         <table class="table table-striped table-hover">
           <tbody>
           <tr>
@@ -84,6 +86,9 @@ Clients
           </tr>
           @endforeach
         </tbody></table>
+        @else
+        @include('admin.components.empty')
+        @endif
       </div>
       <!-- /.box-body -->
       <div class="box-footer clearfix">
