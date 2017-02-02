@@ -1,23 +1,23 @@
 <?php
 
+use App\Repositories\LocationRepository;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TripTest extends TestCase
+
+class AuthTest extends TestCase
 {
+    use WithoutMiddleware;
+
     public function setUp()
     {
         parent::setUp();
     }
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testRequestTaxi()
+    public function testSet()
     {
-        $this->assertTrue(true);
+
+        LocationRepository::set(0.0, 0.0);
     }
 }
