@@ -73,6 +73,7 @@ Drivers
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
+        @if (!$drivers->isEmpty())
         <table class="table table-hover">
           <tbody><tr>
             <th></th>
@@ -94,7 +95,11 @@ Drivers
             <td>{{ $driver->phoneNumber() }}</td>
           </tr>
           @endforeach
-        </tbody></table>
+          </tbody>
+        </table>
+        @else
+        @include('admin.components.empty')
+        @endif
       </div>
       <!-- /.box-body -->
       <div class="box-footer clearfix">
