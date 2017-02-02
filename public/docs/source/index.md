@@ -986,7 +986,7 @@ $.ajax(settings).done(function (response) {
 
 ## Update - Driver
 
-Update `driver` profile data.
+Update `driver` profile data. Returned image is croped 128 by 128 pixels from center.
 
 > Example request
 
@@ -1082,7 +1082,8 @@ Parameter | Type | Status | Description
 
 ## Update - Client
 
-Update `client` profile data.
+Update `client` profile data. Returned image is croped 128 by 128 pixels from center.
+
 
 > Example request
 

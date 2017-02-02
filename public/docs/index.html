@@ -983,7 +983,7 @@ $.ajax(settings).done(function (response) {
 <h3>HTTP Request</h3>
 <p><code>GET api/driver/profile</code></p>
 <h2>Update - Driver</h2>
-<p>Update <code>driver</code> profile data.</p>
+<p>Update <code>driver</code> profile data. Returned image is croped 128 by 128 pixels from center.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -1078,7 +1078,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h2>Update - Client</h2>
-<p>Update <code>client</code> profile data.</p>
+<p>Update <code>client</code> profile data. Returned image is croped 128 by 128 pixels from center.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -1326,7 +1326,7 @@ $.ajax(settings).done(function (response) {
     "data": [
         {
             "title": "Driver cannot go offline",
-            "detail": "An onway driver cannot go offline.",
+            "detail": "An onway or currently online driver cannot go offline.",
             "code": 500
         }
     ]

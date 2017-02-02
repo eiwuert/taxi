@@ -14,24 +14,6 @@ use App\Http\Requests\DriverProfileRequest;
 class ProfileController extends Controller
 {
 	/**
-	 * API caller type.
-	 * 
-	 * @var string
-	 */
-	private $type;
-
-	/**
-	 * Constructor function
-	 *
-	 * @param  Request $request
-	 * @return void
-	 */
-	public function __construct(Request $request)
-	{
-		$this->type = $request->segment(2);
-	}
-
-	/**
 	 * Get profile data.
 	 *
 	 * @param  Request $request
@@ -87,14 +69,14 @@ class ProfileController extends Controller
      */
     private function user()
     {
-		if ($this->type == 'client') {
+		if (Auth::user()->role == 'client') {
 			$client = User::wherePhone(Auth::user()->phone)
 		                            ->orderBy('id', 'desc')
 		                            ->first()->client()->first();
 			$client = $client->toArray();
 			$client['phone'] = Auth::user()->phone;
 		    return $client;
-		} elseif ($this->type == 'driver') {
+		} elseif (Auth::user()->role == 'driver') {
 			$driver = Auth::user()->driver()->first()->toArray();
 			$driver['phone'] = Auth::user()->phone;
 			return $driver;

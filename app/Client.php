@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Image;
+use Storage;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
@@ -69,7 +71,11 @@ class Client extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store('public/profile/client/'));
+        $name = $this->attributes['picture'] = basename($picture->store('public/profile/client/'));
+        $img = Image::make('storage/profile/client/' . $name);
+        $img->fit(128);
+        Storage::delete('storage/profile/client/' . $name);
+        $img->save('storage/profile/client/' . $name);
     }
 
     /**

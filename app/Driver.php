@@ -3,7 +3,9 @@
 namespace App;
 
 use Cache;
+use Image;
 use App\Car;
+use Storage;
 use App\User;
 use App\Rate;
 use App\Status;
@@ -152,7 +154,11 @@ class Driver extends Model
      */
     public function setPictureAttribute($picture)
     {
-        $this->attributes['picture'] = basename($picture->store('public/profile/driver/'));
+        $name = $this->attributes['picture'] = basename($picture->store('public/profile/driver/'));
+        $img = Image::make('storage/profile/driver/' . $name);
+        $img->fit(128);
+        Storage::delete('storage/profile/driver/' . $name);
+        $img->save('storage/profile/driver/' . $name);
     }
 
     /**
