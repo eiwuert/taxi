@@ -60,7 +60,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/register`
+`POST api/v1/client/register`
 
 #### Parameters
 
@@ -182,7 +182,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/driver/register`
+`POST api/v1/driver/register`
 
 #### Parameters
 
@@ -253,7 +253,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/verify`
+`POST api/v1/client/verify`
 
 #### Parameters
 
@@ -368,7 +368,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/driver/verify`
+`POST api/v1/driver/verify`
 
 #### Parameters
 
@@ -468,7 +468,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/client/resend`
+`GET api/v1/client/resend`
     
 > Example response
 
@@ -545,7 +545,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/resend`
+`GET api/v1/driver/resend`
     
 > Example response
 
@@ -593,7 +593,7 @@ $.ajax(settings).done(function (response) {
 #Location
 
 
-## Client
+## Client V1
 
 Set current location of client.
 
@@ -632,7 +632,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/location`
+`POST api/v1/client/location`
 
 #### Parameters
 
@@ -681,7 +681,7 @@ Parameter | Type | Status | Description
 ```
 
 
-## Driver
+## Driver V1
 
 Set current location of driver.
 
@@ -719,7 +719,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/driver/location`
+`POST api/v1/driver/location`
 
 #### Parameters
 
@@ -767,6 +767,183 @@ Parameter | Type | Status | Description
     ]
 }
 ```
+
+
+## Client V2
+
+Set current location of client. in `v2` of API you can send `lng` instead of `long`
+
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/client/location" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "lat"="neque" \
+    -d "lng"="neque" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/location",
+    "method": "POST",
+    "data": {
+        "lat": "neque",
+        "lng": "neque",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v2/client/location`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lat | string |  required  | 
+    lng | string |  required  | 
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+            {
+                "latitude": "32.637724",
+                "longitude": "51.682108",
+                "name": "استان اصفهان، اصفهان، خیابان کمال اسماعیل، ایران",
+                "user_id": 416,
+                "updated_at": "2016-12-10 22:26:25",
+                "created_at": "2016-12-10 22:26:25",
+                "id": 418
+            }
+    ]
+}
+
+```
+
+> Example response - missing parameter
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "lng": [
+                "The lng field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}
+```
+
+
+## Driver V2
+
+Set current location of driver. in `v2` of API you can send `lng` instead of `long`
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/driver/location" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "lat"="atque" \
+    -d "lng"="atque" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/location",
+    "method": "POST",
+    "data": {
+        "lat": "atque",
+        "lng": "atque",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v2/driver/location`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lat | string |  required  | 
+    lng | string |  required  | 
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+            {
+                "latitude": "32.637724",
+                "longitude": "51.682108",
+                "name": "استان اصفهان، اصفهان، خیابان کمال اسماعیل، ایران",
+                "user_id": 416,
+                "updated_at": "2016-12-10 22:26:25",
+                "created_at": "2016-12-10 22:26:25",
+                "id": 418
+            }
+    ]
+}
+
+```
+
+
+> Example response - missing parameter
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "lng": [
+                "The lng field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}
+```
+
 
 
 # Car types
@@ -851,7 +1028,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/client/car/types`
+`GET api/v1/client/car/types`
 
 
 # Profile
@@ -916,7 +1093,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/client/profile`
+`GET api/v1/client/profile`
 
 
 ## Driver
@@ -981,7 +1158,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/driver/profile`
+`GET api/v1/driver/profile`
 
 
 ## Update - Driver
@@ -1020,7 +1197,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/driver/profile`
+`POST api/v1/driver/profile`
 
 #### Parameters
 
@@ -1135,7 +1312,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/profile`
+`POST api/v1/client/profile`
 
 #### Parameters
 
@@ -1264,7 +1441,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/driver/online`
+`GET api/v1/driver/online`
 
 
 ## Go offline
@@ -1326,7 +1503,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/driver/offline`
+`GET api/v1/driver/offline`
 
 
 ## Get status
@@ -1385,7 +1562,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/driver/status`
+`GET api/v1/driver/status`
 
 
 # Car
@@ -1424,12 +1601,12 @@ null
 ```
 
 ### HTTP Request
-`GET api/driver/car/info`
+`GET api/v1/driver/car/info`
 
 
 # Trip - Client
 
-## Request
+## Request v1
 
 Request new taxi by client
 
@@ -1470,7 +1647,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/trip`
+`POST api/v1/client/trip`
 
 #### Parameters
 
@@ -1554,7 +1731,133 @@ d_long | numeric |  required  |
 ```
 
 
-## Nearby taxis
+## Request v2
+
+Request new taxi by client. in `v2` of API you can send `s_lng` instead of `s_long` and
+`d_lng` instead of `d_long`
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/client/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/trip",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v2/client/trip`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | 
+s_lng | numeric |  required  | 
+d_lat | numeric |  required  | 
+d_lng | numeric |  required  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully, waiting for driver(s) to accept.",
+            "eta_text": "8 mins",
+            "eta_value": 500,
+            "distance_text": "5.1 km",
+            "distance_value": 5051,
+            "trip_status": 2,
+            "source_name": "استان تهران، تهران، بزرگراه شهید حقانی، ایران",
+            "destination_name": "استان تهران، تهران، پل پارک وی، ایران"
+        }
+    ]
+}
+```
+
+> Example response - Have pending request
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You have pending request",
+            "detail": "Please address your pending trip request at first",
+            "trips": [
+                {
+                    "id": 8,
+                    "driver_id": null,
+                    "client_id": 1,
+                    "status_id": 1,
+                    "source": 17,
+                    "destination": 18,
+                    "eta_value": "500",
+                    "eta_text": "8 mins",
+                    "distance_value": "5051",
+                    "distance_text": "5.1 km",
+                    "etd_value": null,
+                    "etd_text": null,
+                    "driver_location": null,
+                    "driver_distance_value": null,
+                    "driver_distance_text": null,
+                    "created_at": "2016-11-29 15:24:33",
+                    "updated_at": "2016-11-29 15:24:33"
+                }
+            ],
+            "code": 500
+        }
+    ]
+}
+```
+
+> Example response - cannot find distance
+
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip there!"
+        }
+    ]
+}
+
+```
+
+
+## Nearby taxis v1
 
 Find near by taxis
 
@@ -1596,7 +1899,7 @@ console.log(response);
 
 
 ### HTTP Request
-`POST api/client/nearby`
+`POST api/v1/client/nearby`
 
 #### Parameters
 
@@ -1604,6 +1907,105 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
 lat | numeric |  required  | `(d+).(d+)`
 long | numeric |  required  | `(d+).(d+)`
+distance | numeric |  min: `1`, max: `5`  | 
+limit | numeric |  min: `5`, max: `100`  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "id": 20,
+            "distance": "0.245001059497561",
+            "longitude": "51.409909",
+            "latitude": "35.757580",
+            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
+            "user_id": 3
+        },
+        {
+            "id": 4,
+            "distance": "0.563525245388979",
+            "longitude": "51.406401",
+            "latitude": "35.757223",
+            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
+            "user_id": 1
+        }
+    ]
+}
+```
+
+> Example response - Validation fails
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "lat": [
+                "The lat format is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}
+```
+
+
+
+## Nearby taxis v2
+
+Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v2/client/nearby`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | `(d+).(d+)`
+lng | numeric |  required  | `(d+).(d+)`
 distance | numeric |  min: `1`, max: `5`  | 
 limit | numeric |  min: `5`, max: `100`  | 
     
@@ -1685,7 +2087,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/client/trip`
+`GET api/v1/client/trip`
     
 > Example response
 
@@ -1795,7 +2197,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/client/cancel`
+`GET api/v1/client/cancel`
     
 > Example response
 
@@ -1828,6 +2230,440 @@ console.log(response);
 }
 
 ```
+
+
+## Calculate V1
+
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_long": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_long": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_long": "amet",
+        "d_lat": "amet",
+        "d_long": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/client/calculate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | [+-]?\d+\.\d+
+s_long | numeric |  required  | [+-]?\d+\.\d+
+d_lat | numeric |  required  | [+-]?\d+\.\d+
+d_long | numeric |  required  | [+-]?\d+\.\d+
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "source": "NO RESULT",
+            "destination": "Tehran Province, Tehran, Alami, ایران",
+            "distance": {
+                "text": "3 m",
+                "value": 3
+            },
+            "duration": {
+                "text": "1 min",
+                "value": 1
+            },
+            "transactions": [
+                {
+                    "car_type": "luxury",
+                    "car_type_id": 1,
+                    "currency": "USD",
+                    "entry": 2,
+                    "distance": 3,
+                    "per_distance": 0.7,
+                    "distance_unit": "kilometer",
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0.3,
+                    "time_unit": "minute",
+                    "time_value": 0,
+                    "surcharge": 1.1,
+                    "timezone": "Asia/Tehran",
+                    "total": 2.2
+                },
+                {
+                    "car_type": "van",
+                    "car_type_id": 2,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sport",
+                    "car_type_id": 3,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sedans",
+                    "car_type_id": 4,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "economy",
+                    "car_type_id": 5,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "off-roader",
+                    "car_type_id": 6,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "motorcycle",
+                    "car_type_id": 7,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                }
+            ]
+        }
+    ]
+}
+```
+
+
+
+> Example response - Fail to fetch data from Google Maps
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Failed to intact with Google Maps",
+            "code": 500
+        }
+    ]
+}
+```
+
+
+
+## Calculate V2
+
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
+you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v2/client/calculate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | [+-]?\d+\.\d+
+s_lng | numeric |  required  | [+-]?\d+\.\d+
+d_lat | numeric |  required  | [+-]?\d+\.\d+
+d_lng | numeric |  required  | [+-]?\d+\.\d+
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "source": "NO RESULT",
+            "destination": "Tehran Province, Tehran, Alami, ایران",
+            "distance": {
+                "text": "3 m",
+                "value": 3
+            },
+            "duration": {
+                "text": "1 min",
+                "value": 1
+            },
+            "transactions": [
+                {
+                    "car_type": "luxury",
+                    "car_type_id": 1,
+                    "currency": "USD",
+                    "entry": 2,
+                    "distance": 3,
+                    "per_distance": 0.7,
+                    "distance_unit": "kilometer",
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0.3,
+                    "time_unit": "minute",
+                    "time_value": 0,
+                    "surcharge": 1.1,
+                    "timezone": "Asia/Tehran",
+                    "total": 2.2
+                },
+                {
+                    "car_type": "van",
+                    "car_type_id": 2,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sport",
+                    "car_type_id": 3,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sedans",
+                    "car_type_id": 4,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "economy",
+                    "car_type_id": 5,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "off-roader",
+                    "car_type_id": 6,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "motorcycle",
+                    "car_type_id": 7,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                }
+            ]
+        }
+    ]
+}
+```
+
+
+
+> Example response - Fail to fetch data from Google Maps
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Failed to intact with Google Maps",
+            "code": 500
+        }
+    ]
+}
+```
+
+
 
 
 # Trip - driver
@@ -1867,7 +2703,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/driver/accept`
+`GET api/v1/driver/accept`
     
 > Example response
 
@@ -1933,7 +2769,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/driver/start`
+`GET api/v1/driver/start`
     
 > Example response
 
@@ -2015,7 +2851,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/driver/end`
+`GET api/v1/driver/end`
     
 > Example response
 
@@ -2081,7 +2917,7 @@ console.log(response);
 
 
 ### HTTP Request
-`GET api/driver/cancel`
+`GET api/v1/driver/cancel`
     
 > Example response - trip cancelled
 
@@ -2162,7 +2998,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/arrived`
+`GET api/v1/driver/arrived`
     
 > Example response - driver arrived
 
@@ -2247,7 +3083,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/trip`
+`GET api/v1/driver/trip`
     
 > Example response
 
@@ -2345,7 +3181,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/driver/rate`
+`POST api/v1/driver/rate`
 
 #### Parameters
 
@@ -2457,7 +3293,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST api/client/rate`
+`POST api/v1/client/rate`
 
 #### Parameters
 
@@ -2552,7 +3388,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/driver/history`
+`GET api/v1/driver/history`
 
     
 > Example response
@@ -2680,7 +3516,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET api/client/history`
+`GET api/v1/client/history`
 
     
 > Example response

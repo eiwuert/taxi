@@ -76,7 +76,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/register</code></p>
+<p><code>POST api/v1/client/register</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -214,7 +214,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/driver/register</code></p>
+<p><code>POST api/v1/driver/register</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -316,7 +316,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/verify</code></p>
+<p><code>POST api/v1/client/verify</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -427,7 +427,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/driver/verify</code></p>
+<p><code>POST api/v1/driver/verify</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -523,7 +523,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/resend</code></p>
+<p><code>GET api/v1/client/resend</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -586,7 +586,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/resend</code></p>
+<p><code>GET api/v1/driver/resend</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -625,7 +625,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h1>Location</h1>
-<h2>Client</h2>
+<h2>Client V1</h2>
 <p>Set current location of client.</p>
 <blockquote>
 <p>Example request</p>
@@ -655,7 +655,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/location</code></p>
+<p><code>POST api/v1/client/location</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -713,7 +713,7 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
-<h2>Driver</h2>
+<h2>Driver V1</h2>
 <p>Set current location of driver.</p>
 <blockquote>
 <p>Example request</p>
@@ -743,7 +743,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/driver/location</code></p>
+<p><code>POST api/v1/driver/location</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -794,6 +794,182 @@ $.ajax(settings).done(function (response) {
         {
             "long": [
                 "The long field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}</code></pre>
+<h2>Client V2</h2>
+<p>Set current location of client. in <code>v2</code> of API you can send <code>lng</code> instead of <code>long</code></p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/client/location" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "lat"="neque" \
+    -d "lng"="neque" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/location",
+    "method": "POST",
+    "data": {
+        "lat": "neque",
+        "lng": "neque",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v2/client/location</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lat</td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td>lng</td>
+<td>string</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+            {
+                "latitude": "32.637724",
+                "longitude": "51.682108",
+                "name": "استان اصفهان، اصفهان، خیابان کمال اسماعیل، ایران",
+                "user_id": 416,
+                "updated_at": "2016-12-10 22:26:25",
+                "created_at": "2016-12-10 22:26:25",
+                "id": 418
+            }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - missing parameter</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "lng": [
+                "The lng field is required."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}</code></pre>
+<h2>Driver V2</h2>
+<p>Set current location of driver. in <code>v2</code> of API you can send <code>lng</code> instead of <code>long</code></p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/driver/location" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+    -d "lat"="atque" \
+    -d "lng"="atque" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/location",
+    "method": "POST",
+    "data": {
+        "lat": "atque",
+        "lng": "atque",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v2/driver/location</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lat</td>
+<td>string</td>
+<td>required</td>
+</tr>
+<tr>
+<td>lng</td>
+<td>string</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+            {
+                "latitude": "32.637724",
+                "longitude": "51.682108",
+                "name": "استان اصفهان، اصفهان، خیابان کمال اسماعیل، ایران",
+                "user_id": 416,
+                "updated_at": "2016-12-10 22:26:25",
+                "created_at": "2016-12-10 22:26:25",
+                "id": 418
+            }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - missing parameter</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "lng": [
+                "The lng field is required."
             ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
@@ -874,7 +1050,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/car/types</code></p>
+<p><code>GET api/v1/client/car/types</code></p>
 <h1>Profile</h1>
 <h2>Client</h2>
 <p>Get client profile data.</p>
@@ -927,7 +1103,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/profile</code></p>
+<p><code>GET api/v1/client/profile</code></p>
 <h2>Driver</h2>
 <p>Get driver profile data.</p>
 <blockquote>
@@ -981,7 +1157,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/profile</code></p>
+<p><code>GET api/v1/driver/profile</code></p>
 <h2>Update - Driver</h2>
 <p>Update <code>driver</code> profile data. Returned image is croped 128 by 128 pixels from center.</p>
 <blockquote>
@@ -1010,7 +1186,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/driver/profile</code></p>
+<p><code>POST api/v1/driver/profile</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -1123,7 +1299,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/profile</code></p>
+<p><code>POST api/v1/client/profile</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -1283,7 +1459,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/online</code></p>
+<p><code>GET api/v1/driver/online</code></p>
 <h2>Go offline</h2>
 <p>Make a driver offline, when a driver goes offline his/her availability will
 set to false as well. An approved drvier can go to offline mode.</p>
@@ -1332,7 +1508,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/offline</code></p>
+<p><code>GET api/v1/driver/offline</code></p>
 <h2>Get status</h2>
 <p>Get status of the driver, Online or Offline</p>
 <blockquote>
@@ -1378,7 +1554,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/status</code></p>
+<p><code>GET api/v1/driver/status</code></p>
 <h1>Car</h1>
 <h2>Info</h2>
 <blockquote>
@@ -1406,9 +1582,9 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-json">null</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/car/info</code></p>
+<p><code>GET api/v1/driver/car/info</code></p>
 <h1>Trip - Client</h1>
-<h2>Request</h2>
+<h2>Request v1</h2>
 <p>Request new taxi by client</p>
 <blockquote>
 <p>Example request</p>
@@ -1441,7 +1617,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/trip</code></p>
+<p><code>POST api/v1/client/trip</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -1540,7 +1716,140 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
-<h2>Nearby taxis</h2>
+<h2>Request v2</h2>
+<p>Request new taxi by client. in <code>v2</code> of API you can send <code>s_lng</code> instead of <code>s_long</code> and
+<code>d_lng</code> instead of <code>d_long</code></p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/client/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ </code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/trip",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v2/client/trip</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_lat</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>s_lng</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>d_lat</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+<tr>
+<td>d_lng</td>
+<td>numeric</td>
+<td>required</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully, waiting for driver(s) to accept.",
+            "eta_text": "8 mins",
+            "eta_value": 500,
+            "distance_text": "5.1 km",
+            "distance_value": 5051,
+            "trip_status": 2,
+            "source_name": "استان تهران، تهران، بزرگراه شهید حقانی، ایران",
+            "destination_name": "استان تهران، تهران، پل پارک وی، ایران"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Have pending request</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "You have pending request",
+            "detail": "Please address your pending trip request at first",
+            "trips": [
+                {
+                    "id": 8,
+                    "driver_id": null,
+                    "client_id": 1,
+                    "status_id": 1,
+                    "source": 17,
+                    "destination": 18,
+                    "eta_value": "500",
+                    "eta_text": "8 mins",
+                    "distance_value": "5051",
+                    "distance_text": "5.1 km",
+                    "etd_value": null,
+                    "etd_text": null,
+                    "driver_location": null,
+                    "driver_distance_value": null,
+                    "driver_distance_text": null,
+                    "created_at": "2016-11-29 15:24:33",
+                    "updated_at": "2016-11-29 15:24:33"
+                }
+            ],
+            "code": 500
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - cannot find distance</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip there!"
+        }
+    ]
+}
+</code></pre>
+<h2>Nearby taxis v1</h2>
 <p>Find near by taxis</p>
 <blockquote>
 <p>Example request</p>
@@ -1574,7 +1883,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/nearby</code></p>
+<p><code>POST api/v1/client/nearby</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -1594,6 +1903,116 @@ console.log(response);
 </tr>
 <tr>
 <td>long</td>
+<td>numeric</td>
+<td>required</td>
+<td><code>(d+).(d+)</code></td>
+</tr>
+<tr>
+<td>distance</td>
+<td>numeric</td>
+<td>min: <code>1</code>, max: <code>5</code></td>
+</tr>
+<tr>
+<td>limit</td>
+<td>numeric</td>
+<td>min: <code>5</code>, max: <code>100</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "id": 20,
+            "distance": "0.245001059497561",
+            "longitude": "51.409909",
+            "latitude": "35.757580",
+            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
+            "user_id": 3
+        },
+        {
+            "id": 4,
+            "distance": "0.563525245388979",
+            "longitude": "51.406401",
+            "latitude": "35.757223",
+            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
+            "user_id": 1
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Validation fails</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "lat": [
+                "The lat format is invalid."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}</code></pre>
+<h2>Nearby taxis v2</h2>
+<p>Find near by taxis. in <code>v2</code> of API you can send <code>lng</code> instead of <code>long</code>.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v2/client/nearby</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lat</td>
+<td>numeric</td>
+<td>required</td>
+<td><code>(d+).(d+)</code></td>
+</tr>
+<tr>
+<td>lng</td>
 <td>numeric</td>
 <td>required</td>
 <td><code>(d+).(d+)</code></td>
@@ -1676,7 +2095,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/trip</code></p>
+<p><code>GET api/v1/client/trip</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1772,7 +2191,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/cancel</code></p>
+<p><code>GET api/v1/client/cancel</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1799,6 +2218,459 @@ console.log(response);
     ]
 }
 </code></pre>
+<h2>Calculate V1</h2>
+<p>Calculate trip fare(cost), distance and time. Take care of <code>NO RESULT</code> on source and destination.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_long": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_long": "maiores", \ 
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_long": "amet",
+        "d_lat": "amet",
+        "d_long": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/client/calculate</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_lat</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>s_long</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>d_lat</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>d_long</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "source": "NO RESULT",
+            "destination": "Tehran Province, Tehran, Alami, ایران",
+            "distance": {
+                "text": "3 m",
+                "value": 3
+            },
+            "duration": {
+                "text": "1 min",
+                "value": 1
+            },
+            "transactions": [
+                {
+                    "car_type": "luxury",
+                    "car_type_id": 1,
+                    "currency": "USD",
+                    "entry": 2,
+                    "distance": 3,
+                    "per_distance": 0.7,
+                    "distance_unit": "kilometer",
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0.3,
+                    "time_unit": "minute",
+                    "time_value": 0,
+                    "surcharge": 1.1,
+                    "timezone": "Asia/Tehran",
+                    "total": 2.2
+                },
+                {
+                    "car_type": "van",
+                    "car_type_id": 2,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sport",
+                    "car_type_id": 3,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sedans",
+                    "car_type_id": 4,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "economy",
+                    "car_type_id": 5,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "off-roader",
+                    "car_type_id": 6,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "motorcycle",
+                    "car_type_id": 7,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                }
+            ]
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail to fetch data from Google Maps</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Failed to intact with Google Maps",
+            "code": 500
+        }
+    ]
+}</code></pre>
+<h2>Calculate V2</h2>
+<p>Calculate trip fare(cost), distance and time. Take care of <code>NO RESULT</code> on source and destination. in <code>v2</code> of API
+you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</code> instead of <code>d_long</code>.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v2/client/calculate</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s_lat</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>s_lng</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>d_lat</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>d_lng</td>
+<td>numeric</td>
+<td>required</td>
+<td>[+-]?\d+.\d+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "source": "NO RESULT",
+            "destination": "Tehran Province, Tehran, Alami, ایران",
+            "distance": {
+                "text": "3 m",
+                "value": 3
+            },
+            "duration": {
+                "text": "1 min",
+                "value": 1
+            },
+            "transactions": [
+                {
+                    "car_type": "luxury",
+                    "car_type_id": 1,
+                    "currency": "USD",
+                    "entry": 2,
+                    "distance": 3,
+                    "per_distance": 0.7,
+                    "distance_unit": "kilometer",
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0.3,
+                    "time_unit": "minute",
+                    "time_value": 0,
+                    "surcharge": 1.1,
+                    "timezone": "Asia/Tehran",
+                    "total": 2.2
+                },
+                {
+                    "car_type": "van",
+                    "car_type_id": 2,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sport",
+                    "car_type_id": 3,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "sedans",
+                    "car_type_id": 4,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "economy",
+                    "car_type_id": 5,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "off-roader",
+                    "car_type_id": 6,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                },
+                {
+                    "car_type": "motorcycle",
+                    "car_type_id": 7,
+                    "currency": "USD",
+                    "entry": 0,
+                    "distance": 3,
+                    "per_distance": 0,
+                    "distance_unit": 0,
+                    "distance_value": 0,
+                    "time": 1,
+                    "per_time": 0,
+                    "time_unit": 0,
+                    "time_value": 0,
+                    "surcharge": 1,
+                    "timezone": "Asia/Tehran",
+                    "total": 0
+                }
+            ]
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Fail to fetch data from Google Maps</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Failed to intact with Google Maps",
+            "code": 500
+        }
+    ]
+}</code></pre>
 <h1>Trip - driver</h1>
 <h2>Accept ride</h2>
 <p>Accept ride by driver</p>
@@ -1826,7 +2698,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/accept</code></p>
+<p><code>GET api/v1/driver/accept</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1879,7 +2751,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/start</code></p>
+<p><code>GET api/v1/driver/start</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1946,7 +2818,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/end</code></p>
+<p><code>GET api/v1/driver/end</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -1999,7 +2871,7 @@ $.ajax(settings).done(function (response) {
 console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/cancel</code></p>
+<p><code>GET api/v1/driver/cancel</code></p>
 <blockquote>
 <p>Example response - trip cancelled</p>
 </blockquote>
@@ -2063,7 +2935,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/arrived</code></p>
+<p><code>GET api/v1/driver/arrived</code></p>
 <blockquote>
 <p>Example response - driver arrived</p>
 </blockquote>
@@ -2132,7 +3004,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/trip</code></p>
+<p><code>GET api/v1/driver/trip</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -2214,7 +3086,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/driver/rate</code></p>
+<p><code>POST api/v1/driver/rate</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -2323,7 +3195,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST api/client/rate</code></p>
+<p><code>POST api/v1/client/rate</code></p>
 <h4>Parameters</h4>
 <table>
 <thead>
@@ -2417,7 +3289,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/driver/history</code></p>
+<p><code>GET api/v1/driver/history</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -2532,7 +3404,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/client/history</code></p>
+<p><code>GET api/v1/client/history</code></p>
 <blockquote>
 <p>Example response</p>
 </blockquote>
