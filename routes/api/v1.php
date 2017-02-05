@@ -122,6 +122,6 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
 Route::any('{any}', function() {
     return fail([
             'title'  => 'Not found',
-            'detail' => 'Requested route not found',
+            'detail' => 'Requested route not found `' . url()->current() . '`',
         ], 404);
 })->where('any', '.*');

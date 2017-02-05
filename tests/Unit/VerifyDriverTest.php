@@ -1,4 +1,7 @@
 <?php
+namespace Tests\Unit;
+
+use Tests\TestCase;
 
 class VerifyDriverTest extends TestCase
 {
@@ -8,7 +11,7 @@ class VerifyDriverTest extends TestCase
     {
         parent::setUp();
 
-        $response = $this->json('POST', '/api/driver/register', [
+        $response = $this->json('POST', '/api/v1/driver/register', [
             'phone' => rand(11111, 99999),
             'login_by' => 'manual',
             'lang' => 'en',
@@ -29,7 +32,7 @@ class VerifyDriverTest extends TestCase
      */
     private function request($data = array())
     {
-        return $this->json('POST', 'api/driver/verify', $data, [
+        return $this->json('POST', 'api/v1/driver/verify', $data, [
             'Accept' => 'application/josn',
             'Authorization' => $this->accessToken,
         ]);

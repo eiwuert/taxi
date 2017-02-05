@@ -1,4 +1,7 @@
 <?php
+namespace Tests\Unit;
+
+use Tests\TestCase;
 
 class VerifyClientTest extends TestCase
 {
@@ -8,7 +11,7 @@ class VerifyClientTest extends TestCase
     {
         parent::setUp();
 
-        $response = $this->json('POST', '/api/client/register', [
+        $response = $this->json('POST', '/api/v1/client/register', [
             'phone' => rand(11111, 99999),
             'login_by' => 'manual',
             'lang' => 'en',
@@ -27,7 +30,7 @@ class VerifyClientTest extends TestCase
      */
     private function request($data = array())
     {
-        return $this->json('POST', 'api/client/verify', $data, [
+        return $this->json('POST', 'api/v1/client/verify', $data, [
             'Accept' => 'application/josn',
             'Authorization' => $this->accessToken,
         ]);

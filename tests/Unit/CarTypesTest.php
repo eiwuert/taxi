@@ -1,13 +1,17 @@
 <?php
+namespace Tests\Unit;
 
-class CarTypesTest extends \ApiAuthClientCase
+use Tests\TestCase;
+use Tests\Unit\ApiAuthClientCase;
+
+class CarTypesTest extends TestCase
 {
     private $accessToken;
     public function setUp()
     {
         parent::setUp();
 
-        $response = $this->json('POST', 'api/client/register', [
+        $response = $this->json('POST', '/api/v1/client/register', [
             'phone' => rand(11111111, 999999999),
             'login_by' => 'manual',
             'lang' => 'en',
@@ -16,8 +20,6 @@ class CarTypesTest extends \ApiAuthClientCase
         ], [
             'Accept' => 'application/josn',
         ]);
-
-        dd($response->getOriginalContent());
 
         $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' . 
                              $response->getOriginalContent()['data'][0]['access_token'];
@@ -29,7 +31,7 @@ class CarTypesTest extends \ApiAuthClientCase
      */
     public function testGetCarTypes()
     {
-        $response = $this->json('GE', 'api/client/verify', [
+        $response = $this->json('POST', '/api/v1/client/verify', [
             'code' => '55555',
         ], [
             'Accept' => 'application/josn',
@@ -39,7 +41,7 @@ class CarTypesTest extends \ApiAuthClientCase
                  ->assertJson([
                     'success' => true,
                  ]);
-        $response = $this->json('GET', 'api/client/car/types', [], [
+        $response = $this->json('GET', 'api/v1/client/car/types', [], [
             'Accept' => 'application/josn',
             'Authorization' => $this->accessToken,
         ]);

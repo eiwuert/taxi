@@ -1,12 +1,13 @@
 <?php
+namespace Tests\Unit;
 
+use Tests\TestCase;
 use App\Repositories\LocationRepository;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-
-class AuthTest extends TestCase
+class LocationRepoTest extends TestCase
 {
     use WithoutMiddleware;
 
