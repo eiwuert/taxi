@@ -584,13 +584,13 @@ class TripRepository
             $tripRequest->s_long = $tripRequest->s_lng;
             $tripRequest->d_long = $tripRequest->d_lng;
         }
-        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_ldfng);
+        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
         $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
         $distanceMatrix = getDistanceMatrix($tripRequest); // 'distance', 'duration'
         if (!isset($distanceMatrix['distance'])) {
             return fail([
                     'title'  => 'Failed',
-                    'detail' => 'Failed to intact with Google Maps'
+                    'detail' => 'Failed to interact with Google Maps'
                 ]);
         }
         $transactions = (new TransactionRepository())->calculate($tripRequest->s_lat, $tripRequest->s_long, 
