@@ -3,8 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use App\Events\TripEnded;
 use App\Events\TripUpdated;
+use App\Events\TripCreated;
 use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model
@@ -29,10 +29,10 @@ class Trip extends Model
      *
      * @var array
      */
-/*    protected $events = [
+    protected $events = [
         'created' => TripCreated::class,
         'updated' => TripUpdated::class,
-    ];*/
+    ];
 
     /**
      * A trip can have one driver.

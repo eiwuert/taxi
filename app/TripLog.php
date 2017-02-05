@@ -16,5 +16,6 @@ class TripLog extends Model
         'driver_id',
         'trip_id',
         'status_id',
+        'driver_location',
     ];
 }

@@ -19,7 +19,7 @@ class CreateTripLogsTable extends Migration
             $table->foreign('client_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
-            $table->unsignedInteger('driver_id');
+            $table->unsignedInteger('driver_id')->nullable();
             $table->foreign('driver_id')
                   ->references('id')->on('users')
                   ->onDelete('cascade');
@@ -30,6 +30,10 @@ class CreateTripLogsTable extends Migration
             $table->unsignedInteger('status_id');
             $table->foreign('status_id')
                   ->references('id')->on('status')
+                  ->onDelete('cascade');
+            $table->unsignedInteger('driver_location')->nullable();
+            $table->foreign('driver_location')
+                  ->references('id')->on('locations')
                   ->onDelete('cascade');
             $table->timestamps();
         });

@@ -73,7 +73,7 @@ class TripRepository
         // 
         // REQUEST_TAXI
         // 
-        $trip_id = DB::table('trips')->insert([
+        $trip = Trip::forceCreate([
                         'client_id'       => $client->id,
                         'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
                         'source'          => $source->id,
@@ -86,10 +86,7 @@ class TripRepository
                         'updated_at'      => Carbon::now(),
                     ]);
 
-        $trip = DB::table('trips')->where('client_id', $client->id)
-                    ->whereStatusId(Status::where('name', 'request_taxi')->firstOrFail()->value)
-                    ->orderBy('id', 'desc');
-        $trip_id = $trip->first()->id;
+        $trip_id = $trip->id;
 
         /**
          * If there is one available driver within 1KM.
