@@ -3611,6 +3611,21 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Check POST size</h2>
+<p>Check the max POST contetn size. in case of failure:</p>
+<blockquote>
+<p>Exceed POST content size</p>
+</blockquote>
+<pre><code class="language-json">{
+  "success": false,
+  "data": [
+    {
+      "title": "Exceed file size",
+      "detail": "Post size exceed allowed size",
+      "code": 500
+    }
+  ]
+}</code></pre>
 <h1>Errors</h1>
 <h2>404</h2>
 <p>Requested route is not registered within the app.</p>

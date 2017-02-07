@@ -3746,6 +3746,25 @@ Check if the current driver has a registered car.
 
 ```
 
+##Check POST size
+Check the max POST contetn size. in case of failure:
+
+> Exceed POST content size
+
+```json
+{
+  "success": false,
+  "data": [
+    {
+      "title": "Exceed file size",
+      "detail": "Post size exceed allowed size",
+      "code": 500
+    }
+  ]
+}
+```
+
+
 #Errors
 ##404
 Requested route is not registered within the app.
