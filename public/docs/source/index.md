@@ -6,8 +6,8 @@ language_tabs:
 - javascript
 
 includes:
-    - fcm
     - status
+    - fcm
 
 search: true
 
@@ -3784,3 +3784,20 @@ Requested route is not registered within the app.
 }
 
 ```
+
+#State Diag.
+
+## Driver state diagram
+States that a driver can go to.
+
+
+
+![Image of driver state diagram](http://sl.uploads.im/d/wPNeh.png)
+
+## Client state diagram
+
+States that a client can go to.
+
+
+
+![Image of client state diagram](http://sl.uploads.im/d/y3S57.png)
