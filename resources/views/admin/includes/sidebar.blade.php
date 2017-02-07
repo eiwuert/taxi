@@ -33,6 +33,7 @@
           <ul class="treeview-menu">
             <li><a href="{{ route('settings.general') }}">General</a></li>
             <li><a href="{{ route('settings.backup.index') }}">Backup</a></li>
+            <li><a href="{{ route('settings.logs.index') }}">Logs</a></li>
           </ul>
         </li>
       </ul>

@@ -9,7 +9,7 @@ Backup
 @endsection
 @section('breadcrumb')
 <li><a href="#"><i class="ion-gear-a"></i> Setting</a></li>
-<li class="active">General</li>
+<li class="active">Backup</li>
 @endsection
 @section('content')
 <div class="box box-solid">
