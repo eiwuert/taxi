@@ -39,7 +39,8 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:500,1',
             'bindings',
-            \App\Http\Middleware\ValidatePostSizeLimit::class,
+            'post.size',
+            'log.req',
         ],
     ];
 
@@ -65,5 +66,7 @@ class Kernel extends HttpKernel
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'bindings'   => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'post.size'  => \App\Http\Middleware\ValidatePostSizeLimit::class,
+        'log.req'    => \App\Http\Middleware\LogAfterRequest::class,
     ];
 }

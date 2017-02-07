@@ -16,7 +16,7 @@ class RequestController extends Controller
     {
         $projections = ['duration', 'url', 'method', 'ip', 'locale', 'languages', 'charsets',
         'encodings', 'isXml', 'proxies', 'parameters'];
-        $requests = Requests::orderBy('id', 'desc')
+        $requests = Requests::orderBy('_id', 'desc')
                             ->paginate(config('admin.perPage'), $projections);
         return view('admin.settings.requests', compact('requests'));
     }
