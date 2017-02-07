@@ -17,7 +17,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        //\App\Http\Middleware\LogAfterRequest::class,
+        \App\Http\Middleware\LogAfterRequest::class,
     ];
 
     /**

@@ -175,6 +175,7 @@ return [
         Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
 

@@ -34,6 +34,7 @@
             <li><a href="{{ route('settings.general') }}">General</a></li>
             <li><a href="{{ route('settings.backup.index') }}">Backup</a></li>
             <li><a href="{{ route('settings.logs.index') }}">Logs</a></li>
+            <li><a href="{{ route('settings.requests.index') }}">Requests</a></li>
           </ul>
         </li>
       </ul>

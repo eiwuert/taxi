@@ -17,4 +17,6 @@ Route::group(['prefix' => 'settings'], function() {
     });
     Route::get('logs', 'Setting\LogController@index')
          ->name('settings.logs.index');
+    Route::get('requests', 'Setting\RequestController@index')
+         ->name('settings.requests.index');
 });

@@ -79,6 +79,13 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'database' => env('MONGOD_DATABASE', 'saamtaxi'),
+            'host' => env('MONGODB_HOST', 'localhost'),
+            'port' => env('MONGODB_PORT', '27017'),
+        ],
+
     ],
 
     /*
