@@ -34,7 +34,5 @@ class IssueInvoice
         $transaction = new TransactionRepository();
         $invoice = $transaction->newTransaction($event->trip, $event->type, $event->currency);
         $transaction = $event->trip->transaction()->create($invoice);
-        DB::table('trips')->whereId($event->trip->id)
-                          ->update(['transaction_id' => $transaction->id]);
     }
 }
