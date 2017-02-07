@@ -11,7 +11,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
-        <table class="table table-hover table-striped">
+        <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Duration</th>
@@ -40,7 +40,19 @@
                     <td>{!! implode('<br/>', $request['encodings']) !!}</td>
                     <td>{{ $request['isXml'] ? 'True' : 'False' }}</td>
                     <td>{!! implode('<br/>', $request['proxies']) !!}</td>
-                    <td>{!! implode('<br/>', $request['parameters']) !!}</td>
+                    {{-- <td>{!! implode('<br/>', $request['parameters']) !!}</td> --}}
+                    <td>
+                    <table class="table table-responsive table-striped">
+                        <tbody>
+                        @foreach($request['parameters'] as $key => $value)
+                        <tr>
+                            <th>{{ $key }}</th>
+                            <td>{{ $value }}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    </td>
                 </tr>
                 @endforeach
             </tbody></table>
