@@ -48,7 +48,7 @@
                         @foreach($request['parameters'] as $key => $value)
                         <tr>
                             <th>{{ $key }}: </th>
-                            <td>{{ $value }}</td>
+                            <td>{{ is_array($value) ? implode('', $value) : $value }}</td>
                         </tr>
                         @endforeach
                         </tbody>
