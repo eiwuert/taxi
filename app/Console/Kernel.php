@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\AppInit::class,
         Commands\MakeAdmin::class,
         Commands\MakeComposer::class,
         Commands\MakeRepository::class,

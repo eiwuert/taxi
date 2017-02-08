@@ -1,3 +1,4 @@
+
 @extends('admin.includes.layout')
 @section('header', 'Requests')
 @section('breadcrumb')
@@ -11,7 +12,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover table-striped">
             <thead>
                 <tr>
                     <th>Duration</th>
@@ -42,11 +43,11 @@
                     <td>{!! implode('<br/>', $request['proxies']) !!}</td>
                     {{-- <td>{!! implode('<br/>', $request['parameters']) !!}</td> --}}
                     <td>
-                    <table class="table table-responsive table-striped">
+                    <table class="table-responsive">
                         <tbody>
                         @foreach($request['parameters'] as $key => $value)
                         <tr>
-                            <th>{{ $key }}</th>
+                            <th>{{ $key }}: </th>
                             <td>{{ $value }}</td>
                         </tr>
                         @endforeach

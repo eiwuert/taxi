@@ -15,7 +15,7 @@ class MakeAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'make:admin';
+    protected $signature = 'make:admin {email} {password}';
 
     /**
      * The console command description.
@@ -41,12 +41,11 @@ class MakeAdmin extends Command
      */
     public function handle()
     {
-        $email = $this->ask('Enter email address: ');
+        $email = $this->argument('email');
         if (User::whereEmail($email)->exists()) {
             $this->error("User with this email address already exists");
         } else {
-            $password = $this->secret('Enter password: ');
-            $this->info("Creating new admin...");
+            $password = $this->argument('password');
             $userId = 
                 DB::table('users')->insert([
                     'uuid' => Uuid::generate(1)->string,
