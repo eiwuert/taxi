@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use DB;
 use Log;
 use Auth;
+use App\Fcm;
 use GuzzleHttp\Client;
 
 class FcmRepository
@@ -51,9 +53,18 @@ class FcmRepository
                 ],
             ]
         );
-        Log::log('info', $title . ' -> ' . $message);
-        Log::info('device_token_' . debug_backtrace()[1]['function'], (array) $device_token);
-        Log::info('FCM response: ', (array) $response);
+        $res = json_decode($response->getBody());
+        Fcm::create([
+            'multicast_id'   => $res->multicast_id,
+            'success'        => $res->success,
+            'failure'        => $res->failure,
+            'canonical_ids'  => $res->canonical_ids,
+            'results'        => $res->results,
+            'head'           => debug_backtrace()[1]['function'],
+            'device_token'   => $device_token,
+            'title'          => $title,
+            'message'        => $message,
+        ]);
         return $response;
     }
 

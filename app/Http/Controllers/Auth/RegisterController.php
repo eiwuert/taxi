@@ -132,7 +132,7 @@ class RegisterController extends Controller
         // Create new client
         $client = $this->newClient($userRequest, $clientRequest);
 
-        // Genrate new access token
+        // Generate new access token
         $token = $this->newPersonalAccessToken($client['client']->id, 'client');
 
         // Fire user register listeners
