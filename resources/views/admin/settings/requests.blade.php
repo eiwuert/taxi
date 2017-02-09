@@ -26,6 +26,7 @@
                     <th>isXml</th>
                     <th>proxies</th>
                     <th>parameters</th>
+                    <th>created</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +55,8 @@
                         </tbody>
                     </table>
                     </td>
+                    {{-- Extracting time from _id --}}
+                    <td>{{ $request['_id'] }}</td>
                 </tr>
                 @endforeach
             </tbody></table>

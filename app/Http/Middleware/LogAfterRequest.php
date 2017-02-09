@@ -3,7 +3,8 @@
 namespace App\Http\Middleware;
 
 use DB;
-use Closure;  
+use Closure;
+use Carbon\Carbon; 
 use Illuminate\Support\Facades\Log;
 
 class LogAfterRequest {
@@ -32,6 +33,7 @@ class LogAfterRequest {
                 'isXml'     => $request->isXmlHttpRequest(),
                 'proxies'   => $request->getTrustedProxies(),
                 'parameters'=> $request->all(), 
+                'created_at'=> Carbon::now(),
             ]);
     }
 

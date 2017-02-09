@@ -23,6 +23,7 @@
                     <th>Device token</th>
                     <th>title</th>
                     <th>message</th>
+                    <th>created</th>
                 </tr>
                 @foreach($logs as $log)
                 <tr>
@@ -46,6 +47,8 @@
                     <td>{{ $log['device_token'] }}</td>
                     <td>{{ $log['title'] }}</td>
                     <td>{{ $log['message'] }}</td>
+                    {{-- Extracting time from _id --}}
+                    <td>{{ $log['_id'] }}</td>
                 </tr>
                 @endforeach
             </tbody>

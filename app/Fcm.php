@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Jenssegers\Mongodb\Eloquent\Model as Model;
 
 class Fcm extends Model
@@ -20,6 +21,7 @@ class Fcm extends Model
         'device_token',
         'title',
         'message',
+        'created_at',
     ];
 
     /**
@@ -33,4 +35,14 @@ class Fcm extends Model
      * @var string
      */
     protected $connection = 'mongodb';
+
+    /**
+     * Extracting time _id object
+     * @param  string $value
+     * @return string
+     */
+    public function getIdAttribute($value)
+    {
+        return Carbon::createFromTimestamp($value->getTimestamp())->diffForHumans();
+    }
 }
