@@ -116,6 +116,9 @@ Trips
         'label' => 'Date range'])
         {!! Form::close() !!}
       </div>
+      <div class="box-footer">
+        @include('admin.components.filter')
+      </div>
       <!-- /.box-body -->
     </div>
     <div class="box box-solid">
