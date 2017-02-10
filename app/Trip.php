@@ -25,6 +25,36 @@ class Trip extends Model
     ];
 
     /**
+     * Sortable items.
+     * @var array
+     */
+    public static $sortable = [
+        'driver_id' => 'Driver', 
+        'client_id' => 'Client',
+    ];
+
+    public static $status = [
+        'trip_is_over_by_admin' => 'Ended by admin',
+        'trip_is_over' => 'Ended',
+        'client_rated' => 'Client rated',
+        'driver_rated' => 'Driver rated',
+        'driver_cancel_arrived_status' => 'Canceled on arrived by driver',
+        'client_canceled_arrived_driver' => 'Canceled on arrived by client',
+        'driver_arrived' => 'Arrived',
+        'cancel_onway_driver' => 'Canceled onway by client',
+        'cancel_request_taxi' => 'Requested taxi canceled by client',
+        'trip_ended' => 'Trip ended waiting for ratings',
+        'trip_started' => 'Started',
+        'driver_reject_started_trip' => 'Starting trip rejected by driver',
+        'driver_onway' => 'Onway',
+        'no_driver' => 'NO available driver',
+        'reject_client_found' => 'New client rejected by driver',
+        'no_reponse' => 'No response from driver',
+        'client_found' => 'New client found',
+        'request_taxi' => 'Taxi requested',
+    ];
+
+    /**
      * The event map for the model.
      *
      * @var array

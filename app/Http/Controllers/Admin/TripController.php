@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use App\Trip;
+use App\User;
+use App\Client;
+use App\Driver;
+use App\Status;
+use App\Location;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
+use App\Repositories\FilterRepository;
 
 class TripController extends Controller
 {
@@ -18,10 +24,8 @@ class TripController extends Controller
      */
     public function index()
     {
-        $tripRepository = new TripRepository();
-        $progress = $tripRepository->calculateTripPercentages();
         $trips = Trip::orderBy('created_at', 'desc')->paginate(config('admin.perPage'));
-        return view('admin.trips.index', compact('trips', 'count', 'progress'));
+        return view('admin.trips.index', compact('trips'));
     }
 
     /**
@@ -95,5 +99,64 @@ class TripController extends Controller
     {
         flash('Trip ended.', 'success');
         return TripRepository::hardCancel($trip);
+    }
+
+    /**
+     * Filter trips.
+     * @param  string $status
+     * @return view
+     */
+    public function filter(Request $request)
+    {
+        $trips = new Trip();
+
+        if (isset($request->date_range)) {
+            $trips = FilterRepository::daterange($request->date_range, $trips);
+        }
+
+        if (isset($request->status) && array_key_exists($request->status, Trip::$status)) {
+            $trips = $trips->whereStatusId(Status::whereName($request->status)->firstOrFail()->id);
+        }
+
+        if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Trip::$sortable)) {
+            $trips = $trips->orderBy($request->sortby, $request->orderby);
+        }
+
+        if (isset($request->count)) {
+            if ($request->count == 15 || $request->count == 30) {
+                $trips = $trips->paginate($request->count);
+            } else {
+                $trips = $trips->paginate(Trip::count());
+            }
+        } else {
+            $trips = $trips->paginate(config('admin.perPage'));
+        }
+
+        return view('admin.trips.index', compact('trips'));
+    }
+
+    /**
+     * Search on everything
+     * @param  Request $request
+     * @return view
+     */
+    public function search(Request $request)
+    {
+        $q = $request->q;
+        $trips = Trip::WhereIn('driver_id', Driver::where('first_name', 'ilike', "%$q%")
+                                                    ->orWhere('last_name', 'ilike', "%$q%")
+                                                    ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")->get(['id'])->flatten())
+                                                    ->get(['id'])->flatten())
+                        ->orWhereIn('client_id', Client::where('first_name', 'ilike', "%$q%")
+                                                    ->orWhere('last_name', 'ilike', "%$q%")
+                                                    ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")->get(['id'])->flatten())
+                                                    ->get(['id'])->flatten())
+                        ->WhereIn('source', Location::where('name', 'ilike', "%$q%")
+                                                    ->get(['id'])->flatten())
+                        ->orWhereIn('destination', Location::where('name', 'ilike', "%$q%")
+                                                    ->get(['id'])->flatten())
+                        ->paginate(config('admin.perPage'));
+
+        return view('admin.trips.index', compact('trips'));
     }
 }

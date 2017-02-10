@@ -279,7 +279,7 @@ class TripRepository
      * COunt of finished trips.
      * @return Numeric
      */
-    public function countOfFinishedTrips()
+    public static function countOfFinishedTrips()
     {
         $finishedCount = Trip::finishedCount();
         if (is_object($finishedCount)) {
@@ -293,7 +293,7 @@ class TripRepository
      * Count of cancelled trips.
      * @return Numeric
      */
-    public function countOfCancelledTrips()
+    public static function countOfCancelledTrips()
     {
         $canceledCount = Trip::canceledCount();
         if (is_object($canceledCount)) {
@@ -307,7 +307,7 @@ class TripRepository
      * Calculate trips percentages for each status in current month.
      * @return array
      */
-    public function calculateTripPercentages()
+    public static function calculateTripPercentages()
     {
         $count = DB::table('trips')
                     ->select('status_id', DB::raw('count(*) as total'))

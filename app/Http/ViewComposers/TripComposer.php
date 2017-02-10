@@ -9,16 +9,6 @@ use App\Repositories\TripRepository;
 class TripComposer
 {
     /**
-     * Driver repository instance
-     * @var App\Repositories\TripRepository
-     */
-    private $trips;
-
-    public function __construct(TripRepository $trips)
-    {
-        $this->trips = $trips;
-    }
-    /**
      * Bind data to the view.
      *
      * @param  View  $view
@@ -26,7 +16,8 @@ class TripComposer
      */
     public function compose(View $view)
     {
-        $view->with('countOfFinishedTrips', number_format($this->trips->countOfFinishedTrips()));
-        $view->with('countOfCancelledTrips', number_format($this->trips->countOfCancelledTrips()));
+        $view->with('countOfFinishedTrips', TripRepository::countOfFinishedTrips());
+        $view->with('countOfCancelledTrips', TripRepository::countOfCancelledTrips());
+        $view->with('progress', TripRepository::calculateTripPercentages());
     }
 }
