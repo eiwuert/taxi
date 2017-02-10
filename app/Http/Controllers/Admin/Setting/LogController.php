@@ -20,6 +20,7 @@ class LogController extends Controller
         // Empty
         unset($logs[0]);
         $logs = array_reverse($logs);
+        $logs = array_slice($logs, 0, 100);
         return view('admin.settings.logs', compact('logs'));
     }
 }

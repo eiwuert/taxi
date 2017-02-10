@@ -18,9 +18,10 @@
                     <td><pre>{!! $log !!}</pre></td>
                 </tr>
                 @endforeach
-            </tbody></table>
-        </div>
+            </tbody>
+        </table>
     </div>
-    <!-- /.box -->
+</div>
+<!-- /.box -->
 </div>
 @endsection
