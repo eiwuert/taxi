@@ -46,6 +46,9 @@ Clients
         {!! Form::close() !!}
       <!-- /.box-body -->
       </div>
+      <div class="box-footer">
+        @include('admin.components.filter')
+      </div>
     </div>
     <div class="box box-solid">
       <div class="box-header">

@@ -56,6 +56,9 @@ Drivers
         {!! Form::close() !!}
       </div>
       <!-- /.box-body -->
+      <div class="box-footer">
+        @include('admin.components.filter')
+      </div>
     </div>
     <div class="box box-solid">
       <div class="box-header">
