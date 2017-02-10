@@ -293,7 +293,7 @@ class TripRepository
             $status[$c->status_id] = $c->total;
         }
 
-        foreach (range(1, 17) as $i) {
+        foreach (range(1, 18) as $i) {
             if (array_key_exists($i, $status)) {
                 continue;
             } else {
