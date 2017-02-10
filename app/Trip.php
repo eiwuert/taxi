@@ -281,7 +281,7 @@ class Trip extends Model
         // DRIVER_REJECT_STARTED_TRIP
         // DRIVER_CANCEL_ARRIVED_STATUS
         // NO_DRIVER
-        return $query->whereIn('status_id', [10, 3, 11, 8, 14, 5])
+        return $query->whereNotIn('status_id', [9, 15, 16, 17])
                      ->count();
     }
 

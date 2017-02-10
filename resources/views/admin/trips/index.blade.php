@@ -12,14 +12,10 @@ Trips
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <a href="{{ route('clients.filter') . '?status=unlocked' }}">
-      <info-box text="Finished" number="{{ $countOfFinishedTrips }}" color="green" icon="ion-android-pin"></info-box>
-    </a>
+    <info-box text="Finished" number="{{ $countOfFinishedTrips }}" color="green" icon="ion-android-pin"></info-box>
   </div>
   <div class="col-md-6">
-    <a href="{{ route('clients.filter') . '?status=locked' }}">
-      <info-box text="Canceled" number="{{ $countOfCancelledTrips }}" color="red" icon="ion-android-watch"></info-box>
-    </a>
+    <info-box text="Canceled" number="{{ $countOfCancelledTrips }}" color="red" icon="ion-android-watch"></info-box>
   </div>
 </div>
 <div class="row">
@@ -75,24 +71,24 @@ Trips
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\TripController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'sortby',
-                                                'label' => 'Sort by',
-                                                'items' => \App\Trip::$sortable])
+        'label' => 'Sort by',
+        'items' => \App\Trip::$sortable])
         @include('components.bootstrap.select', ['name' => 'orderby',
-                                                'label' => 'Order by',
-                                                'items' => [
-                                                  'asc'  => 'Ascending', 
-                                                  'desc' => 'Descending']])
+        'label' => 'Order by',
+        'items' => [
+        'asc'  => 'Ascending',
+        'desc' => 'Descending']])
         @include('components.bootstrap.select', ['name' => 'count',
-                                                'label' => 'Count',
-                                                'items' => [
-                                                  15 => 15, 
-                                                  30 => 30, 
-                                                  'all' => 'All']])
+        'label' => 'Count',
+        'items' => [
+        15 => 15,
+        30 => 30,
+        'all' => 'All']])
         @include('components.bootstrap.select', ['name' => 'status',
-                                                'label' => 'Status',
-                                                'items' => \App\Trip::$status])
+        'label' => 'Status',
+        'items' => \App\Trip::$status])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-                                                          'label' => 'Date range'])
+        'label' => 'Date range'])
         {!! Form::close() !!}
       </div>
       <!-- /.box-body -->

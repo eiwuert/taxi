@@ -276,34 +276,6 @@ class TripRepository
     }
 
     /**
-     * COunt of finished trips.
-     * @return Numeric
-     */
-    public static function countOfFinishedTrips()
-    {
-        $finishedCount = Trip::finishedCount();
-        if (is_object($finishedCount)) {
-            return 0;
-        } else {
-            return number_format($finishedCount, 2);
-        }
-    }
-
-    /**
-     * Count of cancelled trips.
-     * @return Numeric
-     */
-    public static function countOfCancelledTrips()
-    {
-        $canceledCount = Trip::canceledCount();
-        if (is_object($canceledCount)) {
-            return 0;
-        } else {
-            return number_format($canceledCount, 2);
-        }
-    }
-
-    /**
      * Calculate trips percentages for each status in current month.
      * @return array
      */

@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use Auth;
+use App\Trip;
 use Illuminate\View\View;
 use App\Repositories\TripRepository;
 
@@ -16,8 +17,8 @@ class TripComposer
      */
     public function compose(View $view)
     {
-        $view->with('countOfFinishedTrips', TripRepository::countOfFinishedTrips());
-        $view->with('countOfCancelledTrips', TripRepository::countOfCancelledTrips());
+        $view->with('countOfFinishedTrips', (int) (Trip::finishedCount()));
+        $view->with('countOfCancelledTrips', (int) (Trip::canceledCount()));
         $view->with('progress', TripRepository::calculateTripPercentages());
     }
 }
