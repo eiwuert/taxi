@@ -34,6 +34,7 @@ class Trip extends Model
     ];
 
     public static $status = [
+        'all' => 'All',
         'trip_is_over_by_admin' => 'Ended by admin',
         'trip_is_over' => 'Ended',
         'client_rated' => 'Client rated',

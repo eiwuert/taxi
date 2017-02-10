@@ -114,7 +114,7 @@ class TripController extends Controller
             $trips = FilterRepository::daterange($request->date_range, $trips);
         }
 
-        if (isset($request->status) && array_key_exists($request->status, Trip::$status)) {
+        if (isset($request->status) && array_key_exists($request->status, Trip::$status) && $request->status != 'all') {
             $trips = $trips->whereStatusId(Status::whereName($request->status)->firstOrFail()->id);
         }
 
