@@ -44,7 +44,7 @@ class ProfileController extends Controller
 		User::wherePhone(Auth::user()->phone)
             ->orderBy('id', 'desc')
             ->first()->client()->first()
-			->fill($profileRequest->all())
+			->fill($profileRequest->intersect(array_keys($profileRequest->rules())))
 			->save();
 
 		return $this->get();
