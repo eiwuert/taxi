@@ -1097,6 +1097,53 @@ $.ajax(settings).done(function (response) {
 `GET api/v1/client/profile`
 
 
+## Balance
+
+Get client balance
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/client/balance" \
+-H "Accept: application/json"
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/balance",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "balance": 100
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/v1/client/balance`
+
+
+
 ## Driver
 
 Get driver profile data.

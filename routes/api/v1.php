@@ -28,6 +28,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
         Route::get('profile', 'ProfileController@get')
              ->name('getClientProfile');
 
+        Route::get('balance', 'ProfileController@balance')
+             ->name('getClientBalance');
+
         Route::post('profile', 'ProfileController@update')
              ->name('updateClientProfile');
 

@@ -87,4 +87,11 @@ class ProfileController extends Controller
 		        ], 400);
 		}
     }
+
+    public function balance()
+    {
+        return ok([
+                'balance' => Auth::user()->client()->first()->balance,
+            ]);
+    }
 }
