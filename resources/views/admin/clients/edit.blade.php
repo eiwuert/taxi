@@ -54,6 +54,12 @@
     {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
   </div>
 </div>
+<div class="form-group">
+  {!! Form::label('balance', 'Balance: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    {!! Form::text('balance', null, ['class' => 'form-control']) !!}
+  </div>
+</div>
 <div class="box-group" id="accordion">
   <div class="panel box box-primary">
     <div class="box-header">

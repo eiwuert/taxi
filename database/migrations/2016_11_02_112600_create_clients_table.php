@@ -28,6 +28,7 @@ class CreateClientsTable extends Migration
             $table->string('country')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('picture')->default('no-profile.png');
+            $table->unsignedInteger('balance')->default('0');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
                   ->references('id')->on('users')
