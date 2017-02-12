@@ -26,7 +26,6 @@ class Client extends Model
         'address',
         'zipcode',
         'picture',
-        'balance',
     ];
 
     public static $sortable = [
