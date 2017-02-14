@@ -17,11 +17,11 @@ class CreateTripLogsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('client_id');
             $table->foreign('client_id')
-                  ->references('id')->on('users')
+                  ->references('id')->on('clients')
                   ->onDelete('cascade');
             $table->unsignedInteger('driver_id')->nullable();
             $table->foreign('driver_id')
-                  ->references('id')->on('users')
+                  ->references('id')->on('drivers')
                   ->onDelete('cascade');
             $table->unsignedInteger('trip_id');
             $table->foreign('trip_id')

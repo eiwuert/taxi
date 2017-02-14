@@ -36,6 +36,7 @@ class TripRepository
             $tripRequest['d_long'] = $tripRequest['d_lng'];
         }
 
+
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
         }
@@ -186,14 +187,8 @@ class TripRepository
                         ->first()->client()->first();
         }
 
-        $pending = $client->trips()
-                          ->where('status_id', Status::where('name', 'request_taxi')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'driver_onway')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'driver_arrived')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'trip_started')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'trip_ended')->firstOrFail()->value)
-                          ->orWhere('status_id', Status::where('name', 'driver_rated')->firstOrFail()->value);
+        $pending = Trip::where('client_id', $client->id)
+                        ->whereIn('status_id', [1, 2, 7, 12, 6, 9, 15]);
 
         if ($pending->count()) {
             if (env('APP_ENV', 'production') == 'local') {
