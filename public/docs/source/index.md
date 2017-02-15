@@ -1676,7 +1676,7 @@ $.ajax(settings).done(function (response) {
 
 
 
-## Get status
+## Get status v1
 
 Get status of the driver, Online or Offline
 
@@ -1732,7 +1732,68 @@ $.ajax(settings).done(function (response) {
 ```
 
 ### HTTP Request
-`GET api/v1/driver/status`
+`GET api/v2/driver/status`
+
+
+## Get status v2
+
+Get status of the driver, Online or Offline
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/driver/status" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/status",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response - Online driver
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Online",
+            "detail": "You're online"
+        }
+    ]
+}
+```
+
+> Example response - Offline driver
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Offline",
+            "detail": "You're offline"
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/v2/driver/status`
 
 
 # Car

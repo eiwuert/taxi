@@ -1639,7 +1639,7 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/v2/driver/offline</code></p>
-<h2>Get status</h2>
+<h2>Get status v1</h2>
 <p>Get status of the driver, Online or Offline</p>
 <blockquote>
 <p>Example request</p>
@@ -1684,7 +1684,55 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET api/v1/driver/status</code></p>
+<p><code>GET api/v2/driver/status</code></p>
+<h2>Get status v2</h2>
+<p>Get status of the driver, Online or Offline</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/status" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/status",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response - Online driver</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Online",
+            "detail": "You're online"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Offline driver</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Offline",
+            "detail": "You're offline"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v2/driver/status</code></p>
 <h1>Car</h1>
 <h2>Info</h2>
 <blockquote>
