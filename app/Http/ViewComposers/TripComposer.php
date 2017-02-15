@@ -17,8 +17,8 @@ class TripComposer
      */
     public function compose(View $view)
     {
-        $view->with('countOfFinishedTrips', (int) (Trip::finishedCount()));
-        $view->with('countOfCancelledTrips', (int) (Trip::canceledCount()));
+        $view->with('countOfFinishedTrips', is_object(Trip::finishedCount()) ? 0 : Trip::finishedCount());
+        $view->with('countOfCancelledTrips', is_object(Trip::canceledCount()) ? 0 : Trip::canceledCount());
         $view->with('progress', TripRepository::calculateTripPercentages());
     }
 }
