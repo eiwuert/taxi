@@ -28,7 +28,7 @@ class HistoryController extends Controller
                                                 ->where('role', 'client')
                                                 ->get(['id']))->get(['id']);
 
-        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)->get()), 200, [], false);
+        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)->whereIn('status_id', ['9', '15', '16', '17'])->get()), 200, [], false);
     }
 
     /**
@@ -37,7 +37,7 @@ class HistoryController extends Controller
      */
     public function driver()
     {
-        return ok($this->formatDriverTrips(Auth::user()->driver()->first()->trips()->get()), 200, [], false);
+        return ok($this->formatDriverTrips(Auth::user()->driver()->first()->trips()->whereIn('status_id', ['9', '15', '16', '17'])->get()), 200, [], false);
     }
 
     /**
@@ -57,11 +57,9 @@ class HistoryController extends Controller
             $t->destination = $destination->name;
             $t->d_lat  = $destination->latitude;
             $t->d_long = $destination->longitude;
-            $t->driver_location = Location::whereId($t->driver_location)->first()->name;
-            $t->transaction = Transaction::whereId($t->transaction_id)->get(['entry', 'distance', 'per_distance', 
-                'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
-                'timezone', 'total']);
-            $t->rate = Rate::whereId($t->rate_id)->get(['driver', 'driver_comment']);
+            $t->driver_location = Location::whereId($t->driver_location)->first();
+            $t->transaction = $t->transaction;
+            $t->rate = $t->rate;
 
             unset($t->id, 
                   $t->driver_id, 
@@ -81,23 +79,32 @@ class HistoryController extends Controller
      */
     private function formatClientTrips($trips)
     {
-        $trips->each(function($t) {
+        $history = [];
+        foreach($trips as $t) {
             $source = Location::whereId($t->source)->first();
             $destination = Location::whereId($t->destination)->first();
-            $t->status_name = Status::whereValue($t->status_id)->first()->name;
-            $t->source = $source->name;
-            $t->s_lat  = $source->latitude;
-            $t->s_long = $source->longitude;
-            $t->destination = $destination->name;
-            $t->d_lat  = $destination->latitude;
-            $t->d_long = $destination->longitude;
-            if (! is_null($t->driverLocation)) {
-              $t->driver_location = $t->driverLocation->name;
+            $hist['status_name'] = Status::whereValue($t->status_id)->first()->name;
+            $hist['source'] = $source->name;
+            $hist['s_lat']  = $source->latitude;
+            $hist['s_long'] = $source->longitude;
+            $hist['destination'] = $destination->name;
+            $hist['d_lat']  = $destination->latitude;
+            $hist['d_long'] = $destination->longitude;
+            $driverLocation = Location::whereId($t->driver_location)->first();
+            if (! is_null($driverLocation)) {
+                $hist['driver_location'] = [[
+                                        'name' => $driverLocation->name,
+                                        'lat' => $driverLocation->latitude,
+                                        'long' => $driverLocation->longitude 
+                                    ]];
             }
-            $t->transaction = Transaction::whereId($t->transaction_id)->get(['entry', 'distance', 'per_distance', 
-                'distance_unit', 'distance_value', 'time', 'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 
-                'timezone', 'total']);
-            $t->rate = Rate::whereId($t->rate_id)->get(['client', 'client_comment']);
+            $transaction = $t->transaction;
+            $hist['transaction'] = [ $transaction ];
+            $rate = $t->rate;
+            $hist['rate'] = [[
+                            'client' => $rate->client,
+                            'client_comment' => $rate->client_comment,
+                        ]];
             if (! is_null($t->driver_id)) {
                 $driver = Driver::whereId($t->driver_id)->first();
                 $car = Car::whereUserId($driver->user_id)->first();
@@ -107,22 +114,17 @@ class HistoryController extends Controller
                       $car->type_id, 
                       $car->created_at, 
                       $car->updated_at);
-                $t->driver = $driver;
-                $t->driver->car = $car;
-                $t->driver->car->type = $carType->name;
-                $t->driver->phone = User::whereId($driver->user_id)->first()->phone;
+                $hist['driver'] = $driver;
+                $hist['driver']['car'] = $car;
+                $hist['driver']['car']['type'] = $carType->name;
+                $hist['driver']['phone'] = User::whereId($driver->user_id)->first()->phone;
             } else {
-                $t->driver = [];
+                $hist['driver'] = null;
             }
 
-            unset($t->id, 
-                  $t->driver_id, 
-                  $t->client_id, 
-                  $t->updated_at, 
-                  $t->transaction_id,
-                  $t->rate_id);
-        });
+            $history[] = $hist;
+        }
 
-        return $trips;
+        return $history;
     }
 }

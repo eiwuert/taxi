@@ -3628,87 +3628,64 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
-            {
-                "status_id": 17,
-                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
-                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
-                "eta_value": "1175",
-                "eta_text": "20 mins",
-                "distance_value": "16734",
-                "distance_text": "16.7 km",
-                "etd_value": "615",
-                "etd_text": "10 mins",
-                "driver_location": "TEST",
-                "driver_distance_value": "5668",
-                "driver_distance_text": "5.7 km",
-                    "status_name": "trip_is_over",
-                    "s_lat": "35.712562",
-                    "s_long": "51.334494",
-                    "d_lat": "35.790818",
-                    "d_long": "51.416043",
-                    "created_at": "2016-12-26 12:06:21",
-                "transaction": [
-                    {
-                        "entry": "2",
-                        "distance": "16734",
-                        "per_distance": "0.7",
-                        "distance_unit": "kilometer",
-                        "distance_value": "11.7",
-                        "time": "1175",
-                        "per_time": "0.3",
-                        "time_unit": "minute",
-                        "time_value": "5.9",
-                        "surcharge": "1",
-                        "currency": "USD",
-                        "timezone": "Asia/Tehran",
-                        "total": "19.6"
-                    }
-                ],
-                "rate": []
+        {
+            "status_id": 17,
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "eta_value": "249",
+            "eta_text": "4 mins",
+            "distance_value": "1289",
+            "distance_text": "1.3 km",
+            "etd_value": "0",
+            "etd_text": "1 min",
+            "driver_location": {
+                "id": 20204,
+                "latitude": "32.623239",
+                "longitude": "51.636149",
+                "name": "TEST",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:58:34",
+                "updated_at": "2017-02-14 14:58:34"
             },
-            {
-                "status_id": 17,
-                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
-                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
-                "eta_value": "1175",
-                "eta_text": "20 mins",
-                "distance_value": "16734",
-                "distance_text": "16.7 km",
-                "etd_value": "615",
-                "etd_text": "10 mins",
-                "driver_location": "TEST",
-                "driver_distance_value": "5668",
-                "driver_distance_text": "5.7 km",
-                "status_name": "trip_is_over",
-                    "s_lat": "35.712562",
-                    "s_long": "51.334494",
-                    "d_lat": "35.790818",
-                    "d_long": "51.416043",
-                    "created_at": "2016-12-26 12:06:21",
-                "transaction": [
-                    {
-                        "entry": "2",
-                        "distance": "16734",
-                        "per_distance": "0.7",
-                        "distance_unit": "kilometer",
-                        "distance_value": "11.7",
-                        "time": "1175",
-                        "per_time": "0.3",
-                        "time_unit": "minute",
-                        "time_value": "5.9",
-                        "surcharge": "1",
-                        "currency": "USD",
-                        "timezone": "Asia/Tehran",
-                        "total": "19.6"
-                    }
-                ],
-                "rate": [
-                    {
-                        "driver": 4,
-                        "driver_comment": "lovely passenger"
-                    }
-                ]
+            "driver_distance_value": "0",
+            "driver_distance_text": "1 m",
+            "created_at": "2017-02-15 14:38:32",
+            "status_name": "trip_is_over",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": {
+                "id": 8,
+                "trip_id": 12,
+                "car_type_id": 1,
+                "entry": "2",
+                "distance": "1289",
+                "per_distance": "0.7",
+                "distance_unit": "kilometer",
+                "distance_value": "0.9",
+                "time": "249",
+                "per_time": "0.3",
+                "time_unit": "minute",
+                "time_value": "1.2",
+                "surcharge": "1",
+                "currency": "USD",
+                "timezone": "Asia/Tehran",
+                "total": "4.1",
+                "created_at": "2017-02-15 14:38:43",
+                "updated_at": "2017-02-15 14:38:43"
+            },
+            "rate": {
+                "id": 1,
+                "client": "5",
+                "driver": "4.5",
+                "client_comment": "hello",
+                "driver_comment": "hello",
+                "trip_id": 12,
+                "created_at": "2017-02-15 14:39:28",
+                "updated_at": "2017-02-15 14:39:28"
             }
+        }
     ]
 }
 ```
@@ -3756,115 +3733,78 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
-            {
-                "status_id": 17,
-                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
-                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
-                "eta_value": "1175",
-                "eta_text": "20 mins",
-                "distance_value": "16734",
-                "distance_text": "16.7 km",
-                "etd_value": "615",
-                "etd_text": "10 mins",
-                "driver_location": "TEST",
-                "driver_distance_value": "5668",
-                "driver_distance_text": "5.7 km",
-                "status_name": "trip_is_over",
-                    "s_lat": "35.712562",
-                    "s_long": "51.334494",
-                    "d_lat": "35.790818",
-                    "d_long": "51.416043",
-                    "created_at": "2016-12-26 12:06:21",
-                "transaction": [
-                    {
-                        "entry": "2",
-                        "distance": "16734",
-                        "per_distance": "0.7",
-                        "distance_unit": "kilometer",
-                        "distance_value": "11.7",
-                        "time": "1175",
-                        "per_time": "0.3",
-                        "time_unit": "minute",
-                        "time_value": "5.9",
-                        "surcharge": "1",
-                        "currency": "USD",
-                        "timezone": "Asia/Tehran",
-                        "total": "19.6"
-                    }
-                ],
-                "rate": [],
-                "driver": []
-            },
-            {
-                "status_id": 17,
-                "source": "استان تهران، تهران، بزرگراه چمران، ایران",
-                "destination": "استان تهران، تهران، بزرگراه شیخ فضل الله نوری، ایران",
-                "eta_value": "1175",
-                "eta_text": "20 mins",
-                "distance_value": "16734",
-                "distance_text": "16.7 km",
-                "etd_value": "615",
-                "etd_text": "10 mins",
-                "driver_location": "TEST",
-                "driver_distance_value": "5668",
-                "driver_distance_text": "5.7 km",
-                "status_name": "trip_is_over",
-                "s_lat": "35.712562",
-                "s_long": "51.334494",
-                "d_lat": "35.790818",
-                "d_long": "51.416043",
-                "created_at": "2016-12-26 12:06:21",
-                "transaction": [
-                    {
-                        "entry": "2",
-                        "distance": "16734",
-                        "per_distance": "0.7",
-                        "distance_unit": "kilometer",
-                        "distance_value": "11.7",
-                        "time": "1175",
-                        "per_time": "0.3",
-                        "time_unit": "minute",
-                        "time_value": "5.9",
-                        "surcharge": "1",
-                        "currency": "USD",
-                        "timezone": "Asia/Tehran",
-                        "total": "19.6"
-                    }
-                ],
-                "driver": {
-                    "id": 1,
-                    "first_name": null,
-                    "last_name": null,
-                    "email": null,
-                    "gender": "not specified",
-                    "device_token": "kjlfajl",
-                    "device_type": "ios",
-                    "online": true,
-                    "approve": true,
-                    "available": true,
-                    "lang": "fa",
-                    "address": null,
-                    "state": "esfahan",
-                    "country": "iran",
-                    "zipcode": null,
-                    "picture": "no-profile.png",
-                    "user_id": 4,
-                    "created_at": "2016-12-25 11:46:36",
-                    "updated_at": "2016-12-27 08:14:17",
-                    "car": {
-                        "number": "00000",
-                        "color": "pink",
-                        "type": "van"
-                    },
-                    "phone": "0987897582"
+        {
+            "status_name": "trip_is_over",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
                 }
-                "rate": [
-                    {
-                        "client": 1,
-                        "client_comment": "I could be dead in this fucking taxi"
-                    }
-                ]
+            ],
+            "transaction": [
+                {
+                    "id": 8,
+                    "trip_id": 12,
+                    "car_type_id": 1,
+                    "entry": "2",
+                    "distance": "1289",
+                    "per_distance": "0.7",
+                    "distance_unit": "kilometer",
+                    "distance_value": "0.9",
+                    "time": "249",
+                    "per_time": "0.3",
+                    "time_unit": "minute",
+                    "time_value": "1.2",
+                    "surcharge": "1",
+                    "currency": "USD",
+                    "timezone": "Asia/Tehran",
+                    "total": "4.1",
+                    "created_at": "2017-02-15 14:38:43",
+                    "updated_at": "2017-02-15 14:38:43"
+                }
+            ],
+            "rate": [
+                {
+                    "client": "5",
+                    "client_comment": "hello"
+                }
+            ],
+            "driver": {
+                "id": 101,
+                "first_name": "Driver",
+                "last_name": "One",
+                "email": "one@email.com",
+                "gender": "male",
+                "device_token": "qqqqqqqq5",
+                "device_type": "ios",
+                "online": true,
+                "approve": true,
+                "available": true,
+                "lang": "fa",
+                "address": "Iran",
+                "state": "tehran",
+                "country": "iran",
+                "zipcode": "12345",
+                "picture": "no-profile.png",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:47:57",
+                "updated_at": "2017-02-15 14:40:08",
+                "deleted_at": null,
+                "car": {
+                    "number": "000000",
+                    "color": "pink",
+                    "type": "luxury"
+                },
+                "phone": "1"
             }
+        }
     ]
 }
 ```
