@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -20,6 +20,6 @@ class TripTest extends TestCase
      */
     public function testRequestTaxi()
     {
-        $this->assertTrue(true);
+
     }
 }
