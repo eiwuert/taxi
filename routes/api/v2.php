@@ -32,7 +32,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header', 'namespace' => 'V2
         Route::get('online', 'DriverController@online')
              ->name('goOnlineV2');
         Route::get('offline', 'DriverController@offline')
-             ->name('goOffline');
+             ->name('goOfflineV2');
+        Route::get('status', 'DriverController@status')
+             ->name('getStatusV2');
     });
 });
 

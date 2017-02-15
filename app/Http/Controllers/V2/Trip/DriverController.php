@@ -55,4 +55,23 @@ class DriverController extends Controller
                 'detail' => 'You\'re offline now.'
             ]);
     }
+
+    /**
+     * Get driver status, Online or Offline
+     * @return json
+     */
+    public function status()
+    {
+        if(Auth::user()->driver->first()->online){
+            return ok([
+                'title' => 'Online',
+                'detail' => 'You\'re online'
+            ]);
+        } else {
+            return fail([
+                'title' => 'Offline',
+                'detail' => 'You\'re offline'
+            ]);
+        }
+    }
 }
