@@ -46,7 +46,7 @@ class DriverController extends Controller
         } else {
             return fail([
                     'title' => 'Driver cannot go offline',
-                    'detail'=> 'An onway or currently online driver cannot go offline.' 
+                    'detail'=> 'An onway or currently offline driver cannot go offline.' 
                 ]);
         }
     }
