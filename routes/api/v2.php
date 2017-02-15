@@ -29,6 +29,10 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header', 'namespace' => 'V2
     Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function() {
         Route::post('location', 'LocationController@set')
              ->name('setDriverLocationV2');
+        Route::get('online', 'DriverController@online')
+             ->name('goOnlineV2');
+        Route::get('offline', 'DriverController@offline')
+             ->name('goOffline');
     });
 });
 

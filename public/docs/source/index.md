@@ -1431,7 +1431,7 @@ Parameter | Type | Status | Description
 # Driver
 
 
-## Go online
+## Go online v1
 
 Make a driver online, when a driver goes online his/her availability will
 set to true as well. An approved drvier can go to online mode.
@@ -1493,7 +1493,70 @@ $.ajax(settings).done(function (response) {
 `GET api/v1/driver/online`
 
 
-## Go offline
+## Go online v2
+
+Make a driver online, when a driver goes online his/her availability will
+set to true as well. An approved drvier can go to online mode.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/driver/online" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/online",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Online",
+            "detail": "You're online now."
+        }
+    ]
+}
+```
+
+> Example response - onway driver
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Onway",
+            "detail": "You're onway."
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/v2/driver/online`
+
+
+
+## Go offline v1
 
 Make a driver offline, when a driver goes offline his/her availability will
 set to false as well. An approved drvier can go to offline mode.
@@ -1527,12 +1590,7 @@ $.ajax(settings).done(function (response) {
 
 ```json
 {
-    "success": true,
-    "data": [
-        {
-            "result": "Driver is offline."
-        }
-    ]
+    "success": true
 }
 ```
 
@@ -1553,6 +1611,69 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/driver/offline`
+
+
+## Go offline v2
+
+Make a driver offline, when a driver goes offline his/her availability will
+set to false as well. An approved drvier can go to offline mode.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v2/driver/offline" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/offline",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+> Example response:
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Offline",
+            "detail": "You're offline now."
+        }
+    ]
+}
+```
+
+> Example response - onway driver
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Onway",
+            "detail": "You're onway."
+        }
+    ]
+}
+```
+
+### HTTP Request
+`GET api/v2/driver/offline`
+
 
 
 ## Get status

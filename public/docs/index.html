@@ -1448,7 +1448,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h1>Driver</h1>
-<h2>Go online</h2>
+<h2>Go online v1</h2>
 <p>Make a driver online, when a driver goes online his/her availability will
 set to true as well. An approved drvier can go to online mode.</p>
 <blockquote>
@@ -1497,7 +1497,56 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/v1/driver/online</code></p>
-<h2>Go offline</h2>
+<h2>Go online v2</h2>
+<p>Make a driver online, when a driver goes online his/her availability will
+set to true as well. An approved drvier can go to online mode.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/driver/online" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/online",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Online",
+            "detail": "You're online now."
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - onway driver</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Onway",
+            "detail": "You're onway."
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v2/driver/online</code></p>
+<h2>Go offline v1</h2>
 <p>Make a driver offline, when a driver goes offline his/her availability will
 set to false as well. An approved drvier can go to offline mode.</p>
 <blockquote>
@@ -1524,12 +1573,7 @@ $.ajax(settings).done(function (response) {
 <p>Example response:</p>
 </blockquote>
 <pre><code class="language-json">{
-    "success": true,
-    "data": [
-        {
-            "result": "Driver is offline."
-        }
-    ]
+    "success": true
 }</code></pre>
 <blockquote>
 <p>Example response - currently offline</p>
@@ -1546,6 +1590,55 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET api/v1/driver/offline</code></p>
+<h2>Go offline v2</h2>
+<p>Make a driver offline, when a driver goes offline his/her availability will
+set to false as well. An approved drvier can go to offline mode.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v2/driver/offline" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v2/driver/offline",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Offline",
+            "detail": "You're offline now."
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - onway driver</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Onway",
+            "detail": "You're onway."
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v2/driver/offline</code></p>
 <h2>Get status</h2>
 <p>Get status of the driver, Online or Offline</p>
 <blockquote>

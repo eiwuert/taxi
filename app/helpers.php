@@ -20,14 +20,18 @@ if (! function_exists('ok')) {
             return $factory;
         }
 
-        $content = [
+        $response = [
             'success' => true,
-            'data'    => ($toArray)?[$content]:$content
         ];
+
+        // If content argument is not empty include it with response.
+        if (!empty($content)) {
+            $response['data'] = ($toArray) ? [$content] : $content;
+        }
 
         // It should not be 200, that's because of some package named volly on 
         // android side that cannot handle responses otherthan 200! so wiered
-        return $factory->json($content, 200, $headers);
+        return $factory->json($response, 200, $headers);
     }
 }
 
@@ -48,15 +52,19 @@ if (! function_exists('fail')) {
             return $factory;
         }
 
-        $content['code'] = $status;
-        $content = [
+        $response['code'] = $status;
+        $response = [
             'success' => false,
-            'data'    => [$content]
         ];
+
+        // If content argument is not empty include it with response.
+        if (!empty($content)) {
+            $response['data'] = [$content];
+        }
 
         // It should not be 200, that's because of some package named volly on 
         // android side that cannot handle responses otherthan 200! so wiered
-        return $factory->json($content, 200, $headers);
+        return $factory->json($response, 200, $headers);
     }
 }
 
