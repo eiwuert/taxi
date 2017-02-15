@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aa480faf9d784836db0c54e5aa50eb00",
-    "content-hash": "c8b75d8ca5fe99554d5f7c76686eb0f3",
+    "hash": "cc2f82e88be5b807cdd8589ec58b1a2e",
+    "content-hash": "ffb70bbda219ba8cbded8f2b222ae454",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -843,16 +843,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.9",
+            "version": "v5.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "600330ae1d218919b3b307e0578461a2df248663"
+                "reference": "9cee8db07cfac13a3a49d17388c9ced4c52e17ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/600330ae1d218919b3b307e0578461a2df248663",
-                "reference": "600330ae1d218919b3b307e0578461a2df248663",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9cee8db07cfac13a3a49d17388c9ced4c52e17ac",
+                "reference": "9cee8db07cfac13a3a49d17388c9ced4c52e17ac",
                 "shasum": ""
             },
             "require": {
@@ -968,20 +968,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-02-03 19:47:35"
+            "time": "2017-02-10 19:40:54"
         },
         {
             "name": "laravel/passport",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "2f834e286ca51d1ffbb5c3e657131451b04a577d"
+                "reference": "72f3c0e4ae6b283bd71c8050eb0d438e3880e4c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/2f834e286ca51d1ffbb5c3e657131451b04a577d",
-                "reference": "2f834e286ca51d1ffbb5c3e657131451b04a577d",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/72f3c0e4ae6b283bd71c8050eb0d438e3880e4c7",
+                "reference": "72f3c0e4ae6b283bd71c8050eb0d438e3880e4c7",
                 "shasum": ""
             },
             "require": {
@@ -1008,7 +1008,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -1032,7 +1032,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2017-02-05 15:14:24"
+            "time": "2017-02-08 22:33:21"
         },
         {
             "name": "laravelcollective/html",
@@ -1201,16 +1201,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.34",
+            "version": "1.0.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299"
+                "reference": "dda7f3ab94158a002d9846a97dc18ebfb7acc062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
-                "reference": "469ad53c13ea19a0e54e3e5d70f61227ddcc0299",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/dda7f3ab94158a002d9846a97dc18ebfb7acc062",
+                "reference": "dda7f3ab94158a002d9846a97dc18ebfb7acc062",
                 "shasum": ""
             },
             "require": {
@@ -1280,7 +1280,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2017-01-30 17:41:17"
+            "time": "2017-02-09 11:33:58"
         },
         {
             "name": "league/oauth2-server",
@@ -2332,16 +2332,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "4.4.9",
+            "version": "4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "a586f84620daaa46a7a2de93b9ca939df99653cb"
+                "reference": "d1485416154b123cadce3aadf34a58fd3fde52b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/a586f84620daaa46a7a2de93b9ca939df99653cb",
-                "reference": "a586f84620daaa46a7a2de93b9ca939df99653cb",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/d1485416154b123cadce3aadf34a58fd3fde52b6",
+                "reference": "d1485416154b123cadce3aadf34a58fd3fde52b6",
                 "shasum": ""
             },
             "require": {
@@ -2353,7 +2353,7 @@
                 "illuminate/support": "~5.3.28|~5.4.0",
                 "league/flysystem": "^1.0.27",
                 "php": "^7.0",
-                "spatie/db-dumper": "^2.1",
+                "spatie/db-dumper": "^2.3",
                 "spatie/temporary-directory": "^1.1",
                 "symfony/finder": "^3.0"
             },
@@ -2394,7 +2394,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2017-02-06 13:48:00"
+            "time": "2017-02-12 17:44:29"
         },
         {
             "name": "spatie/laravel-uptime-monitor",
@@ -2599,16 +2599,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.5",
+            "version": "v5.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "cd142238a339459b10da3d8234220963f392540c"
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
-                "reference": "cd142238a339459b10da3d8234220963f392540c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
                 "shasum": ""
             },
             "require": {
@@ -2649,7 +2649,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-12-29 10:02:40"
+            "time": "2017-02-13 07:52:53"
         },
         {
             "name": "symfony/console",
@@ -4048,16 +4048,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.7",
+            "version": "0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371"
+                "reference": "1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/4de7969f4664da3cef1ccd83866c9f59378c3371",
-                "reference": "4de7969f4664da3cef1ccd83866c9f59378c3371",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855",
+                "reference": "1e5e2ffdc4d71d7358ed58a6fdd30a4a0c506855",
                 "shasum": ""
             },
             "require": {
@@ -4109,7 +4109,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2016-12-19 14:50:55"
+            "time": "2017-02-09 13:29:38"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4608,16 +4608,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.11",
+            "version": "5.7.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab"
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6ad2472daba76b0689042b7709f86d4f06bcaab",
-                "reference": "a6ad2472daba76b0689042b7709f86d4f06bcaab",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
                 "shasum": ""
             },
             "require": {
@@ -4686,7 +4686,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-05 15:31:31"
+            "time": "2017-02-10 09:05:10"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5375,7 +5375,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~5.4 || ^7.0"
+        "php": ">=5.6.4 || ^7.0"
     },
     "platform-dev": []
 }
