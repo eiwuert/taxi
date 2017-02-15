@@ -22,12 +22,8 @@ if (! function_exists('ok')) {
 
         $response = [
             'success' => true,
+            'data' => ($toArray) ? [$content] : $content,
         ];
-
-        // If content argument is not empty include it with response.
-        if (!empty($content)) {
-            $response['data'] = ($toArray) ? [$content] : $content;
-        }
 
         // It should not be 200, that's because of some package named volly on 
         // android side that cannot handle responses otherthan 200! so wiered
@@ -55,12 +51,8 @@ if (! function_exists('fail')) {
         $response['code'] = $status;
         $response = [
             'success' => false,
+            'data' => [$content],
         ];
-
-        // If content argument is not empty include it with response.
-        if (!empty($content)) {
-            $response['data'] = [$content];
-        }
 
         // It should not be 200, that's because of some package named volly on 
         // android side that cannot handle responses otherthan 200! so wiered
