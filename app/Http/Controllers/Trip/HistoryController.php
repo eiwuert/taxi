@@ -28,7 +28,9 @@ class HistoryController extends Controller
                                                 ->where('role', 'client')
                                                 ->get(['id']))->get(['id']);
 
-        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)->whereIn('status_id', ['9', '15', '16', '17'])->get()), 200, [], false);
+        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)
+                                                ->whereIn('status_id', ['5', '8', '11', '13', '14', '9', '15', '16', '17'])
+                                                ->get()), 200, [], false);
     }
 
     /**
