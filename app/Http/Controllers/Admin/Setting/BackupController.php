@@ -32,7 +32,12 @@ class BackupController extends Controller
      */
     public function index()
     {
-        $backups = array_reverse(File::allFiles($this->backupPath));
+        // If backup directory exists.
+        if (File::exists($this->backupPath)) {
+            $backups = array_reverse(File::allFiles($this->backupPath));
+        } else {
+            $backups = [];
+        }
         return view('admin.settings.backup', compact('backups'));
     }
 
