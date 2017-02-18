@@ -3741,9 +3741,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": []
         },
@@ -3755,9 +3753,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": []
         },
@@ -3769,9 +3765,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": []
         },
@@ -3806,34 +3800,36 @@ $.ajax(settings).done(function (response) {
                 }
             ],
             "rate": [],
-            "driver": {
-                "id": 101,
-                "first_name": "Driver",
-                "last_name": "One",
-                "email": "one@email.com",
-                "gender": "male",
-                "device_token": "qqqqqqqq5",
-                "device_type": "ios",
-                "online": false,
-                "approve": true,
-                "available": false,
-                "lang": "fa",
-                "address": "Iran",
-                "state": "tehran",
-                "country": "iran",
-                "zipcode": "12345",
-                "picture": "no-profile.png",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:47:57",
-                "updated_at": "2017-02-16 03:34:28",
-                "deleted_at": null,
-                "car": {
-                    "number": "000000",
-                    "color": "pink",
-                    "type": "luxury"
-                },
-                "phone": "1"
-            },
+            "driver": [
+                {
+                    "id": 101,
+                    "first_name": "Driver",
+                    "last_name": "One",
+                    "email": "one@email.com",
+                    "gender": "male",
+                    "device_token": "qqqqqqqq5",
+                    "device_type": "ios",
+                    "online": false,
+                    "approve": true,
+                    "available": false,
+                    "lang": "fa",
+                    "address": "Iran",
+                    "state": "tehran",
+                    "country": "iran",
+                    "zipcode": "12345",
+                    "picture": "no-profile.png",
+                    "user_id": 207,
+                    "created_at": "2017-02-14 14:47:57",
+                    "updated_at": "2017-02-16 03:34:28",
+                    "deleted_at": null,
+                    "car": {
+                        "number": "000000",
+                        "color": "pink",
+                        "type": "luxury"
+                    },
+                    "phone": "1"
+                }
+            ],
             "driver_location": [
                 {
                     "name": "TEST",
@@ -3878,34 +3874,36 @@ $.ajax(settings).done(function (response) {
                     "client_comment": "hello"
                 }
             ],
-            "driver": {
-                "id": 101,
-                "first_name": "Driver",
-                "last_name": "One",
-                "email": "one@email.com",
-                "gender": "male",
-                "device_token": "qqqqqqqq5",
-                "device_type": "ios",
-                "online": false,
-                "approve": true,
-                "available": false,
-                "lang": "fa",
-                "address": "Iran",
-                "state": "tehran",
-                "country": "iran",
-                "zipcode": "12345",
-                "picture": "no-profile.png",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:47:57",
-                "updated_at": "2017-02-16 03:34:28",
-                "deleted_at": null,
-                "car": {
-                    "number": "000000",
-                    "color": "pink",
-                    "type": "luxury"
-                },
-                "phone": "1"
-            },
+            "driver": [
+                {
+                    "id": 101,
+                    "first_name": "Driver",
+                    "last_name": "One",
+                    "email": "one@email.com",
+                    "gender": "male",
+                    "device_token": "qqqqqqqq5",
+                    "device_type": "ios",
+                    "online": false,
+                    "approve": true,
+                    "available": false,
+                    "lang": "fa",
+                    "address": "Iran",
+                    "state": "tehran",
+                    "country": "iran",
+                    "zipcode": "12345",
+                    "picture": "no-profile.png",
+                    "user_id": 207,
+                    "created_at": "2017-02-14 14:47:57",
+                    "updated_at": "2017-02-16 03:34:28",
+                    "deleted_at": null,
+                    "car": {
+                        "number": "000000",
+                        "color": "pink",
+                        "type": "luxury"
+                    },
+                    "phone": "1"
+                }
+            ],
             "driver_location": [
                 {
                     "name": "TEST",
@@ -3922,9 +3920,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": [],
             "driver_location": [
@@ -3943,9 +3939,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": [],
             "driver_location": [
@@ -3964,9 +3958,7 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "transaction": [
-                null
-            ],
+            "transaction": [],
             "rate": [],
             "driver": [],
             "driver_location": [
@@ -3979,6 +3971,7 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }
+
 ```
 
 

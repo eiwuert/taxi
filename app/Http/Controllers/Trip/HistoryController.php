@@ -101,7 +101,11 @@ class HistoryController extends Controller
                                     ]];
             }
             $transaction = $t->transaction;
-            $hist['transaction'] = [ $transaction ];
+            if (!is_null($transaction)) {
+                $hist['transaction'] = [ $transaction ];
+            } else {
+                $hist['transaction'] = [];
+            }
             $rate = $t->rate;
             if (!is_null($rate)) {
                 $hist['rate'] = [[
@@ -120,10 +124,12 @@ class HistoryController extends Controller
                       $car->type_id, 
                       $car->created_at, 
                       $car->updated_at);
-                $hist['driver'] = $driver;
-                $hist['driver']['car'] = $car;
-                $hist['driver']['car']['type'] = $carType->name;
-                $hist['driver']['phone'] = User::whereId($driver->user_id)->first()->phone;
+                $histDriver = [];
+                $histDriver['driver'] = $driver;
+                $histDriver['driver']['car'] = $car;
+                $histDriver['driver']['car']['type'] = $carType->name;
+                $histDriver['driver']['phone'] = User::whereId($driver->user_id)->first()->phone;
+                $hist['driver'] = [$histDriver['driver']];
             } else {
                 $hist['driver'] = [];
             }
