@@ -85,6 +85,7 @@ class HistoryController extends Controller
         foreach($trips as $t) {
             $source = Location::whereId($t->source)->first();
             $destination = Location::whereId($t->destination)->first();
+            $hist['id'] = $t->id;
             $hist['status_name'] = Status::whereValue($t->status_id)->first()->name;
             $hist['source'] = $source->name;
             $hist['s_lat']  = $source->latitude;
