@@ -3734,6 +3734,115 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": []
+        },
+        {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": []
+        },
+        {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": []
+        },
+        {
+            "status_name": "cancel_onway_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                {
+                    "id": 7,
+                    "trip_id": 11,
+                    "car_type_id": 1,
+                    "entry": "2",
+                    "distance": "1289",
+                    "per_distance": "0.7",
+                    "distance_unit": "kilometer",
+                    "distance_value": "0.9",
+                    "time": "249",
+                    "per_time": "0.3",
+                    "time_unit": "minute",
+                    "time_value": "1.2",
+                    "surcharge": "1",
+                    "currency": "USD",
+                    "timezone": "Asia/Tehran",
+                    "total": "4.1",
+                    "created_at": "2017-02-15 12:18:07",
+                    "updated_at": "2017-02-15 12:18:07"
+                }
+            ],
+            "rate": [],
+            "driver": {
+                "id": 101,
+                "first_name": "Driver",
+                "last_name": "One",
+                "email": "one@email.com",
+                "gender": "male",
+                "device_token": "qqqqqqqq5",
+                "device_type": "ios",
+                "online": false,
+                "approve": true,
+                "available": false,
+                "lang": "fa",
+                "address": "Iran",
+                "state": "tehran",
+                "country": "iran",
+                "zipcode": "12345",
+                "picture": "no-profile.png",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:47:57",
+                "updated_at": "2017-02-16 03:34:28",
+                "deleted_at": null,
+                "car": {
+                    "number": "000000",
+                    "color": "pink",
+                    "type": "luxury"
+                },
+                "phone": "1"
+            },
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
+                }
+            ]
+        },
+        {
             "status_name": "trip_is_over",
             "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
             "s_lat": "32.623239",
@@ -3741,13 +3850,6 @@ $.ajax(settings).done(function (response) {
             "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
             "d_lat": "32.634100",
             "d_long": "51.639282",
-            "driver_location": [
-                {
-                    "name": "TEST",
-                    "lat": "32.623239",
-                    "long": "51.636149"
-                }
-            ],
             "transaction": [
                 {
                     "id": 8,
@@ -3784,9 +3886,9 @@ $.ajax(settings).done(function (response) {
                 "gender": "male",
                 "device_token": "qqqqqqqq5",
                 "device_type": "ios",
-                "online": true,
+                "online": false,
                 "approve": true,
-                "available": true,
+                "available": false,
                 "lang": "fa",
                 "address": "Iran",
                 "state": "tehran",
@@ -3795,7 +3897,7 @@ $.ajax(settings).done(function (response) {
                 "picture": "no-profile.png",
                 "user_id": 207,
                 "created_at": "2017-02-14 14:47:57",
-                "updated_at": "2017-02-15 14:40:08",
+                "updated_at": "2017-02-16 03:34:28",
                 "deleted_at": null,
                 "car": {
                     "number": "000000",
@@ -3803,7 +3905,77 @@ $.ajax(settings).done(function (response) {
                     "type": "luxury"
                 },
                 "phone": "1"
-            }
+            },
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
+                }
+            ]
+        },
+        {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": [],
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
+                }
+            ]
+        },
+        {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": [],
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
+                }
+            ]
+        },
+        {
+            "status_name": "no_driver",
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": [
+                null
+            ],
+            "rate": [],
+            "driver": [],
+            "driver_location": [
+                {
+                    "name": "TEST",
+                    "lat": "32.623239",
+                    "long": "51.636149"
+                }
+            ]
         }
     ]
 }

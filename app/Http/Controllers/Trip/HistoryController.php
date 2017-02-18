@@ -103,10 +103,14 @@ class HistoryController extends Controller
             $transaction = $t->transaction;
             $hist['transaction'] = [ $transaction ];
             $rate = $t->rate;
-            $hist['rate'] = [[
-                            'client' => $rate->client,
-                            'client_comment' => $rate->client_comment,
-                        ]];
+            if (!is_null($rate)) {
+                $hist['rate'] = [[
+                                'client' => $rate->client,
+                                'client_comment' => $rate->client_comment,
+                            ]];
+            } else {
+                $hist['rate'] = [];
+            }
             if (! is_null($t->driver_id)) {
                 $driver = Driver::whereId($t->driver_id)->first();
                 $car = Car::whereUserId($driver->user_id)->first();
@@ -121,7 +125,7 @@ class HistoryController extends Controller
                 $hist['driver']['car']['type'] = $carType->name;
                 $hist['driver']['phone'] = User::whereId($driver->user_id)->first()->phone;
             } else {
-                $hist['driver'] = null;
+                $hist['driver'] = [];
             }
 
             $history[] = $hist;
