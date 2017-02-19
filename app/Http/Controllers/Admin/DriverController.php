@@ -20,7 +20,9 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $drivers = Driver::paginate(config('admin.perPage'));
+        $drivers = Driver::with('user')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(config('admin.perPage'));
         return view('admin.drivers.index', compact('drivers'));
     }
 
