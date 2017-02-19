@@ -24,8 +24,8 @@ class WebRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'   => 'required|max:255',
-            'last_name'    => 'required|max:255',
+            'first_name'   => 'required|max:24',
+            'last_name'    => 'required|max:24',
             'picture'      => 'image|max:255'
         ];
     }

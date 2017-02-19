@@ -18,12 +18,14 @@ Profile
       {!! Form::label('first_name', 'First name: ', ['class' => 'col-sm-2 control-label']) !!}
       <div class="col-sm-10">
         {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
+        <p class="help-block">Max 24 characters.</p>
       </div>
     </div>
     <div class="form-group">
       {!! Form::label('last_name', 'Last name: ', ['class' => 'col-sm-2 control-label']) !!}
       <div class="col-sm-10">
         {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
+        <p class="help-block">Max 24 charecters.</p>
       </div>
     </div>
     <div class="form-group">
