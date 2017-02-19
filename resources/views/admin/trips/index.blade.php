@@ -137,6 +137,7 @@ Trips
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
+        @if (!$trips->isEmpty())
         <table class="table table-striped table-hover">
           <tbody>
             <tr>
@@ -166,14 +167,18 @@ Trips
                 </td>
               </tr>
               @endforeach
-            </tbody></table>
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            @include('admin.includes.pagination', ['resource' => $trips])
-          </div>
+            </tbody>
+          </table>
+          @else
+          @include('admin.components.empty')
+          @endif
         </div>
-        <!-- /.box -->
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+          @include('admin.includes.pagination', ['resource' => $trips])
+        </div>
       </div>
+      <!-- /.box -->
     </div>
-    @endsection
+  </div>
+  @endsection
