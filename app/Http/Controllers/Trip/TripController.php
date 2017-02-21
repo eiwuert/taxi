@@ -6,9 +6,19 @@ use App\Http\Requests\TripRequest;
 use App\Http\Requests\NearbyRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
+use App\Http\Requests\MultiTripRequest;
 
 class TripController extends Controller
 {
+    /**
+     * Multi route request taxi.
+     * @return json
+     */
+    public function multiRouteRequestTaxi(MultiTripRequest $request)
+    {
+        dd($request);
+    }
+
 	/**
 	 * Request taxi
 	 *
