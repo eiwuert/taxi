@@ -43,16 +43,22 @@ class StatusTest extends TestCase
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson(['success' => true]);
+        $this->refreshApplication();
+        $response = $this->get('api/v1/driver/online', [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => false]);
     }
 
     /**
-     * Test driver going online.
+     * Test driver going offline.
      *
      * @return void
      */
     public function testGoOffline()
     {
-        $this->json('GET', 'api/v1/driver/offline', [], [
+        $res = $this->json('GET', 'api/v1/driver/offline', [], [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
