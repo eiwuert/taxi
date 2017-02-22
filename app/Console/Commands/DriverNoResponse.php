@@ -27,7 +27,7 @@ class driverNoResponse extends Command
      *
      * @var string
      */
-    protected $description = 'Driver with no reponse.';
+    protected $description = 'Driver with no response.';
 
     protected $trip;
 

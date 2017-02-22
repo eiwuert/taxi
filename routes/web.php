@@ -10,6 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('test', function() {
+    return \App\Trip::find(10)->forceFill(['next' => 11])->save();
+});
 require base_path('routes/admin/auth.php');
 Route::get('/', 'HomeController@index');
 

@@ -79,7 +79,7 @@ class StatusTableSeeder extends Seeder
                     'name'  => 'next_trip_start',
                     'value' => 22,
                 ], [
-                    'name'  => 'next_trip_ende',
+                    'name'  => 'next_trip_end',
                     'value' => 23,
                 ], [
                     'name'  => 'next_trip_wait',
@@ -90,6 +90,9 @@ class StatusTableSeeder extends Seeder
                 ], [
                     'name'  => 'next_trip_halt',
                     'value' => 26,
+                ], [
+                    'name' => 'next_trip_to_happen',
+                    'value' => 27,
                 ]
             ]);
     }

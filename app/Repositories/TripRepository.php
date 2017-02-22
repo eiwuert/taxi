@@ -188,8 +188,9 @@ class TripRepository
         }
 
         $pending = Trip::where('client_id', $client->id)
-                        ->whereIn('status_id', [1, 2, 7, 12, 6, 9, 15]);
+                        ->whereIn('status_id', [1, 2, 7, 12, 6, 9, 15, 20]);
 
+        // TODO
         if ($pending->count()) {
             if (env('APP_ENV', 'production') == 'local') {
                 if (is_null($pending->first()->driver)) {
@@ -789,5 +790,330 @@ class TripRepository
                                 $request->type,   
                                 $request->distance, 
                                 $request->limit)['result'];
+    }
+
+    /**
+     * Check max multi trip limit.
+     * @param array $route list of routes to navigate.
+     * @return boolean
+     */
+    public static function maxMultiTripLimit($route)
+    {
+        return (count($route) > config('taxi.multi.max'));
+    }
+
+    /**
+     * Check min multi trip limit.
+     * @param array $route list of routes to navigate.
+     * @return boolean
+     */
+    public static function minMultiTripLimit($route)
+    {
+        return (count($route) < config('taxi.multi.min'));
+    }
+
+    /**
+     * test to see if the given object contains s_lat and s_long.
+     * @param  object  $param
+     * @return boolean
+     */
+    public static function isSlatAndSlong($param)
+    {
+        return (!isset($param->s_lat) || !isset($param->s_long));
+    }
+
+    /**
+     * Is d_lat and d_long set.
+     * @param  object  $param
+     * @return boolean
+     */
+    public static function isDlatAndDlong($param)
+    {
+        return (!isset($param->d_lat) || !isset($param->d_long));
+    }
+
+    /**
+     * Test if the given object of lat and long is a valid one.
+     * @param  object $latLong
+     * @return boolean
+     */
+    public static function pregMatchLatAndLong($latLong)
+    {
+        return (preg_match('/^[+-]?\d+\.\d+$/', $latLong->lat) &&
+                preg_match('/^[+-]?\d+\.\d+$/', $latLong->long));
+    }
+
+    /**
+     * Determine whether or not the list of destinations are a valid list of destinations or not.
+     * @param  object $route
+     * @return boolean
+     */
+    public static function isDestinationsValid($route)
+    {
+        foreach ($route as $index => $r) {
+            // First element suppose to be source.
+            if ($index == 0) {
+                continue;
+            }
+
+            if(TripRepository::isDlatAndDlong($r)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Validate list of destinations against Google Maps API.
+     * @param  object $route
+     * @return json
+     */
+    public static function validateListOfTripAgainstGoogleMaps($route)
+    {
+        foreach ($route as $index => $r) {
+            if ($index + 1 == count($route)) {
+                break;
+            }
+            // If it's first element.
+            if ($index == 0) {
+                $location['s_lat'] = $r->s_lat;
+                $location['s_long'] = $r->s_long;
+            } else {
+                $location['s_lat'] = $r->d_lat;
+                $location['s_long'] = $r->d_long;
+            }
+            $location['d_lat'] = $route[$index + 1]->d_lat;
+            $location['d_long'] = $route[$index + 1]->d_long;
+            $matrix = getDistanceMatrix($location);
+            if (! @isset($matrix['duration']['text'])) {
+                return [$location['s_lat'], $location['s_long'], $location['d_lat'], $location['d_long']];
+            }
+        }
+    }
+
+    /**
+     * Check to ensure destinations are not same sequentially
+     * @param  object $route
+     * @return json
+     */
+    public static function notSameSequentially($route)
+    {
+        foreach ($route as $index => $r) {
+            // Last element should skip, because there can not be sequence.
+            if ($index + 1 == count($route)) {
+                break;
+            }
+
+            if ((array) $r == (array) $route[$index + 1]) {
+                // destinations that caused the problem.
+                $first = $index + 1;
+                $second = $index + 2;
+                return [$first, $second];
+            }
+        }
+    }
+
+    /**
+     * Validate routes with preg_match
+     * @param  object $route
+     * @return json
+     */
+    public static function validateWithPregMatch($route)
+    {
+        foreach ($route as $index => $r) {
+            if ($index == 0) {
+                if (! TripRepository::pregMatchLatAndLong((object) ['lat' => $r->s_lat, 'long' => $r->s_long])) {
+                    return 'source';
+                }
+            } elseif (! TripRepository::pregMatchLatAndLong((object) ['lat' => $r->d_lat, 'long' => $r->d_long])) {
+                return $index + 1;
+            }
+        }
+    }
+
+    /**
+     * Create multi routes trip.
+     * @param  object $route
+     * @return json
+     */
+    public static function createMultiRouteTrip($route, $exclude = 0, $userId = null)
+    {
+        if (!isset($tripRequest['currency'])) {
+            $tripRequest['currency'] = 'USD';
+        }
+
+        if (!isset($tripRequest['type'])) {
+            $tripRequest['type'] = 'any';
+        }
+
+        if (! is_null($userId)) {
+            $client = User::wherePhone(User::find($userId)->phone)
+                        ->orderBy('id', 'desc')
+                        ->first()->client()->first();
+        } else {
+            $client = User::wherePhone(Auth::user()->phone)
+                        ->orderBy('id', 'desc')
+                        ->first()->client()->first();
+        }
+
+        $clientDeviceToken = $client->device_token;
+
+        if ($pending = self::pendingRequestTaxi($userId)) {
+            return $pending;
+        }
+
+        $trips = [];
+        foreach($route as $index => $r) {
+            // Last element should skip, because there can not be sequence.
+            if ($index + 1 == count($route)) {
+                break;
+            }
+
+            // If it's first element.
+            if ($index == 0) {
+                $location['s_lat'] = $r->s_lat;
+                $location['s_long'] = $r->s_long;
+            } else {
+                $location['s_lat'] = $r->d_lat;
+                $location['s_long'] = $r->d_long;
+            }
+            $location['d_lat'] = $route[$index + 1]->d_lat;
+            $location['d_long'] = $route[$index + 1]->d_long;
+            $matrix = getDistanceMatrix($location);
+            $source = LocationRepository::set($location['s_lat'], $location['s_long'], $userId);
+            $destination = LocationRepository::set($location['d_lat'], $location['d_long'], $userId);
+            if ($index != 0) {
+                $statusId = Status::where('name', 'next_trip_to_happen')->firstOrFail()->value;
+            } else {
+                $statusId = Status::where('name', 'request_taxi')->firstOrFail()->value;
+            }
+            // 
+            // REQUEST_TAXI
+            // 
+            $trips[] = Trip::forceCreate([
+                        'client_id'       => $client->id,
+                        'status_id'       => $statusId,
+                        'source'          => $source->id,
+                        'destination'     => $destination->id,
+                        'eta_text'        => $matrix['duration']['text'],
+                        'eta_value'       => $matrix['duration']['value'],
+                        'distance_text'   => $matrix['distance']['text'],
+                        'distance_value'  => $matrix['distance']['value'],
+                        'created_at'      => Carbon::now(),
+                        'updated_at'      => Carbon::now(),
+                    ]);
+        }
+
+        // Fill next and prev ids
+        foreach($trips as $index => $trip) {
+            // For first element, next prop shall be set
+            if ($index == 0) {
+                $trip->forceFill(['next' => $trips[$index+1]->id])->save();
+                continue;
+            }
+            // For last element, prev prop shall be set
+            if($index + 1 == count($trips)) {
+                $trip->forceFill(['prev' => $trips[$index-1]->id])->save();
+                continue;
+            }
+            // assign next and prev props for middle items
+            $trip->forceFill(['next' => $trips[$index+1]->id, 'prev' => $trips[$index-1]->id])->save();
+        }
+
+        // Main trip ID
+        $trip = $trips[0];
+        $trip_id = $trip->id;
+
+        /**
+         * If there is one available driver within 1KM.
+         * No driver found state happens here.
+         * When there is a driver we send the request to driver and wait for his/her response.
+         */
+        // ADD first trip ids
+        $foundDriver = nearby($route[0]->s_lat, $route[0]->s_long, $tripRequest['type'], 10, 1, $exclude)['result'];
+        if (!empty($foundDriver)) {
+            $foundDriver = $foundDriver[0];
+            $driverToClient = getDistanceMatrix(['s_lat'  => $route[0]->s_lat,
+                                       's_long' => $route[0]->s_long,
+                                       'd_lat'  => $foundDriver->latitude,
+                                       'd_long' => $foundDriver->longitude]);
+
+            $driver = User::find($foundDriver->user_id)->driver()->first();
+            $driverDeviceToken = $driver->device_token;
+            $car = User::find($foundDriver->user_id)->car()->first();
+            $carType = $car->type()->first();
+            $driverInfo = [
+                'first_name' => $driver->first_name,
+                'last_name'  => $driver->last_name,
+                'gender'  => $driver->gender,
+                'picture'  => $driver->picture,
+                'number'  => $car->number,
+                'color'  => $car->color,
+                'type'  => $carType->name,
+                'phone' => User::find($foundDriver->user_id)->phone,
+            ];
+
+            // 
+            // CLIENT_FOUND
+            // 
+            $trip->update([
+                    'driver_id'              => $driver->id,
+                    'status_id'              => Status::where('name', 'client_found')->firstOrFail()->value,
+                    'etd_text'               => $driverToClient['duration']['text'],
+                    'etd_value'              => $driverToClient['duration']['value'],
+                    'driver_distance_text'   => $driverToClient['distance']['text'],
+                    'driver_distance_value'  => $driverToClient['distance']['value'],
+                    'driver_location'        => Location::where('user_id', $foundDriver->user_id)->orderBy('id', 'desc')->first()->id, // location
+                    'updated_at'             => Carbon::now(),
+                ]);
+
+            self::updateDriverAvailability($driver, false);
+
+            dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
+            dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
+            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+
+            return ok([
+                        'content'          => 'Trip request created successfully.',
+                        'eta_text'         => $matrix['duration']['text'],
+                        'eta_value'        => $matrix['duration']['value'],
+                        'distance_text'    => $matrix['distance']['text'],
+                        'distance_value'   => $matrix['distance']['value'],
+                        'trip_status'      => 2,
+                        'source_name'      => $source->name,
+                        'destination_name' => $destination->name,
+                        'driver'           => (object)$driverInfo,
+                    ]);
+        } else {
+            //
+            //  NO_DRIVER
+            //  
+            $trip->update([
+                    'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->value,
+                    'updated_at'             => Carbon::now(),
+                ]);
+
+            // Halt other connected trips
+            foreach($trips as $index => $t) {
+                // First trip that is the main trip will change its status to
+                // NO_DRIVER other trips to the NEXT_TRIP_HALT
+                if ($index == 0) {
+                    continue;
+                }
+
+                $t->update([
+                        'status_id'              => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
+                        'updated_at'             => Carbon::now(),
+                    ]);
+            }
+
+            dispatch(new SendClientNotification('no_driver_found', '1', $clientDeviceToken));
+
+            return fail([
+                'title'       => 'No driver available',
+                'detail'      => 'There is no driver available in your area.',
+                'trip_status' => 5,
+            ], 404);
+        }
     }
 }
