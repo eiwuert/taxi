@@ -1023,6 +1023,13 @@ class TripRepository
         // Main trip ID
         $trip = $trips[0];
         $trip_id = $trip->id;
+        $tripIds = '';
+        foreach ($trips as $index => $t) {
+            $tripIds .= $t->id;
+            if ($index + 1 != count($trips)) {
+                $tripIds .= ',';
+            }
+        }
 
         /**
          * If there is one available driver within 1KM.
