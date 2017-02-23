@@ -67,6 +67,7 @@ class StatusTableSeeder extends Seeder
                     'name'  => 'trip_is_over_by_admin',
                     'value' => 18,
                 ], [
+                // @tood: duplicated
                     'name'  => 'trip_is_over_by_admin',
                     'value' => 19,
                 ], [
