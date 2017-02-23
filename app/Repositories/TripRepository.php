@@ -586,7 +586,7 @@ class TripRepository
     public static function accept()
     {
         $driver = Auth::user()->driver()->first();
-        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        $trip = $driver->trips()->where('prev', null)->orderBy('id', 'desc')->first();
         if (is_null($trip)) {
             return false;
         }
@@ -700,7 +700,7 @@ class TripRepository
             }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
             $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
-            unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+            unset($driver->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
             return [
                     'driver' => $driver,
@@ -735,7 +735,7 @@ class TripRepository
                 $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
             }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
-            unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+            unset($client->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return [
                     'client' => $client,
