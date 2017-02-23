@@ -607,7 +607,8 @@ class TripRepository
     public static function start()
     {
         $driver = Auth::user()->driver()->first();
-        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        $trip = $driver->trips()->whereIn('status_id', ['12', '27'])
+                                ->orderBy('id', 'desc')->first();
         if (is_null ($trip)) {
             return false;
         }
@@ -618,7 +619,11 @@ class TripRepository
         if ($trip->status_id == 12) {
             self::updateStatus($trip, 'trip_started');
             dispatch(new SendClientNotification('trip_started', '6', Client::whereId($trip->client_id)->first()->device_token));
-            return true;   
+            return true;
+        } else if ($trip->status_id == 27) {
+            self::updateStatus($trip, 'next_trip_start');
+            dispatch(new SendClientNotification('trip_started', '6', Client::whereId($trip->client_id)->first()->device_token));
+            return true;
         } else {
             return false;
         }
