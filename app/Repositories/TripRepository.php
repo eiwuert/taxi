@@ -631,7 +631,7 @@ class TripRepository
     public static function arrived()
     {
         $driver = Auth::user()->driver()->first();
-        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        $trip = $driver->trips()->where('prev', null)->orderBy('id', 'desc')->first();
         if (is_null($trip)) {
             return false;
         }
