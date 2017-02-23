@@ -675,7 +675,7 @@ class TripRepository
             $client = User::wherePhone(Auth::user()->phone)
                             ->orderBy('id', 'desc')
                             ->first()->client()->first();
-            $trip = $client->trips()->orderBy('id', 'desc')->first();
+            $trip = $client->trips()->where('prev', null)->orderBy('id', 'desc')->first();
             if (self::notOnTrip($trip)) {
                 return false;
             }
@@ -685,7 +685,19 @@ class TripRepository
             $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
             $carType = $car->type()->first(['name']);
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
-            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            // It's multi trip
+            if (!is_null($trip->next)) {
+                $tripTemp = $trip;
+                $listOfDestinations = [];
+                while(!is_null($tripTemp->next)) {
+                    $listOfDestinations[] = $trip->destination()->first(['latitude', 'longitude', 'name']);
+                    $tripTemp = Trip::find($tripTemp->next);
+                }
+                $listOfDestinations[] = $tripTemp->destination()->first(['latitude', 'longitude', 'name']);
+                $destination = $listOfDestinations;
+            } else {
+                $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
             $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
             unset($driver->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
@@ -709,7 +721,19 @@ class TripRepository
             $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
             $client->phone = $client->user->phone;
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
-            $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            // It's multi trip
+            if (!is_null($trip->next)) {
+                $tripTemp = $trip;
+                $listOfDestinations = [];
+                while(!is_null($tripTemp->next)) {
+                    $listOfDestinations[] = $trip->destination()->first(['latitude', 'longitude', 'name']);
+                    $tripTemp = Trip::find($tripTemp->next);
+                }
+                $listOfDestinations[] = $tripTemp->destination()->first(['latitude', 'longitude', 'name']);
+                $destination = $listOfDestinations;
+            } else {
+                $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+            }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
             unset($client->user_id, $trip->id, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
