@@ -112,6 +112,31 @@ class Trip extends Model
     public function statusName()
     {
         switch ($this->status()->first()->name) {
+            case 'on_next_trip':
+                return 'On next trip';
+                break;
+            case 'on_next_trip_canceled':
+                return 'On next trip canceled';
+                break;
+            case 'next_trip_start':
+                return 'Next trip started';
+                break;
+            case 'next_trip_end':
+                return 'Next trip ended';
+                break;
+            case 'next_trip_wait':
+                return 'Next trip on wait';
+                break;
+            case 'next_trip_cancel':
+                return 'Next trip canceled';
+                break;
+            case 'next_trip_halt':
+                return 'Next trip halted';
+                break;
+            case 'next_trip_to_happen':
+                return 'Next trip is going to happen';
+                break;
+
             case 'trip_is_over_by_admin':
                 return 'Ended by admin';
                 break;
@@ -317,6 +342,17 @@ class Trip extends Model
     public function rataOfClientToDriver()
     {
         return $this->rate()->first()->get(['client', 'client_comment'])->first();
-    }    
+    }
+
+    /**
+     * Update status of the trip to the given status name.
+     * @return boolean
+     */
+    public function updateStatusTo($name)
+    {
+        $this->update([
+            'status_id' => Status::where('name', $name)->firstOrFail()->value,
+        ]);
+    }
 
 }
