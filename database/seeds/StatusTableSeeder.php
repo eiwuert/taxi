@@ -66,6 +66,34 @@ class StatusTableSeeder extends Seeder
                 ], [
                     'name'  => 'trip_is_over_by_admin',
                     'value' => 18,
+                ], [
+                // @tood: duplicated
+                    'name'  => 'trip_is_over_by_admin',
+                    'value' => 19,
+                ], [
+                    'name'  => 'on_next_trip',
+                    'value' => 20,
+                ], [
+                    'name'  => 'on_next_trip_canceled',
+                    'value' => 21,
+                ], [
+                    'name'  => 'next_trip_start',
+                    'value' => 22,
+                ], [
+                    'name'  => 'next_trip_end',
+                    'value' => 23,
+                ], [
+                    'name'  => 'next_trip_wait',
+                    'value' => 24,
+                ], [
+                    'name'  => 'next_trip_cancel',
+                    'value' => 25,
+                ], [
+                    'name'  => 'next_trip_halt',
+                    'value' => 26,
+                ], [
+                    'name' => 'next_trip_to_happen',
+                    'value' => 27,
                 ]
             ]);
     }

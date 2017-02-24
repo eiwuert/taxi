@@ -43,6 +43,14 @@ class Client extends Model
         'updated_at' => 'Updated time',
     ];
 
+    public static $info = [
+        'first_name',
+        'last_name',
+        'gender',
+        'picture',
+        'user_id',
+    ];
+
     /**
      * A client can have one user.
      * 
@@ -95,9 +103,19 @@ class Client extends Model
 
     /**
      * Get client phone number
+     * @deprecated 2.0 in favor phone method
      * @return string
      */
     public function phoneNumber()
+    {
+        return User::whereId($this->user_id)->first()->phone;
+    }
+
+    /**
+     * Get client phone number
+     * @return string
+     */
+    public function phone()
     {
         return User::whereId($this->user_id)->first()->phone;
     }

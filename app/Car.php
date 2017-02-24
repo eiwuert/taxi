@@ -13,6 +13,12 @@ class Car extends Model
 		'type_id',
 	];
 
+    public static $info = [
+        'number', 
+        'color', 
+        'type_id',
+    ];
+
     /**
      * A car can have one user(driver).
      * 

@@ -61,6 +61,15 @@ class Driver extends Model
         'updated_at' => 'Updated time',
     ];
 
+    public static $info = [
+        'first_name', 
+        'last_name', 
+        'email', 
+        'gender', 
+        'picture', 
+        'user_id',
+    ];
+
     /**
      * Scope a query to only include offline drivers.
      * online    0
@@ -320,9 +329,19 @@ class Driver extends Model
 
     /**
      * Get driver phone number
+     * @deprecated 2.0 in favor of shorter version phone
      * @return string
      */
     public function phoneNumber()
+    {
+        return User::whereId($this->user_id)->first()->phone;
+    }
+
+    /**
+     * Get driver phone number
+     * @return string
+     */
+    public function phone()
     {
         return User::whereId($this->user_id)->first()->phone;
     }
@@ -376,5 +395,16 @@ class Driver extends Model
             return true;
         }
         return false;
+    }
+
+    /**
+     * Update driver availability.
+     * @param  boolean $state
+     * @return void
+     */
+    public function updateDriverAvailability($state)
+    {
+        $this->available = $state;
+        $this->save();
     }
 }

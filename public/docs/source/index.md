@@ -1839,6 +1839,7 @@ null
 
 ## Request v1
 
+
 Request new taxi by client
 
 > Example request
@@ -2087,6 +2088,289 @@ d_lng | numeric |  required  |
 
 ```
 
+## Request multiroute v1
+
+
+Request new taxi, Current limit on routes are 20.
+
+
+<aside class="notice">
+`ETA` and `Distance` props to be fixed.
+</aside>
+
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/client/trip/multi" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "route": "maiores" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/trip/multi",
+    "method": "POST",
+    "data": {
+        "route": "amet"
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v1/client/trip/multi`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+route | string |  required  | json
+
+
+> Example request
+
+```json
+
+[
+  {
+    "s_lat": "32.648100",
+    "s_long": "51.659282"
+  },
+  {
+    "d_lat": "32.647100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.649282"
+  },
+  {
+    "d_lat": "32.640100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.649100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648111",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.649282"
+  },
+  {
+    "d_lat": "32.648144",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648166",
+    "d_long": "51.659282"
+  }
+]
+
+```
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully.",
+            "eta_text": "1 min",
+            "eta_value": 0,
+            "distance_text": "1 m",
+            "distance_value": 0,
+            "trip_status": 2,
+            "source_name": "استان اصفهان، اصفهان، خیابان آذر، ایران",
+            "destination_name": "استان اصفهان، اصفهان، خیابان آذر، ایران",
+            "driver": {
+                "first_name": "Driver",
+                "last_name": "One",
+                "gender": "male",
+                "picture": "no-profile.png",
+                "number": "000000",
+                "color": "pink",
+                "type": "luxury",
+                "phone": "4"
+            }
+        }
+    ]
+}
+```
+
+> Example response - not valid json
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "route": [
+                "The route must be a valid JSON string."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+
+```
+
+
+> Example response - not enough arguments in route parameter
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not enough arguments",
+            "detail": "Multi route `route` parameter needs at least 2 arguments."
+        }
+    ]
+}
+
+```
+
+> Example response - Too many argument supplied for route parameter.
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Too many arguments",
+            "detail": "Multi route `route` parameter must be at most 10 arguments."
+        }
+    ]
+}
+
+```
+
+
+> Example response - 2 same destination came sequentially
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "2 destinations are same sequentially",
+            "detail": "destination 1 and destination 2 are same sequentially"
+        }
+    ]
+}
+
+```
+
+
+> Example response - First element is not source info
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "First element shall be source",
+            "detail": "First element of `route` parameter shall be source info: s_lat and s_long"
+        }
+    ]
+}
+
+```
+
+
+> Example response - list of destinations are not valid
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not valid destinations",
+            "detail": "`route` elements except first one shall be objects of d_lat and d_long"
+        }
+    ]
+}
+
+```
+
+> Example response - off the road source or destination
+
+```json
+
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip from (-13.223565, 71.788550) to (32.648100, 51.659282)."
+        }
+    ]
+}
+
+```
+
+> Example response - not a valid source
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Source geo info is not valid",
+            "detail": "source latLng information is not valid."
+        }
+    ]
+}
+
+```
+
+> Example response - not a valid destinations
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Destination geo info is not valid",
+            "detail": "destination latLng information is not valid on object: 2"
+        }
+    ]
+}
+
+```
+
 
 ## Nearby taxis v1
 
@@ -2286,7 +2570,13 @@ limit | numeric |  min: `5`, max: `100`  |
 
 ## Current
 
-Current state of the client trip
+Current state of the client trip.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -2394,9 +2684,120 @@ $.ajax(settings).done(function (response) {
 ```
 
 
+> Example response - multi route trip
+
+
+```json
+
+{
+    "success": true,
+    "data": [
+        {
+            "driver": {
+                "first_name": "Driver",
+                "last_name": "One",
+                "email": "driver@saamtaxi.com",
+                "gender": "male",
+                "picture": "no-profile.png",
+                "phone": "4"
+            },
+            "trip": {
+                "next": 252,
+                "prev": null,
+                "eta_value": "44",
+                "eta_text": "1 min",
+                "distance_value": "140",
+                "distance_text": "0.1 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m"
+            },
+            "status": {
+                "name": "client_found",
+                "value": 2
+            },
+            "car": {
+                "number": "000000",
+                "color": "pink",
+                "type_id": 1
+            },
+            "type": {
+                "name": "luxury"
+            },
+            "source": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+            },
+            "destination": [
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.648166",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+                }
+            ],
+            "driver_location": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "TEST"
+            }
+        }
+    ]
+}
+
+```
+
+
 ## Cancel taxi
 
-Cancel taxi by client
+Cancel taxi by client.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -2466,6 +2867,12 @@ console.log(response);
 ## Calculate V1
 
 Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination.
+
+
+<aside class="warning">
+Not yet implemented for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -2683,6 +3090,13 @@ d_long | numeric |  required  | [+-]?\d+\.\d+
 
 Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
 you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+
+
+<aside class="warning">
+Not yet implemented for multi route trips.
+</aside>
+
+
 
 > Example request
 
@@ -2902,7 +3316,13 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 
 ## Accept ride
 
-Accept ride by driver
+Accept ride by driver.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -2968,7 +3388,12 @@ console.log(response);
 
 ## Start ride
 
-Start ride by driver
+Start the trip by the driver.
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -3050,7 +3475,13 @@ console.log(response);
 
 ## End ride
 
-End ride by driver
+End trip by the driver. in multi route trips it will go the the next trip if it exists.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
 
 > Example request
 
@@ -3116,7 +3547,14 @@ console.log(response);
 
 ## Cancel ride
 
-Cancel ride by driver
+Cancel ride by driver. In multi route trips, it'll cancel trip, halt possible remaining trips and cancel the main trip.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
+
 
 > Example request
 
@@ -3200,6 +3638,11 @@ console.log(response);
 
 When drive arrives at departure location.
 
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
+
 > Example request
 
 ```bash
@@ -3282,7 +3725,14 @@ $.ajax(settings).done(function (response) {
 
 ## Current
 
-Current state of driver trip
+Current state of driver trip.
+
+
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
+
+
 
 > Example request
 
@@ -3373,6 +3823,93 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+> Example response - multi route trip
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "client": {
+                "first_name": null,
+                "last_name": null,
+                "gender": "not specified",
+                "picture": "no-profile.png",
+                "phone": "4"
+            },
+            "trip": {
+                "next": 252,
+                "prev": null,
+                "eta_value": "44",
+                "eta_text": "1 min",
+                "distance_value": "140",
+                "distance_text": "0.1 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m"
+            },
+            "status": {
+                "name": "client_found",
+                "value": 2
+            },
+            "source": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+            },
+            "destination": [
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.648166",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+                }
+            ]
+        }
+    ]
+}
 ```
 
 
@@ -3590,6 +4127,12 @@ comment | text |  optional  | max: `5000`
 
 History of driver trips.
 
+
+<aside class="warning">
+Not ready for handling multi route trip history
+</aside>
+
+
 > Example request
 
 ```bash
@@ -3694,6 +4237,10 @@ $.ajax(settings).done(function (response) {
 ##client
 
 History of client trips.
+
+<aside class="warning">
+Not ready for handling multi route trip history
+</aside>
 
 > Example request
 

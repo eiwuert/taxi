@@ -10,6 +10,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+Route::get('test', function() {
+    return \App\Trip::$pending;
+});
 require base_path('routes/admin/auth.php');
 Route::get('/', 'HomeController@index');
 
