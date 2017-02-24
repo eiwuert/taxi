@@ -18,7 +18,7 @@ class DashboardController extends Controller
 	 */
     public function index(TransactionRepository $transaction)
     {
-    	$clients = number_format(User::clientsCount());
+    	$clients = number_format(is_object($count = User::clientsCount())?0:$count);
     	$drivers = number_format(User::driversCount());
         $tripCount = Trip::count();
     	$trips   = is_object($tripCount) ? 0 : $tripCount;
