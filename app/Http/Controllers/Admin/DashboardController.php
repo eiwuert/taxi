@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index(TransactionRepository $transaction)
     {
     	$clients = number_format(is_object($count = User::clientsCount())?0:$count);
-    	$drivers = number_format(User::driversCount());
+    	$drivers = number_format(is_object($count = User::driversCount())?0:$count);
         $tripCount = Trip::count();
     	$trips   = is_object($tripCount) ? 0 : $tripCount;
     	$income  = number_format($transaction->income(), 2);
