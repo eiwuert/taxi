@@ -11,7 +11,7 @@
 |
 */
 Route::get('test', function() {
-    return \App\Trip::find(10)->forceFill(['next' => 11])->save();
+    return \App\Trip::$pending;
 });
 require base_path('routes/admin/auth.php');
 Route::get('/', 'HomeController@index');

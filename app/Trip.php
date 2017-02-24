@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Status;
 use Carbon\Carbon;
 use App\Events\TripUpdated;
 use App\Events\TripCreated;
@@ -63,6 +64,12 @@ class Trip extends Model
     protected $events = [
         'created' => TripCreated::class,
         'updated' => TripUpdated::class,
+    ];
+
+    public static $pending = [1, 2, 7, 12, 6, 9, 15, 20];
+
+    protected static $finished = [
+
     ];
 
     /**
@@ -136,7 +143,6 @@ class Trip extends Model
             case 'next_trip_to_happen':
                 return 'Next trip is going to happen';
                 break;
-
             case 'trip_is_over_by_admin':
                 return 'Ended by admin';
                 break;

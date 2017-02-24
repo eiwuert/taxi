@@ -2027,6 +2027,261 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Request multiroute v1</h2>
+<p>Request new taxi, Current limit on routes are 20.</p>
+<aside class="notice">
+`ETA` and `Distance` props to be fixed.
+</aside>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/trip/multi" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "route": "maiores" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/trip/multi",
+    "method": "POST",
+    "data": {
+        "route": "amet"
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/client/trip/multi</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>route</td>
+<td>string</td>
+<td>required</td>
+<td>json</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-json">
+[
+  {
+    "s_lat": "32.648100",
+    "s_long": "51.659282"
+  },
+  {
+    "d_lat": "32.647100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.649282"
+  },
+  {
+    "d_lat": "32.640100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.649100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648111",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648100",
+    "d_long": "51.649282"
+  },
+  {
+    "d_lat": "32.648144",
+    "d_long": "51.659282"
+  },
+  {
+    "d_lat": "32.648166",
+    "d_long": "51.659282"
+  }
+]
+</code></pre>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "content": "Trip request created successfully.",
+            "eta_text": "1 min",
+            "eta_value": 0,
+            "distance_text": "1 m",
+            "distance_value": 0,
+            "trip_status": 2,
+            "source_name": "استان اصفهان، اصفهان، خیابان آذر، ایران",
+            "destination_name": "استان اصفهان، اصفهان، خیابان آذر، ایران",
+            "driver": {
+                "first_name": "Driver",
+                "last_name": "One",
+                "gender": "male",
+                "picture": "no-profile.png",
+                "number": "000000",
+                "color": "pink",
+                "type": "luxury",
+                "phone": "4"
+            }
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - not valid json</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "route": [
+                "The route must be a valid JSON string."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - not enough arguments in route parameter</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not enough arguments",
+            "detail": "Multi route `route` parameter needs at least 2 arguments."
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - Too many argument supplied for route parameter.</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Too many arguments",
+            "detail": "Multi route `route` parameter must be at most 10 arguments."
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - 2 same destination came sequentially</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "2 destinations are same sequentially",
+            "detail": "destination 1 and destination 2 are same sequentially"
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - First element is not source info</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "First element shall be source",
+            "detail": "First element of `route` parameter shall be source info: s_lat and s_long"
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - list of destinations are not valid</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not valid destinations",
+            "detail": "`route` elements except first one shall be objects of d_lat and d_long"
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - off the road source or destination</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Not valid trip",
+            "detail": "You cannot trip from (-13.223565, 71.788550) to (32.648100, 51.659282)."
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - not a valid source</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Source geo info is not valid",
+            "detail": "source latLng information is not valid."
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - not a valid destinations</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Destination geo info is not valid",
+            "detail": "destination latLng information is not valid on object: 2"
+        }
+    ]
+}
+</code></pre>
 <h2>Nearby taxis v1</h2>
 <p>Find near by taxis</p>
 <blockquote>
@@ -2248,7 +2503,10 @@ console.log(response);
     ]
 }</code></pre>
 <h2>Current</h2>
-<p>Current state of the client trip</p>
+<p>Current state of the client trip.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2343,8 +2601,112 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
+<blockquote>
+<p>Example response - multi route trip</p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": true,
+    "data": [
+        {
+            "driver": {
+                "first_name": "Driver",
+                "last_name": "One",
+                "email": "driver@saamtaxi.com",
+                "gender": "male",
+                "picture": "no-profile.png",
+                "phone": "4"
+            },
+            "trip": {
+                "next": 252,
+                "prev": null,
+                "eta_value": "44",
+                "eta_text": "1 min",
+                "distance_value": "140",
+                "distance_text": "0.1 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m"
+            },
+            "status": {
+                "name": "client_found",
+                "value": 2
+            },
+            "car": {
+                "number": "000000",
+                "color": "pink",
+                "type_id": 1
+            },
+            "type": {
+                "name": "luxury"
+            },
+            "source": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+            },
+            "destination": [
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.648166",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+                }
+            ],
+            "driver_location": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "TEST"
+            }
+        }
+    ]
+}
+</code></pre>
 <h2>Cancel taxi</h2>
-<p>Cancel taxi by client</p>
+<p>Cancel taxi by client.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2398,6 +2760,9 @@ console.log(response);
 </code></pre>
 <h2>Calculate V1</h2>
 <p>Calculate trip fare(cost), distance and time. Take care of <code>NO RESULT</code> on source and destination.</p>
+<aside class="warning">
+Not yet implemented for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2625,6 +2990,9 @@ $.ajax(settings).done(function (response) {
 <h2>Calculate V2</h2>
 <p>Calculate trip fare(cost), distance and time. Take care of <code>NO RESULT</code> on source and destination. in <code>v2</code> of API
 you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</code> instead of <code>d_long</code>.</p>
+<aside class="warning">
+Not yet implemented for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2851,7 +3219,10 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h1>Trip - driver</h1>
 <h2>Accept ride</h2>
-<p>Accept ride by driver</p>
+<p>Accept ride by driver.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2904,7 +3275,10 @@ console.log(response);
 }
 </code></pre>
 <h2>Start ride</h2>
-<p>Start ride by driver</p>
+<p>Start the trip by the driver.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2971,7 +3345,10 @@ console.log(response);
 }
 </code></pre>
 <h2>End ride</h2>
-<p>End ride by driver</p>
+<p>End trip by the driver. in multi route trips it will go the the next trip if it exists.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3024,7 +3401,10 @@ console.log(response);
 }
 </code></pre>
 <h2>Cancel ride</h2>
-<p>Cancel ride by driver</p>
+<p>Cancel ride by driver. In multi route trips, it'll cancel trip, halt possible remaining trips and cancel the main trip.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3090,6 +3470,9 @@ console.log(response);
 </code></pre>
 <h2>Arrive</h2>
 <p>When drive arrives at departure location.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3157,7 +3540,10 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h2>Current</h2>
-<p>Current state of driver trip</p>
+<p>Current state of driver trip.</p>
+<aside class="success">
+Same `API` call for multi route trips.
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3238,6 +3624,91 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<blockquote>
+<p>Example response - multi route trip</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "client": {
+                "first_name": null,
+                "last_name": null,
+                "gender": "not specified",
+                "picture": "no-profile.png",
+                "phone": "4"
+            },
+            "trip": {
+                "next": 252,
+                "prev": null,
+                "eta_value": "44",
+                "eta_text": "1 min",
+                "distance_value": "140",
+                "distance_text": "0.1 km",
+                "etd_value": "0",
+                "etd_text": "1 min",
+                "driver_distance_value": "0",
+                "driver_distance_text": "1 m"
+            },
+            "status": {
+                "name": "client_found",
+                "value": 2
+            },
+            "source": {
+                "latitude": "32.648100",
+                "longitude": "51.659282",
+                "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+            },
+            "destination": [
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.647100",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، ارشاد، ایران"
+                },
+                {
+                    "latitude": "32.648166",
+                    "longitude": "51.659282",
+                    "name": "استان اصفهان، اصفهان، خیابان آذر، ایران"
+                }
+            ]
+        }
+    ]
+}</code></pre>
 <h1>Rate</h1>
 <h2>Driver</h2>
 <p>Rate of driver to client.</p>
@@ -3444,6 +3915,9 @@ $.ajax(settings).done(function (response) {
 <h1>History</h1>
 <h2>driver</h2>
 <p>History of driver trips.</p>
+<aside class="warning">
+Not ready for handling multi route trip history
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3536,6 +4010,9 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h2>client</h2>
 <p>History of client trips.</p>
+<aside class="warning">
+Not ready for handling multi route trip history
+</aside>
 <blockquote>
 <p>Example request</p>
 </blockquote>

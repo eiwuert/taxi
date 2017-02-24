@@ -36,7 +36,6 @@ class TripRepository
             $tripRequest['d_long'] = $tripRequest['d_lng'];
         }
 
-
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
         }
@@ -131,7 +130,7 @@ class TripRepository
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            self::updateDriverAvailability($driver, false);
+            $driver->updateDriverAvailability(false);
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
@@ -188,7 +187,8 @@ class TripRepository
         }
 
         $pending = Trip::where('client_id', $client->id)
-                        ->whereIn('status_id', [1, 2, 7, 12, 6, 9, 15, 20]);
+                        ->where('driver_id', '<>', null)
+                        ->whereIn('status_id', Trip::$pending);
 
         // TODO
         if ($pending->count()) {
@@ -196,8 +196,19 @@ class TripRepository
                 if (is_null($pending->first()->driver)) {
                     $pending->first()->updateStatusTo('no_driver');
                 } else {
-                    self::updateDriverAvailability($pending->first()->driver, true);
-                    $pending->first()->updateStatusTo('reject_client_found');
+                    $pending = $pending->first();
+                    if (!is_null($pending->next)) {
+                        $pending->updateStatusTo('trip_is_over_by_admin');
+                        $tripToCancel = Trip::find($pending->next);
+                        while(!is_null($tripToCancel->next)) {
+                            $tripToCancel->updateStatusTo('next_trip_halt');
+                            $tripToCancel = Trip::find($tripToCancel->next);
+                        }
+                        $tripToCancel->updateStatusTo('next_trip_halt');
+                    } else {
+                        $pending->updateStatusTo('trip_is_over_by_admin');
+                    }
+                    $pending->driver->updateDriverAvailability(true);
                 }
                 return false;
             }
@@ -209,18 +220,6 @@ class TripRepository
         }
 
         return false;
-    }
-
-    /**
-     * Update driver availability.
-     * @param  App\Driver $driver
-     * @param  boolean $state
-     * @return void
-     */
-    private static function updateDriverAvailability($driver, $state)
-    {
-        $driver->available = $state;
-        $driver->save();
     }
 
     /**
@@ -379,7 +378,7 @@ class TripRepository
                         }
                         $tripToCancel->updateStatusTo('next_trip_halt');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
 
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -400,7 +399,7 @@ class TripRepository
                         }
                         $tripToCancel->updateStatusTo('next_trip_halt');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendDriverNotification('trip_cancelled_by_client', '1', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -421,7 +420,7 @@ class TripRepository
                         }
                         $tripToCancel->updateStatusTo('next_trip_halt');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendDriverNotification('client_cancelled_onway_driver', '2', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -442,7 +441,7 @@ class TripRepository
                         }
                         $tripToCancel->updateStatusTo('next_trip_halt');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendDriverNotification('client_canceled_arrived_driver', '3', Driver::whereId($trip->driver_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -487,7 +486,7 @@ class TripRepository
                     } else {
                         $trip->updateStatusTo('driver_reject_started_trip');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendClientNotification('started_trip_cancelled_by_driver', '2', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -521,7 +520,7 @@ class TripRepository
                     } else {
                         $trip->updateStatusTo('cancel_onway_driver');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -544,7 +543,7 @@ class TripRepository
                     } else {
                         $trip->updateStatusTo('reject_client_found');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     // Request new taxi
                     if (is_null($trip->next)) {
@@ -611,7 +610,7 @@ class TripRepository
                     } else {
                         $trip->updateStatusTo('driver_cancel_arrived_status');
                     }
-                    self::updateDriverAvailability($driver, true);
+                    $driver->updateDriverAvailability(true);
                     dispatch(new SendClientNotification('arrived_driver_cancelled_trip', '4', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip rejected.',
@@ -649,7 +648,7 @@ class TripRepository
         $trip = Trip::find($trip);
         $trip->updateStatusTo('trip_is_over_by_admin');
         if(! is_null($trip->driver)) {
-            self::updateDriverAvailability($trip->driver, true);
+            $trip->driver->updateDriverAvailability(true);
             dispatch(new SendDriverNotification('trip_is_over_by_admin', '5', $trip->driver->device_token));
         }
         dispatch(new SendClientNotification('trip_is_over_by_admin', '9', $trip->client->device_token));
@@ -701,7 +700,7 @@ class TripRepository
         }
         if ($trip->status_id == 2) {
             $trip->updateStatusTo('driver_onway');
-            self::updateDriverAvailability($driver, false);
+            $driver->updateDriverAvailability(false);
             dispatch(new SendClientNotification('driver_onway', '5', Client::whereId($trip->client_id)->first()->device_token));
             return true;
         } else {
@@ -1217,6 +1216,7 @@ class TripRepository
         $foundDriver = nearby($route[0]->s_lat, $route[0]->s_long, $tripRequest['type'], 10, 1, $exclude)['result'];
         if (!empty($foundDriver)) {
             $foundDriver = $foundDriver[0];
+            // TODO
             $driverToClient = getDistanceMatrix(['s_lat'  => $route[0]->s_lat,
                                        's_long' => $route[0]->s_long,
                                        'd_lat'  => $foundDriver->latitude,
@@ -1251,7 +1251,7 @@ class TripRepository
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            self::updateDriverAvailability($driver, false);
+            $driver->updateDriverAvailability(false);
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
