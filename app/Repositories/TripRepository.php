@@ -96,6 +96,7 @@ class TripRepository
         $foundDriver = nearby($tripRequest['s_lat'], $tripRequest['s_long'], $tripRequest['type'], 10, 1, $exclude)['result'];
         if (!empty($foundDriver)) {
             $foundDriver = $foundDriver[0];
+            Log::info($foundDriver);
             $driverToClient = getDistanceMatrix(['s_lat'  => $tripRequest['s_lat'],
                                        's_long' => $tripRequest['s_long'],
                                        'd_lat'  => $foundDriver->latitude,
