@@ -15,6 +15,16 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('next')
+                  ->nullable();
+            $table->foreign('next')
+                  ->references('id')->on('trips')
+                  ->onDelete('cascade');
+            $table->unsignedInteger('prev')
+                  ->nullable();
+            $table->foreign('prev')
+                  ->references('id')->on('trips')
+                  ->onDelete('cascade');
             $table->unsignedInteger('driver_id')
                   ->nullable();
             $table->foreign('driver_id')
