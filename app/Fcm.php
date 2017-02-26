@@ -41,8 +41,10 @@ class Fcm extends Model
      * @param  string $value
      * @return string
      */
-    public function getIdAttribute($value)
+    public function getDateAttribute($value)
     {
-        return Carbon::createFromTimestamp($value->getTimestamp())->diffForHumans();
+        $id = new \MongoDB\BSON\ObjectID($this->id);
+        $timestamp = hexdec(substr($id, 0, 8));
+        return Carbon::createFromTimestamp($timestamp)->diffForHumans();
     }
 }

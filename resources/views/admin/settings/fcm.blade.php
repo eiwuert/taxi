@@ -48,7 +48,7 @@
                     <td>{{ $log['title'] }}</td>
                     <td>{{ $log['message'] }}</td>
                     {{-- Extracting time from _id --}}
-                    <td>{{ $log['_id'] }}</td>
+                    <td>{{ $log->date }}</td>
                 </tr>
                 @endforeach
             </tbody>
