@@ -853,7 +853,10 @@ class TripRepository
                 $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
             }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
-            $driverLocation = $trip->driverLocation()->first(['latitude', 'longitude', 'name']);
+            // $driverLocation = $trip->driverLocation()->orderBy('id', 'acs')->first(['latitude', 'longitude', 'name']);
+            $driverLocation = Location::whereUserId($trip->driver()->first()->user_id)
+                                        ->orderBy('id', 'desc')
+                                        ->first(['latitude', 'longitude', 'name']);
             unset($driver->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
             return [
