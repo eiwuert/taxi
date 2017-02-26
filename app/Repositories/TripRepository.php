@@ -521,6 +521,7 @@ class TripRepository
                         $trip->updateStatusTo('cancel_onway_driver');
                     }
                     $driver->updateDriverAvailability(true);
+                    dispatch(new SendClientNotification('arrived_driver_cancelled_trip', '4', Client::whereId($trip->client_id)->first()->device_token));
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     return ok([
                             'title'  => 'Trip cancelled.',
@@ -544,6 +545,7 @@ class TripRepository
                         $trip->updateStatusTo('reject_client_found');
                     }
                     $driver->updateDriverAvailability(true);
+                    dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     // Request new taxi
                     if (is_null($trip->next)) {
