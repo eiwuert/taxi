@@ -17,7 +17,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\LogAfterRequest::class,
+        //\App\Http\Middleware\LogAfterRequest::class,
     ];
 
     /**
@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
             'throttle:500,1',
             'bindings',
             'post.size',
-            'log.req',
+            //'log.req',
         ],
     ];
 
