@@ -96,14 +96,12 @@ class TripRepository
         $foundDriver = nearby($tripRequest['s_lat'], $tripRequest['s_long'], $tripRequest['type'], 10, 1, $exclude)['result'];
         if (!empty($foundDriver)) {
             $foundDriver = $foundDriver[0];
-            Log::info($foundDriver);
             $driverToClient = getDistanceMatrix(['s_lat'  => $tripRequest['s_lat'],
                                        's_long' => $tripRequest['s_long'],
                                        'd_lat'  => $foundDriver->latitude,
                                        'd_long' => $foundDriver->longitude]);
 
             $driver = User::find($foundDriver->user_id)->driver()->first();
-            Log::info($driver);
             $driverDeviceToken = $driver->device_token;
             $car = User::find($foundDriver->user_id)->car()->first();
             $carType = $car->type()->first();
@@ -837,7 +835,6 @@ class TripRepository
             }
 
             $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
-            Log::info($driver);
             $driver->phone = $driver->user->phone;
             $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
             $carType = $car->type()->first(['name']);

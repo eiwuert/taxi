@@ -113,6 +113,8 @@ if (! function_exists('nearby')) {
      */
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5, $exclude = 0)
     {
+        // TODO: remove this stupid number. :)
+        $distance = 100;
         if ($type == 'any') {
             $type = "SELECT id FROM car_types";
         } else {
