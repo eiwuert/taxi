@@ -9,3 +9,4 @@ Homestead.yaml
 composer.phar
 # Ignore redis binary dump (dump.rdb) files
 *.rdb
+.php_cs.cache
