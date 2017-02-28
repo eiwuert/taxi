@@ -1119,6 +1119,8 @@ class TripRepository
      */
     public static function createMultiRouteTrip($route, $exclude = 0, $userId = null)
     {
+        $distanceSum = 0;
+        $durationSum = 0;
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
         }
@@ -1183,6 +1185,9 @@ class TripRepository
                         'created_at'      => Carbon::now(),
                         'updated_at'      => Carbon::now(),
                     ]);
+
+            $distanceSum += (int) $matrix['distance']['value'];
+            $durationSum += (int) $matrix['duration']['value'];
         }
 
         // Fill next and prev ids
