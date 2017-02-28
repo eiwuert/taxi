@@ -275,7 +275,7 @@ class TripRepository
             $status[$c->status_id] = $c->total;
         }
 
-        foreach (range(1, 18) as $i) {
+        foreach (range(1, 27) as $i) {
             if (array_key_exists($i, $status)) {
                 continue;
             } else {
@@ -733,8 +733,11 @@ class TripRepository
             $tripToStart = $trip;
             while($tripToStart->status_id != 24) {
                 $tripToStart = Trip::find($tripToStart->next);
-                if (is_null($tripToStart->next)) {
+                if ($tripToStart->status_id == 22) {
                     return false;
+                }
+                if (is_null($tripToStart->next)) {
+                    break;
                 }
             }
             $tripToStart->updateStatusTo('next_trip_start');
@@ -776,6 +779,7 @@ class TripRepository
         if (is_null($trip)) {
             return false;
         }
+
         // Single trip ended
         if ($trip->status_id == 6) {
             if (is_null($trip->next)) {
@@ -792,21 +796,23 @@ class TripRepository
         } 
         // Multi route trip ended
         else if ($trip->status_id == 20) {
-            $tripToEnd = $trip;
+            $mainTrip = $tripToEnd = $trip;
             while($tripToEnd->status_id != 22) {
                 $tripToEnd = Trip::find($tripToEnd->next);
-                if (is_null($tripToEnd->next)) {
+                if ($tripToEnd->status_id == 23) {
+                    // Time to ignore.
                     return false;
+                }
+                if (is_null($tripToEnd->next)) {
+                    // Time to break.
+                    break;
                 }
             }
             if (is_null($tripToEnd->next)) {
                 $tripToEnd->updateStatusTo('next_trip_end');
-                while(!is_null($tripToEnd->prev)) {
-                    $tripToEnd = Trip::find($tripToEnd->prev);
-                }
-                $tripToEnd->updateStatusTo('trip_ended');
-                dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($tripToEnd->client_id)->first()->device_token));
-                event(new TripEnded($tripToEnd));
+                $mainTrip->updateStatusTo('trip_ended');
+                dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($mainTrip->client_id)->first()->device_token));
+                event(new TripEnded($mainTrip));
                 return true;
             } else {
                 $tripToEnd->updateStatusTo('next_trip_end');
