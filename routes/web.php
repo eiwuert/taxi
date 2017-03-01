@@ -11,7 +11,12 @@
 |
 */
 Route::get('test', function() {
-    return \App\Trip::$pending;
+    $event = new \App\Events\UserRegistered($user = \App\User::find(1));
+    $json = [
+        'event' => 'App\\Events\\UserRegistered',
+        'data'  => $user
+    ];
+    \Redis::publish('mychan', json_encode($json));
 });
 require base_path('routes/admin/auth.php');
 Route::get('/', 'HomeController@index');

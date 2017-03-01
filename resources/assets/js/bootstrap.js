@@ -43,9 +43,7 @@ Vue.http.interceptors.push((request, next) => {
 
 import Echo from "laravel-echo"
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'e3cc7f358bddccc00249',
-    cluster: 'eu',
-    encrypted: true
+var echo = window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001'
 });
