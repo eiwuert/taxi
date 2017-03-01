@@ -867,7 +867,8 @@ class TripRepository
             // On multi trip the trip prev to the trip_to_happen is the current trip.
             if (!is_null($trip->next)) {
                 $tripTemp = $trip;
-                while (!is_null($tripTemp->next) && $tripTemp->next->status_id != 27) {
+                $nextTripStatus = Trip::find($tripTemp->next)->status_id;
+                while (!is_null($tripTemp->next) && $nextTripStatus != 27) {
                     $tripTemp = Trip::find($tripTemp->next);
                 }
                 $trip = $tripTemp;
@@ -910,8 +911,8 @@ class TripRepository
             // On multi trip the trip prev to the trip_to_happen is the current trip.
             if (!is_null($trip->next)) {
                 $tripTemp = $trip;
-                dd($tripTemp->next->get()->status_id);
-                while (!is_null($tripTemp->next) && $tripTemp->next->status_id != 27) {
+                $nextTripStatus = Trip::find($tripTemp->next)->status_id;
+                while (!is_null($tripTemp->next) && $nextTripStatus != 27) {
                     $tripTemp = Trip::find($tripTemp->next);
                 }
                 $trip = $tripTemp;
