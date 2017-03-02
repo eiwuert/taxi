@@ -24,7 +24,7 @@ class CarType extends Model
     /**
      * A type of a car can have many drivers.
      * 
-     * @return HasMany
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function drivers()
     {
@@ -34,7 +34,7 @@ class CarType extends Model
     /**
      * A car type can associate to one car.
      * 
-     * @return hasOne
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function car()
     {
@@ -44,7 +44,7 @@ class CarType extends Model
     /**
      * A car type can associate to many transaction.
      * 
-     * @return hasMany
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function transactions()
     {
