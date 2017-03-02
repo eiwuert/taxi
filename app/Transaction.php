@@ -14,7 +14,7 @@ class Transaction extends Model
      */
     protected $fillable = [
         'car_type_id',
-    	'entry',
+        'entry',
         'distance',
         'per_distance',
         'distance_unit',
@@ -31,7 +31,7 @@ class Transaction extends Model
 
     /**
      * A transaction can have one trip.
-     * 
+     *
      * @return hasOne
      */
     public function trip()
@@ -41,12 +41,22 @@ class Transaction extends Model
 
     /**
      * A transaction can have one car type.
-     * 
+     *
      * @return hasOne
      */
     public function type()
     {
         return $this->hasOne('App\CarType', 'id', 'car_type_id');
+    }
+
+    /**
+     * A transaction has many payments.
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany('App\Payment');
     }
 
     /**
