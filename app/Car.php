@@ -6,23 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-	protected $fillable = [
-		'number',
-		'color',
-		'user_id',
-		'type_id',
-	];
+    protected $fillable = [
+        'number',
+        'color',
+        'user_id',
+        'type_id',
+    ];
 
     public static $info = [
-        'number', 
-        'color', 
+        'number',
+        'color',
         'type_id',
     ];
 
     /**
      * A car can have one user(driver).
-     * 
-     * @return hasOne
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function driver()
     {
@@ -31,8 +31,8 @@ class Car extends Model
 
     /**
      * A car can have one car type.
-     * 
-     * @return hasOne
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function type()
     {
