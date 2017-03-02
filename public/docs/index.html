@@ -40,7 +40,14 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-          <h1>Register</h1>
+          <h1>Change log</h1>
+<aside class="notice">
+HEAD UP! new changes to API will be here as refrence.
+</aside>
+<ul>
+<li>Trip ID added to GET <code>client/trip</code> API.</li>
+</ul>
+<h1>Register</h1>
 <h2>Client</h2>
 <p>Initial step for client to register, using phone no. as the primary param
 for login and validation.</p>
@@ -2548,6 +2555,7 @@ $.ajax(settings).done(function (response) {
                 "phone": "+0983832063488"
             },
             "trip": {
+                "id": 269,
                 "eta_value": "909",
                 "eta_text": "15 mins",
                 "distance_value": "14910",
@@ -2618,6 +2626,7 @@ $.ajax(settings).done(function (response) {
                 "phone": "4"
             },
             "trip": {
+                "id": 269,
                 "next": 252,
                 "prev": null,
                 "eta_value": "44",
@@ -3912,6 +3921,75 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
+<h1>Payment</h1>
+<h2>IPG</h2>
+<p>Open IPG page to pay online. the page is in HTML and shall be open in the browser.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
+    "method": "POST",
+    "data": {
+        "MID": "21339760",
+        "resNum": "TRIP_ID",
+        "Amount": "int",
+        "redirectURL": "http://saamtaxi.net/payment/result",
+        "language": "fa",
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST https://fanava.shaparak.ir/_ipgw_//payment/simple/</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MID</td>
+<td>numeric</td>
+<td>required</td>
+<td><code>21339760</code></td>
+</tr>
+<tr>
+<td>resNum</td>
+<td>numeric</td>
+<td>required</td>
+<td>TRIP_ID fetched from <code>client/trip</code></td>
+</tr>
+<tr>
+<td>Amount</td>
+<td>numeric</td>
+<td>required</td>
+<td>min: <code>1000</code></td>
+</tr>
+<tr>
+<td>redirectURL</td>
+<td>text</td>
+<td>required</td>
+</tr>
+<tr>
+<td>language</td>
+<td>text</td>
+<td>required</td>
+<td><code>fa</code> or  <code>en</code></td>
+</tr>
+</tbody>
+</table>
 <h1>History</h1>
 <h2>driver</h2>
 <p>History of driver trips.</p>

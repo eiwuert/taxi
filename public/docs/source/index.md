@@ -15,6 +15,16 @@ toc_footers:
 
 ---
 
+# Change log
+
+<aside class="notice">
+HEAD UP! new changes to API will be here as refrence.
+</aside>
+
+* Trip ID added to GET `client/trip` API.
+
+
+
 #Register
 
 ## Client
@@ -2626,6 +2636,7 @@ $.ajax(settings).done(function (response) {
                 "phone": "+0983832063488"
             },
             "trip": {
+	            "id": 269,
                 "eta_value": "909",
                 "eta_text": "15 mins",
                 "distance_value": "14910",
@@ -2702,6 +2713,7 @@ $.ajax(settings).done(function (response) {
                 "phone": "4"
             },
             "trip": {
+                "id": 269,
                 "next": 252,
                 "prev": null,
                 "eta_value": "44",
@@ -4120,6 +4132,55 @@ comment | text |  optional  | max: `5000`
     ]
 }
 ```
+
+# Payment
+
+## IPG
+
+Open IPG page to pay online. the page is in HTML and shall be open in the browser.
+
+> Example request
+
+```bash
+curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
+    "method": "POST",
+    "data": {
+        "MID": "21339760",
+        "resNum": "TRIP_ID",
+        "Amount": "int",
+        "redirectURL": "http://saamtaxi.net/payment/result",
+        "language": "fa",
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST https://fanava.shaparak.ir/_ipgw_//payment/simple/`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+MID | numeric |  required  | `21339760`
+resNum | numeric |  required  | TRIP_ID fetched from `client/trip`
+Amount | numeric |  required  | min: `1000`
+redirectURL | text |  required  |
+language | text |  required  | `fa` or  `en`
+
+
 
 #History
 
