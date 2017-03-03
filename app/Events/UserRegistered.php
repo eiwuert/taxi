@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class UserRegistered implements ShouldBroadcast
 {
-    use InteractsWithSockets, SerializesModels;
+    use SerializesModels, InteractsWithSockets;
 
     public $user;
 

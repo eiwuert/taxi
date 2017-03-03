@@ -21,7 +21,12 @@ class RateController extends Controller
 	 */
     public function client(RateRequest $request)
     {
-        $user = Auth::user()->client()->first()->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')->first();
+        $user = User::wherePhone(Auth::user()->phone)
+                ->orderBy('id', 'desc')
+                ->first()->client()->first()
+                ->trips()->where('driver_id' ,'<>', null)
+                ->orderBy('id', 'desc')->first();
+
 		if (Gate::allows('client', $user)) {
 
 			$this->rateOfClient($request->stars, $request->comment);
@@ -90,18 +95,22 @@ class RateController extends Controller
     private function rateOfClient($stars, $comment)
     {
     	// Update rate
-		DB::table('rates')->where('trip_id', Auth::user()->client()->first()
-                                                 ->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')
-                                                 ->first()->id)
+		DB::table('rates')->where('trip_id', User::wherePhone(Auth::user()->phone)
+                                                ->orderBy('id', 'desc')
+                                                ->first()->client()->first()
+                                                ->trips()->where('driver_id' ,'<>', null)
+                                                ->orderBy('id', 'desc')->first()->id)
 			->update([
 					'client'  => $stars,
 					'client_comment' => $comment,
 				]);
 
 		// Update trip status
-		DB::table('trips')->where('id', Auth::user()->client()->first()
-                                                 ->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')
-                                                 ->first()->id)
+		DB::table('trips')->where('id', User::wherePhone(Auth::user()->phone)
+                                                ->orderBy('id', 'desc')
+                                                ->first()->client()->first()
+                                                ->trips()->where('driver_id' ,'<>', null)
+                                                ->orderBy('id', 'desc')->first()->id)
 			->update([
 					'status_id' => Status::where('name', 'client_rated')->first()->value,
 				]);

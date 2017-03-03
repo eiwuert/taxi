@@ -16,21 +16,6 @@ class BroadcastServiceProvider extends ServiceProvider
     {
         Broadcast::routes();
 
-        /*
-         * Authenticate the user's personal channel...
-         */
-        Broadcast::channel('trip.*', function ($user, $tripId) {
-            //if ((int) $user-> == Trip::find($tripId)->first()->id)
-            //return (int) $user->id === (int) $userId;
-            return true;
-        });
-
-
-        /*
-         * Authenticate the user's personal channel...
-         */
-        Broadcast::channel('App.User.{userId}', function ($user, $userId) {
-            return (int) $user->id === (int) $userId;
-        });
+        require base_path('routes/channels.php');
     }
 }

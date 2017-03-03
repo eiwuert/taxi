@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     protected $fillable = [
-    	'latitude',
-    	'longitude',
+        'latitude',
+        'longitude',
         'name',
     ];
 
     /**
      * A location can have one user.
-     * 
+     *
      * @return HasOne
      */
     public function user()
@@ -24,7 +24,7 @@ class Location extends Model
 
     /**
      * A location can be source location of many trips.
-     * 
+     *
      * @return hasMany
      */
     public function sources()
@@ -34,7 +34,7 @@ class Location extends Model
 
     /**
      * A location can be destination location of many trips.
-     * 
+     *
      * @return hasMany
      */
     public function destinations()

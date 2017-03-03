@@ -10,24 +10,22 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class RideAccepted
+class TripInitiated
 {
     use InteractsWithSockets, SerializesModels;
 
     public $trip;
-    public $type;
-    public $currency;
+    public $request;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Trip $trip, $type, $currency)
+    public function __construct(Trip $trip, $request)
     {
         $this->trip = $trip;
-        $this->type = $type;
-        $this->currency = $currency;
+        $this->request = $request;
     }
 
     /**
@@ -37,6 +35,10 @@ class RideAccepted
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('trip.' . $this->trip->id);
+        $channels = [];
+        foreach(User::whereRole('web')->get() as $admin) {
+            $channels[] = new PrivateChannel('App.User.' . $admin->id);
+        }
+        return $channels;
     }
 }

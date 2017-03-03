@@ -6,16 +6,16 @@ use DB;
 use Log;
 use Auth;
 use App\Car;
-use App\User;
 use App\Trip;
-use Validator;
-use App\Driver;
+use App\User;
 use App\Client;
+use App\Driver;
 use App\Status;
+use App\Payment;
 use App\Location;
 use Carbon\Carbon;
 use App\Events\TripEnded;
-use App\Events\RideAccepted;
+use App\Events\TripInitiated;
 use App\Http\Requests\TripRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
@@ -31,7 +31,7 @@ class TripRepository
      */
     public static function requestTaxi($tripRequest, $exclude = 0, $userId = null)
     {
-        if (isset($tripRequest['s_lng'])) {
+        /*        if (isset($tripRequest['s_lng'])) {
             $tripRequest['s_long'] = $tripRequest['s_lng'];
             $tripRequest['d_long'] = $tripRequest['d_lng'];
         }
@@ -44,7 +44,11 @@ class TripRepository
             $tripRequest['type'] = 'any';
         }
 
-        if (! is_null($userId)) {
+        if (!isset($tripRequest['payment'])) {
+            $tripRequest['payment'] = 'cash';
+        }*/
+
+/*        if (! is_null($userId)) {
             $client = User::wherePhone(User::find($userId)->phone)
                         ->orderBy('id', 'desc')
                         ->first()->client()->first();
@@ -53,26 +57,29 @@ class TripRepository
                         ->orderBy('id', 'desc')
                         ->first()->client()->first();
         }
+*/
 
-        $clientDeviceToken = $client->device_token;
+/*        $clientDeviceToken = $client->device_token;
         if ($pending = self::pendingRequestTaxi($userId)) {
             return $pending;
-        }
+        }*/
+        // Create::this($trip)->for('auth')->exclude($drivers)->now();
 
-        $matrix = getDistanceMatrix($tripRequest);
+/*        $matrix = getDistanceMatrix($tripRequest);
         $source = LocationRepository::set($tripRequest['s_lat'], $tripRequest['s_long'], $userId);
-        $destination = LocationRepository::set($tripRequest['d_lat'], $tripRequest['d_long'], $userId);
+        $destination = LocationRepository::set($tripRequest['d_lat'], $tripRequest['d_long'], $userId);*/
 
-        if (! @isset($matrix['duration']['text'])) {
+/*        if (! @isset($matrix['duration']['text'])) {
             return ok([
                     'title'  => 'Not valid trip',
                     'detail' => 'You cannot trip there!'
                 ]);
-        }
+        }*/
 
-        // 
+        return \App\Repositories\Trip\CreateRepository::this($tripRequest)->for('auth')->now();
+        //
         // REQUEST_TAXI
-        // 
+        //
         $trip = Trip::forceCreate([
                         'client_id'       => $client->id,
                         'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
@@ -116,9 +123,9 @@ class TripRepository
                 'phone' => User::find($foundDriver->user_id)->phone,
             ];
 
-            // 
+            //
             // CLIENT_FOUND
-            // 
+            //
             $trip->update([
                     'driver_id'              => $driver->id,
                     'status_id'              => Status::where('name', 'client_found')->firstOrFail()->value,
@@ -134,8 +141,29 @@ class TripRepository
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
-            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
-
+            event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+            if ($tripRequest['payment'] == 'cash') {
+                Payment::forceCreate([
+                    'trip_id' => $trip_id,
+                    'client_id' => $client->id,
+                    'paid' => true,
+                    'type' => 'cash',
+                    'ref'  => '0000',
+                ]);
+            } elseif ($tripRequest['payment'] == 'wallet') {
+                if ($client->balance > $trip->transaction->total) {
+                    $client->updateBalance((int)$trip->transaction->total * (-1));
+                } else {
+                    dispatch(new SendClientNotification('switched_to_cash', '12', $clientDeviceToken));
+                    Payment::forceCreate([
+                        'trip_id' => $trip_id,
+                        'client_id' => $client->id,
+                        'paid' => true,
+                        'type' => 'cash',
+                        'ref'  => '0000',
+                    ]);
+                }
+            }
             return ok([
                         'content'          => 'Trip request created successfully.',
                         'eta_text'         => $matrix['duration']['text'],
@@ -150,7 +178,7 @@ class TripRepository
         } else {
             //
             //  NO_DRIVER
-            //  
+            //
             $trip->update([
                     'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->value,
                     'updated_at'             => Carbon::now(),
@@ -200,7 +228,7 @@ class TripRepository
                     if (!is_null($pending->next)) {
                         $pending->updateStatusTo('trip_is_over_by_admin');
                         $tripToCancel = Trip::find($pending->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -242,8 +270,9 @@ class TripRepository
         }
         $toExclude = [];
         foreach ($exclude as $e) {
-            if (! is_null($e->driver_id))
+            if (! is_null($e->driver_id)) {
                 $toExclude[] = $e->driver_id;
+            }
         }
         //$toExclude = array_unique($toExclude);
         Log::info('To exclude: ', $toExclude);
@@ -275,7 +304,7 @@ class TripRepository
             $status[$c->status_id] = $c->total;
         }
 
-        foreach (range(1, 18) as $i) {
+        foreach (range(1, 27) as $i) {
             if (array_key_exists($i, $status)) {
                 continue;
             } else {
@@ -299,15 +328,15 @@ class TripRepository
 
         // Loop through days
         $add = 0;
-        while(Carbon::now()->month == $startOfMonth) {
+        while (Carbon::now()->month == $startOfMonth) {
             // When there is no filter.
             if (is_null($filter)) {
-                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), 
+                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++),
                                                            Carbon::now()->startOfMonth()->addDay($add)])
                             ->count();
             } else {
-            // When there is and active filter.
-                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++), 
+                // When there is and active filter.
+                $total = Trip::whereBetween('created_at', [Carbon::now()->startOfMonth()->addDay($add++),
                                                            Carbon::now()->startOfMonth()->addDay($add)])
                             ->whereStatusId(Status::whereName($filter)->first()->id)
                             ->count();
@@ -354,7 +383,7 @@ class TripRepository
                 case '1':
                     if (!is_null($trip->next)) {
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -372,7 +401,7 @@ class TripRepository
                     $trip->updateStatusTo('cancel_request_taxi');
                     if (!is_null($trip->next)) {
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -393,7 +422,7 @@ class TripRepository
                     $trip->updateStatusTo('cancel_request_taxi');
                     if (!is_null($trip->next)) {
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -414,7 +443,7 @@ class TripRepository
                     $trip->updateStatusTo('cancel_onway_driver');
                     if (!is_null($trip->next)) {
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -435,7 +464,7 @@ class TripRepository
                     $trip->updateStatusTo('client_canceled_arrived_driver');
                     if (!is_null($trip->next)) {
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -459,7 +488,7 @@ class TripRepository
                         ]);
                     break;
             }
-        } else if (Auth::user()->role == 'driver') {
+        } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip   = $driver->trips()->orderBy('id', 'desc')->first();
             if (! is_null($trip)) {
@@ -478,7 +507,7 @@ class TripRepository
                     if (!is_null($trip->next)) {
                         $trip->updateStatusTo('on_next_trip_canceled');
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -497,7 +526,7 @@ class TripRepository
                 //
                 // DRIVER_ONWAY
                 // TO arrive and ON TIRP
-                // @todo: these 2 status shall be separated and have their vary 
+                // @todo: these 2 status shall be separated and have their vary
                 // own cases.
                 //
                 case '7':
@@ -505,12 +534,12 @@ class TripRepository
                     if (!is_null($trip->next)) {
                         $trip->updateStatusTo('on_next_trip_canceled');
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             if ($tripToCancel->status_id == 27) {
                                 $tripToCancel->updateStatusTo('next_trip_halt');
                             }
                             if ($tripToCancel->status_id == 22 || $tripToCancel->status_id == 24) {
-                                $tripToCancel->updateStatusTo('next_trip_cancel');   
+                                $tripToCancel->updateStatusTo('next_trip_cancel');
                             }
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -536,7 +565,7 @@ class TripRepository
                     if (!is_null($trip->next)) {
                         $trip->updateStatusTo('on_next_trip_canceled');
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -549,20 +578,20 @@ class TripRepository
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', Client::whereId($trip->client_id)->first()->device_token));
                     // Request new taxi
                     if (is_null($trip->next)) {
-                            $tripRepository = new TripRepository();
-                            $tripRequest = [
+                        $tripRepository = new TripRepository();
+                        $tripRequest = [
                                 's_lat'  => $trip->source()->first()->latitude,
                                 's_long' => $trip->source()->first()->longitude,
                                 'd_lat'  => $trip->destination()->first()->latitude,
                                 'd_long' => $trip->destination()->first()->longitude,
                             ];
-                            $exclude = $tripRepository->excludeDriver($trip->client_id);
-                            if ($exclude['count'] < 10) {
-                                $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
-                            } else {
-                                $trip->updateStatusTo('no_driver');
-                                dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
-                            }
+                        $exclude = $tripRepository->excludeDriver($trip->client_id);
+                        if ($exclude['count'] < 10) {
+                            Create::this($tripRequest)->for(Client::find($trip->client_id)->user->id)->exclude($exclude['result'])->now();
+                        } else {
+                            $trip->updateStatusTo('no_driver');
+                            dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
+                        }
                     } else {
                         $prevTrip = Trip::find($trip->id);
                         $locations = [];
@@ -604,7 +633,7 @@ class TripRepository
                     if (!is_null($trip->next)) {
                         $trip->updateStatusTo('on_next_trip_canceled');
                         $tripToCancel = Trip::find($trip->next);
-                        while(!is_null($tripToCancel->next)) {
+                        while (!is_null($tripToCancel->next)) {
                             $tripToCancel->updateStatusTo('next_trip_halt');
                             $tripToCancel = Trip::find($tripToCancel->next);
                         }
@@ -649,7 +678,7 @@ class TripRepository
         }
         $trip = Trip::find($trip);
         $trip->updateStatusTo('trip_is_over_by_admin');
-        if(! is_null($trip->driver)) {
+        if (! is_null($trip->driver)) {
             $trip->driver->updateDriverAvailability(true);
             dispatch(new SendDriverNotification('trip_is_over_by_admin', '5', $trip->driver->device_token));
         }
@@ -670,15 +699,15 @@ class TripRepository
         }
         $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
         $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
-        $distanceMatrix = getDistanceMatrix($tripRequest); // 'distance', 'duration'
+        $distanceMatrix = getDistanceMatrix((array)$tripRequest); // 'distance', 'duration'
         if (!isset($distanceMatrix['distance'])) {
             return fail([
                     'title'  => 'Failed',
                     'detail' => 'Failed to interact with Google Maps'
                 ]);
         }
-        $transactions = (new TransactionRepository())->calculate($tripRequest->s_lat, $tripRequest->s_long, 
-                                             $distanceMatrix['distance']['value'], 
+        $transactions = (new TransactionRepository())->calculate($tripRequest->s_lat, $tripRequest->s_long,
+                                             $distanceMatrix['distance']['value'],
                                              $distanceMatrix['duration']['value'], 'USD');
         return ok([
                 'source'       => $source,
@@ -718,7 +747,7 @@ class TripRepository
     {
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->whereIn('status_id', ['12', '20'])->orderBy('id', 'desc')->first();
-        if (is_null ($trip)) {
+        if (is_null($trip)) {
             return false;
         }
 
@@ -729,12 +758,15 @@ class TripRepository
             $trip->updateStatusTo('trip_started');
             dispatch(new SendClientNotification('trip_started', '6', Client::whereId($trip->client_id)->first()->device_token));
             return true;
-        } else if ($trip->status_id == 20) {
+        } elseif ($trip->status_id == 20) {
             $tripToStart = $trip;
-            while($tripToStart->status_id != 24) {
+            while ($tripToStart->status_id != 24) {
                 $tripToStart = Trip::find($tripToStart->next);
-                if (is_null($tripToStart->next)) {
+                if ($tripToStart->status_id == 22) {
                     return false;
+                }
+                if (is_null($tripToStart->next)) {
+                    break;
                 }
             }
             $tripToStart->updateStatusTo('next_trip_start');
@@ -759,7 +791,7 @@ class TripRepository
         if ($trip->status_id == 7) {
             $trip->updateStatusTo('driver_arrived');
             dispatch(new SendClientNotification('driver_arrived', '8', Client::whereId($trip->client_id)->first()->device_token));
-            return true; 
+            return true;
         } else {
             return false;
         }
@@ -776,6 +808,15 @@ class TripRepository
         if (is_null($trip)) {
             return false;
         }
+
+        // If trip has been paid it can be end.
+        if (! $trip->payments()->paid()->exists()) {
+            return fail([
+                'title'  => 'trip is not paid',
+                'detail' => 'Please ask the client to pay for the trip.'
+            ]);
+        }
+
         // Single trip ended
         if ($trip->status_id == 6) {
             if (is_null($trip->next)) {
@@ -789,24 +830,26 @@ class TripRepository
                 dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($trip->client_id)->first()->device_token));
                 return true;
             }
-        } 
+        }
         // Multi route trip ended
-        else if ($trip->status_id == 20) {
-            $tripToEnd = $trip;
-            while($tripToEnd->status_id != 22) {
+        elseif ($trip->status_id == 20) {
+            $mainTrip = $tripToEnd = $trip;
+            while ($tripToEnd->status_id != 22) {
                 $tripToEnd = Trip::find($tripToEnd->next);
-                if (is_null($tripToEnd->next)) {
+                if ($tripToEnd->status_id == 23) {
+                    // Time to ignore.
                     return false;
+                }
+                if (is_null($tripToEnd->next)) {
+                    // Time to break.
+                    break;
                 }
             }
             if (is_null($tripToEnd->next)) {
                 $tripToEnd->updateStatusTo('next_trip_end');
-                while(!is_null($tripToEnd->prev)) {
-                    $tripToEnd = Trip::find($tripToEnd->prev);
-                }
-                $tripToEnd->updateStatusTo('trip_ended');
-                dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($tripToEnd->client_id)->first()->device_token));
-                event(new TripEnded($tripToEnd));
+                $mainTrip->updateStatusTo('trip_ended');
+                dispatch(new SendClientNotification('trip_ended', '7', Client::whereId($mainTrip->client_id)->first()->device_token));
+                event(new TripEnded($mainTrip));
                 return true;
             } else {
                 $tripToEnd->updateStatusTo('next_trip_end');
@@ -835,6 +878,9 @@ class TripRepository
             }
 
             $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+            if (is_null($driver)) {
+                return false;
+            }
             $driver->phone = $driver->user->phone;
             $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
             $carType = $car->type()->first(['name']);
@@ -843,7 +889,7 @@ class TripRepository
             if (!is_null($trip->next)) {
                 $tripTemp = $trip;
                 $listOfDestinations = [];
-                while(!is_null($tripTemp->next)) {
+                while (!is_null($tripTemp->next)) {
                     $listOfDestinations[] = $trip->destination()->first(['latitude', 'longitude', 'name']);
                     $tripTemp = Trip::find($tripTemp->next);
                 }
@@ -857,9 +903,25 @@ class TripRepository
             $driverLocation = Location::whereUserId($trip->driver()->first()->user_id)
                                         ->orderBy('id', 'desc')
                                         ->first(['latitude', 'longitude', 'name']);
-            unset($driver->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
+            // On multi trip the trip prev to the trip_to_happen is the current trip.
+            if (!is_null($trip->next)) {
+                $tripTemp = $trip;
+                $nextTripStatus = Trip::find($tripTemp->next)->status_id;
+                while (!is_null($tripTemp->next) && $nextTripStatus != 27) {
+                    $tripTemp = Trip::find($tripTemp->next);
+                }
+                $trip = $tripTemp;
+            }
+            unset($driver->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
+
+            if (is_null($trip->payments()->first())) {
+                return false;
+            }
+
             return [
+                    'paid' => $trip->payments()->paid()->exists(),
+                    'payment' => $trip->payments()->first()->type,
                     'driver' => $driver,
                     'trip'   => $trip,
                     'status' => $status,
@@ -868,10 +930,13 @@ class TripRepository
                     'source' => $source,
                     'destination' => $destination,
                     'driver_location' => $driverLocation,
+                    'total' => $trip->transaction()->first()->total,
                 ];
-        } else if(Auth::user()->role == 'driver') {
+        } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            $paid = $trip->payments()->paid()->exists();
+            $total = $trip->transaction()->first()->total;
             if (self::notOnTrip($trip)) {
                 return false;
             }
@@ -882,7 +947,7 @@ class TripRepository
             if (!is_null($trip->next)) {
                 $tripTemp = $trip;
                 $listOfDestinations = [];
-                while(!is_null($tripTemp->next)) {
+                while (!is_null($tripTemp->next)) {
                     $listOfDestinations[] = $trip->destination()->first(['latitude', 'longitude', 'name']);
                     $tripTemp = Trip::find($tripTemp->next);
                 }
@@ -892,14 +957,25 @@ class TripRepository
                 $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
             }
             $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
+            // On multi trip the trip prev to the trip_to_happen is the current trip.
+            if (!is_null($trip->next)) {
+                $tripTemp = $trip;
+                $nextTripStatus = Trip::find($tripTemp->next)->status_id;
+                while (!is_null($tripTemp->next) && $nextTripStatus != 27) {
+                    $tripTemp = Trip::find($tripTemp->next);
+                }
+                $trip = $tripTemp;
+            }
             unset($client->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return [
+                    'paid' => $paid,
                     'client' => $client,
                     'trip'   => $trip,
                     'status' => $status,
                     'source' => $source,
                     'destination' => $destination,
+                    'total' => $total,
                 ];
         }
     }
@@ -935,7 +1011,7 @@ class TripRepository
             $trip->status_id == 13 ||
             $trip->status_id == 14 ||
             $trip->status_id == 17 ||
-            $trip->status_id == 3  ) {
+            $trip->status_id == 3) {
             return true;
         } else {
             return false;
@@ -962,14 +1038,14 @@ class TripRepository
             $request->distance = 1;
         }
 
-         if (is_null($request->type)) {
+        if (is_null($request->type)) {
             $request->type = 'any';
         }
 
-        return nearby($request->lat, 
+        return nearby($request->lat,
                                 $request->long,
-                                $request->type,   
-                                $request->distance, 
+                                $request->type,
+                                $request->distance,
                                 $request->limit)['result'];
     }
 
@@ -1037,7 +1113,7 @@ class TripRepository
                 continue;
             }
 
-            if(TripRepository::isDlatAndDlong($r)) {
+            if (TripRepository::isDlatAndDlong($r)) {
                 return false;
             }
         }
@@ -1119,6 +1195,8 @@ class TripRepository
      */
     public static function createMultiRouteTrip($route, $exclude = 0, $userId = null)
     {
+        $distanceSum = 0;
+        $durationSum = 0;
         if (!isset($tripRequest['currency'])) {
             $tripRequest['currency'] = 'USD';
         }
@@ -1144,7 +1222,7 @@ class TripRepository
         }
 
         $trips = [];
-        foreach($route as $index => $r) {
+        foreach ($route as $index => $r) {
             // Last element should skip, because there can not be sequence.
             if ($index + 1 == count($route)) {
                 break;
@@ -1168,9 +1246,9 @@ class TripRepository
             } else {
                 $statusId = Status::where('name', 'request_taxi')->firstOrFail()->value;
             }
-            // 
+            //
             // REQUEST_TAXI
-            // 
+            //
             $trips[] = Trip::forceCreate([
                         'client_id'       => $client->id,
                         'status_id'       => $statusId,
@@ -1183,17 +1261,20 @@ class TripRepository
                         'created_at'      => Carbon::now(),
                         'updated_at'      => Carbon::now(),
                     ]);
+
+            $distanceSum += (int) $matrix['distance']['value'];
+            $durationSum += (int) $matrix['duration']['value'];
         }
 
         // Fill next and prev ids
-        foreach($trips as $index => $trip) {
+        foreach ($trips as $index => $trip) {
             // For first element, next prop shall be set
             if ($index == 0) {
                 $trip->forceFill(['next' => $trips[$index+1]->id])->save();
                 continue;
             }
             // For last element, prev prop shall be set
-            if($index + 1 == count($trips)) {
+            if ($index + 1 == count($trips)) {
                 $trip->forceFill(['prev' => $trips[$index-1]->id])->save();
                 continue;
             }
@@ -1242,9 +1323,9 @@ class TripRepository
                 'phone' => User::find($foundDriver->user_id)->phone,
             ];
 
-            // 
+            //
             // CLIENT_FOUND
-            // 
+            //
             $trip->update([
                     'driver_id'              => $driver->id,
                     'status_id'              => Status::where('name', 'client_found')->firstOrFail()->value,
@@ -1260,7 +1341,7 @@ class TripRepository
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
-            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+            event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
 
             return ok([
                         'content'          => 'Trip request created successfully.',
@@ -1276,14 +1357,14 @@ class TripRepository
         } else {
             //
             //  NO_DRIVER
-            //  
+            //
             $trip->update([
                     'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->value,
                     'updated_at'             => Carbon::now(),
                 ]);
 
             // Halt other connected trips
-            foreach($trips as $index => $t) {
+            foreach ($trips as $index => $t) {
                 // First trip that is the main trip will change its status to
                 // NO_DRIVER other trips to the NEXT_TRIP_HALT
                 if ($index == 0) {

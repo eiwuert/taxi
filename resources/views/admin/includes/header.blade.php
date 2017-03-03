@@ -1,5 +1,5 @@
 <body class="hold-transition skin-blue sidebar-mini {{ $body or '' }}">
-<div class="wrapper">
+<div class="wrapper" id="admin">
 
   <!-- Main Header -->
   <header class="main-header">
@@ -24,30 +24,19 @@
           <!-- Notifications Menu -->
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">{{ (Auth::user()->unreadNotifications->count() > 99) ? '99+' : Auth::user()->unreadNotifications->count() }}</span>
-            </a>
+            <notification-menu user-id="{{ Auth::user()->id }}" count="{{ Auth::user()->unreadNotifications->count() }}"></notification-menu>
             <ul class="dropdown-menu">
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
-                  @if (Auth::user()->countOfRegisteredClients() > 0)
-                  <li><!-- start notification -->
-                    <a href="{{ route('clients.filter') }}?ids={!! Auth::user()->newClientIds() !!}&markAsRead=&#10003;">
-                      {!! Auth::user()->newClientsNotificationText() !!}
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                  @endif
-                  @if (Auth::user()->countOfRegisteredDrivers())
-                  <li><!-- start notification -->
-                    <a href="{{ route('drivers.filter') }}?ids={!! Auth::user()->newDriverIds() !!}&markAsRead=&#10003;">
-                      {!! Auth::user()->newDriversNotificationText() !!}
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                  @endif
+                  <notification-client-count user-id="{{ Auth::user()->id }}" 
+                    count="{{ Auth::user()->countOfRegisteredClients() }}" 
+                    href="{{ route('clients.filter') }}?ids={!! Auth::user()->newClientIds() !!}&markAsRead=&#10003;">
+                  </notification-client-count>
+                  <notification-driver-count user-id="{{ Auth::user()->id }}" 
+                    count="{{ Auth::user()->countOfRegisteredDrivers() }}" 
+                    href="{{ route('drivers.filter') }}?ids={!! Auth::user()->newDriverIds() !!}&markAsRead=&#10003;">
+                  </notification-driver-count>
                 </ul>
               </li>
             </ul>

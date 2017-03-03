@@ -17,8 +17,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendSMSVerification',
             'App\Listeners\NotifyAdmins',
         ],
-        'App\Events\RideAccepted' => [
+        'App\Events\TripInitiated' => [
             'App\Listeners\IssueInvoice',
+            'App\Listeners\CheckBalance',
         ],
         'App\Events\TripEnded' => [
             'App\Listeners\RateTrip',

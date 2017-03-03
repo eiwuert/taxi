@@ -13,6 +13,7 @@ use Illuminate\Console\Command;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\TripRepository;
+use App\Repositories\Trip\CreateRepository as Create;
 
 class driverNoResponse extends Command
 {
@@ -50,34 +51,45 @@ class driverNoResponse extends Command
      */
     public function handle()
     {
-        $trips = Trip::where('driver_id', '<>', null)
+        $single = Trip::where('driver_id', '<>', null)
                     ->where('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
-                    ->passed()
-                    ->get();
+                    ->where('next', null)
+                    ->passed();
 
-        foreach($trips as $trip) {
-            DB::table('trips')->where('id', $trip->id)
-                      ->update([
+        // Multi route trips has more time. due to the time it takes to create trips.
+        $multi = Trip::where('driver_id', '<>', null)
+                    ->where('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
+                    ->where('next', '<>', null)
+                    ->passed(65);
+
+        // Union of single route trips and multi routes
+        $trips = $single->union($multi)->get();
+
+        foreach ($trips as $trip) {
+            $driverId = $trip->driver_id;
+            Log::info($driverId);
+            $trip->forceFill([
                             'status_id'              => Status::where('name', 'no_response')->firstOrFail()->value,
                             'updated_at'             => Carbon::now(),
-                        ]);
-            $trip = Trip::find($trip->id);
-            while(! is_null($trip->next)) {
-                Trip::find($trip->next)->update([
+                        ])->save();
+            Log::info($driverId);
+
+            while (! is_null($trip->next)) {
+                Trip::find($trip->next)->forceFill([
                     'status_id' => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
                     'updated_at'             => Carbon::now(),
-                ]);
+                ])->save();
                 $trip = Trip::find($trip->next);
             }
+            Log::info($driverId);
 
-            dispatch(new SendDriverNotification('no_reponse_going_offline', '4', Driver::where('id', $trip->driver_id)->firstOrFail()->device_token));
+            dispatch(new SendDriverNotification('no_reponse_going_offline', '4', Driver::where('id', $driverId)->firstOrFail()->device_token));
+            Log::info($driverId);
 
-            DB::table('drivers')
-              ->where('id', $trip->driver_id)
-              ->update([
-                    'online'     => false,
-                    'available'  => false,
-                ]);
+            Driver::find($driverId)->forceFill([
+                        'online'     => false,
+                        'available'  => true,
+                    ])->save();
 
             Log::alert(($trip->next));
             // Request new taxi
@@ -91,7 +103,8 @@ class driverNoResponse extends Command
                 ];
                 $exclude = TripRepository::excludeDriver($prevTrip->client_id);
                 if ($exclude['count'] < 10) {
-                    TripRepository::requestTaxi($tripRequest, $exclude['result'], Client::find($prevTrip->client_id)->user->id);
+                    Create::this($tripRequest)->for(Client::find($prevTrip->client_id)->user->id)
+                        ->exclude($exclude['result'])->now();
                 } else {
                     dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
                 }
