@@ -14,6 +14,9 @@ Body | Header
 7 | `trip_ended`
 8 | `driver_arrived`
 9 | `trip_is_over_by_admin`
+10| `balance_updated`
+11| `balance_failed_to_update`
+
 
 ### Driver
 
@@ -25,3 +28,4 @@ Body | Header
 3 | `client_canceled_arrived_driver`
 4 | `no_reponse_going_offline`
 5 | `trip_is_over_by_admin`
+6 | `balance_updated`

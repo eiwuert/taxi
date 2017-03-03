@@ -6,16 +6,16 @@ use DB;
 use Log;
 use Auth;
 use App\Car;
-use App\User;
 use App\Trip;
-use Validator;
-use App\Driver;
+use App\User;
 use App\Client;
+use App\Driver;
 use App\Status;
+use App\Payment;
 use App\Location;
 use Carbon\Carbon;
 use App\Events\TripEnded;
-use App\Events\RideAccepted;
+use App\Events\TripInitiated;
 use App\Http\Requests\TripRequest;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
@@ -31,7 +31,7 @@ class TripRepository
      */
     public static function requestTaxi($tripRequest, $exclude = 0, $userId = null)
     {
-        if (isset($tripRequest['s_lng'])) {
+        /*        if (isset($tripRequest['s_lng'])) {
             $tripRequest['s_long'] = $tripRequest['s_lng'];
             $tripRequest['d_long'] = $tripRequest['d_lng'];
         }
@@ -44,7 +44,11 @@ class TripRepository
             $tripRequest['type'] = 'any';
         }
 
-        if (! is_null($userId)) {
+        if (!isset($tripRequest['payment'])) {
+            $tripRequest['payment'] = 'cash';
+        }*/
+
+/*        if (! is_null($userId)) {
             $client = User::wherePhone(User::find($userId)->phone)
                         ->orderBy('id', 'desc')
                         ->first()->client()->first();
@@ -53,23 +57,26 @@ class TripRepository
                         ->orderBy('id', 'desc')
                         ->first()->client()->first();
         }
+*/
 
-        $clientDeviceToken = $client->device_token;
+/*        $clientDeviceToken = $client->device_token;
         if ($pending = self::pendingRequestTaxi($userId)) {
             return $pending;
-        }
+        }*/
+        // Create::this($trip)->for('auth')->exclude($drivers)->now();
 
-        $matrix = getDistanceMatrix($tripRequest);
+/*        $matrix = getDistanceMatrix($tripRequest);
         $source = LocationRepository::set($tripRequest['s_lat'], $tripRequest['s_long'], $userId);
-        $destination = LocationRepository::set($tripRequest['d_lat'], $tripRequest['d_long'], $userId);
+        $destination = LocationRepository::set($tripRequest['d_lat'], $tripRequest['d_long'], $userId);*/
 
-        if (! @isset($matrix['duration']['text'])) {
+/*        if (! @isset($matrix['duration']['text'])) {
             return ok([
                     'title'  => 'Not valid trip',
                     'detail' => 'You cannot trip there!'
                 ]);
-        }
+        }*/
 
+        return \App\Repositories\Trip\CreateRepository::this($tripRequest)->for('auth')->now();
         //
         // REQUEST_TAXI
         //
@@ -134,8 +141,29 @@ class TripRepository
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
-            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
-
+            event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+            if ($tripRequest['payment'] == 'cash') {
+                Payment::forceCreate([
+                    'trip_id' => $trip_id,
+                    'client_id' => $client->id,
+                    'paid' => true,
+                    'type' => 'cash',
+                    'ref'  => '0000',
+                ]);
+            } elseif ($tripRequest['payment'] == 'wallet') {
+                if ($client->balance > $trip->transaction->total) {
+                    $client->updateBalance((int)$trip->transaction->total * (-1));
+                } else {
+                    dispatch(new SendClientNotification('switched_to_cash', '12', $clientDeviceToken));
+                    Payment::forceCreate([
+                        'trip_id' => $trip_id,
+                        'client_id' => $client->id,
+                        'paid' => true,
+                        'type' => 'cash',
+                        'ref'  => '0000',
+                    ]);
+                }
+            }
             return ok([
                         'content'          => 'Trip request created successfully.',
                         'eta_text'         => $matrix['duration']['text'],
@@ -559,7 +587,7 @@ class TripRepository
                             ];
                         $exclude = $tripRepository->excludeDriver($trip->client_id);
                         if ($exclude['count'] < 10) {
-                            $tripRepository->requestTaxi($tripRequest, $exclude['result'], Client::find($trip->client_id)->user->id);
+                            Create::this($tripRequest)->for(Client::find($trip->client_id)->user->id)->exclude($exclude['result'])->now();
                         } else {
                             $trip->updateStatusTo('no_driver');
                             dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $trip->client_id)->firstOrFail()->device_token));
@@ -671,7 +699,7 @@ class TripRepository
         }
         $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
         $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
-        $distanceMatrix = getDistanceMatrix($tripRequest); // 'distance', 'duration'
+        $distanceMatrix = getDistanceMatrix((array)$tripRequest); // 'distance', 'duration'
         if (!isset($distanceMatrix['distance'])) {
             return fail([
                     'title'  => 'Failed',
@@ -781,6 +809,14 @@ class TripRepository
             return false;
         }
 
+        // If trip has been paid it can be end.
+        if (! $trip->payments()->paid()->exists()) {
+            return fail([
+                'title'  => 'trip is not paid',
+                'detail' => 'Please ask the client to pay for the trip.'
+            ]);
+        }
+
         // Single trip ended
         if ($trip->status_id == 6) {
             if (is_null($trip->next)) {
@@ -842,6 +878,9 @@ class TripRepository
             }
 
             $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+            if (is_null($driver)) {
+                return false;
+            }
             $driver->phone = $driver->user->phone;
             $car = Car::whereUserId($driver->user_id)->first(['number', 'color', 'type_id']);
             $carType = $car->type()->first(['name']);
@@ -875,7 +914,14 @@ class TripRepository
             }
             unset($driver->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
+
+            if (is_null($trip->payments()->first())) {
+                return false;
+            }
+
             return [
+                    'paid' => $trip->payments()->paid()->exists(),
+                    'payment' => $trip->payments()->first()->type,
                     'driver' => $driver,
                     'trip'   => $trip,
                     'status' => $status,
@@ -884,10 +930,13 @@ class TripRepository
                     'source' => $source,
                     'destination' => $destination,
                     'driver_location' => $driverLocation,
+                    'total' => $trip->transaction()->first()->total,
                 ];
         } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip = $driver->trips()->orderBy('id', 'desc')->first();
+            $paid = $trip->payments()->paid()->exists();
+            $total = $trip->transaction()->first()->total;
             if (self::notOnTrip($trip)) {
                 return false;
             }
@@ -920,11 +969,13 @@ class TripRepository
             unset($client->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return [
+                    'paid' => $paid,
                     'client' => $client,
                     'trip'   => $trip,
                     'status' => $status,
                     'source' => $source,
                     'destination' => $destination,
+                    'total' => $total,
                 ];
         }
     }
@@ -1290,7 +1341,7 @@ class TripRepository
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
-            event(new RideAccepted(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+            event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
 
             return ok([
                         'content'          => 'Trip request created successfully.',

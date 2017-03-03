@@ -14,7 +14,7 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 
+        'first_name',
         'last_name',
         'email',
         'gender',
@@ -29,7 +29,7 @@ class Client extends Model
     ];
 
     public static $sortable = [
-        'first_name' => 'First name', 
+        'first_name' => 'First name',
         'last_name' => 'Last name',
         'email' => 'Email',
         'gender' => 'Gender',
@@ -53,7 +53,7 @@ class Client extends Model
 
     /**
      * A client can have one user.
-     * 
+     *
      * @return hasOne
      */
     public function user()
@@ -63,7 +63,7 @@ class Client extends Model
 
     /**
      * A client can have many trips.
-     * 
+     *
      * @return hasMany
      */
     public function trips()
@@ -73,7 +73,7 @@ class Client extends Model
 
     /**
      * Save user profile picture.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
@@ -88,7 +88,7 @@ class Client extends Model
 
     /**
      * Get full path to profile picture url.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
@@ -159,7 +159,7 @@ class Client extends Model
 
     /**
      * Inverse trips
-     * 
+     *
      * @return hasMany
      */
     public function inverseTrips()
@@ -230,5 +230,18 @@ class Client extends Model
         } else {
             return $this->picture;
         }
+    }
+
+    /**
+     * Update client balance.
+     *
+     * @param  integer $addition
+     * @return void
+     */
+    public function updateBalance($addition)
+    {
+        $this->forceFill([
+            'balance' => $this->balance + $addition
+        ])->save();
     }
 }

@@ -45,12 +45,36 @@ class Payment extends Model
     }
 
     /**
-     * A payment has a transaction.
+     * Scope a query to only include paid payments.
      *
-     * @return Illuminate\Database\Eloquent\Concerns\belongsTo
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function transaction()
+    public function scopePaid($query)
     {
-        return $this->belongsTo('App\Transaction');
+        return $query->wherePaid(true);
+    }
+
+    /**
+     * Scope a query to only include not paid payments.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotPaid($query)
+    {
+        return $query->wherePaid(false);
+    }
+
+    /**
+     * Update payment paid flag to true.
+     *
+     * @return void
+     */
+    public function paid()
+    {
+        $this->forceFill([
+            'paid' => true
+        ])->save();
     }
 }

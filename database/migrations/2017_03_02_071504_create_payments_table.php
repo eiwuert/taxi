@@ -14,17 +14,21 @@ class CreatePaymentsTable extends Migration
     public function up()
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->unsignedInteger('trip_id')->unique();
+            $table->increments('id');
+            $table->unsignedInteger('trip_id')->nullable();
             $table->foreign('trip_id')
                   ->references('id')->on('trips')
                   ->onDelete('cascade');
-            $table->unsignedInteger('transaction_id')->unique();
-            $table->foreign('transaction_id')
-                  ->references('id')->on('transactions')
+            $table->unsignedInteger('client_id')->nullable();
+            $table->foreign('client_id')
+                  ->references('id')->on('clients')
                   ->onDelete('cascade');
             $table->boolean('paid')->default(false);
             $table->enum('type', ['cash', 'card', 'wallet'])->nullable();
-            $table->string('detail')->nullable();
+            // RefNum
+            $table->string('ref')->nullable();
+            $table->text('detail')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -10,21 +10,13 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('test', function() {
-    $event = new \App\Events\UserRegistered($user = \App\User::find(1));
-    $json = [
-        'event' => 'App\\Events\\UserRegistered',
-        'data'  => $user
-    ];
-    \Redis::publish('mychan', json_encode($json));
-});
 require base_path('routes/admin/auth.php');
 Route::get('/', 'HomeController@index');
+Route::post('payment/trip', 'PaymentController@trip');
+Route::post('payment/charge', 'PaymentController@charge');
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 
-            'middleware' => ['auth', 'can:access', 'verified']], function() {
-	Route::get('dashboard', 'DashboardController@index')
-        ->name('dashboard');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'can:access', 'verified', 'csrf']], function () {
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     // DRIVERS
     require base_path('routes/admin/driver.php');
     // CLIENTS
@@ -40,5 +32,3 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',
     // PROFILE
     require base_path('routes/admin/web.php');
 });
-
-Route::get('/home', 'HomeController@index');

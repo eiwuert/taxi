@@ -22,7 +22,9 @@ HEAD UP! new changes to API will be here as refrence.
 </aside>
 
 * Trip ID added to GET `client/trip` API.
-
+* pended trip list removed from request API.
+* New FCM states for payments.
+* Payment type and status added to current trip API.
 
 
 #Register
@@ -1929,27 +1931,6 @@ d_long | numeric |  required  |
         {
             "title": "You have pending request",
             "detail": "Please address your pending trip request at first",
-            "trips": [
-                {
-                    "id": 8,
-                    "driver_id": null,
-                    "client_id": 1,
-                    "status_id": 1,
-                    "source": 17,
-                    "destination": 18,
-                    "eta_value": "500",
-                    "eta_text": "8 mins",
-                    "distance_value": "5051",
-                    "distance_text": "5.1 km",
-                    "etd_value": null,
-                    "etd_text": null,
-                    "driver_location": null,
-                    "driver_distance_value": null,
-                    "driver_distance_text": null,
-                    "created_at": "2016-11-29 15:24:33",
-                    "updated_at": "2016-11-29 15:24:33"
-                }
-            ],
             "code": 500
         }
     ]
@@ -2055,27 +2036,6 @@ d_lng | numeric |  required  |
         {
             "title": "You have pending request",
             "detail": "Please address your pending trip request at first",
-            "trips": [
-                {
-                    "id": 8,
-                    "driver_id": null,
-                    "client_id": 1,
-                    "status_id": 1,
-                    "source": 17,
-                    "destination": 18,
-                    "eta_value": "500",
-                    "eta_text": "8 mins",
-                    "distance_value": "5051",
-                    "distance_text": "5.1 km",
-                    "etd_value": null,
-                    "etd_text": null,
-                    "driver_location": null,
-                    "driver_distance_value": null,
-                    "driver_distance_text": null,
-                    "created_at": "2016-11-29 15:24:33",
-                    "updated_at": "2016-11-29 15:24:33"
-                }
-            ],
             "code": 500
         }
     ]
@@ -2627,52 +2587,55 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
+            "paid": true,
+            "payment": "cash",
             "driver": {
-                "first_name": "amirmasoud",
-                "last_name": "sheydaei",
-                "email": "amirmasood33@gmail.com",
-                "gender": "male",
+                "first_name": "Giuseppe",
+                "last_name": "Ledner",
+                "email": null,
+                "gender": "not specified",
                 "picture": "no-profile.png",
-                "phone": "+0983832063488"
+                "phone": "+3820566651175"
             },
             "trip": {
-	            "id": 269,
-                "eta_value": "909",
-                "eta_text": "15 mins",
-                "distance_value": "14910",
-                "distance_text": "14.9 km",
-                "etd_value": "434",
-                "etd_text": "7 mins",
-                "driver_distance_value": "5602",
-                "driver_distance_text": "5.6 km"
+                "id": 337,
+                "eta_value": "144914",
+                "eta_text": "1 day 16 hours",
+                "distance_value": "3086029",
+                "distance_text": "3,086 km",
+                "etd_value": "753",
+                "etd_text": "13 mins",
+                "driver_distance_value": "6299",
+                "driver_distance_text": "6.3 km"
             },
             "status": {
                 "name": "client_found",
                 "value": 2
             },
             "car": {
-                "number": "11ب111 ایران 11",
-                "color": "pink",
-                "type_id": 3
+                "number": "00000",
+                "color": "black",
+                "type_id": 1
             },
             "type": {
-                "name": "sport"
+                "name": "luxury"
             },
             "source": {
-                "latitude": "34.015588",
-                "longitude": "51.363886",
-                "name": "استان اصفهان، کاشان، بلوار علامه قطب راوندی، ایران"
+                "latitude": "35.737758",
+                "longitude": "51.481955",
+                "name": "استان تهران، تهران، بزرگراه رسالت، ایران"
             },
             "destination": {
-                "latitude": "33.946671",
-                "longitude": "51.373260",
-                "name": "استان اصفهان، کاشان، خیابان امیرکبیر، ایران"
+                "latitude": "51.650262",
+                "longitude": "32.654306",
+                "name": "Unnamed Road, Chernihivs'ka oblast, اوکراین"
             },
             "driver_location": {
-                "latitude": "34.016307",
-                "longitude": "51.373416",
-                "name": "TEST"
-            }
+                "latitude": "35.714693",
+                "longitude": "51.481892",
+                "name": "NOT SET"
+            },
+            "total": "2886.8"
         }
     ]
 }
@@ -3485,9 +3448,9 @@ console.log(response);
 
 ```
 
-## End ride
+## End trip
 
-End trip by the driver. in multi route trips it will go the the next trip if it exists.
+End the trip by the driver. in multi route trips it will go the the next trip if it exists.
 
 
 <aside class="success">
@@ -3556,6 +3519,21 @@ console.log(response);
 }
 
 ```
+
+> Example response - Trip has not been paid
+
+```josn
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Trip ended.",
+            "detail": "Trip status changed from 6 to 9, You can rate trip now."
+        }
+    ]
+}
+```
+
 
 ## Cancel ride
 
@@ -4135,7 +4113,7 @@ comment | text |  optional  | max: `5000`
 
 # Payment
 
-## IPG
+## Card
 
 Open IPG page to pay online. the page is in HTML and shall be open in the browser.
 
@@ -4177,7 +4155,53 @@ Parameter | Type | Status | Description
 MID | numeric |  required  | `21339760`
 resNum | numeric |  required  | TRIP_ID fetched from `client/trip`
 Amount | numeric |  required  | min: `1000`
-redirectURL | text |  required  |
+redirectURL | text |  required  | `https://saamtaxi.net/payment/trip`
+language | text |  required  | `fa` or  `en`
+
+
+## Charge
+
+Open IPG page to pay online. the page is in HTML and shall be open in the browser.
+
+> Example request
+
+```bash
+curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
+    "method": "POST",
+    "data": {
+        "MID": "21339760",
+        "resNum": "TRIP_ID",
+        "Amount": "int",
+        "redirectURL": "http://saamtaxi.net/payment/result",
+        "language": "fa",
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST https://fanava.shaparak.ir/_ipgw_//payment/simple/`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+MID | numeric |  required  | `21339760`
+resNum | numeric |  required  | TRIP_ID fetched from `client/trip`
+Amount | numeric |  required  | min: `1000`
+redirectURL | text |  required  | `https://saamtaxi.net/payment/charge`
 language | text |  required  | `fa` or  `en`
 
 

@@ -33,7 +33,6 @@ class UserRegistered implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        \Log::debug('start');
         $channels = [];
         foreach(User::whereRole('web')->get() as $admin) {
             $channels[] = new PrivateChannel('App.User.' . $admin->id);
