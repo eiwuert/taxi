@@ -69,6 +69,9 @@ if (! function_exists('getDistanceMatrix')) {
      */
     function getDistanceMatrix($location)
     {
+        if(is_object($location)) {
+            $location = $location->all();
+        }
         // API V2
         if (isset($location['s_lng'])) {
             $location['s_long'] = $location['s_lng'];

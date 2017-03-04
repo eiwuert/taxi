@@ -49,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
             return
             (
                 (Driver::whereId($trip->driver_id)->first()->id === $trip->driver_id) &&
-                (is_null($trip->rate()->first()->client) ) && 
+                (is_null($trip->rate()->firstOrCreate([])->client) ) && 
                 ( ($trip->status_id == 9) || ($trip->status_id == 15) )
             );
         });
@@ -58,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
             return
             (
                 (Driver::whereId($trip->driver_id)->first()->id === $trip->driver_id) &&
-                (is_null($trip->rate()->first()->driver) ) && 
+                (is_null($trip->rate()->firstOrCreate([])->driver) ) && 
                 ( ($trip->status_id == 9) || ($trip->status_id == 16) )
             );
         });

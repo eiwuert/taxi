@@ -22,7 +22,7 @@ class CheckBalance
             Payment::forceCreate([
                 'trip_id' => $event->trip->id,
                 'client_id' => $event->trip->client->id,
-                'paid' => true,
+                'paid' => false,
                 'type' => 'cash',
                 'ref'  => '0000',
             ]);
@@ -34,7 +34,7 @@ class CheckBalance
                 Payment::forceCreate([
                     'trip_id' => $event->trip->id,
                     'client_id' => $event->trip->client->id,
-                    'paid' => true,
+                    'paid' => false,
                     'type' => 'cash',
                     'ref'  => '0000',
                 ]);

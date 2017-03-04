@@ -699,7 +699,7 @@ class TripRepository
         }
         $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
         $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
-        $distanceMatrix = getDistanceMatrix((array)$tripRequest); // 'distance', 'duration'
+        $distanceMatrix = getDistanceMatrix((array)$tripRequest->all()); // 'distance', 'duration'
         if (!isset($distanceMatrix['distance'])) {
             return fail([
                     'title'  => 'Failed',
@@ -808,6 +808,8 @@ class TripRepository
         if (is_null($trip)) {
             return false;
         }
+        
+        $trip->payments()->where('type', 'cash')->first()->forceFill(['paid' => true])->save();
 
         // If trip has been paid it can be end.
         if (! $trip->payments()->paid()->exists()) {
@@ -816,6 +818,7 @@ class TripRepository
                 'detail' => 'Please ask the client to pay for the trip.'
             ]);
         }
+
 
         // Single trip ended
         if ($trip->status_id == 6) {
