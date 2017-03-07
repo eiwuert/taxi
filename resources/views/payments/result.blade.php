@@ -124,30 +124,20 @@
 
 <body>
     <div class="invoice-box">
-        @if ($response->State == 'OK')
-        @if ($repeat)
-        <div class="noti noti-success">
-            شما قبلا هزینه این سفر را پرداخت کرده بودید، مبلغ پرداخت شده به کیف پول شما منتثل شد.
-        </div>
-        @else
-        @if ($amount == 'less')
-        <div class="noti noti-danger">
-            مبلغ پرداخت شده شما کمتر از هزینه سفر می باشد، مبلغ کنونی پرداخت شده به کیف پول شما منتقل شد.
-        </div>
-        @elseif ($amount == 'more')
-        <div class="noti noti-warning">
-            مبلغ پرداختی شما بیشتر از هزینه سفر است، ما به تقاوت هزینه به کیف پول شما منتقل شد.
-        </div>
-        @else
+        @if ($response->State == 'OK' && ! $repeat && $amount != 'reversed')
         <div class="noti noti-success">
             هزینه سفر با موفقیت پرداخت شد.
         </div>
-        @endif
-        @endif
         @else
-        <div class="noti noti-danger">
-            پرداخت ناموفق بود. {{ $response->State }}
-        </div>
+            @if ($amount == 'reversed' || $repeat)
+            <div class="noti noti-danger">
+                مبلغ پرداختی شما تا ۷۲ ساعت آینده برگشت خواهد خورد.
+            </div>
+            @else
+            <div class="noti noti-danger">
+                پرداخت ناموفق بود. {{ $response->State }}
+            </div>
+            @endif
         @endif
         <table cellpadding="0" cellspacing="0">
             <tr class="top">

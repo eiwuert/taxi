@@ -45,6 +45,10 @@
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 <ul>
+<li>Added payment GET route</li>
+<li>v</li>
+<li><code>d2_lat</code> and <code>d2_long</code> added to <code>v1/client/trip</code></li>
+<li>Add payment type to <code>v1/client/trip</code></li>
 <li>Trip ID added to GET <code>client/trip</code> API.</li>
 <li>pended trip list removed from request API.</li>
 <li>New FCM states for payments.</li>
@@ -1783,7 +1787,10 @@ $.ajax(settings).done(function (response) {
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_long": "maiores", \ </code></pre>
+   -d "d_long": "maiores", \ 
+   -d "d2_lat": "maiores", \
+   -d "d2_long": "maiores", \ 
+   -d "payment": "maiores", \ </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
@@ -1794,6 +1801,9 @@ $.ajax(settings).done(function (response) {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
+        "d2_lat": "amet",
+        "d2_long": "amet",
+        "payment": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -1836,6 +1846,22 @@ $.ajax(settings).done(function (response) {
 <td>d_long</td>
 <td>numeric</td>
 <td>required</td>
+</tr>
+<tr>
+<td>d2_lat</td>
+<td>numeric</td>
+<td>required with d2_long</td>
+</tr>
+<tr>
+<td>d2_long</td>
+<td>numeric</td>
+<td>required with d2_lat</td>
+</tr>
+<tr>
+<td>payment</td>
+<td>string</td>
+<td>optional</td>
+<td><code>cash</code>(default), <code>card</code> and <code>wallet</code></td>
 </tr>
 </tbody>
 </table>
@@ -1995,6 +2021,22 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<blockquote>
+<p>Example response - multi route trip</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "d2_long": [
+                "The d2 long field is required when d2 lat is present."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}</code></pre>
 <h2>Request multiroute v1</h2>
 <p>Request new taxi, Current limit on routes are 20.</p>
 <aside class="notice">
@@ -3899,143 +3941,45 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h1>Payment</h1>
 <h2>Card</h2>
-<p>Open IPG page to pay online. the page is in HTML and shall be open in the browser.</p>
+<p>Open following url to redirect to IPG page with trip informations.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/payment/trip/{TRIP_ID}" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
-    "method": "POST",
-    "data": {
-        "MID": "21339760",
-        "resNum": "TRIP_ID",
-        "Amount": "int",
-        "redirectURL": "http://saamtaxi.net/payment/result",
-        "language": "fa",
-    }
+    "url": "https://saamtaxi.net/payment/trip/{TRIP_ID}",
+    "method": "GET",
+    "data": {}
 }
 
 $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST https://fanava.shaparak.ir/_ipgw_//payment/simple/</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MID</td>
-<td>numeric</td>
-<td>required</td>
-<td><code>21339760</code></td>
-</tr>
-<tr>
-<td>resNum</td>
-<td>numeric</td>
-<td>required</td>
-<td>TRIP_ID fetched from <code>client/trip</code></td>
-</tr>
-<tr>
-<td>Amount</td>
-<td>numeric</td>
-<td>required</td>
-<td>min: <code>1000</code></td>
-</tr>
-<tr>
-<td>redirectURL</td>
-<td>text</td>
-<td>required</td>
-<td><code>https://saamtaxi.net/payment/trip</code></td>
-</tr>
-<tr>
-<td>language</td>
-<td>text</td>
-<td>required</td>
-<td><code>fa</code> or  <code>en</code></td>
-</tr>
-</tbody>
-</table>
+<p><code>GET https://saamtaxi.net/payment/trip/{TRIP_ID}</code></p>
 <h2>Charge</h2>
-<p>Open IPG page to pay online. the page is in HTML and shall be open in the browser.</p>
+<p>Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be fetched from <code>client/profile</code></p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
-    "method": "POST",
-    "data": {
-        "MID": "21339760",
-        "resNum": "TRIP_ID",
-        "Amount": "int",
-        "redirectURL": "http://saamtaxi.net/payment/result",
-        "language": "fa",
-    }
+    "url": "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}",
+    "method": "GET",
+    "data": {}
 }
 
 $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>POST https://fanava.shaparak.ir/_ipgw_//payment/simple/</code></p>
-<h4>Parameters</h4>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Status</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MID</td>
-<td>numeric</td>
-<td>required</td>
-<td><code>21339760</code></td>
-</tr>
-<tr>
-<td>resNum</td>
-<td>numeric</td>
-<td>required</td>
-<td>TRIP_ID fetched from <code>client/trip</code></td>
-</tr>
-<tr>
-<td>Amount</td>
-<td>numeric</td>
-<td>required</td>
-<td>min: <code>1000</code></td>
-</tr>
-<tr>
-<td>redirectURL</td>
-<td>text</td>
-<td>required</td>
-<td><code>https://saamtaxi.net/payment/charge</code></td>
-</tr>
-<tr>
-<td>language</td>
-<td>text</td>
-<td>required</td>
-<td><code>fa</code> or  <code>en</code></td>
-</tr>
-</tbody>
-</table>
+<p><code>GET https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}</code></p>
 <h1>History</h1>
 <h2>driver</h2>
 <p>History of driver trips.</p>

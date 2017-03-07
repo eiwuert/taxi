@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Trip;
 use App\Client;
 use App\Payment;
 use Illuminate\Http\Request;
@@ -80,7 +81,7 @@ class PaymentController extends Controller
         $this->verifyTransaction();
 
         if ($cost != $paid) {
-            $this->reverseTransaction();
+            // $this->reverseTransaction();
             dispatch(new SendClientNotification('trip_not_paid', '13', $this->client->device_token));
             return 'reversed';
         } else {
@@ -104,7 +105,7 @@ class PaymentController extends Controller
     private function checkRepeat($paid)
     {
         if ($this->trip->payments()->paid()->count()) {
-            $this->reverseTransaction();
+            // $this->reverseTransaction();
             return true;
         } else {
             return false;
@@ -218,9 +219,33 @@ class PaymentController extends Controller
         $reverseResponse = $soap->call('reverseTransaction', $reverseParams);
     }
 
+    /**
+     * Redirect to bank page for charging with given client ID and amount.
+     * @param  integer $id
+     * @param  integer $amount
+     * @return view
+     */
     public function redirectCharge($id, $amount)
     {
-        Client::whereId($id)->firstOrFail();
+        $client = Client::whereId($id)->firstOrFail();
+        $resNum = $client->id;
+        $redirect = 'https://saamtaxi.net/payment/charge';
+        return view('payments.redirect', compact('resNum', 'amount', 'redirect'));
+    }
+
+    /**
+     * Redirect to bank page for charging with given trip ID.
+     * @param  integer $id
+     * @return view
+     */
+    public function redirectTrip($id)
+    {
+        $trip   = Trip::whereId($id)->firstOrFail();
+        $resNum = $trip->id;
+        // todo: is it ok to round the amount??
+        $amount = $trip->transaction->total;
+        $redirect = 'https://saamtaxi.net/payment/trip';
+        return view('payments.redirect', compact('resNum', 'amount', 'redirect'));
     }
 }
 

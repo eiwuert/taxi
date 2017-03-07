@@ -21,6 +21,10 @@ toc_footers:
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 
+* Added payment GET route
+* v
+* `d2_lat` and `d2_long` added to `v1/client/trip`
+* Add payment type to `v1/client/trip`
 * Trip ID added to GET `client/trip` API.
 * pended trip list removed from request API.
 * New FCM states for payments.
@@ -1864,6 +1868,9 @@ curl "https://saamtaxi.net/api/v1/client/trip" \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_long": "maiores", \ 
+   -d "d2_lat": "maiores", \
+   -d "d2_long": "maiores", \ 
+   -d "payment": "maiores", \ 
 ```
 
 ```javascript
@@ -1877,6 +1884,9 @@ var settings = {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
+        "d2_lat": "amet",
+        "d2_long": "amet",
+        "payment": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -1901,6 +1911,9 @@ s_lat | numeric |  required  |
 s_long | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_long | numeric |  required  | 
+d2_lat | numeric |  required with d2_long  | 
+d2_long | numeric |  required with d2_lat  | 
+payment | string |  optional  | `cash`(default), `card` and `wallet`
     
 > Example response
 
@@ -2056,6 +2069,24 @@ d_lng | numeric |  required  |
     ]
 }
 
+```
+
+> Example response - multi route trip
+
+```json 
+{
+    "success": false,
+    "data": [
+        {
+            "d2_long": [
+                "The d2 long field is required when d2 lat is present."
+            ],
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "status": 422
+        }
+    ]
+}
 ```
 
 ## Request multiroute v1
@@ -4115,12 +4146,12 @@ comment | text |  optional  | max: `5000`
 
 ## Card
 
-Open IPG page to pay online. the page is in HTML and shall be open in the browser.
+Open following url to redirect to IPG page with trip informations.
 
 > Example request
 
 ```bash
-curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+curl "https://saamtaxi.net/payment/trip/{TRIP_ID}" \
 
 ```
 
@@ -4128,15 +4159,9 @@ curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
-    "method": "POST",
-    "data": {
-        "MID": "21339760",
-        "resNum": "TRIP_ID",
-        "Amount": "int",
-        "redirectURL": "http://saamtaxi.net/payment/result",
-        "language": "fa",
-    }
+    "url": "https://saamtaxi.net/payment/trip/{TRIP_ID}",
+    "method": "GET",
+    "data": {}
 }
 
 $.ajax(settings).done(function (response) {
@@ -4146,27 +4171,17 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST https://fanava.shaparak.ir/_ipgw_//payment/simple/`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-MID | numeric |  required  | `21339760`
-resNum | numeric |  required  | TRIP_ID fetched from `client/trip`
-Amount | numeric |  required  | min: `1000`
-redirectURL | text |  required  | `https://saamtaxi.net/payment/trip`
-language | text |  required  | `fa` or  `en`
+`GET https://saamtaxi.net/payment/trip/{TRIP_ID}`
 
 
 ## Charge
 
-Open IPG page to pay online. the page is in HTML and shall be open in the browser.
+Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be fetched from `client/profile`
 
 > Example request
 
 ```bash
-curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
+curl "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 
 ```
 
@@ -4174,15 +4189,9 @@ curl "https://fanava.shaparak.ir/_ipgw_//payment/simple/" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://fanava.shaparak.ir/_ipgw_//payment/simple/",
-    "method": "POST",
-    "data": {
-        "MID": "21339760",
-        "resNum": "TRIP_ID",
-        "Amount": "int",
-        "redirectURL": "http://saamtaxi.net/payment/result",
-        "language": "fa",
-    }
+    "url": "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}",
+    "method": "GET",
+    "data": {}
 }
 
 $.ajax(settings).done(function (response) {
@@ -4192,17 +4201,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`POST https://fanava.shaparak.ir/_ipgw_//payment/simple/`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-MID | numeric |  required  | `21339760`
-resNum | numeric |  required  | TRIP_ID fetched from `client/trip`
-Amount | numeric |  required  | min: `1000`
-redirectURL | text |  required  | `https://saamtaxi.net/payment/charge`
-language | text |  required  | `fa` or  `en`
+`GET https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}`
 
 
 
