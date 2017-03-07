@@ -1,5 +1,4 @@
 <?php
-require base_path('app/Repositories/FanavaSoap.php');
 require base_path('routes/admin/auth.php');
 
 Route::get('/', 'HomeController@index');
