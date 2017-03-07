@@ -77,23 +77,7 @@ class PaymentController extends Controller
      */
     private function checkAmount($cost, $paid)
     {
-        // If ResNum is not a valid trip_id
-        // Revert back money if the state was OK
-        // Complete the transaction.
-        $loginParams = array(
-            'username' => '21339760', 
-            'password' => '21350400'
-        );
-        $soap = new nusoap_client("https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl",'wsdl');
-        $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
-        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
-                              'value' => $session )));
-        $verifyParams = array(
-            'context' => $context,
-            'verifyRequest' => array('refNumList' => $this->response->ResNum)
-        );
-        $verifyResponse = $soap->call('verifyTransaction', $verifyParams);
-        $soap->call('logout', array('context' => $context));
+        $this->verifyTransaction();
 
         if ($cost > $paid) {
             // Paid less than trip cost.
@@ -164,9 +148,7 @@ class PaymentController extends Controller
      * @return void
      */
     public function charge()
-    {
-        // Check incoming response url.
-        
+    {        
         // Response is fresh.
         if ($this->notFresh()) {
             return view('errors.403');
@@ -180,6 +162,7 @@ class PaymentController extends Controller
         }
 
         if ($this->response->State == 'OK') {
+            $this->verifyTransaction();
             dispatch(new SendClientNotification('balance_updated', '10', $client->device_token));
             $client->updateBalance($this->response->transactionAmount);
             $payment = $this->payment = Payment::forceCreate([
@@ -201,6 +184,31 @@ class PaymentController extends Controller
         }
         $response = $this->response;
         return view('payments.charge', compact('response', 'payment', 'client'));
+    }
+
+    /**
+     * Verify transaction.
+     * @return void
+     */
+    private function verifyTransaction()
+    {
+        // If ResNum is not a valid trip_id
+        // Revert back money if the state was OK
+        // Complete the transaction.
+        $loginParams = array(
+            'username' => '21339760', 
+            'password' => '21350400'
+        );
+        $soap = new nusoap_client("https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl",'wsdl');
+        $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
+        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
+                              'value' => $session )));
+        $verifyParams = array(
+            'context' => $context,
+            'verifyRequest' => array('refNumList' => $this->response->ResNum)
+        );
+        $verifyResponse = $soap->call('verifyTransaction', $verifyParams);
+        $soap->call('logout', array('context' => $context));
     }
 }
 
