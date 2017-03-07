@@ -157,11 +157,7 @@
                                 تهران، ایران
                             </td>
                             
-                            <td>
-                                {{ $client->first_name }}<br>
-                                {{ $client->last_name }}<br>
-                                {{ $client->email }}
-                            </td>
+                            <td></td>
                         </tr>
                     </table>
                 </td>

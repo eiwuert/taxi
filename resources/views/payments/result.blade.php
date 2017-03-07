@@ -178,9 +178,7 @@
                             </td>
                             
                             <td>
-                                {{ $client->first_name }}<br>
-                                {{ $client->last_name }}<br>
-                                {{ $client->email }}
+
                             </td>
                         </tr>
                     </table>
