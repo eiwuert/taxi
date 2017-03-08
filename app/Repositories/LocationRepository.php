@@ -7,6 +7,7 @@ use Cache;
 use App\User;
 use GoogleMaps;
 use App\Driver;
+use App\Status;
 
 class LocationRepository
 {
@@ -75,17 +76,34 @@ class LocationRepository
         } else {
             $user = User::find($userId);
         }
+        $status = self::getLastStatusOfTrip($user);
         Cache::forever('location_' . $user->id, ['lat' => $lat, 'lng' => $long]);
-        return $user->locations()->create([
-                    'latitude'  => $lat,
-                    'longitude' => $long,
-                    'name'      => $name,
-                ]);
+        if ($status) {
+            $location = $user->locations()->create([
+                'latitude'  => $lat,
+                'longitude' => $long,
+                'name'      => $name,
+            ]);
+            if ($user->role == 'driver') {
+                $location['status'] = $status;
+            }
+            return $location;
+        } else {
+            $location = $user->locations()->create([
+                'latitude'  => $lat,
+                'longitude' => $long,
+                'name'      => $name,
+            ]);
+            if ($user->role == 'driver') {
+                $location['status'] = null;
+            }
+            return $location;
+        }
     }
 
     /**
-     * Get Gelcoding name.
-     * @param  decimal $lat 
+     * Get Geocoding name.
+     * @param  decimal $lat
      * @param  decimal $long
      * @return string
      */
@@ -104,5 +122,23 @@ class LocationRepository
         }
 
         return $name;
+    }
+
+    /**
+     * Get the last status value of the driver trip.
+     * @param  \App\User $user
+     * @return string|boolean
+     */
+    private static function getLastStatusOfTrip($user)
+    {
+        if ($user->role == 'driver') {
+            if (is_null($trip = $user->driver()->first()->trips()->whereNotIn('status_id', [10, 5, 4, 11, 8, 13, 14, 17, 18, 3])->orderBy('id', 'desc')->first())) {
+                return false;
+            } else {
+                return Status::whereId($trip->status_id)->first()->value;
+            }
+        } else {
+            return false;
+        }
     }
 }

@@ -938,11 +938,12 @@ class TripRepository
         } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip = $driver->trips()->orderBy('id', 'desc')->first();
-            $paid = $trip->payments()->paid()->exists();
-            $total = $trip->transaction()->first()->total;
             if (self::notOnTrip($trip)) {
                 return false;
             }
+            $paid = $trip->payments()->paid()->exists();
+            $total = $trip->transaction()->first()->total;
+
             $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
             $client->phone = $client->user->phone;
             $source = $trip->source()->first(['latitude', 'longitude', 'name']);
@@ -1014,6 +1015,7 @@ class TripRepository
             $trip->status_id == 13 ||
             $trip->status_id == 14 ||
             $trip->status_id == 17 ||
+            $trip->status_id == 18 ||
             $trip->status_id == 3) {
             return true;
         } else {
@@ -1130,25 +1132,40 @@ class TripRepository
      */
     public static function validateListOfTripAgainstGoogleMaps($route)
     {
-        foreach ($route as $index => $r) {
-            if ($index + 1 == count($route)) {
-                break;
-            }
-            // If it's first element.
-            if ($index == 0) {
-                $location['s_lat'] = $r->s_lat;
-                $location['s_long'] = $r->s_long;
-            } else {
-                $location['s_lat'] = $r->d_lat;
-                $location['s_long'] = $r->d_long;
-            }
-            $location['d_lat'] = $route[$index + 1]->d_lat;
-            $location['d_long'] = $route[$index + 1]->d_long;
-            $matrix = getDistanceMatrix($location);
-            if (! @isset($matrix['duration']['text'])) {
-                return [$location['s_lat'], $location['s_long'], $location['d_lat'], $location['d_long']];
-            }
+        $matrix = getDistanceMatrix(['s_lat' => $route->s_lat,
+                                    's_long' => $route->s_long,
+                                    'd_lat'  => $route->d_lat,
+                                    'd_long' => $route->d_long]);
+        if (! @isset($matrix['duration']['text'])) {
+            return [$location['s_lat'], $location['s_long'], $location['d_lat'], $location['d_long']];
         }
+        $matrix = getDistanceMatrix(['s_lat' => $route->d_lat,
+                                    's_long' => $route->d_long,
+                                    'd_lat'  => $route->d2_lat,
+                                    'd_long' => $route->d2_long]);
+        if (! @isset($matrix['duration']['text'])) {
+            return [$location['s_lat'], $location['s_long'], $location['d_lat'], $location['d_long']];
+        }
+        return false;
+        // foreach ($route as $index => $r) {
+        //     if ($index + 1 == count($route)) {
+        //         break;
+        //     }
+        //     // If it's first element.
+        //     if ($index == 0) {
+        //         $location['s_lat'] = $r->s_lat;
+        //         $location['s_long'] = $r->s_long;
+        //     } else {
+        //         $location['s_lat'] = $r->d_lat;
+        //         $location['s_long'] = $r->d_long;
+        //     }
+        //     $location['d_lat'] = $route[$index + 1]->d_lat;
+        //     $location['d_long'] = $route[$index + 1]->d_long;
+        //     $matrix = getDistanceMatrix($location);
+        //     if (! @isset($matrix['duration']['text'])) {
+        //         return [$location['s_lat'], $location['s_long'], $location['d_lat'], $location['d_long']];
+        //     }
+        // }
     }
 
     /**
@@ -1158,19 +1175,24 @@ class TripRepository
      */
     public static function notSameSequentially($route)
     {
-        foreach ($route as $index => $r) {
-            // Last element should skip, because there can not be sequence.
-            if ($index + 1 == count($route)) {
-                break;
-            }
-
-            if ((array) $r == (array) $route[$index + 1]) {
-                // destinations that caused the problem.
-                $first = $index + 1;
-                $second = $index + 2;
-                return [$first, $second];
-            }
+        if ($route->d_lat  == $route->d2_lat && 
+            $route->d2_lat == $route->d2_long) {
+            return true;
         }
+
+        // foreach ($route as $index => $r) {
+        //     // Last element should skip, because there can not be sequence.
+        //     if ($index + 1 == count($route)) {
+        //         break;
+        //     }
+
+        //     if ((array) $r == (array) $route[$index + 1]) {
+        //         // destinations that caused the problem.
+        //         $first = $index + 1;
+        //         $second = $index + 2;
+        //         return [$first, $second];
+        //     }
+        // }
     }
 
     /**
@@ -1200,12 +1222,12 @@ class TripRepository
     {
         $distanceSum = 0;
         $durationSum = 0;
-        if (!isset($tripRequest['currency'])) {
-            $tripRequest['currency'] = 'USD';
+        if (!isset($route->currency)) {
+            $route->currency = 'USD';
         }
 
-        if (!isset($tripRequest['type'])) {
-            $tripRequest['type'] = 'any';
+        if (!isset($route->type)) {
+            $route->type = 'any';
         }
 
         if (! is_null($userId)) {
@@ -1225,76 +1247,117 @@ class TripRepository
         }
 
         $trips = [];
-        foreach ($route as $index => $r) {
-            // Last element should skip, because there can not be sequence.
-            if ($index + 1 == count($route)) {
-                break;
-            }
+        // foreach ($route as $index => $r) {
+        //     // Last element should skip, because there can not be sequence.
+        //     if ($index + 1 == count($route)) {
+        //         break;
+        //     }
 
-            // If it's first element.
-            if ($index == 0) {
-                $location['s_lat'] = $r->s_lat;
-                $location['s_long'] = $r->s_long;
-            } else {
-                $location['s_lat'] = $r->d_lat;
-                $location['s_long'] = $r->d_long;
-            }
-            $location['d_lat'] = $route[$index + 1]->d_lat;
-            $location['d_long'] = $route[$index + 1]->d_long;
-            $matrix = getDistanceMatrix($location);
-            $source = LocationRepository::set($location['s_lat'], $location['s_long'], $userId);
-            $destination = LocationRepository::set($location['d_lat'], $location['d_long'], $userId);
-            if ($index != 0) {
-                $statusId = Status::where('name', 'next_trip_to_happen')->firstOrFail()->value;
-            } else {
-                $statusId = Status::where('name', 'request_taxi')->firstOrFail()->value;
-            }
+        //     // If it's first element.
+        //     if ($index == 0) {
+        //         $location['s_lat'] = $r->s_lat;
+        //         $location['s_long'] = $r->s_long;
+        //     } else {
+        //         $location['s_lat'] = $r->d_lat;
+        //         $location['s_long'] = $r->d_long;
+        //     }
+        //     $location['d_lat'] = $route[$index + 1]->d_lat;
+        //     $location['d_long'] = $route[$index + 1]->d_long;
+            // $matrix = getDistanceMatrix($location);
+            // $source = LocationRepository::set($location['s_lat'], $location['s_long'], $userId);
+            // $destination = LocationRepository::set($location['d_lat'], $location['d_long'], $userId);
+            $source = LocationRepository::set($route->s_lat, $route->s_long, $userId);
+            $destination = LocationRepository::set($route->d_lat, $route->d_long, $userId);
+            $nextDestination = LocationRepository::set($route->d2_lat, $route->d2_long, $userId);
+            // if ($index != 0) {
+            //     $statusId = Status::where('name', 'next_trip_to_happen')->firstOrFail()->value;
+            // } else {
+            //     $statusId = Status::where('name', 'request_taxi')->firstOrFail()->value;
+            // }
             //
             // REQUEST_TAXI
             //
-            $trips[] = Trip::forceCreate([
-                        'client_id'       => $client->id,
-                        'status_id'       => $statusId,
-                        'source'          => $source->id,
-                        'destination'     => $destination->id,
-                        'eta_text'        => $matrix['duration']['text'],
-                        'eta_value'       => $matrix['duration']['value'],
-                        'distance_text'   => $matrix['distance']['text'],
-                        'distance_value'  => $matrix['distance']['value'],
-                        'created_at'      => Carbon::now(),
-                        'updated_at'      => Carbon::now(),
-                    ]);
+            // $trips[] = Trip::forceCreate([
+            //             'client_id'       => $client->id,
+            //             'status_id'       => $statusId,
+            //             'source'          => $source->id,
+            //             'destination'     => $destination->id,
+            //             'eta_text'        => $matrix['duration']['text'],
+            //             'eta_value'       => $matrix['duration']['value'],
+            //             'distance_text'   => $matrix['distance']['text'],
+            //             'distance_value'  => $matrix['distance']['value'],
+            //             'created_at'      => Carbon::now(),
+            //             'updated_at'      => Carbon::now(),
+            //         ]);
 
+            $matrix = getDistanceMatrix(['s_lat' => $route->s_lat,
+                            's_long' => $route->s_long,
+                            'd_lat'  => $route->d_lat,
+                            'd_long' => $route->d_long]);
             $distanceSum += (int) $matrix['distance']['value'];
             $durationSum += (int) $matrix['duration']['value'];
-        }
+            $trip = Trip::forceCreate([
+                'client_id'       => $client->id,
+                'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
+                'source'          => $source->id,
+                'destination'     => $destination->id,
+                'eta_text'        => $matrix['duration']['text'],
+                'eta_value'       => $matrix['duration']['value'],
+                'distance_text'   => $matrix['distance']['text'],
+                'distance_value'  => $matrix['distance']['value'],
+                'created_at'      => Carbon::now(),
+                'updated_at'      => Carbon::now(),
+            ]);
+
+            $matrix = getDistanceMatrix(['s_lat' => $route->s_lat,
+                            's_long' => $route->s_long,
+                            'd_lat'  => $route->d2_lat,
+                            'd_long' => $route->d2_long]);
+            $distanceSum += (int) $matrix['distance']['value'];
+            $durationSum += (int) $matrix['duration']['value'];
+            $next = Trip::forceCreate([
+                'client_id'       => $client->id,
+                'status_id'       => Status::where('name', 'next_trip_to_happen')->firstOrFail()->value,
+                'source'          => $source->id,
+                'destination'     => $destination->id,
+                'eta_text'        => $matrix['duration']['text'],
+                'eta_value'       => $matrix['duration']['value'],
+                'distance_text'   => $matrix['distance']['text'],
+                'distance_value'  => $matrix['distance']['value'],
+                'created_at'      => Carbon::now(),
+                'updated_at'      => Carbon::now(),
+            ]);
+        // }
+
+            $trip->forceFill(['next' => $next->id])->save();
+            $next->forceFill(['prev' => $trip->id])->save();
 
         // Fill next and prev ids
-        foreach ($trips as $index => $trip) {
-            // For first element, next prop shall be set
-            if ($index == 0) {
-                $trip->forceFill(['next' => $trips[$index+1]->id])->save();
-                continue;
-            }
-            // For last element, prev prop shall be set
-            if ($index + 1 == count($trips)) {
-                $trip->forceFill(['prev' => $trips[$index-1]->id])->save();
-                continue;
-            }
-            // assign next and prev props for middle items
-            $trip->forceFill(['next' => $trips[$index+1]->id, 'prev' => $trips[$index-1]->id])->save();
-        }
+        // foreach ($trips as $index => $trip) {
+        //     // For first element, next prop shall be set
+        //     if ($index == 0) {
+        //         $trip->forceFill(['next' => $trips[$index+1]->id])->save();
+        //         continue;
+        //     }
+        //     // For last element, prev prop shall be set
+        //     if ($index + 1 == count($trips)) {
+        //         $trip->forceFill(['prev' => $trips[$index-1]->id])->save();
+        //         continue;
+        //     }
+        //     // assign next and prev props for middle items
+        //     $trip->forceFill(['next' => $trips[$index+1]->id, 'prev' => $trips[$index-1]->id])->save();
+        // }
 
         // Main trip ID
-        $trip = $trips[0];
+        // $trip = $trips[0];
         $trip_id = $trip->id;
-        $tripIds = '';
-        foreach ($trips as $index => $t) {
-            $tripIds .= $t->id;
-            if ($index + 1 != count($trips)) {
-                $tripIds .= ',';
-            }
-        }
+        // $tripIds = '';
+        // foreach ($trips as $index => $t) {
+        //     $tripIds .= $t->id;
+        //     if ($index + 1 != count($trips)) {
+        //         $tripIds .= ',';
+        //     }
+        // }
 
         /**
          * If there is one available driver within 1KM.
@@ -1302,12 +1365,17 @@ class TripRepository
          * When there is a driver we send the request to driver and wait for his/her response.
          */
         // ADD first trip ids
-        $foundDriver = nearby($route[0]->s_lat, $route[0]->s_long, $tripRequest['type'], 10, 1, $exclude)['result'];
+        // $foundDriver = nearby($route[0]->s_lat, $route[0]->s_long, $tripRequest['type'], 10, 1, $exclude)['result'];
+        $foundDriver = nearby($route->s_lat, $route->s_long, $tripRequest['type'], 10, 1, $exclude)['result'];
         if (!empty($foundDriver)) {
             $foundDriver = $foundDriver[0];
             // TODO
-            $driverToClient = getDistanceMatrix(['s_lat'  => $route[0]->s_lat,
-                                       's_long' => $route[0]->s_long,
+            // $driverToClient = getDistanceMatrix(['s_lat'  => $route[0]->s_lat,
+            //                            's_long' => $route[0]->s_long,
+            //                            'd_lat'  => $foundDriver->latitude,
+            //                            'd_long' => $foundDriver->longitude]);
+            $driverToClient = getDistanceMatrix(['s_lat'  => $route->s_lat,
+                                       's_long' => $route->s_long,
                                        'd_lat'  => $foundDriver->latitude,
                                        'd_long' => $foundDriver->longitude]);
 
@@ -1344,7 +1412,7 @@ class TripRepository
 
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
-            event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
+            event(new TripInitiated($trip, (array)$route));
 
             return ok([
                         'content'          => 'Trip request created successfully.',
@@ -1366,19 +1434,27 @@ class TripRepository
                     'updated_at'             => Carbon::now(),
                 ]);
 
-            // Halt other connected trips
-            foreach ($trips as $index => $t) {
-                // First trip that is the main trip will change its status to
-                // NO_DRIVER other trips to the NEXT_TRIP_HALT
-                if ($index == 0) {
-                    continue;
-                }
+            // // Halt other connected trips
+            // foreach ($trips as $index => $t) {
+            //     // First trip that is the main trip will change its status to
+            //     // NO_DRIVER other trips to the NEXT_TRIP_HALT
+            //     if ($index == 0) {
+            //         continue;
+            //     }
 
-                $t->update([
-                        'status_id'              => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
-                        'updated_at'             => Carbon::now(),
-                    ]);
-            }
+            //     $t->update([
+            //             'status_id'              => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
+            //             'updated_at'             => Carbon::now(),
+            //         ]);
+            // }
+            $trip->update([
+                    'status_id'              => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
+                    'updated_at'             => Carbon::now(),
+                ]);
+            $next->update([
+                    'status_id'              => Status::where('name', 'next_trip_halt')->firstOrFail()->value,
+                    'updated_at'             => Carbon::now(),
+                ]);
 
             dispatch(new SendClientNotification('no_driver_found', '1', $clientDeviceToken));
 

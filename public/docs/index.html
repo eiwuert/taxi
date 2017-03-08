@@ -45,6 +45,7 @@
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 <ul>
+<li>Add trip status on driver set location.</li>
 <li>Added payment GET route</li>
 <li>v</li>
 <li><code>d2_lat</code> and <code>d2_long</code> added to <code>v1/client/trip</code></li>
@@ -794,7 +795,8 @@ $.ajax(settings).done(function (response) {
                 "user_id": 416,
                 "updated_at": "2016-12-10 22:26:25",
                 "created_at": "2016-12-10 22:26:25",
-                "id": 418
+                "id": 418,
+                "status": 7
             }
     ]
 }
@@ -970,7 +972,8 @@ $.ajax(settings).done(function (response) {
                 "user_id": 416,
                 "updated_at": "2016-12-10 22:26:25",
                 "created_at": "2016-12-10 22:26:25",
-                "id": 418
+                "id": 418,
+                "status": null
             }
     ]
 }

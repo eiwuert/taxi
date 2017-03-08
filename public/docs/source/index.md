@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 
+* Add trip status on driver set location.
 * Added payment GET route
 * v
 * `d2_lat` and `d2_long` added to `v1/client/trip`
@@ -758,7 +759,8 @@ Parameter | Type | Status | Description
                 "user_id": 416,
                 "updated_at": "2016-12-10 22:26:25",
                 "created_at": "2016-12-10 22:26:25",
-                "id": 418
+                "id": 418,
+                "status": 7
             }
     ]
 }
@@ -934,7 +936,8 @@ Parameter | Type | Status | Description
                 "user_id": 416,
                 "updated_at": "2016-12-10 22:26:25",
                 "created_at": "2016-12-10 22:26:25",
-                "id": 418
+                "id": 418,
+                "status": null
             }
     ]
 }
