@@ -21,6 +21,7 @@ use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\LocationRepository;
 use App\Repositories\TransactionRepository;
+use App\Repositories\Trip\CreateRepository as Create;
 
 class TripRepository
 {
