@@ -2,7 +2,7 @@
 /**
  * Routes for clients.
  */
-Route::group(['prefix' => 'clients'], function() {
+Route::group(['prefix' => 'clients'], function () {
     Route::get('filter', 'ClientController@filter')
         ->name('clients.filter');
     Route::get('search', 'ClientController@search')

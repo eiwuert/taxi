@@ -2,8 +2,7 @@
 require base_path('routes/admin/auth.php');
 
 Route::get('/', 'HomeController@index');
-Route::post('payment/charge', 'PaymentController@charge');
-Route::get('payment/charge/{id}/{amount}', 'PaymentController@redirectCharge');
+require base_path('routes/admin/payment.php');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'can:access', 'verified', 'csrf']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');

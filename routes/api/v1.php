@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
  * Client Routes.
  */
 
-Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
+Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@client')
          ->name('registerClient');
 
@@ -18,7 +18,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
          ->name('resendSMS')
          ->middleware('auth:api', 'role:client');
 
-    Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function() {
+    Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function () {
         Route::post('location', 'Trip\LocationController@set')
              ->name('setLocation');
 
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
         Route::get('history', 'Trip\HistoryController@client')
              ->name('clientHistory');
 
-        Route::group(['middleware' => ['inTrip', 'notPaid']], function() {
+        Route::group(['middleware' => ['inTrip', 'notPaid']], function () {
             Route::get('pay/wallet', 'PaymentController@withWallet');
             Route::get('pay/cash', 'PaymentController@withCash');
         });
@@ -68,11 +68,11 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 /**
  * Driver Routes.
  */
-Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
+Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@driver')
          ->name('registerDriver');
 
-    Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function() {
+    Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function () {
         Route::get('status', 'Trip\DriverController@status')
              ->name('getStatus');
 
@@ -97,7 +97,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
         Route::get('history', 'Trip\HistoryController@driver')
              ->name('driverHistory');
 
-        Route::group(['middleware' => 'online'], function() {
+        Route::group(['middleware' => 'online'], function () {
             Route::get('accept', 'Trip\TripController@accept')
                  ->name('driverAcceptTrip');
 
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function() {
          ->middleware('auth:api', 'role:driver');
 });
 
-Route::any('{any}', function() {
+Route::any('{any}', function () {
     return fail([
             'title'  => 'Not found',
             'detail' => 'Requested route not found `' . url()->current() . '`',
