@@ -14,14 +14,14 @@ class Web extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 
+        'first_name',
         'last_name',
         'picture',
     ];
 
     /**
      * A web user can have one user.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function user()
@@ -31,7 +31,7 @@ class Web extends Model
 
     /**
      * Save user profile picture.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
@@ -46,7 +46,7 @@ class Web extends Model
 
     /**
      * Get full path to profile picture url.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
