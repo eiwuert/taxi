@@ -33,7 +33,6 @@ class LogAfterRequest {
                 'isXml'     => $request->isXmlHttpRequest(),
                 'proxies'   => $request->getTrustedProxies(),
                 'parameters'=> $request->all(), 
-                'created_at'=> Carbon::now(),
             ]);
     }
 
