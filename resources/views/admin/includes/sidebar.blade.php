@@ -24,7 +24,7 @@
         <li class="{{ (str_contains(Request::url(), route('clients.index'))) ? 'active' : '' }}"><a href="{{ route('clients.index') }}"><i class='ion-android-walk'></i><span> Clients</span></a></li>
         <li class="{{ (str_contains(Request::url(), route('trips.index'))) ? 'active' : '' }}"><a href="{{ route('trips.index') }}"><i class='ion-android-navigate'></i><span> Trips</span></a></li>
         <li class="{{ (str_contains(Request::url(), route('maps.index'))) ? 'active' : '' }}"><a href="{{ route('maps.index') }}"><i class='ion-map'></i><span> Maps</span></a></li>
-        <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}"">
+        <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}">
           <a href="#"><i class="ion-gear-a"></i> <span>Settings</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
