@@ -14,34 +14,33 @@ use App\Http\Controllers\Controller;
 
 class RateController extends Controller
 {
-	/**
-	 * Submit client rating for driver.
-	 * @param  App\Http\Requests\RateRequest $request
-	 * @return json
-	 */
+    /**
+     * Submit client rating for driver.
+     * @param  App\Http\Requests\RateRequest $request
+     * @return json
+     */
     public function client(RateRequest $request)
     {
         $user = User::wherePhone(Auth::user()->phone)
                 ->orderBy('id', 'desc')
                 ->first()->client()->first()
-                ->trips()->where('driver_id' ,'<>', null)
+                ->trips()->where('driver_id', '<>', null)
                 ->orderBy('id', 'desc')->first();
 
-		if (Gate::allows('client', $user)) {
+        if (Gate::allows('client', $user)) {
+            $this->rateOfClient($request->stars, $request->comment);
 
-			$this->rateOfClient($request->stars, $request->comment);
+            $this->postRatingProcessing($user);
 
-			$this->postRatingProcessing($user);
-
-			return ok([
-						'title' => 'Thanks for rating',
-					]);
-		} else {
-			return fail([
-				'title'  => 'You cannot rate',
-				'detail' => 'You cannot rate this trip',
-			]);
-		}
+            return ok([
+                        'title' => 'Thanks for rating',
+                    ]);
+        } else {
+            return fail([
+                'title'  => 'You cannot rate',
+                'detail' => 'You cannot rate this trip',
+            ]);
+        }
     }
 
     /**
@@ -51,23 +50,22 @@ class RateController extends Controller
      */
     public function driver(RateRequest $request)
     {
-		if (Gate::allows('driver', Auth::user()->driver()->first()->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')->first())) {
+        if (Gate::allows('driver', Auth::user()->driver()->first()->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')->first())) {
+            $this->rateOfDriver($request->stars, $request->comment);
 
-			$this->rateOfDriver($request->stars, $request->comment);
+            $this->postRatingProcessing(Auth::user()->driver()->first()
+                                                     ->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')
+                                                     ->first());
 
-			$this->postRatingProcessing(Auth::user()->driver()->first()
-													 ->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')
-													 ->first());
-
-			return ok([
-						'title' => 'Thanks for rating',
-					]);
-		} else {
-			return fail([
-					'title'  => 'You cannot rate',
-					'detail' => 'You cannot rate this trip',
-				]);
-		}
+            return ok([
+                        'title' => 'Thanks for rating',
+                    ]);
+        } else {
+            return fail([
+                    'title'  => 'You cannot rate',
+                    'detail' => 'You cannot rate this trip',
+                ]);
+        }
     }
 
     /**
@@ -77,70 +75,70 @@ class RateController extends Controller
      */
     private function postRatingProcessing($trip)
     {
-    	$rate = $trip->rate()->first();
-    	if (! is_null($rate->client) && ! is_null($rate->driver)) {
-    		DB::table('trips')->where('id', $trip->id)
-    			->update([
-    					'status_id' => Status::where('name', 'trip_is_over')->first()->value,
-    				]);
-    	}
+        $rate = $trip->rate()->first();
+        if (! is_null($rate->client) && ! is_null($rate->driver)) {
+            DB::table('trips')->where('id', $trip->id)
+                ->update([
+                        'status_id' => Status::where('name', 'trip_is_over')->first()->value,
+                    ]);
+        }
     }
 
     /**
      * Update rate of client.
      * @param  integer $stars
-     * @param  text $comment
+     * @param  string $comment
      * @return void
      */
     private function rateOfClient($stars, $comment)
     {
-    	// Update rate
-		DB::table('rates')->where('trip_id', User::wherePhone(Auth::user()->phone)
+        // Update rate
+        DB::table('rates')->where('trip_id', User::wherePhone(Auth::user()->phone)
                                                 ->orderBy('id', 'desc')
                                                 ->first()->client()->first()
-                                                ->trips()->where('driver_id' ,'<>', null)
+                                                ->trips()->where('driver_id', '<>', null)
                                                 ->orderBy('id', 'desc')->first()->id)
-			->update([
-					'client'  => $stars,
-					'client_comment' => $comment,
-				]);
+            ->update([
+                    'client'  => $stars,
+                    'client_comment' => $comment,
+                ]);
 
-		// Update trip status
-		DB::table('trips')->where('id', User::wherePhone(Auth::user()->phone)
+        // Update trip status
+        DB::table('trips')->where('id', User::wherePhone(Auth::user()->phone)
                                                 ->orderBy('id', 'desc')
                                                 ->first()->client()->first()
-                                                ->trips()->where('driver_id' ,'<>', null)
+                                                ->trips()->where('driver_id', '<>', null)
                                                 ->orderBy('id', 'desc')->first()->id)
-			->update([
-					'status_id' => Status::where('name', 'client_rated')->first()->value,
-				]);
+            ->update([
+                    'status_id' => Status::where('name', 'client_rated')->first()->value,
+                ]);
     }
 
     /**
      * Update rate of driver.
      * @param  integer $stars
-     * @param  text $comment
+     * @param  string $comment
      * @return void
      */
     private function rateOfDriver($stars, $comment)
     {
-		DB::table('rates')->where('trip_id', Auth::user()->driver()->first()
-												 ->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')
-												 ->first()->id)
-			->update([
-					'driver'  => $stars,
-					'driver_comment' => $comment,
-				]);
+        DB::table('rates')->where('trip_id', Auth::user()->driver()->first()
+                                                 ->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')
+                                                 ->first()->id)
+            ->update([
+                    'driver'  => $stars,
+                    'driver_comment' => $comment,
+                ]);
 
-		DB::table('trips')->where('id', Auth::user()->driver()->first()
-												 ->trips()->where('driver_id' ,'<>', null)->orderBy('id', 'desc')
-												 ->first()->id)
-			->update([
-					'status_id' => Status::where('name', 'driver_rated')->first()->value,					
-				]);
+        DB::table('trips')->where('id', Auth::user()->driver()->first()
+                                                 ->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')
+                                                 ->first()->id)
+            ->update([
+                    'status_id' => Status::where('name', 'driver_rated')->first()->value,
+                ]);
 
-		$driver = Auth::user()->driver()->first();
-		$driver->available = true;
+        $driver = Auth::user()->driver()->first();
+        $driver->available = true;
         $driver->save();
     }
 }

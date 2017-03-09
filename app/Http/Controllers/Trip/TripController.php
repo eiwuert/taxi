@@ -12,94 +12,14 @@ use App\Repositories\Trip\CreateRepository as Create;
 class TripController extends Controller
 {
     /**
-     * Multi route request taxi.
+     * Request taxi
+     *
+     * Request taxi by client.
+     * @param  App\Http\Requests\TripRequest $trip
      * @return json
      */
-    public function multiRouteRequestTaxi($request)
-    {
-        // Decode route parameter
-        $route = json_decode($request);
-
-        // Count of array shall be at least 2.
-        // if (TripRepository::minMultiTripLimit($route)) {
-        //     return fail([
-        //             'title'  => 'Not enough arguments',
-        //             'detail' => 'Multi route `route` parameter needs at least 2 arguments.'
-        //         ]);
-        // }
-
-        // Count of array shall not exceed the LIMIT.
-        // if (TripRepository::maxMultiTripLimit($route)) {
-        //     return fail([
-        //             'title'  => 'Too many arguments',
-        //             'detail' => 'Multi route `route` parameter must be at most 10 arguments.'
-        //         ]);
-        // }
-
-        /**
-         * Validate route parameter
-         */
-        // First element shall be source latLng
-        // if(TripRepository::isSlatAndSlong($route[0])) {
-        //     return fail([
-        //             'title'  => 'First element shall be source',
-        //             'detail' => 'First element of `route` parameter shall be source info: s_lat and s_long'
-        //         ]);
-        // }
-
-        // Rest of the element shall be destinations of latLongs
-        // if (! TripRepository::isDestinationsValid($route)) {
-        //     return fail([
-        //             'title'  => 'Not valid destinations',
-        //             'detail' => '`route` elements except first one shall be objects of d_lat and d_long'
-        //         ]);
-        // }
-
-        // Validate route structure with preg_match
-        // if (TripRepository::validateWithPregMatch($route) == 'source') {
-        //     return fail([
-        //         'title'  => 'Source geo info is not valid',
-        //         'detail' => 'source latLng information is not valid.',
-        //     ]);
-        // } else if (is_integer($index = TripRepository::validateWithPregMatch($route))) {
-        //     return fail([
-        //         'title'  => 'Destination geo info is not valid',
-        //         'detail' => 'destination latLng information is not valid on object: ' . ($index),
-        //     ]);
-        // }
-
-        // Not same values sequentially 
-        if(is_array($items = TripRepository::notSameSequentially($route))) {
-            return fail([
-                'title'  => '2 destinations are same sequentially',
-                'detail' => "destinations are same sequentially",
-            ]);
-        }
-
-        // Validate LatLngs against Google Maps API
-        if(is_array($items = TripRepository::validateListOfTripAgainstGoogleMaps($route))) {
-            return fail([
-                    'title'  => 'Not valid trip',
-                    'detail' => "You cannot trip from ({$items[0]}, {$items[1]}) to ({$items[2]}, {$items[3]}).",
-                ]);
-        }
-
-        // Create a multi route trip
-        return TripRepository::createMultiRouteTrip($route);
-    }
-
-	/**
-	 * Request taxi
-	 *
-	 * Request taxi by client.
-	 * @return json
-	 */
     public function requestTaxi(TripRequest $trip)
     {
-        // if there is a d2 on the request so it's multi route.
-        if ($trip->d2_lat) {
-            return $this->multiRouteRequestTaxi(json_encode($trip->all()));
-        }
         $result = Create::this($trip)->for('auth')->now();
         if (in_array('ok', $result)) {
             return ok([
@@ -139,7 +59,6 @@ class TripController extends Controller
                         'title' => 'failed',
                         'detail'=> 'failed to create trip.',
                     ]);
-                    break;
             }
         }
     }
@@ -203,7 +122,7 @@ class TripController extends Controller
 
     /**
      * Current state of the trip.
-     * @todo 
+     * @todo
      * @return json
      */
     public function trip()
@@ -258,6 +177,7 @@ class TripController extends Controller
 
     /**
      * Calculate distance and cost between 2 point.
+     * @param  App\Http\Requests\TripRequest $tripRequest
      * @return json
      */
     public function calculate(TripRequest $tripRequest)

@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 
+* History order fixed (desc).
 * Payment updated.
 * Payment with card removed.
 * Add trip status on driver set location.
