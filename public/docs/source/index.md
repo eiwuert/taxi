@@ -21,6 +21,8 @@ toc_footers:
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 
+* Payment updated.
+* Payment with card removed.
 * Add trip status on driver set location.
 * Added payment GET route
 * v
@@ -2621,8 +2623,8 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
-            "paid": true,
-            "payment": "cash",
+            "paid": false,
+            "payment": "to select",
             "driver": {
                 "first_name": "Giuseppe",
                 "last_name": "Ledner",
@@ -3797,6 +3799,8 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
+            "paid": false,
+            "payment": "to select",
             "client": {
                 "first_name": "amir",
                 "last_name": "amiri",
@@ -3827,7 +3831,8 @@ $.ajax(settings).done(function (response) {
                 "latitude": "33.946671",
                 "longitude": "51.373260",
                 "name": "استان اصفهان، کاشان، خیابان امیرکبیر، ایران"
-            }
+            },
+            "total": "5.6"
         }
     ]
 }
@@ -4147,35 +4152,6 @@ comment | text |  optional  | max: `5000`
 
 # Payment
 
-## Card
-
-Open following url to redirect to IPG page with trip informations.
-
-> Example request
-
-```bash
-curl "https://saamtaxi.net/payment/trip/{TRIP_ID}" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://saamtaxi.net/payment/trip/{TRIP_ID}",
-    "method": "GET",
-    "data": {}
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`GET https://saamtaxi.net/payment/trip/{TRIP_ID}`
-
 
 ## Charge
 
@@ -4206,6 +4182,112 @@ $.ajax(settings).done(function (response) {
 ### HTTP Request
 `GET https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}`
 
+
+##Pay cash
+
+Pay trip cost in cash. this shall be called by client. take note that this route is bind to `inTrip` and `notPaid` middlewares. keep in mind their responses as well. user cannot revert back to wallet.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/client/pay/cash" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/pay/cash",
+    "method": "GET",
+    "data": {}
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET https://saamtaxi.net/api/v1/client/pay/cash`
+
+> Example Response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Pay cash",
+            "detail": "Please pay trip cost to the driver."
+        }
+    ]
+}
+
+```
+
+
+##Pay wallet
+
+Pay trip cost by wallet. this shall be called by client. take note that this route is bind to `inTrip` and `notPaid` middlewares. keep in mind their responses as well. In case of not enough balance, user can switch to cash, still.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/client/pay/wallet" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/pay/wallet",
+    "method": "GET",
+    "data": {}
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET https://saamtaxi.net/api/v1/client/pay/wallet`
+
+> Example Response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Pay wallet",
+            "detail": "Your trip paid with your wallet balance."
+        }
+    ]
+}
+
+```
+
+
+> Example response - not enough balance 
+
+```json
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not enough balance",
+            "detail": "You don't have enough balance in your wallet."
+        }
+    ]
+}
+
+```
 
 
 #History
@@ -4761,6 +4843,41 @@ Check the max POST contetn size. in case of failure:
     }
   ]
 }
+```
+
+##In trip
+Check if the user is in a trip.
+if not:
+
+```json
+{
+  "success": false,
+  "data": [
+    {
+      "title": "Not on trip",
+      "detail": "Not on an active trip right now",
+      "code": 500
+    }
+  ]
+}
+```
+
+##Paid or can't change
+
+Payment record is already been paid or choose somethind else and now cannot be modified.
+
+```josn
+
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You already paid",
+            "detail": "You paid your trip cost or cannot change payment method"
+        }
+    ]
+}
+
 ```
 
 

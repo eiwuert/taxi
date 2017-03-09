@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Trip;
 use App\Client;
-use App\Payment;
-use Illuminate\Http\Request;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
+use App\Payment;
+use App\Trip;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -21,95 +22,6 @@ class PaymentController extends Controller
     public function __construct(Request $response)
     {
         $this->response = $response;
-    }
-
-    /**
-     * Show view of the payment result.
-     *
-     * @param  App\Http\Requests\Request $response
-     * @return Illuminate\Http\Response
-     */
-    public function trip()
-    {
-        // Response is fresh.
-        if ($this->notFresh()) {
-            return view('errors.403');
-        }
-
-        $payment = $this->payment = Payment::forceCreate([
-                        'trip_id' => $this->response->ResNum,
-                        'paid' => false,
-                        'type' => 'card',
-                        'ref'  => $this->response->RefNum,
-                        'detail' => $this->response->all(),
-                    ]);
-
-        $this->trip = $this->payment->trip;
-        $this->driver = $this->trip->driver;
-        $client = $this->client  = $this->trip->client;
-        $payment->forceFill(['client_id' => $client->id])->save();
-        $transaction = $this->transaction = $this->payment->trip->transaction;
-        $response = $this->response;
-
-        if ($this->response->State == 'OK') {
-            if (!$repeat = $this->checkRepeat($this->response->transactionAmount)) {
-                $amount = $this->checkAmount($this->transaction->total,
-                            $this->response->transactionAmount, $payment, $client);
-            } else {
-                $amount = 0;
-            }
-
-            // Successful payment
-            return view('payments.result',
-                        compact('response', 'payment', 'amount', 'client', 'repeat'));
-        } else {
-            // Fail payment
-            return view('payments.result',
-                        compact('response', 'payment', 'client'));
-        }
-    }
-
-    /**
-     * Check paid amount against the trip cost.
-     *
-     * @param  integer $cost
-     * @param  integer $paid
-     * @return string
-     */
-    private function checkAmount($cost, $paid)
-    {
-        $this->verifyTransaction();
-
-        if ($cost != $paid) {
-            // $this->reverseTransaction();
-            dispatch(new SendClientNotification('trip_not_paid', '13', $this->client->device_token));
-            return 'reversed';
-        } else {
-            // just paid the trip cost.
-            // update the trip's transaction as paid.
-            $this->payment->paid();
-            // Inform the client and driver that invoice has been paid.
-            dispatch(new SendDriverNotification('trip_paid', '7', $this->driver->device_token));
-            dispatch(new SendClientNotification('trip_paid', '12', $this->client->device_token));
-            return 'equal';
-        }
-    }
-
-    /**
-     * Check repeated payment for a trip, in this case duplicated paid money will
-     * charge the client wallet.
-     *
-     * @param  integer  $paid
-     * @return boolean
-     */
-    private function checkRepeat($paid)
-    {
-        if ($this->trip->payments()->paid()->count()) {
-            // $this->reverseTransaction();
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -180,14 +92,7 @@ class PaymentController extends Controller
         // If ResNum is not a valid trip_id
         // Revert back money if the state was OK
         // Complete the transaction.
-        $loginParams = array(
-            'username' => '21339760',
-            'password' => '21350400'
-        );
-        $soap = new nusoap_client("https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl", 'wsdl');
-        $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
-        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
-                              'value' => $session )));
+        $context = $this->getContext();
         $verifyParams = array(
             'context' => $context,
             'verifyRequest' => array('refNumList' => $this->response->ResNum)
@@ -202,14 +107,7 @@ class PaymentController extends Controller
      */
     private function reverseTransaction()
     {
-        $loginParams = array(
-            'username' => '21339760',
-            'password' => '21350400'
-        );
-        $soap = new nusoap_client("https://fcp.shaparak.ir/ref-payment/jax/merchantAuth?wsdl", 'wsdl');
-        $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
-        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
-                              'value' => $session )));
+        $context = $this->getContext();
         $reverseParams = array(
             'context' => $context,
             'reverseRequest' => array('amount' => $this->response->transactionAmount,
@@ -229,23 +127,79 @@ class PaymentController extends Controller
     {
         $client = Client::whereId($id)->firstOrFail();
         $resNum = $client->id;
-        $redirect = 'https://saamtaxi.net/payment/charge';
+        $redirect = config('payment.back');
         return view('payments.redirect', compact('resNum', 'amount', 'redirect'));
     }
 
     /**
-     * Redirect to bank page for charging with given trip ID.
-     * @param  integer $id
-     * @return view
+     * Get Fanava IPG context.
+     * @return array
      */
-    public function redirectTrip($id)
+    private function getContext()
     {
-        $trip   = Trip::whereId($id)->firstOrFail();
-        $resNum = $trip->id;
-        // todo: is it ok to round the amount??
-        $amount = $trip->transaction->total;
-        $redirect = 'https://saamtaxi.net/payment/trip';
-        return view('payments.redirect', compact('resNum', 'amount', 'redirect'));
+        $loginParams = array(
+            'username' => config('payment.username'),
+            'password' => config('payment.password'),
+        );
+        $soap = new nusoap_client(config('payment.ipg'), 'wsdl');
+        $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
+        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
+                              'value' => $session )));
+        return $context;
+    }
+
+    /**
+     * Deduct client balance for the trip.
+     * @return json
+     */
+    public function withWallet()
+    {
+        $client = Auth::user()->client()->first();
+        $trip = $client->trips()->orderBy('id', 'desc')->first();
+        $cost = $trip->transaction->total;
+        if ($client->balance > $cost) {
+            dispatch(new SendDriverNotification('pay_wallet', '7', $client->device_token));
+            Payment::forceCreate([
+                // NOTICE: it added with trip ID
+                'trip_id' => $trip->id,
+                'client_id' => $client->id,
+                'paid' => true,
+                'type' => 'wallet',
+                'ref'  => '00000',
+            ]);
+            $client->updateBalance((int)$cost * (-1));
+            return ok([
+                'title'  => 'Pay wallet',
+                'detail' => 'Your trip paid with your wallet balance.'
+            ]);
+        } else {
+            return fail([
+                'title'  => 'Not enough balance',
+                'detail' => 'You don\'t have enough balance in your wallet.'
+            ]);            
+        }
+    }
+
+    /**
+     * State the trip payment with the cash.
+     * @return json
+     */
+    public function withCash()
+    {
+        $client = Auth::user()->client()->first();
+        $trip = $client->trips()->orderBy('id', 'desc')->first();
+        dispatch(new SendDriverNotification('pay_cash', '6', $client->device_token));
+        Payment::forceCreate([
+            'trip_id' => $trip->id,
+            'client_id' => $client->id,
+            'paid' => true,
+            'type' => 'cash',
+            'ref'  => '00000',
+        ]);
+        return ok([
+            'title'  => 'Pay cash',
+            'detail' => 'Please pay trip cost to the driver.'
+        ]);
     }
 }
 

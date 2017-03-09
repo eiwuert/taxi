@@ -68,5 +68,7 @@ class Kernel extends HttpKernel
         'post.size'  => \App\Http\Middleware\ValidatePostSizeLimit::class,
         'log.req'    => \App\Http\Middleware\LogAfterRequest::class,
         'csrf'       => \App\Http\Middleware\VerifyCsrfToken::class,
+        'inTrip'     => \App\Http\Middleware\InTrip::class,
+        'notPaid'     => \App\Http\Middleware\NotPaid::class,
     ];
 }

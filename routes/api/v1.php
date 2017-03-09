@@ -57,6 +57,11 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function() {
 
         Route::get('history', 'Trip\HistoryController@client')
              ->name('clientHistory');
+
+        Route::group(['middleware' => ['inTrip', 'notPaid']], function() {
+            Route::get('pay/wallet', 'PaymentController@withWallet');
+            Route::get('pay/cash', 'PaymentController@withCash');
+        });
     });
 });
 

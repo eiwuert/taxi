@@ -19,14 +19,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\TripInitiated' => [
             'App\Listeners\IssueInvoice',
-            'App\Listeners\CheckBalance',
         ],
         'App\Events\TripEnded' => [
             'App\Listeners\RateTrip',
         ],
         'App\Events\UserVerified' => [
             'App\Listeners\MultiRecordClient',
-            //'App\Listeners\CreateDriverCar',
             'App\Listeners\MultiRecordDriver',
             'App\Listeners\RevokeOtherAccessToken',
         ],

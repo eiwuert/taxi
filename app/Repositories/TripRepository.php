@@ -143,28 +143,7 @@ class TripRepository
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', $clientDeviceToken));
             dispatch(new SendDriverNotification('new_client_found', '0', $driverDeviceToken));
             event(new TripInitiated(Trip::whereId($trip_id)->first(), $carType->name, $tripRequest['currency']));
-            if ($tripRequest['payment'] == 'cash') {
-                Payment::forceCreate([
-                    'trip_id' => $trip_id,
-                    'client_id' => $client->id,
-                    'paid' => true,
-                    'type' => 'cash',
-                    'ref'  => '0000',
-                ]);
-            } elseif ($tripRequest['payment'] == 'wallet') {
-                if ($client->balance > $trip->transaction->total) {
-                    $client->updateBalance((int)$trip->transaction->total * (-1));
-                } else {
-                    dispatch(new SendClientNotification('switched_to_cash', '12', $clientDeviceToken));
-                    Payment::forceCreate([
-                        'trip_id' => $trip_id,
-                        'client_id' => $client->id,
-                        'paid' => true,
-                        'type' => 'cash',
-                        'ref'  => '0000',
-                    ]);
-                }
-            }
+
             return ok([
                         'content'          => 'Trip request created successfully.',
                         'eta_text'         => $matrix['duration']['text'],
@@ -919,13 +898,9 @@ class TripRepository
             unset($driver->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $driver->user);
 
-            if (is_null($trip->payments()->first())) {
-                return false;
-            }
-
             return [
                     'paid' => $trip->payments()->paid()->exists(),
-                    'payment' => $trip->payments()->first()->type,
+                    'payment' => is_null($payment = $trip->payments()->paid()->first())?'to select':$payment->type,
                     'driver' => $driver,
                     'trip'   => $trip,
                     'status' => $status,
@@ -974,7 +949,8 @@ class TripRepository
             unset($client->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id, $trip->source, $trip->destination,
                 $trip->created_at, $trip->updated_at, $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
             return [
-                    'paid' => $paid,
+                    'paid' => $trip->payments()->paid()->exists(),
+                    'payment' => is_null($payment = $trip->payments()->paid()->first())?'to select':$payment->type,
                     'client' => $client,
                     'trip'   => $trip,
                     'status' => $status,

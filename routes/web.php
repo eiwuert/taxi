@@ -2,8 +2,6 @@
 require base_path('routes/admin/auth.php');
 
 Route::get('/', 'HomeController@index');
-Route::post('payment/trip', 'PaymentController@trip');
-Route::get('payment/trip/{tripId}', 'PaymentController@redirectTrip');
 Route::post('payment/charge', 'PaymentController@charge');
 Route::get('payment/charge/{id}/{amount}', 'PaymentController@redirectCharge');
 

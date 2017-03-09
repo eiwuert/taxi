@@ -45,6 +45,8 @@
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 <ul>
+<li>Payment updated.</li>
+<li>Payment with card removed.</li>
 <li>Add trip status on driver set location.</li>
 <li>Added payment GET route</li>
 <li>v</li>
@@ -2552,8 +2554,8 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
-            "paid": true,
-            "payment": "cash",
+            "paid": false,
+            "payment": "to select",
             "driver": {
                 "first_name": "Giuseppe",
                 "last_name": "Ledner",
@@ -3606,6 +3608,8 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
+            "paid": false,
+            "payment": "to select",
             "client": {
                 "first_name": "amir",
                 "last_name": "amiri",
@@ -3636,7 +3640,8 @@ $.ajax(settings).done(function (response) {
                 "latitude": "33.946671",
                 "longitude": "51.373260",
                 "name": "استان اصفهان، کاشان، خیابان امیرکبیر، ایران"
-            }
+            },
+            "total": "5.6"
         }
     ]
 }</code></pre>
@@ -3943,26 +3948,6 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h1>Payment</h1>
-<h2>Card</h2>
-<p>Open following url to redirect to IPG page with trip informations.</p>
-<blockquote>
-<p>Example request</p>
-</blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/payment/trip/{TRIP_ID}" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "https://saamtaxi.net/payment/trip/{TRIP_ID}",
-    "method": "GET",
-    "data": {}
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET https://saamtaxi.net/payment/trip/{TRIP_ID}</code></p>
 <h2>Charge</h2>
 <p>Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be fetched from <code>client/profile</code></p>
 <blockquote>
@@ -3983,6 +3968,86 @@ $.ajax(settings).done(function (response) {
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>GET https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}</code></p>
+<h2>Pay cash</h2>
+<p>Pay trip cost in cash. this shall be called by client. take note that this route is bind to <code>inTrip</code> and <code>notPaid</code> middlewares. keep in mind their responses as well. user cannot revert back to wallet.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/pay/cash" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/pay/cash",
+    "method": "GET",
+    "data": {}
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET https://saamtaxi.net/api/v1/client/pay/cash</code></p>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Pay cash",
+            "detail": "Please pay trip cost to the driver."
+        }
+    ]
+}
+</code></pre>
+<h2>Pay wallet</h2>
+<p>Pay trip cost by wallet. this shall be called by client. take note that this route is bind to <code>inTrip</code> and <code>notPaid</code> middlewares. keep in mind their responses as well. In case of not enough balance, user can switch to cash, still.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/client/pay/wallet" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/client/pay/wallet",
+    "method": "GET",
+    "data": {}
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET https://saamtaxi.net/api/v1/client/pay/wallet</code></p>
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Pay wallet",
+            "detail": "Your trip paid with your wallet balance."
+        }
+    ]
+}
+</code></pre>
+<blockquote>
+<p>Example response - not enough balance </p>
+</blockquote>
+<pre><code class="language-json">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not enough balance",
+            "detail": "You don't have enough balance in your wallet."
+        }
+    ]
+}
+</code></pre>
 <h1>History</h1>
 <h2>driver</h2>
 <p>History of driver trips.</p>
@@ -4486,6 +4551,32 @@ $.ajax(settings).done(function (response) {
     }
   ]
 }</code></pre>
+<h2>In trip</h2>
+<p>Check if the user is in a trip.
+if not:</p>
+<pre><code class="language-json">{
+  "success": false,
+  "data": [
+    {
+      "title": "Not on trip",
+      "detail": "Not on an active trip right now",
+      "code": 500
+    }
+  ]
+}</code></pre>
+<h2>Paid or can't change</h2>
+<p>Payment record is already been paid or choose somethind else and now cannot be modified.</p>
+<pre><code class="language-josn">
+{
+    "success": false,
+    "data": [
+        {
+            "title": "You already paid",
+            "detail": "You paid your trip cost or cannot change payment method"
+        }
+    ]
+}
+</code></pre>
 <h1>Errors</h1>
 <h2>404</h2>
 <p>Requested route is not registered within the app.</p>
@@ -4686,7 +4777,11 @@ $.ajax(settings).done(function (response) {
 </tr>
 <tr>
 <td>6</td>
-<td><code>balance_updated</code></td>
+<td><code>pay_cash</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>pay_wallet</code></td>
 </tr>
 </tbody>
 </table>

@@ -28,4 +28,5 @@ Body | Header
 3 | `client_canceled_arrived_driver`
 4 | `no_reponse_going_offline`
 5 | `trip_is_over_by_admin`
-6 | `balance_updated`
+6 | `pay_cash`
+7 | `pay_wallet`
