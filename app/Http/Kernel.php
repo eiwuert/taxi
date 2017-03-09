@@ -54,7 +54,6 @@ class Kernel extends HttpKernel
         'role'       => \App\Http\Middleware\CheckRole::class,
         'json'       => \App\Http\Middleware\FormatJson::class,
         'header'     => \App\Http\Middleware\CheckHeader::class,
-        'format'     => \App\Http\Middleware\ReplacePhone::class,
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
         'verified'   => \App\Http\Middleware\CheckVerifiedUser::class,
         'approved'   => \App\Http\Middleware\CheckApproveDriver::class,

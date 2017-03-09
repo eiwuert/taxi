@@ -20,9 +20,9 @@ class ValidatePostSizeLimit extends ValidatePostSize
 
         if ($max > 0 && $request->server('CONTENT_LENGTH') > $max) {
             return fail([
-                    'title'  => 'Exceed file size',
-                    'detail' => 'Post size exceed allowed size'
-                ]);
+                'title'  => 'Exceed file size',
+                'detail' => 'Post size exceed allowed size'
+            ]);
         }
 
         return $next($request);

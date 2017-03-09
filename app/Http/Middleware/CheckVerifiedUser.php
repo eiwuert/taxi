@@ -39,9 +39,9 @@ class CheckVerifiedUser
             return $next($request);
         } else {
             return fail([
-                    'title'  => 'Not a verified user',
-                    'detail' => 'You should verify your phone number first.'
-                ], 401);
+                'title'  => 'Not a verified user',
+                'detail' => 'You should verify your phone number first.'
+            ], 401);
         }
     }
 }

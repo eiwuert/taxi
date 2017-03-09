@@ -39,9 +39,9 @@ class CheckOnlineDriver
             return $next($request);
         } else {
             return fail([
-                    'title'  => 'Not an online driver',
-                    'detail' => 'You should go online first.'
-                ], 401);
+                'title'  => 'Not an online driver',
+                'detail' => 'You should go online first.'
+            ], 401);
         }
     }
 }

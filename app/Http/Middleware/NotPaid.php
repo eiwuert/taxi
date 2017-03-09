@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\User;
 use Auth;
 use Closure;
+use App\User;
 
 class NotPaid
 {

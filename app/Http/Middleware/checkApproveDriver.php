@@ -39,9 +39,9 @@ class CheckApproveDriver
             return $next($request);
         } else {
             return fail([
-                    'title'  => 'Not an approved driver',
-                    'detail' => 'You should contact your area car center to begin approving proccess.'
-                ], 401);
+                'title'  => 'Not an approved driver',
+                'detail' => 'You should contact your area car center to begin approving proccess.'
+            ], 401);
         }
     }
 }

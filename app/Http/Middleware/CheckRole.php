@@ -32,6 +32,7 @@ class CheckRole
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param  string $role
      * @return mixed
      */
     public function handle($request, Closure $next, $role = 'client')
@@ -39,9 +40,9 @@ class CheckRole
         if (is_null($this->auth->guard('api')->user()) ||
             is_null($this->auth->guard('api')->user()) ) {
             return fail([
-                    'title'  => 'You are not authorized to access',
-                    'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
-                ], 401);
+                'title'  => 'You are not authorized to access',
+                'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
+            ], 401);
         }
 
         if ($role == 'client' && ! is_null(User::wherePhone($this->auth->guard('api')->user()->phone)
@@ -52,9 +53,9 @@ class CheckRole
             return $next($request);
         } else {
             return fail([
-                    'title'  => 'You are not authorized to access',
-                    'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
-                ], 401);
+                'title'  => 'You are not authorized to access',
+                'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
+            ], 401);
         }
     }
 }

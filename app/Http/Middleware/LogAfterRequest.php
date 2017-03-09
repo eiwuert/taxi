@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use DB;
 use Closure;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class LogAfterRequest {
-
+class LogAfterRequest
+{
     public function handle($request, Closure $next)
     {
         return $next($request);
@@ -32,8 +32,7 @@ class LogAfterRequest {
                 'languages' => $request->getLanguages(),
                 'isXml'     => $request->isXmlHttpRequest(),
                 'proxies'   => $request->getTrustedProxies(),
-                'parameters'=> $request->all(), 
+                'parameters'=> $request->all(),
             ]);
     }
-
 }
