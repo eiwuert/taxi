@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 
 class UserVerified
 {
-    use sSerializesModels;
+    use SerializesModels;
 
     public $user;
 

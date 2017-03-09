@@ -54,7 +54,7 @@ class SmsRepository
         if ($response->getStatusCode() == 200 && $response->getReasonPhrase() == 'OK') {
             return true;
         } else {
-            Log::critical('SMS verification failed with status of ' . $response->getStatusCode() . 
+            Log::critical('SMS verification failed with status of ' . $response->getStatusCode() .
                           ' and reason phrase of ' . $response->getReasonPhrase());
             return false;
         }

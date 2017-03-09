@@ -2,7 +2,10 @@
 
 namespace App\Repositories\Trip;
 
+use Log;
 use Auth;
+use App\Trip;
+use Carbon\Carbon;
 
 class MainRepository
 {
@@ -10,7 +13,7 @@ class MainRepository
      * Role of this user.
      * @return String client or driver
      */
-    public function role()
+    public static function role()
     {
         return Auth::user()->role;
     }
@@ -20,7 +23,7 @@ class MainRepository
      * @param  string  $role
      * @return boolean
      */
-    public function is($role)
+    public static function is($role)
     {
         if ($this->role() == $role) {
             return true;
@@ -33,7 +36,7 @@ class MainRepository
      * Get authenticated client.
      * @return array
      */
-    public function client()
+    public static function client()
     {
         return Auth::user()->client()->first();
     }
@@ -42,7 +45,7 @@ class MainRepository
      * Get authenticated driver.
      * @return array
      */
-    public function driver()
+    public static function driver()
     {
         return Auth::user()->driver()->first();
     }
@@ -51,7 +54,7 @@ class MainRepository
      * Get the last trip of the authenticated user.
      * @return array
      */
-    public function trips()
+    public static function trips()
     {
         return $trip->driver;
         return $this->driver()->trips()->orderBy('id', 'desc')->first();
@@ -87,7 +90,7 @@ class MainRepository
             } else {
                 $pending = $pending->first();
                 if (!is_null($pending->next)) {
-                // Multi route
+                    // Multi route
                     $pending->updateStatusTo('trip_is_over_by_admin');
                     $tripToCancel = Trip::find($pending->next);
                     while (!is_null($tripToCancel->next)) {
@@ -105,5 +108,42 @@ class MainRepository
         } else {
             return false;
         }
+    }
+
+    /**
+     * Exclude not responded drivers.
+     * @param  integer $clientId
+     * @return string
+     */
+    public static function exclude($clientId)
+    {
+        if (env('APP_ENV', 'production') == 'local') {
+            $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
+                            ->where('client_id', $clientId)
+                            ->where('created_at', '>', Carbon::now()->subMinutes(1)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
+        } else {
+            $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
+                            ->where('client_id', $clientId)
+                            ->whereDate('created_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->get(['driver_id'])->flatten();
+        }
+
+        $toExclude = [];
+        foreach ($exclude as $e) {
+            if (! is_null($e->driver_id)) {
+                $toExclude[] = $e->driver_id;
+            }
+        }
+
+        Log::info('To exclude: ', $toExclude);
+        if (empty($toExclude)) {
+            $toExclude = [0];
+        }
+
+        return [
+            'count' => count($toExclude),
+            'result' => implode(',', $toExclude)
+        ];
     }
 }

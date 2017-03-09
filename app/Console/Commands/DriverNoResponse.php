@@ -13,6 +13,7 @@ use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\TripRepository;
 use App\Repositories\Trip\CreateRepository as Create;
+use App\Repositories\Trip\MainRepository as DriversTo;
 
 class driverNoResponse extends Command
 {
@@ -50,19 +51,10 @@ class driverNoResponse extends Command
      */
     public function handle()
     {
-        $single = Trip::where('driver_id', '<>', null)
+        $trips = Trip::where('driver_id', '<>', null)
                     ->where('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
                     ->where('next', null)
                     ->passed();
-
-        // Multi route trips has more time. due to the time it takes to create trips.
-        $multi = Trip::where('driver_id', '<>', null)
-                    ->where('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
-                    ->where('next', '<>', null)
-                    ->passed(65);
-
-        // Union of single route trips and multi routes
-        $trips = $single->union($multi)->get();
 
         foreach ($trips as $trip) {
             $driverId = $trip->driver_id;
@@ -92,61 +84,19 @@ class driverNoResponse extends Command
 
             Log::alert(($trip->next));
             // Request new taxi
-            if (is_null($trip->next)) {
-                $prevTrip = Trip::find($trip->id);
-                $tripRequest = [
-                    's_lat'  => $prevTrip->source()->first()->latitude,
-                    's_long' => $prevTrip->source()->first()->longitude,
-                    'd_lat'  => $prevTrip->destination()->first()->latitude,
-                    'd_long' => $prevTrip->destination()->first()->longitude,
-                ];
-                $exclude = TripRepository::excludeDriver($prevTrip->client_id);
-                if ($exclude['count'] < 10) {
-                    Create::this($tripRequest)->for(Client::find($prevTrip->client_id)->user->id)
-                        ->exclude($exclude['result'])->now();
-                } else {
-                    dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
-                }
+            $prevTrip = Trip::find($trip->id);
+            $tripRequest = [
+                's_lat'  => $prevTrip->source()->first()->latitude,
+                's_long' => $prevTrip->source()->first()->longitude,
+                'd_lat'  => $prevTrip->destination()->first()->latitude,
+                'd_long' => $prevTrip->destination()->first()->longitude,
+            ];
+            $exclude = DriversTo::exclude($prevTrip->client_id);
+            if ($exclude['count'] < 10) {
+                Create::this($tripRequest)->for(Client::find($prevTrip->client_id)->user->id)
+                    ->exclude($exclude['result'])->now();
             } else {
-                $prevTrip = Trip::find($trip->id);
-                $locations = [];
-                while (!is_null($prevTrip->next)) {
-                    $locations[] = $prevTrip->source;
-                    $prevTrip = \App\Trip::find($prevTrip->next);
-                }
-                $locations[] = $prevTrip->source;
-                $locations[] = $prevTrip->destination;
-
-                $tripRequest = [];
-                foreach ($locations as $index => $location) {
-                    if ($index == 0) {
-                        $latLng = \App\Location::find($location);
-                        $tripRequest[] = [
-                            's_lat' => $latLng->latitude,
-                            's_long' => $latLng->longitude,
-                        ];
-                        continue;
-                    }
-
-                    $latLng = \App\Location::find($location);
-                    $tripRequest[] = [
-                        'd_lat' => $latLng->latitude,
-                        'd_long' => $latLng->longitude,
-                    ];
-                }
-
-                $exclude = TripRepository::excludeDriver($prevTrip->client_id);
-                if ($exclude['count'] < 10) {
-                    TripRepository::createMultiRouteTrip($tripRequest, $exclude['result'], Client::find($prevTrip->client_id)->user->id);
-                } else {
-                    dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
-                    $prevTrip = Trip::find($trip->id);
-                    while (!is_null($prevTrip->next)) {
-                        Trip::find($prevTrip)->forceFill(['status_id' => Status::where('name', 'next_trip_halt')->firstOrFail()->value])->save();
-                        $prevTrip = $prevTrip->next;
-                    }
-                    $prevTrip->forceFill(['status_id' => Status::where('name', 'next_trip_halt')->firstOrFail()->value])->save();
-                }
+                dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
             }
         }
     }

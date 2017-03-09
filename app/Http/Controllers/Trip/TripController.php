@@ -7,7 +7,12 @@ use App\Http\Requests\NearbyRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
 use App\Http\Requests\MultiTripRequest;
+use App\Repositories\Trip\StartRepository as Start;
+use App\Repositories\Trip\NearbyRepository as Find;
+use App\Repositories\Trip\AcceptRepository as Accept;
 use App\Repositories\Trip\CreateRepository as Create;
+use App\Repositories\Trip\ArrivedRepository as Driver;
+use App\Repositories\Trip\CurrentRepository as Current;
 
 class TripController extends Controller
 {
@@ -65,12 +70,12 @@ class TripController extends Controller
 
     /**
      * Show nearby taxi to client.
-     * @param  \App\Http\Requests\NearbyRequest $request
+     * @param  \App\Http\Requests\NearbyRequest $point
      * @return json
      */
-    public function nearbyTaxi(NearbyRequest $request)
+    public function nearbyTaxi(NearbyRequest $point)
     {
-        return ok(TripRepository::nearby($request), 200, [], false);
+        return ok(Find::nearby($point), 200, [], false);
     }
 
     /**
@@ -79,7 +84,18 @@ class TripController extends Controller
      */
     public function cancel()
     {
-        return TripRepository::cancelTrip();
+        $result = Cancel::trip();
+        if (in_array('ok', $result)) {
+            return ok([
+                'title'  => 'Trip cancelled.',
+                'detail' => 'Trip cancelled successfully',
+            ]);
+        } else {
+            return fail([
+                'title'  => 'You cannot do this.',
+                'detail' => 'You cannot cancel your ride on this status.',
+            ]);
+        }
     }
 
     /**
@@ -88,7 +104,7 @@ class TripController extends Controller
      */
     public function accept()
     {
-        if (TripRepository::accept()) {
+        if (Accept::trip()) {
             return ok([
                     'title'  => 'You are onway.',
                     'detail' => 'Trip status changed from 2 to 7',
@@ -107,16 +123,16 @@ class TripController extends Controller
      */
     public function start()
     {
-        if (TripRepository::start()) {
+        if (Start::trip()) {
             return ok([
-                    'title'  => 'Trip started.',
-                    'detail' => 'Trip status changed from 12 to 6',
-                ]);
+                'title'  => 'Trip started.',
+                'detail' => 'Trip status changed from 12 to 6',
+            ]);
         } else {
             return fail([
-                    'title'  => 'Wait',
-                    'detail' => 'You still do not have trip, please wait.'
-                ]);
+                'title'  => 'Wait',
+                'detail' => 'You still do not have trip, please wait.'
+            ]);
         }
     }
 
@@ -127,14 +143,7 @@ class TripController extends Controller
      */
     public function trip()
     {
-        if ($trip = TripRepository::trip()) {
-            return ok($trip);
-        } else {
-            return fail([
-                    'title'  => 'Not on trip',
-                    'detail' => 'Not on an active trip right now',
-                ]);
-        }
+        return ok(Current::trip());
     }
 
     /**
@@ -143,16 +152,27 @@ class TripController extends Controller
      */
     public function end()
     {
-        if (TripRepository::end()) {
+        $result = End::trip();
+        if (in_array('ok', $result)) {
             return ok([
-                    'title'  => 'Trip ended.',
-                    'detail' => 'Trip status changed from 6 to 9, You can rate trip now.',
-                ]);
+                'title'  => 'Trip ended.',
+                'detail' => 'Trip status changed from 6 to 9, You can rate trip now.',
+            ]);
         } else {
-            return fail([
-                    'title'  => 'Fail',
-                    'detail' => 'You have no trip to end or you cannot end trip now.',
-                ]);
+            switch ($result['fail']) {
+                case 'not_started':
+                    return fail([
+                        'title'  => 'Fail',
+                        'detail' => 'You have no trip to end or you cannot end trip now.',
+                    ]);
+                    break;
+                default:
+                    return fail([
+                        'title'  => 'trip is not paid',
+                        'detail' => 'Please ask the client to pay for the trip.'
+                    ]);
+                    break;
+            }
         }
     }
 
@@ -162,7 +182,7 @@ class TripController extends Controller
      */
     public function arrived()
     {
-        if (TripRepository::arrived()) {
+        if (Driver::arrived()) {
             return ok([
                 'title'  => 'Waiting for client.',
                 'detail' => 'Trip status changed from 7 to 12.',
