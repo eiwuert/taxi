@@ -29,27 +29,6 @@ class TripController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -61,40 +40,6 @@ class TripController extends Controller
         return view('admin.trips.show', compact('trip'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function cancel($trip)
     {
         flash('Trip ended.', 'success');
@@ -104,7 +49,7 @@ class TripController extends Controller
     /**
      * Filter trips.
      * @param  string $status
-     * @return view
+     * @return Illuminate\Http\Response
      */
     public function filter(Request $request)
     {
@@ -137,8 +82,8 @@ class TripController extends Controller
 
     /**
      * Search on everything
-     * @param  Request $request
-     * @return view
+     * @param  Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
      */
     public function search(Request $request)
     {

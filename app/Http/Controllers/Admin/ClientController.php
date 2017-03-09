@@ -28,28 +28,6 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // client cannot be registered through web application at current moment they should go and
-        // register through the mobile application.
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // No creation.
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -61,21 +39,10 @@ class ClientController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        // It's showing within the index page.
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Admin\ClientRequest  $request
-     * @param  \App\Client $client
+     * @param  App\Http\Requests\Admin\ClientRequest  $request
+     * @param  App\Client $client
      * @return \Illuminate\Http\Response
      */
     public function update(ClientRequest $request, Client $client)
@@ -88,7 +55,7 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Client $client
+     * @param  App\Client $client
      * @return \Illuminate\Http\Response
      */
     public function destroy(Client $client)
@@ -108,7 +75,7 @@ class ClientController extends Controller
         $clients = $clients->with('user');
         if ($request->status == 'locked') {
             $clients = Client::locked();
-        } else if ($request->status == 'unlocked') {
+        } elseif ($request->status == 'unlocked') {
             $clients = Client::unlocked();
         }
 
@@ -150,7 +117,7 @@ class ClientController extends Controller
 
     /**
      * Lock a client.
-     * @param  \App\CLient $client
+     * @param  App\Client $client
      * @return redirect
      */
     public function lock(Client $client)
@@ -164,7 +131,7 @@ class ClientController extends Controller
 
     /**
      * Unlock client.
-     * @param  \App\Client $client
+     * @param  App\Client $client
      * @return redirect
      */
     public function unlock(Client $client)
@@ -178,7 +145,7 @@ class ClientController extends Controller
 
     /**
      * Search on everything
-     * @param  Request $request
+     * @param  Illuminate\Http\Request $request
      * @return view
      */
     public function search(Request $request)
