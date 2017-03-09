@@ -788,8 +788,6 @@ class TripRepository
         if (is_null($trip)) {
             return false;
         }
-        
-        $trip->payments()->where('type', 'cash')->first()->forceFill(['paid' => true])->save();
 
         // If trip has been paid it can be end.
         if (! $trip->payments()->paid()->exists()) {
