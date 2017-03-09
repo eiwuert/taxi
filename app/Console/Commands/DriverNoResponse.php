@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use DB;
 use Log;
 use App\Trip;
 use App\Status;
@@ -138,12 +137,10 @@ class driverNoResponse extends Command
 
                 $exclude = TripRepository::excludeDriver($prevTrip->client_id);
                 if ($exclude['count'] < 10) {
-                    Log::alert('im creating another trip.');
                     TripRepository::createMultiRouteTrip($tripRequest, $exclude['result'], Client::find($prevTrip->client_id)->user->id);
                 } else {
                     dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
                     $prevTrip = Trip::find($trip->id);
-                    Log::alert('im sending no driver message.');
                     while (!is_null($prevTrip->next)) {
                         Trip::find($prevTrip)->forceFill(['status_id' => Status::where('name', 'next_trip_halt')->firstOrFail()->value])->save();
                         $prevTrip = $prevTrip->next;

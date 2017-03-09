@@ -42,7 +42,7 @@ class MakeComposer extends Command
         if (File::exists($file)) {
             $this->error($this->argument('name') . ' class already exists.');
         } else {
-            File::put($file, 
+            File::put($file,
 "<?php
 
 namespace App\Http\ViewComposers;
@@ -72,7 +72,7 @@ class {$this->argument('name')}
         // \$view->with('data', \$data);
     }
 }
-");   
+");
             $this->info($this->argument('name') . ' class created.');
         }
     }

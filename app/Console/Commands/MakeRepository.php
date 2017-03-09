@@ -41,7 +41,7 @@ class MakeRepository extends Command
         if (File::exists('app/Repositories/' . $this->argument('name') . '.php')) {
             $this->error($this->argument('name') . ' class already exists.');
         } else {
-            File::put('app/Repositories/' . $this->argument('name') . '.php', 
+            File::put('app/Repositories/' . $this->argument('name') . '.php',
 "<?php
 
 namespace App\Repositories;
@@ -50,7 +50,7 @@ class {$this->argument('name')}
 {
 
 }
-");   
+");
             $this->info($this->argument('name') . ' class created.');
         }
     }
