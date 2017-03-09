@@ -14,6 +14,7 @@ class TripController extends Controller
      * Request taxi
      *
      * Request taxi by client.
+     * @param App\Http\Requests\TripRequest $trip
      * @return json
      */
     public function requestTaxi(TripRequest $trip)
@@ -74,6 +75,7 @@ class TripController extends Controller
 
     /**
      * Calculate distance and cost between 2 point.
+     * @param App\Http\Requests\TripRequest $tripRequest
      * @return json
      */
     public function calculate(TripRequest $tripRequest)

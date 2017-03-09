@@ -13,7 +13,7 @@ class CarController extends Controller
 {
     /**
      * Get driver car info.
-     * @param  Car    $car
+     * @param  App\Car    $car
      * @return json
      */
     public function info(Car $car)

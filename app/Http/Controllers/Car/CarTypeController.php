@@ -9,12 +9,12 @@ use App\Http\Controllers\Controller;
 
 class CarTypeController extends Controller
 {
-	/**
-	 * Get all available car types.
-	 * @return json
-	 */
+    /**
+     * Get all available car types.
+     * @return json
+     */
     public function all()
     {
-    	return ok(CarType::all(), 200, [], false);
+        return ok(CarType::all(), 200, [], false);
     }
 }

@@ -15,12 +15,12 @@ use App\Http\Controllers\Controller;
 
 class SmsController extends Controller
 {
-	/**
-	 * Verify SMS code
-	 *
-	 * Check user SMS code is valid.
-	 * @return json
-	 */
+    /**
+     * Verify SMS code
+     *
+     * Check user SMS code is valid.
+     * @return json
+     */
     public function verify(SmsRequest $request)
     {
         if (is_null($this->getSMS()->first())) {
@@ -41,26 +41,26 @@ class SmsController extends Controller
             return fail([
                     'title'  => 'Exceed attempts tries',
                     'detail' => 'You\'ve entered verification code wrong for too many times',
-                ]);            
+                ]);
         }
 
         $sms = $this->getSMS();
         $sms->first()->increment('attempts');
 
-    	if ($sms->count()) {
-    		if ($sms->first()->code == $request->code) {
+        if ($sms->count()) {
+            if ($sms->first()->code == $request->code) {
                 event(new UserVerified(Auth::user()));
                 $this->verifyUser();
-    			return ok([
-    						'content' => 'Phone verified successfuly'
-    					]);
-    		} else {
+                return ok([
+                            'content' => 'Phone verified successfuly'
+                        ]);
+            } else {
                 return fail([
                     'title'  => 'Wrong code',
                     'detail' => 'You have entered wrong verification code, please check your code again.'
                 ], 404);
             }
-    	} else {
+        } else {
             return fail([
                     'title'  => 'Please ask for verification again',
                     'detail' => 'There is no active code for verifying this phone number.'
@@ -96,7 +96,7 @@ class SmsController extends Controller
 
     /**
      * Get user sms that is received less than 8 minutes ago.
-     * @param  integer|string $minute
+     * @param  integer $minute
      * @return PDO
      */
     private function getSMS($minute = 8)
