@@ -32,7 +32,7 @@ class Transaction extends Model
     /**
      * A transaction can have one trip.
      *
-     * @return hasOne
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function trip()
     {
@@ -42,7 +42,7 @@ class Transaction extends Model
     /**
      * A transaction can have one car type.
      *
-     * @return hasOne
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function type()
     {

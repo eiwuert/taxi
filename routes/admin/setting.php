@@ -2,10 +2,10 @@
 /**
  * Settings related routes.
  */
-Route::group(['prefix' => 'settings'], function() {
+Route::group(['prefix' => 'settings'], function () {
     Route::get('general', 'SettingController@general')
             ->name('settings.general');
-    Route::group(['prefix' => 'backup', 'namespace' => 'Setting'], function() {
+    Route::group(['prefix' => 'backup', 'namespace' => 'Setting'], function () {
         Route::get('/', 'BackupController@index')
                 ->name('settings.backup.index');
         Route::get('download/{file}', 'BackupController@download')

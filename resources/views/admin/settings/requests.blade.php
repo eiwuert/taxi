@@ -56,7 +56,7 @@
                     </table>
                     </td>
                     {{-- Extracting time from _id --}}
-                    <td>{{ $request['_id'] }}</td>
+                    <td>{{ $request->diff }}</td>
                 </tr>
                 @endforeach
             </tbody></table>

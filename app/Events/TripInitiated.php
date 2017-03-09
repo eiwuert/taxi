@@ -36,7 +36,7 @@ class TripInitiated
     public function broadcastOn()
     {
         $channels = [];
-        foreach(User::whereRole('web')->get() as $admin) {
+        foreach (User::whereRole('web')->get() as $admin) {
             $channels[] = new PrivateChannel('App.User.' . $admin->id);
         }
         return $channels;

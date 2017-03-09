@@ -12,7 +12,7 @@ class StatusTableSeeder extends Seeder
     public function run()
     {
         DB::table('status')->insert([
-        		[
+                [
                     'name'  => 'request_taxi',
                     'value' => 1,
                 ], [

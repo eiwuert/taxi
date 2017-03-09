@@ -32,7 +32,7 @@ class Driver extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 
+        'first_name',
         'last_name',
         'gender',
         'device_token',
@@ -47,7 +47,7 @@ class Driver extends Model
     ];
 
     public static $sortable = [
-        'first_name' => 'First name', 
+        'first_name' => 'First name',
         'last_name' => 'Last name',
         'email' => 'Email',
         'gender' => 'Gender',
@@ -62,11 +62,11 @@ class Driver extends Model
     ];
 
     public static $info = [
-        'first_name', 
-        'last_name', 
-        'email', 
-        'gender', 
-        'picture', 
+        'first_name',
+        'last_name',
+        'email',
+        'gender',
+        'picture',
         'user_id',
     ];
 
@@ -75,7 +75,7 @@ class Driver extends Model
      * online    0
      * available 0
      * approve   1
-     * 
+     *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -92,7 +92,7 @@ class Driver extends Model
      * online    0
      * available 0
      * approve   0
-     * 
+     *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -109,7 +109,7 @@ class Driver extends Model
      * online    1
      * available 0
      * approve   1
-     * 
+     *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -126,7 +126,7 @@ class Driver extends Model
      * online    1
      * available 1
      * approve   1
-     * 
+     *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -143,7 +143,7 @@ class Driver extends Model
      * online    1
      * available 1
      * approve   1
-     * 
+     *
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -157,7 +157,7 @@ class Driver extends Model
 
     /**
      * Save user profile picture.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
@@ -178,10 +178,10 @@ class Driver extends Model
         if ($this->online && $this->available && $this->approve) {
             return (object) ['color' => 'success',
                             'name' => 'Online'];
-        } else if (! $this->approve) {
+        } elseif (! $this->approve) {
             return (object) ['color' => 'danger',
                             'name' => 'not approved'];
-        } else if ($this->online && ! $this->available) {
+        } elseif ($this->online && ! $this->available) {
             return (object) ['color' => 'primary',
                             'name' => 'onway'];
         } else {
@@ -192,8 +192,8 @@ class Driver extends Model
 
     /**
      * A driver can have one user.
-     * 
-     * @return hasOne
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function user()
     {
@@ -202,8 +202,8 @@ class Driver extends Model
 
     /**
      * A driver can have many trips.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function trips()
     {
@@ -212,8 +212,8 @@ class Driver extends Model
 
     /**
      * Inverse trips
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function inverseTrips()
     {
@@ -222,7 +222,7 @@ class Driver extends Model
 
     /**
      * Get full path to profile picture url.
-     * 
+     *
      * @param  string $picture
      * @return string
      */
@@ -311,7 +311,7 @@ class Driver extends Model
 
     /**
      * Get the car of the driver.
-     * @return [type] [description]
+     * @return integer
      */
     public function car()
     {

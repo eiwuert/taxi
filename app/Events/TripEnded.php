@@ -3,16 +3,11 @@
 namespace App\Events;
 
 use App\Trip;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class TripEnded
 {
-    use InteractsWithSockets, SerializesModels;
+    use SerializesModels;
 
     public $trip;
 

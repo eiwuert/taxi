@@ -65,7 +65,7 @@ class AppInit extends Command
                                   '--force' => true]);
         $bar->advance();
         $this->info(" Seed fake clients and drivers");
-        Artisan::call('make:admin', ['email'    => 'admin@mysite.com', 
+        Artisan::call('make:admin', ['email'    => 'admin@mysite.com',
                                      'password' =>'123456']);
         $bar->finish();
         $this->info(" Create default admin");

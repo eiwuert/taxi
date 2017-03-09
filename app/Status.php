@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
-       /**
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -19,14 +19,14 @@ class Status extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 
+        'name',
         'value',
     ];
 
     /**
      * A status can have many trips.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function trips()
     {

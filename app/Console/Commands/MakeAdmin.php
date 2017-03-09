@@ -46,7 +46,7 @@ class MakeAdmin extends Command
             $this->error("User with this email address already exists");
         } else {
             $password = $this->argument('password');
-            $userId = 
+            $userId =
                 DB::table('users')->insert([
                     'uuid' => Uuid::generate(1)->string,
                     'role' => 'web',

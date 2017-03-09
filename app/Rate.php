@@ -9,7 +9,7 @@ class Rate extends Model
     /**
      * A rate can have one trip.
      * 
-     * @return hasOne
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function trip()
     {

@@ -15,7 +15,7 @@ class Location extends Model
     /**
      * A location can have one user.
      *
-     * @return HasOne
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function user()
     {
@@ -25,7 +25,7 @@ class Location extends Model
     /**
      * A location can be source location of many trips.
      *
-     * @return hasMany
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function sources()
     {
@@ -35,7 +35,7 @@ class Location extends Model
     /**
      * A location can be destination location of many trips.
      *
-     * @return hasMany
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function destinations()
     {

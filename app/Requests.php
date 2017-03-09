@@ -7,8 +7,19 @@ use Jenssegers\Mongodb\Eloquent\Model as Model;
 
 class Requests extends Model
 {
-    protected $fillable = ['duration', 'url', 'method', 'ip', 'locale', 'languages', 'charsets',
-        'encodings', 'isXml', 'proxies', 'parameters', 'created_at'];
+    protected $fillable = [
+        'duration',
+        'url',
+        'method',
+        'ip',
+        'locale',
+        'languages',
+        'charsets',
+        'encodings',
+        'isXml',
+        'proxies',
+        'parameters',
+    ];
 
     protected $connection = 'mongodb';
 
@@ -17,8 +28,10 @@ class Requests extends Model
      * @param  string $value
      * @return string
      */
-    public function getIdAttribute($value)
+    public function getDiffAttribute($value)
     {
-        return Carbon::createFromTimestamp($value->getTimestamp())->diffForHumans();
+        // Extract timestamps from MongoDB ID
+        $timestamps = hexdec(substr((string) $this->id, 0, 8));
+        return Carbon::createFromTimestamp($timestamps)->diffForHumans();
     }
 }

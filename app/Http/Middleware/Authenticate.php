@@ -28,10 +28,10 @@ class Authenticate extends Auth
             }
         }
         return fail([
-                'title'  => 'Unauthenticated.',
-                'detail' => 'Unauthenticated access token.',
-                'status' => 403
-            ]);
+            'title'  => 'Unauthenticated.',
+            'detail' => 'Unauthenticated access token.',
+            'status' => 403
+        ]);
 
         //throw new AuthenticationException('...', $guards);
     }
