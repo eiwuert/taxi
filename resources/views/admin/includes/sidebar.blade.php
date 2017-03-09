@@ -31,7 +31,6 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ (str_contains(Request::url(), route('settings.general'))) ? 'active' : '' }}"><a href="{{ route('settings.general') }}">General</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.backup.index'))) ? 'active' : '' }}"><a href="{{ route('settings.backup.index') }}">Backup</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.logs.index'))) ? 'active' : '' }}"><a href="{{ route('settings.logs.index') }}">Logs</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.fcm.index'))) ? 'active' : '' }}"><a href="{{ route('settings.fcm.index') }}">FCM</a></li>
