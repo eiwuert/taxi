@@ -22,7 +22,7 @@ class Web extends Model
     /**
      * A web user can have one user.
      * 
-     * @return hasOne
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function user()
     {

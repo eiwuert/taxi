@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
-        'email', 
+        'email',
         'phone',
         'role',
         'password',
@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     /**
      * Encrypt password before saving to database.
-     * 
+     *
      * @param  string $value
      * @return string
      */
@@ -49,8 +49,8 @@ class User extends Authenticatable
 
     /**
      * A user can have many locations.
-     * 
-     * @return HasMany
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function locations()
     {
@@ -59,8 +59,8 @@ class User extends Authenticatable
 
     /**
      * A user(driver) can have one car type.
-     * 
-     * @return hasOne
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function carType()
     {
@@ -69,8 +69,8 @@ class User extends Authenticatable
 
     /**
      * A user(driver) can have one car.
-     * 
-     * @return hasOne
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function car()
     {
@@ -79,8 +79,8 @@ class User extends Authenticatable
 
     /**
      * A user can have one client.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function client()
     {
@@ -89,8 +89,8 @@ class User extends Authenticatable
 
     /**
      * A user can have one driver.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function driver()
     {
@@ -99,8 +99,8 @@ class User extends Authenticatable
 
     /**
      * A user can have one web user.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function web()
     {
@@ -109,8 +109,8 @@ class User extends Authenticatable
 
     /**
      * A user can have many sms.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function sms()
     {
@@ -259,7 +259,7 @@ class User extends Authenticatable
      */
     public function markNewDriversNotificationsAsRead()
     {
-        foreach(User::whereRole('web')->get() as $admin) {
+        foreach (User::whereRole('web')->get() as $admin) {
             $admin->unreadNotifications()
                   ->whereType('App\Notifications\DriverCreated')
                   ->update(['read_at' => Carbon::now()]);
@@ -272,7 +272,7 @@ class User extends Authenticatable
      */
     public function markNewClientsNotificationsAsRead()
     {
-        foreach(User::whereRole('web')->get() as $admin) {
+        foreach (User::whereRole('web')->get() as $admin) {
             $admin->unreadNotifications()
                   ->whereType('App\Notifications\ClientCreated')
                   ->update(['read_at' => Carbon::now()]);

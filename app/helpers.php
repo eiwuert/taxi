@@ -25,7 +25,7 @@ if (! function_exists('ok')) {
             'data' => ($toArray) ? [$content] : $content,
         ];
 
-        // It should not be 200, that's because of some package named volly on 
+        // It should not be 200, that's because of some package named volly on
         // android side that cannot handle responses otherthan 200! so wiered
         return $factory->json($response, 200, $headers);
     }
@@ -54,7 +54,7 @@ if (! function_exists('fail')) {
             'data' => [$content],
         ];
 
-        // It should not be 200, that's because of some package named volly on 
+        // It should not be 200, that's because of some package named volly on
         // android side that cannot handle responses otherthan 200! so wiered
         return $factory->json($response, 200, $headers);
     }
@@ -69,7 +69,7 @@ if (! function_exists('getDistanceMatrix')) {
      */
     function getDistanceMatrix($location)
     {
-        if(is_object($location)) {
+        if (is_object($location)) {
             $location = $location->all();
         }
         // API V2
@@ -79,7 +79,7 @@ if (! function_exists('getDistanceMatrix')) {
         }
         $distance = \GoogleMaps::load('distancematrix')
                                 ->setParamByKey('origins', $location['s_lat'] . ',' . $location['s_long'])
-                                ->setParamByKey('destinations', $location['d_lat'] . ',' . $location['d_long'])                      
+                                ->setParamByKey('destinations', $location['d_lat'] . ',' . $location['d_long'])
                                 ->getResponseByKey('rows.elements');
 
         if (@isset($distance['rows'][0]['elements'][0])) {
@@ -90,7 +90,7 @@ if (! function_exists('getDistanceMatrix')) {
                     'detail'=> 'unable to get distance and time from Google Matrix API'
                 ], 422);
         }
-    }  
+    }
 }
 
 if (! function_exists('js_josn')) {

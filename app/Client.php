@@ -160,7 +160,7 @@ class Client extends Model
     /**
      * Inverse trips
      *
-     * @return hasMany
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function inverseTrips()
     {

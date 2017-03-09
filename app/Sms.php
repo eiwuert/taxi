@@ -25,8 +25,8 @@ class Sms extends Model
 
     /**
      * A SMS can have one user.
-     * 
-     * @return hasMany
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function user()
     {

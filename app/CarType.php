@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarType extends Model
 {
     protected $fillable = [
-    	'name'
+        'name'
     ];
 
     /**
@@ -23,7 +23,7 @@ class CarType extends Model
 
     /**
      * A type of a car can have many drivers.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function drivers()
@@ -33,7 +33,7 @@ class CarType extends Model
 
     /**
      * A car type can associate to one car.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function car()
@@ -43,7 +43,7 @@ class CarType extends Model
 
     /**
      * A car type can associate to many transaction.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function transactions()

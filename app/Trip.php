@@ -16,7 +16,7 @@ class Trip extends Model
      * @var array
      */
     protected $fillable = [
-    	'status_id',
+        'status_id',
         'driver_id',
         'etd_text',
         'etd_value',
@@ -27,11 +27,11 @@ class Trip extends Model
 
     /**
      * Sortable items.
-     * 
+     *
      * @var array
      */
     public static $sortable = [
-        'driver_id' => 'Driver', 
+        'driver_id' => 'Driver',
         'client_id' => 'Client',
     ];
 
@@ -67,16 +67,16 @@ class Trip extends Model
         'updated' => TripUpdated::class,
     ];
 
-    /** 
+    /**
      * Pending trips statuses.
-     * 
+     *
      * @var array
      */
     public static $pending = [1, 2, 7, 12, 6, 9, 15, 20];
 
     /**
      * A trip can have one driver.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function driver()
@@ -86,7 +86,7 @@ class Trip extends Model
 
     /**
      * A trip can have one client.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function client()
@@ -96,7 +96,7 @@ class Trip extends Model
 
     /**
      * A trip can have one client.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function getClient()
@@ -106,7 +106,7 @@ class Trip extends Model
 
     /**
      * A trip can have one status.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function status()
@@ -116,7 +116,7 @@ class Trip extends Model
 
     /**
      * Status meanings.
-     * 
+     *
      * @return string
      */
     public function statusName()
@@ -208,7 +208,7 @@ class Trip extends Model
 
     /**
      * A trip can have one source location.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function source()
@@ -218,7 +218,7 @@ class Trip extends Model
 
     /**
      * A trip can have one destination location.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function destination()
@@ -228,7 +228,7 @@ class Trip extends Model
 
     /**
      * A trip can have one driver destination location.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function driverLocation()
@@ -238,7 +238,7 @@ class Trip extends Model
 
     /**
      * Name of the destination of the trip.
-     * 
+     *
      * @return string
      */
     public function destinationName()
@@ -248,7 +248,7 @@ class Trip extends Model
 
     /**
      * Name of the source of the trip.
-     * 
+     *
      * @return string
      */
     public function sourceName()
@@ -258,7 +258,7 @@ class Trip extends Model
 
     /**
      * A trip can have one transaction.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function transaction()
@@ -268,7 +268,7 @@ class Trip extends Model
 
     /**
      * A trip can have one transaction.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasOne
      */
     public function firstTransaction()
@@ -289,7 +289,7 @@ class Trip extends Model
 
     /**
      * Scope a query to count all finished trips.
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -305,7 +305,7 @@ class Trip extends Model
 
     /**
      * Scope a query to count all canceled trips.
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -323,7 +323,7 @@ class Trip extends Model
 
     /**
      * Scope a query to get all finished trips.
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -348,7 +348,7 @@ class Trip extends Model
 
     /**
      * A trip has many payments.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Concerns\hasMany
      */
     public function payments()
@@ -358,7 +358,7 @@ class Trip extends Model
 
     /**
      * Get rate of the driver to client.
-     * 
+     *
      * @return array
      */
     public function rateOfDriverToClient()
@@ -368,7 +368,7 @@ class Trip extends Model
 
     /**
      * Get rate of the client to driver.
-     * 
+     *
      * @return array
      */
     public function rataOfClientToDriver()
@@ -378,7 +378,7 @@ class Trip extends Model
 
     /**
      * Update status of the trip to the given status name.
-     * 
+     *
      * @return boolean
      */
     public function updateStatusTo($name)
