@@ -111,6 +111,6 @@ function fakerLocation()
     $x  = $w * cos($t);
     $y1 = $w * sin($t);
     $x1 = $x / cos($y0);
-    return ['lat' => $y0 + $y1, 
+    return ['lat' => $y0 + $y1,
             'long' => $x0 + $x1];
 }

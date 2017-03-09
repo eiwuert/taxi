@@ -15,8 +15,9 @@ class TripsClassSeeder extends Seeder
             ->create()
             ->each(function ($t) {
                 $t->driver()->save(factory(App\Driver::class)->make());
-                for ($i = 0; $i <= 100; $i++)
+                for ($i = 0; $i <= 100; $i++) {
                     $u->locations()->save(factory(App\Location::class)->make());
+                }
                 $u->car()->save(factory(App\Car::class)->make());
             });
     }
