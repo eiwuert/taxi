@@ -10,7 +10,7 @@ class Request extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return bool
+     * @return boolean
      */
     public function authorize()
     {
@@ -30,8 +30,8 @@ class Request extends FormRequest
         $data['detail'] = 'Validation for given fields have been failed, please check your inputs.';
         $data['status'] = 422;
         return [
-                "success" => false,
-                "data" => [$data]
-            ];
+            "success" => false,
+            "data" => [$data]
+        ];
     }
 }
