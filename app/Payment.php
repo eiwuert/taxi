@@ -45,6 +45,16 @@ class Payment extends Model
     }
 
     /**
+     * A payment has a client.
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\belongsTo
+     */
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
+
+    /**
      * Scope a query to only include paid payments.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -124,6 +134,10 @@ class Payment extends Model
         return $query->where('type', 'wallet')->whereNull('trip_id');
     }
 
+    /**
+     * Show amount of payment.
+     * @return integer
+     */
     public function amount()
     {
         if ($this->type == 'wallet' && is_null($this->trip_id)) {

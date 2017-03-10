@@ -51,7 +51,7 @@ Payments
                 <th>Created</th>
               </tr>
               @foreach($payments as $payment)
-              <tr>
+              <tr onclick="window.document.location='{{ route('payments.show', ['id' => $payment->id]) }}'" style="cursor: pointer;">
                 <td>{{ $payment->for() }}</td>
                 <td><a href="{{ route('clients.show', ['id' => $payment->client_id]) }}">{!! $payment->trip->client->first_name or '<tag color="default"></tag>' !!} 
                                 {!! $payment->trip->client->last_name or '<tag color="default"></tag>' !!} </a></td>

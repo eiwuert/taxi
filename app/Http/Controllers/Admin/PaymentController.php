@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Payment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -35,5 +35,18 @@ class PaymentController extends Controller
         }
         $payments = $payments->orderBy('id', 'desc')->paginate(config('admin.perPage'));
         return view('admin.payments.index', compact('payments'));
+    }
+
+    /**
+     * Show one payment record with details.
+     * @return Illuminate\Http\Response
+     */
+    public function show(Payment $payment)
+    {
+        if ($payment->for() == 'Trip') {
+            return view('admin.payments.show', compact('payment'));
+        } else {
+            return view('admin.payments.charge', compact('payment'));
+        }
     }
 }
