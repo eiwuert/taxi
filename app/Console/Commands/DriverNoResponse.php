@@ -53,8 +53,8 @@ class driverNoResponse extends Command
     {
         $trips = Trip::where('driver_id', '<>', null)
                     ->where('status_id', Status::where('name', 'client_found')->firstOrFail()->value)
-                    ->where('next', null)
-                    ->passed();
+                    ->passed()
+                    ->get();
 
         foreach ($trips as $trip) {
             $driverId = $trip->driver_id;

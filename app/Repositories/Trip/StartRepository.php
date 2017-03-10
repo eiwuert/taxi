@@ -7,7 +7,6 @@ use App\Status;
 use App\Client;
 use App\Jobs\SendClientNotification;
 
-
 class StartRepository
 {
     /**

@@ -95,7 +95,7 @@ class CreateRepository extends MainRepository
 
     /**
      * Time for actual trip method where trip is getting created.
-     * 
+     *
      * @return array
      */
     public static function now()
@@ -193,7 +193,7 @@ class CreateRepository extends MainRepository
 
     /**
      * Find nearby driver.
-     * 
+     *
      * @return array
      */
     private static function nearby()
@@ -212,7 +212,7 @@ class CreateRepository extends MainRepository
 
     /**
      * Calculate distance of driver to client source.
-     * 
+     *
      * @return array
      */
     private static function toClient()
