@@ -7,10 +7,12 @@ use App\Http\Requests\NearbyRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
 use App\Http\Requests\MultiTripRequest;
+use App\Repositories\Trip\EndRepository as End;
 use App\Repositories\Trip\StartRepository as Start;
 use App\Repositories\Trip\NearbyRepository as Find;
 use App\Repositories\Trip\AcceptRepository as Accept;
 use App\Repositories\Trip\CreateRepository as Create;
+use App\Repositories\Trip\CancelRepository as Cancel;
 use App\Repositories\Trip\ArrivedRepository as Driver;
 use App\Repositories\Trip\CurrentRepository as Current;
 
@@ -169,7 +171,7 @@ class TripController extends Controller
                 default:
                     return fail([
                         'title'  => 'trip is not paid',
-                        'detail' => 'Please ask the client to pay for the trip.'
+                        'detail' => 'Please ask the client to choose payment method.'
                     ]);
                     break;
             }

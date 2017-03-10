@@ -19,7 +19,7 @@ class EndRepository
         $driver = Auth::user()->driver()->first();
         $status = Status::whereName('trip_started')->firstOrFail()->value;
         $trip = $driver->trips()
-                       ->whereIn('status_id', $status)
+                       ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
 
         if (is_null($trip)) {

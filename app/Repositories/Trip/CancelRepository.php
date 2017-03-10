@@ -6,18 +6,19 @@ use App\Client;
 use App\Driver;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
+use App\Repositories\Trip\CreateRepository as Create;
 use App\Repositories\Trip\MainRepository as DriversTo;
 use Auth;
 
-class CancelRepository extends 
+class CancelRepository
 {
     /**
      * Cancel method.
      * @return array
      */
-    public function trip()
+    public static function trip()
     {
-        if (Auth::user()->role() == 'client') {
+        if (Auth::user()->role == 'client') {
             $client = Auth::user()->client()->first();
             $trip   = $client->trips()->orderBy('id', 'desc')->first();
 
@@ -46,7 +47,7 @@ class CancelRepository extends
                 case '4':
                     $trip->updateStatusTo('cancel_request_taxi');
                     $driver->updateDriverAvailability(true);
-                    return ['ok']
+                    return ['ok'];
                     break;
                 // CLIENT_FOUND
                 case '2':
@@ -77,7 +78,7 @@ class CancelRepository extends
                     return ['fail' => 'came_early'];
                     break;
             }
-        } elseif (Auth::user()->role() == 'driver') {
+        } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip   = $driver->trips()->orderBy('id', 'desc')->first();
 
@@ -116,7 +117,6 @@ class CancelRepository extends
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
                     // Request new taxi
-                    $tripRepository = new TripRepository();
                     $tripRequest = [
                             's_lat'  => $trip->source()->first()->latitude,
                             's_long' => $trip->source()->first()->longitude,

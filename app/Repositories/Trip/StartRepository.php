@@ -18,7 +18,7 @@ class StartRepository
     {
         $driver = Auth::user()->driver()->first();
         $status = Status::whereName('driver_arrived')->firstOrFail()->value;
-        $trip = $driver->trips()->whereIn('status_id', $status)
+        $trip = $driver->trips()->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
 
         if (is_null($trip)) {

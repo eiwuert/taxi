@@ -4,6 +4,7 @@ namespace App\Repositories\Trip;
 
 use Auth;
 use App\Client;
+use App\Status;
 use App\Jobs\SendClientNotification;
 
 class ArrivedRepository
@@ -17,7 +18,7 @@ class ArrivedRepository
         $driver = Auth::user()->driver()->first();
         $status = Status::whereName('driver_onway')->firstOrFail()->value;
         $trip = $driver->trips()
-                       ->whereIn('status_id', $status)
+                       ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
 
         if (is_null($trip)) {
