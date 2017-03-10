@@ -77,4 +77,59 @@ class Payment extends Model
             'paid' => true
         ])->save();
     }
+
+    /**
+     * Determine that this payment is for a trip or its for charge.
+     * @return string
+     */
+    public function for()
+    {
+        if (is_null($this->trip_id)) {
+            return 'Charge';
+        } else {
+            return 'Trip';
+        }
+    }
+
+    /**
+     * Scope a query to include payments with type of cash.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCash($query)
+    {
+        return $query->where('type', 'cash');
+    }
+
+    /**
+     * Scope a query to include payments with type of wallet.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWallet($query)
+    {
+        return $query->where('type', 'wallet')->whereNotNull('trip_id');
+    }
+
+    /**
+     * Scope a query to include payments with type of charge.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCharge($query)
+    {
+        return $query->where('type', 'wallet')->whereNull('trip_id');
+    }
+
+    public function amount()
+    {
+        if ($this->type == 'wallet' && is_null($this->trip_id)) {
+            return $this->transactionAmount;
+        } else {
+            return $this->trip->transaction->total;
+        }
+    }
 }
