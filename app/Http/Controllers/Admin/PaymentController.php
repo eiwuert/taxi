@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Driver;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,5 +49,13 @@ class PaymentController extends Controller
         } else {
             return view('admin.payments.charge', compact('payment'));
         }
+    }
+
+    public function drivers()
+    {
+        $drivers = Driver::with('trips')
+                        ->orderBy('id', 'desc')
+                        ->paginate(config('admin.perPage'));
+        return view('admin.payments.drivers', compact('drivers'));
     }
 }
