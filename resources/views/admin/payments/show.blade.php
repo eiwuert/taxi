@@ -26,6 +26,7 @@ Payment <tag color="success">{{$payment->type}}</tag>
   </div>
   <div class="col-md-6">
     @include('admin.trips.includes.details', ['trip' => $payment->trip])
+    @include('admin.trips.includes.rate', ['trip' => $payment->trip])
   </div>
 </div>
 @endsection

@@ -8,6 +8,7 @@ use GoogleMaps;
 use App\CarType;
 use Carbon\Carbon;
 use App\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionRepository
 {
@@ -286,7 +287,7 @@ class TransactionRepository
         return DB::table('transactions')
                     ->join('trips', 'transactions.trip_id', '=', 'trips.id')
                     ->select(['total'])
-                    ->whereIn('status_id', [9, 15, 16, 17])
+                    ->whereIn('status_id', Trip::$finished)
                     ->sum('total') * 0.13;
     }
 }

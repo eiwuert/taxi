@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repositories\FilterRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -145,5 +146,17 @@ class Payment extends Model
         } else {
             return $this->trip->transaction->total;
         }
+    }
+
+    /**
+     * Scope a query to get data within a range.
+     *
+     * @param string $range
+     * @param \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRange($query, $range)
+    {
+        return FilterRepository::daterange($range, $query);
     }
 }

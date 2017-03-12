@@ -31,8 +31,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ (str_contains(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">All</span></a></li>
-            <li class="{{ (str_contains(Request::url(), route('payments.drivers'))) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">Drivers</span></a></li>
+            <li class="{{ (ends_with(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">All</span></a></li>
+            <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">Drivers</span></a></li>
           </ul>
         </li>
         <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}">
