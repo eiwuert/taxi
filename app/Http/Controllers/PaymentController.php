@@ -93,13 +93,14 @@ class PaymentController extends Controller
         // If ResNum is not a valid trip_id
         // Revert back money if the state was OK
         // Complete the transaction.
-        $context = $this->getContext();
+        $result = $this->getContext();
+        $soap = $result['soap'];
         $verifyParams = array(
-            'context' => $context,
+            'context' => $result['context'],
             'verifyRequest' => array('refNumList' => $this->response->ResNum)
         );
         $verifyResponse = $soap->call('verifyTransaction', $verifyParams);
-        $soap->call('logout', array('context' => $context));
+        $soap->call('logout', array('context' => $result['context']));
     }
 
     /**
@@ -108,9 +109,10 @@ class PaymentController extends Controller
      */
     private function reverseTransaction()
     {
-        $context = $this->getContext();
+        $result = $this->getContext();
+        $soap = $result['soap'];
         $reverseParams = array(
-            'context' => $context,
+            'context' => $result['context'],
             'reverseRequest' => array('amount' => $this->response->transactionAmount,
             'mainTransactionRefNum' => $this->response->RefNum,
             'reverseTransactionResNum' => $this->response->RefNum)
@@ -152,7 +154,7 @@ class PaymentController extends Controller
                     ]
                 ]
             ];
-        return $context;
+        return ['context' => $context, 'soap' => $soap];
     }
 
     /**
