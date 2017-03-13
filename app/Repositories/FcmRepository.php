@@ -54,6 +54,7 @@ class FcmRepository
                 ],
             ]
         );
+        Log::debug($server_key);
         $res = json_decode($response->getBody());
         DB::connection('mongodb')->table('fcm')->insert([
             'multicast_id'   => $res->multicast_id,
