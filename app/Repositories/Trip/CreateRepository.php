@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Trip;
 
+use Log;
 use Auth;
 use App\User;
 use App\Trip;
@@ -118,6 +119,7 @@ class CreateRepository extends MainRepository
             self::update();
             self::$driver->updateDriverAvailability(false);
             dispatch(new SendClientNotification('wait_for_driver_to_accept_ride', '0', self::$client->device_token));
+            Log::debug('Driver device token: ' . self::$driver->device_token);
             dispatch(new SendDriverNotification('new_client_found', '0', self::$driver->device_token));
             event(new TripInitiated(self::$trip, self::$request));
             return [
