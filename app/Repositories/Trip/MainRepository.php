@@ -68,7 +68,7 @@ class MainRepository
         }
 
         if (!isset($request['currency'])) {
-            $request['currency'] = 'USD';
+            $request['currency'] = 'IRR';
         }
 
         if (!isset($request['type'])) {

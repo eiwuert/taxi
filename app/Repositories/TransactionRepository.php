@@ -43,7 +43,7 @@ class TransactionRepository
         $timezone = $this->timezone($source->latitude, $source->longitude);
         $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
                                        + round($this->perTime()     * $this->timeValue($trip->eta_value), 1))
-                                       * $this->surcharge($timezone));
+                                       * $this->surcharge($timezone), -2);
 
         $transaction = [
             'car_type'       => $this->type,
@@ -79,7 +79,7 @@ class TransactionRepository
         $timezone = $this->timezone($lat, $long);
         $transactions = [];
         $types = [];
-        foreach (config('fare.USD') as $type => $rules) {
+        foreach (config('fare.IRR') as $type => $rules) {
             $this->type = $type;
             $this->rules($type);
             $transactions[] = $this->transaction($distance_value, $eta_value, $timezone);
@@ -98,7 +98,7 @@ class TransactionRepository
     {
         $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
                                        + round($this->perTime()     * $this->timeValue($eta_value), 1))
-                                                                    * $this->surcharge($timezone));
+                                                                    * $this->surcharge($timezone), -2);
         return $transaction = [
             'car_type'       => $this->type,
             'car_type_id'    => CarType::whereName($this->type)->first()->id,

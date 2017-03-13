@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'USD' => [
+    'IRR' => [
         'luxury' => [
-            'entry'          => 2.0,
+            'entry'          => 5000,
             'surcharge'      => [
                 'thu'  =>  [
                     [
@@ -17,8 +17,8 @@ return [
                     ],
                 ],
             ],
-            'perـdistance'   => 0.7,
-            'perـtime'       => 0.3,
+            'perـdistance'   => 500,
+            'perـtime'       => 0,
             // minute
             // hour
             'timeـunit'      => 'minute',
@@ -27,52 +27,52 @@ return [
             'distanceـunit'  => 'kilometer',
         ],
         'van'   => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
         'sport'      => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
         'sedans'  => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
         'economy'  => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
         'off-roader'  => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
         'motorcycle'  => [
-            'entry'          => 0,
+            'entry'          => 5000,
             'surcharge'      => 0,
-            'perـdistance'   => 0,
+            'perـdistance'   => 500,
             'perـtime'       => 0,
-            'timeـunit'      => 0,
-            'distanceـunit'  => 0,
+            'timeـunit'      => 'minute',
+            'distanceـunit'  => 'kilometer',
         ],
     ]
 ];
