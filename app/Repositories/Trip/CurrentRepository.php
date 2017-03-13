@@ -34,7 +34,11 @@ class CurrentRepository extends Main
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         $paid = $trip->payments()->paid()->exists();
-        $total = $trip->transaction()->first()->total;
+        is_null($transaction = $trip->transaction()->first()) {
+            $total = 0;
+        } else {
+            $total = $transaction->total;
+        }
         $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
         $client->phone = $client->user->phone;
         $source = $trip->source()->first(['latitude', 'longitude', 'name']);
