@@ -41,6 +41,9 @@ class TransactionRepository
         $this->rules($type);
         $source   = $trip->source()->first();
         $timezone = $this->timezone($source->latitude, $source->longitude);
+        $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
+                                       + round($this->perTime()     * $this->timeValue($trip->eta_value), 1))
+                                       * $this->surcharge($timezone));
 
         $transaction = [
             'car_type'       => $this->type,
@@ -57,9 +60,7 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($trip->eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => ($this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
-                                                 + round($this->perTime()     * $this->timeValue($trip->eta_value), 1))
-                                                 * $this->surcharge($timezone),
+            'total'          => $total,
         ];
 
         return $transaction;
@@ -95,6 +96,9 @@ class TransactionRepository
      */
     private function transaction($distance_value, $eta_value, $timezone)
     {
+        $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
+                                       + round($this->perTime()     * $this->timeValue($eta_value), 1))
+                                                                    * $this->surcharge($timezone));
         return $transaction = [
             'car_type'       => $this->type,
             'car_type_id'    => CarType::whereName($this->type)->first()->id,
@@ -110,9 +114,7 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => ($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
-                                                 + round($this->perTime()     * $this->timeValue($eta_value), 1))
-                                                 * $this->surcharge($timezone),
+            'total'          => $total,
         ];
     }
 
