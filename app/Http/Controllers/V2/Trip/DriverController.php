@@ -18,7 +18,7 @@ class DriverController extends Controller
     public function online()
     {
         // If driver is online keep the driver online, if the driver is offline
-        // change the status to online. only different with V1 is that the 
+        // change the status to online. only different with V1 is that the
         // response is OK on both situations.
         if (!Auth::user()->driver->first()->available && Auth::user()->driver->first()->online) {
             return fail([
@@ -28,9 +28,9 @@ class DriverController extends Controller
         }
         Auth::user()->driver->first()->goOnline();
         return ok([
-                'title' => 'Online',
-                'detail' => 'You\'re online now.'
-            ]);
+            'title' => 'Online',
+            'detail' => 'You\'re online now.'
+        ]);
     }
 
     /**
@@ -62,7 +62,7 @@ class DriverController extends Controller
      */
     public function status()
     {
-        if(Auth::user()->driver->first()->online){
+        if (Auth::user()->driver->first()->online) {
             return ok([
                 'title' => 'Online',
                 'detail' => 'You\'re online'

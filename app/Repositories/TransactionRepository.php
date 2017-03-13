@@ -8,6 +8,7 @@ use GoogleMaps;
 use App\CarType;
 use Carbon\Carbon;
 use App\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionRepository
 {
@@ -56,7 +57,7 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($trip->eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => ( $this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
+            'total'          => ($this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
                                                  + round($this->perTime()     * $this->timeValue($trip->eta_value), 1))
                                                  * $this->surcharge($timezone),
         ];
@@ -109,7 +110,7 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => ( $this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
+            'total'          => ($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
                                                  + round($this->perTime()     * $this->timeValue($eta_value), 1))
                                                  * $this->surcharge($timezone),
         ];
@@ -142,7 +143,6 @@ class TransactionRepository
                 if ($now->between($from, $to)) {
                     return $range['amount'];
                 }
-                
             }
         }
 
@@ -255,7 +255,7 @@ class TransactionRepository
     {
         if ($this->distanceUnit() == 'kilometer') {
             return $distance / 1000;
-        } else if ($this->distanceUnit() == 'mile') {
+        } elseif ($this->distanceUnit() == 'mile') {
             return $distance / 0.000621371;
         } else {
             return $distance;
@@ -271,7 +271,7 @@ class TransactionRepository
     {
         if ($this->timeUnit() == 'minute') {
             return $time / 60;
-        } else if ($this->timeUnit() == 'hour') {
+        } elseif ($this->timeUnit() == 'hour') {
             return $time / 360;
         } else {
             return $time;
@@ -287,7 +287,7 @@ class TransactionRepository
         return DB::table('transactions')
                     ->join('trips', 'transactions.trip_id', '=', 'trips.id')
                     ->select(['total'])
-                    ->whereIn('status_id', [9, 15, 16, 17])
+                    ->whereIn('status_id', Trip::$finished)
                     ->sum('total') * 0.13;
     }
 }

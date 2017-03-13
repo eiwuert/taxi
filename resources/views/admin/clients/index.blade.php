@@ -32,19 +32,19 @@ Clients
       <!-- /.box-header -->
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\ClientController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
-        @include('components.bootstrap.select', ['name' => 'sortby', 
-                                                'label' => 'Sort by', 
-                                                'items' => \App\Client::$sortable])
-        @include('components.bootstrap.select', ['name' => 'orderby', 
-                                                'label' => 'Order by', 
-                                                'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
-        @include('components.bootstrap.select', ['name' => 'count', 
-                                                'label' => 'Count', 
-                                                'items' => [15 => 15, 30 => 30, 'all' => 'All']])
+        @include('components.bootstrap.select', ['name' => 'sortby',
+        'label' => 'Sort by',
+        'items' => \App\Client::$sortable])
+        @include('components.bootstrap.select', ['name' => 'orderby',
+        'label' => 'Order by',
+        'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
+        @include('components.bootstrap.select', ['name' => 'count',
+        'label' => 'Count',
+        'items' => [15 => 15, 30 => 30, 'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-                                                          'label' => 'Date range'])
+        'label' => 'Date range'])
         {!! Form::close() !!}
-      <!-- /.box-body -->
+        <!-- /.box-body -->
       </div>
       <div class="box-footer">
         @include('admin.components.filter')
@@ -69,46 +69,45 @@ Clients
         @if(!$clients->isEmpty())
         <table class="table table-striped table-hover">
           <tbody>
-          <tr>
-          <tr>
-            <th></th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Country</th>
-            <th>Phone</th>
-            <th>State</th>
-          </tr>
-          @foreach($clients as $client)
-          <tr onclick="window.document.location='{{ action('Admin\ClientController@show', ['id' => $client->id]) }}';" style="cursor: pointer;">
-            <td><img src="{{ $client->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
-            <td>{!! $client->first_name or '<tag color="default"></tag>' !!}</td>
-            <td>{!! $client->last_name or '<tag color="default"></tag>' !!}</td>
-            <td>{{ $client->country }}</td>
-            <td>{{ $client->phoneNumber() }}</td>
-            <td><tag color="{{ $client->state()->color }}">{!! $client->state()->name !!}</tag></td>
-          </tr>
-          @endforeach
-        </tbody></table>
-        @else
-        @include('admin.components.empty')
-        @endif
+            <tr>
+              <tr>
+                <th></th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Country</th>
+                <th>Phone</th>
+                <th>State</th>
+              </tr>
+              @foreach($clients as $client)
+              <tr onclick="window.document.location='{{ action('Admin\ClientController@show', ['id' => $client->id]) }}';" style="cursor: pointer;">
+                <td><img src="{{ $client->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
+                <td>{!! $client->first_name or '<tag color="default"></tag>' !!}</td>
+                <td>{!! $client->last_name or '<tag color="default"></tag>' !!}</td>
+                <td>{{ $client->country }}</td>
+                <td>{{ $client->phoneNumber() }}</td>
+                <td><tag color="{{ $client->state()->color }}">{!! $client->state()->name !!}</tag></td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+          @else
+          @include('admin.components.empty')
+          @endif
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+          @include('admin.includes.pagination', ['resource' => $clients])
+        </div>
       </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-      @include('admin.includes.pagination', ['resource' => $clients])
-      </div>
+      <!-- /.box -->
     </div>
-    <!-- /.box -->
   </div>
-</div>
 @endsection
 @push('js')
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <script type="text/javascript">
 $(function () {
-$(function() {
-
     var start = moment().subtract(29, 'days');
     var end = moment();
 
@@ -130,8 +129,6 @@ $(function() {
     }, cb);
 
     cb(start, end);
-    
-});
 });
 </script>
 @endpush

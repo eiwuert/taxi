@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Trip;
 use App\Client;
+use App\Payment;
+use Illuminate\Http\Request;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
-use App\Payment;
-use App\Trip;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
@@ -28,7 +28,7 @@ class PaymentController extends Controller
      * If RefNum already exists on ref col and trip is paid, so user tried to
      * refresh the invoice page.
      *
-     * @return void|view
+     * @return boolean
      */
     private function notFresh()
     {
@@ -85,6 +85,7 @@ class PaymentController extends Controller
 
     /**
      * Verify transaction.
+     * 
      * @return void
      */
     private function verifyTransaction()
@@ -137,14 +138,20 @@ class PaymentController extends Controller
      */
     private function getContext()
     {
-        $loginParams = array(
+        $loginParams = [
             'username' => config('payment.username'),
             'password' => config('payment.password'),
-        );
+        ];
         $soap = new nusoap_client(config('payment.ipg'), 'wsdl');
         $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
-        $context = array('data' => array('entry' => array('key'=>'SESSION_ID',
-                              'value' => $session )));
+        $context = [
+            'data' => [
+                'entry' => [
+                    'key'=>'SESSION_ID',
+                    'value' => $session,
+                    ]
+                ]
+            ];
         return $context;
     }
 
@@ -207,8 +214,11 @@ class PaymentController extends Controller
 ///////////////////
 ///
 ///
+/// FANAVA sent us this outdated library called nusoap.
+/// Definitely not a good practice.
 ///
 ///
+////////////////////
 /*
 $Id: nusoap.php,v 1.123 2010/04/26 20:15:08 snichol Exp $
 

@@ -9,20 +9,25 @@ use App\Http\Requests\Admin\WebRequest;
 
 class WebController extends Controller
 {
+    /**
+     * Show edit form, to edit current admin data.
+     * @return Illuminate\Http\Response
+     */
     public function edit()
     {
         $profile = Auth::user()->web;
         return view('admin.webs.edit', compact('profile'));
     }
 
-    public function update(WebRequest $reqeust)
+    /**
+     * Perform update request on current admin.
+     * @param  App\Http\Requests\Admin\WebRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function update(WebRequest $request)
     {
-/*        $this->validate($request, [
-            'picture' => 'required|unique:posts|max:255',
-            'body' => 'required',
-        ]);*/
         $profile = Auth::user()->web;
-        $profile->fill($reqeust->all())->save();
+        $profile->fill($request->all())->save();
         flash('Profile updated.');
         return back();
     }

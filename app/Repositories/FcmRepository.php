@@ -36,11 +36,11 @@ class FcmRepository
     {
         if (debug_backtrace()[1]['function'] == 'to_driver') {
             $server_key = config('fcm.driver_server_key');
-        } else if (debug_backtrace()[1]['function'] == 'to_client') {
+        } elseif (debug_backtrace()[1]['function'] == 'to_client') {
             $server_key = config('fcm.client_server_key');
         }
 
-        $response = $this->http->request('POST', config('fcm.send_url'), 
+        $response = $this->http->request('POST', config('fcm.send_url'),
             [
                 'json' => [
                     "data"         => ["team" => $title, "message" => $message],
@@ -76,7 +76,7 @@ class FcmRepository
      * @param  string $device_token
      * @return Response
      */
-    public function to_driver($title, $message, $device_token) 
+    public function to_driver($title, $message, $device_token)
     {
         return $this->message($title, $message, $device_token);
     }
@@ -88,7 +88,7 @@ class FcmRepository
      * @param  string $device_token
      * @return Response
      */
-    public function to_client($title, $message, $device_token) 
+    public function to_client($title, $message, $device_token)
     {
         return $this->message($title, $message, $device_token);
     }

@@ -4,8 +4,9 @@ namespace App;
 
 use App\Status;
 use Carbon\Carbon;
-use App\Events\TripUpdated;
 use App\Events\TripCreated;
+use App\Events\TripUpdated;
+use App\Repositories\FilterRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Trip extends Model
@@ -56,6 +57,12 @@ class Trip extends Model
         'client_found' => 'New client found',
         'request_taxi' => 'Taxi requested',
     ];
+
+    /**
+     * Finished status of the trip.
+     * @var array
+     */
+    public static $finished = [9, 15, 16, 17];
 
     /**
      * The event map for the model.
@@ -333,7 +340,7 @@ class Trip extends Model
         // DRIVER_RATED
         // CLIENT_RATED
         // TRIP_IS_OVER
-        return $query->whereIn('status_id', [9, 15, 16, 17]);
+        return $query->whereIn('status_id', self::$finished);
     }
 
     /**
@@ -386,5 +393,17 @@ class Trip extends Model
         $this->update([
             'status_id' => Status::where('name', $name)->firstOrFail()->value,
         ]);
+    }
+
+    /**
+     * Scope a query to get data within a range.
+     *
+     * @param string $range
+     * @param \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRange($query, $range)
+    {
+        return FilterRepository::daterange($range, $query);
     }
 }

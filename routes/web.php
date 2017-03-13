@@ -18,6 +18,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     require base_path('routes/admin/map.php');
     // SETTINGS
     require base_path('routes/admin/setting.php');
+    // PAYMENTS
+    require base_path('routes/admin/payment.php');
     // PROFILE
     require base_path('routes/admin/web.php');
 });

@@ -6,7 +6,8 @@ use App\Car;
 use App\Driver;
 use App\Repositories\Trip\UserRepository;
 
-class DriverRepository extends UserRepository {
+class DriverRepository extends UserRepository
+{
     /**
      * Get driver of this trip.
      * @param  \App\Trip $trip

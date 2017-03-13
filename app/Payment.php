@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repositories\FilterRepository;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -45,6 +46,16 @@ class Payment extends Model
     }
 
     /**
+     * A payment has a client.
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\belongsTo
+     */
+    public function client()
+    {
+        return $this->belongsTo('App\Client');
+    }
+
+    /**
      * Scope a query to only include paid payments.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -76,5 +87,76 @@ class Payment extends Model
         $this->forceFill([
             'paid' => true
         ])->save();
+    }
+
+    /**
+     * Determine that this payment is for a trip or its for charge.
+     * @return string
+     */
+    public function for()
+    {
+        if (is_null($this->trip_id)) {
+            return 'Charge';
+        } else {
+            return 'Trip';
+        }
+    }
+
+    /**
+     * Scope a query to include payments with type of cash.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCash($query)
+    {
+        return $query->where('type', 'cash');
+    }
+
+    /**
+     * Scope a query to include payments with type of wallet.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeWallet($query)
+    {
+        return $query->where('type', 'wallet')->whereNotNull('trip_id');
+    }
+
+    /**
+     * Scope a query to include payments with type of charge.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCharge($query)
+    {
+        return $query->where('type', 'wallet')->whereNull('trip_id');
+    }
+
+    /**
+     * Show amount of payment.
+     * @return integer
+     */
+    public function amount()
+    {
+        if ($this->type == 'wallet' && is_null($this->trip_id)) {
+            return $this->transactionAmount;
+        } else {
+            return $this->trip->transaction->total;
+        }
+    }
+
+    /**
+     * Scope a query to get data within a range.
+     *
+     * @param string $range
+     * @param \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRange($query, $range)
+    {
+        return FilterRepository::daterange($range, $query);
     }
 }

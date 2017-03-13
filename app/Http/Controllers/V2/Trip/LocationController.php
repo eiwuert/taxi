@@ -10,7 +10,7 @@ class LocationController extends Controller
 {
     /**
      * Set user location.
-     * @param  LocationRequest $request
+     * @param  App\Http\Requests\LocationRequest $request
      * @return json
      */
     public function set(LocationRequest $request)

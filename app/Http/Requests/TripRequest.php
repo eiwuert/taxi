@@ -18,11 +18,6 @@ class TripRequest extends Request
             's_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_lat'    => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
-            'd2_lat'   => ['required_with:d2_long', 'regex:/^[+-]?\d+\.\d+$/'],
-            'd2_long'  => ['required_with:d2_lat', 'regex:/^[+-]?\d+\.\d+$/'],
-            'payment'  => ['in:cash,card,wallet'],
-            // 'type'     => ['min:3', 'max:255', 'exists:car_types,name'],
-            // 'currency' => ['size:3'],
         ];
     }
 }

@@ -15,6 +15,6 @@ class SettingController extends Controller
      */
     public function general()
     {
-        //
+        // ...
     }
 }

@@ -94,9 +94,8 @@ class RegisterController extends Controller
      * Initial step for driver to register, using phone no. as the primary param
      * for login and validation.
      * 
-     * @param  UserRegisterRequest   $userRequest 
-     * @param  DriverRegisterRequest $driverRequest
-     * @param  ClientRepository      $client
+     * @param  App\Http\Requests\UserRegisterRequest   $userRequest 
+     * @param  App\Http\Requests\DriverRegisterRequest $driverRequest
      * @return json
      */
     public function driver(UserRegisterRequest $userRequest, DriverRegisterRequest $driverRequest)
@@ -190,7 +189,7 @@ class RegisterController extends Controller
     /**
      * Create new driver.
      * @param  App\Http\Request\UserRegisterRequest $userRequest
-     * @param  App\Http\Request\ClientRegisterRequest $clientRequest
+     * @param  App\Http\Requests\DriverRegisterRequest $driverRequest
      * @return \Laravel\Passport\ClientRepository
      */
     private function newDriver($userRequest, $driverRequest)

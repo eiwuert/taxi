@@ -9,21 +9,22 @@ use App\Http\Requests\Admin\LoginRequest;
 
 class AuthController extends Controller
 {
-	/**
-	 * Show login form.
-	 * @return view
-	 */
+    /**
+     * Show login form.
+     * @return view
+     */
     public function form()
     {
         if (Auth::check()) {
-    	   return redirect(route('dashboard')); 
+            return redirect(route('dashboard'));
         } else {
-           return view('admin.login'); 
+            return view('admin.login');
         }
     }
 
     /**
      * Login admin.
+     * @param  App\Http\Requests\Admin\LoginRequest $request
      * @return redirect
      */
     public function login(LoginRequest $request)

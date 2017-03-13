@@ -10,7 +10,7 @@ class AdminHeaderComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  Illuminate\Support\Facades\View  $view
      * @return void
      */
     public function compose(View $view)

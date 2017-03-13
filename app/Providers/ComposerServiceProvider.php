@@ -39,6 +39,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'admin.charts.flot-line', 'App\Http\ViewComposers\FlotLineComposer'
         );
+
+        View::composer(
+            'admin.payments.index', 'App\Http\ViewComposers\PaymentComposer'
+        );
     }
 
     /**

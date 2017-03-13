@@ -27,28 +27,6 @@ class DriverController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // Driver cannot be registered through web application at current moment they should go and
-        // register through the mobile application.
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // No creation.
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -57,17 +35,6 @@ class DriverController extends Controller
     public function show(Driver $driver)
     {
         return view('admin.drivers.show', compact('driver'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        // It's showing within the index page.
     }
 
     /**
@@ -100,7 +67,7 @@ class DriverController extends Controller
     /**
      * Approve a driver.
      * @param  \App\Driver $driver
-     * @return redirect
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function approve(Driver $driver)
     {
@@ -116,7 +83,7 @@ class DriverController extends Controller
     /**
      * Decline a driver.
      * @param  \App\Driver $driver
-     * @return redirect
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function decline(Driver $driver)
     {
@@ -131,8 +98,8 @@ class DriverController extends Controller
 
     /**
      * Filter status modes.
-     * @param  string $status
-     * @return view
+     * @param  App\Http\Requests\Request $request
+     * @return Illuminate\Http\Response
      */
     public function filter(Request $request, Driver $drivers)
     {
@@ -140,13 +107,13 @@ class DriverController extends Controller
         if ($request->status == 'online') {
             // online
             $drivers = Driver::online();
-        } else if ($request->status == 'offline') {
+        } elseif ($request->status == 'offline') {
             // offline
             $drivers = Driver::offline();
-        } else if ($request->status == 'onway') {
+        } elseif ($request->status == 'onway') {
             // onway
             $drivers = Driver::onway();
-        } else if ($request->status == 'inapprove') {
+        } elseif ($request->status == 'inapprove') {
             // inapprove
             $drivers = Driver::inapprove();
         }
@@ -189,8 +156,8 @@ class DriverController extends Controller
 
     /**
      * Search on everything
-     * @param  Request $request
-     * @return view
+     * @param  Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
      */
     public function search(Request $request)
     {
@@ -214,7 +181,7 @@ class DriverController extends Controller
 
     /**
      * Make an driver offline manually
-     * @return view
+     * @return Illuminate\Http\Response
      */
     public function offline(Driver $driver)
     {

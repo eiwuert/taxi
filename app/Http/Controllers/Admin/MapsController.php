@@ -11,7 +11,7 @@ class MapsController extends Controller
 {
     /**
      * Show all available drivers on the map.
-     * @return view
+     * @return Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,7 +20,7 @@ class MapsController extends Controller
 
     /**
      * Go full screen for Google maps.
-     * @return view
+     * @return Illuminate\Http\Response
      */
     public function fullscreen(Request $request)
     {

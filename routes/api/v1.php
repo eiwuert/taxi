@@ -37,9 +37,6 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
         Route::post('trip', 'Trip\TripController@requestTaxi')
              ->name('requestTaxi');
 
-        Route::post('trip/multi', 'Trip\TripController@multiRouteRequestTaxi')
-             ->name('multiRouteRequestTaxi');
-
         Route::post('calculate', 'Trip\TripController@calculate')
              ->name('calculateTrip');
 
@@ -50,7 +47,8 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
              ->name('clientCancelTrip');
 
         Route::get('trip', 'Trip\TripController@trip')
-             ->name('currentTrip');
+             ->name('currentTrip')
+             ->middleware('inTrip');
 
         Route::post('rate', 'Trip\RateController@client')
              ->name('clientRate');
@@ -114,7 +112,8 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
                  ->name('driverCancelTrip');
 
             Route::get('trip', 'Trip\TripController@trip')
-                 ->name('currentTrip');
+                 ->name('currentTrip')
+                 ->middleware('inTrip');
 
             Route::post('rate', 'Trip\RateController@driver')
                  ->name('driverRate');

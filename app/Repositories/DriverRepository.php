@@ -37,7 +37,7 @@ class DriverRepository
     /**
      * Count of offline drivers
      * @return numeric
-     */    
+     */
     public function countOfOfflineDrivers()
     {
         return Driver::offline()->count();

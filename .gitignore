@@ -11,3 +11,4 @@ composer.phar
 *.rdb
 .php_cs.cache
 laravel-echo-server.json
+*.sublime-*
