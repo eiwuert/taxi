@@ -34,7 +34,8 @@ class CurrentRepository extends Main
         $driver = Auth::user()->driver()->first();
         $trip = $driver->trips()->orderBy('id', 'desc')->first();
         $paid = $trip->payments()->paid()->exists();
-        is_null($transaction = $trip->transaction()->first()) {
+        $transaction = $trip->transaction()->first();
+        if(is_null($transaction)) {
             $total = 0;
         } else {
             $total = $transaction->total;
