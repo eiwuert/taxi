@@ -166,7 +166,7 @@ class PaymentController extends Controller
         $client = Auth::user()->client()->first();
         $trip = $client->trips()->orderBy('id', 'desc')->first();
         $cost = $trip->transaction->total;
-        if ($client->balance > $cost) {
+        if ($client->balance >= $cost) {
             dispatch(new SendDriverNotification('pay_wallet', '7', $client->device_token));
             Payment::forceCreate([
                 // NOTICE: it added with trip ID
