@@ -172,8 +172,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
-        Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class,
+        //Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
+        //Spatie\Backup\BackupServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         // @todo

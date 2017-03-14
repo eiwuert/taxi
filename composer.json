@@ -20,8 +20,6 @@
         "mpociot/laravel-apidoc-generator": "^2.0",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^2.6",
-        "spatie/laravel-backup": "^4.4",
-        "spatie/laravel-uptime-monitor": "^2.0",
         "webpatser/laravel-uuid": "2.*"
     },
     "require-dev": {
