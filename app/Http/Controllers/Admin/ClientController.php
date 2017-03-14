@@ -47,7 +47,7 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, Client $client)
     {
-        $client->update($request->all());
+        $client->forceFill($request->except(['_method', '_token']))->save();
         flash('Client updated', 'success');
         return redirect()->back();
     }
