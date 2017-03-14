@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use DB;
+use Log;
 use Auth;
 use App\User;
 use Validator;
@@ -103,7 +104,7 @@ class RegisterController extends Controller
         // Create new driver
         $driver = $this->newDriver($userRequest, $driverRequest);
 
-        // Genrate new access token
+        // Generate new access token
         $token = $this->newPersonalAccessToken($driver->id, 'driver');
 
         // Fire user register listeners
@@ -178,7 +179,7 @@ class RegisterController extends Controller
 
         $user = User::create($userRequest->all());
 
-        $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->all());
+        $user = Auth::loginUsingId($user->id)->client()->create($clientRequest->except(['email']));
 
         return [
                 'client' => $this->client->create($user->id, 'client', url('/'), true, false), 
@@ -202,7 +203,7 @@ class RegisterController extends Controller
         $userRequest['email']    = $email;
         $user = User::create($userRequest->all());
 
-        Auth::loginUsingId($user->id)->driver()->create($driverRequest->all());
+        Auth::loginUsingId($user->id)->driver()->create($driverRequest->except(['email']));
 
         return $this->client->create($user->id, 'driver', url('/'), true, false);
     }
