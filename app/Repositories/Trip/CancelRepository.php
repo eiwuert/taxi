@@ -22,6 +22,14 @@ class CancelRepository
             $client = Auth::user()->client()->first();
             $trip   = $client->trips()->orderBy('id', 'desc')->first();
 
+            /**
+             * In case of a client call the cancel API when he/she does not even
+             * own a trip, so we just return an error.
+             */
+            if (is_null($trip)) {
+                return ['fail' => 'came_early'];
+            }
+
             if (! is_null($trip->driver_id)) {
                 $driver = Driver::whereId($trip->driver_id)->first();
             }
