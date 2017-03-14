@@ -19,6 +19,13 @@
     <hr>
     <strong><i class="fa fa-map-marker margin-r-5"></i> Last Location</strong>
     <p class="text-muted">{{ $driver->lastLocation() }}</p>
+    @if (!is_null($driver->user->meta))
+    <hr>
+    <strong><i class="fa fa-file-o margin-r-5"></i> Documents</strong>
+    <br>
+    <br>
+    <a class="btn btn-default btn-block btn-xs" href="{{ asset('storage/documents/' . $driver->user->meta->value) }}"><i class="fa fa-cloud-download"></i> Download</a>
+    @endif
   </div>
   <!-- /.box-body -->
 </div>

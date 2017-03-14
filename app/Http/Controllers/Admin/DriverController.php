@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use Validator;
 use App\Driver;
+use App\UserMeta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FilterRepository;
@@ -46,6 +47,7 @@ class DriverController extends Controller
      */
     public function update(DriverRequest $request, Driver $driver)
     {
+        $this->uploadDocuments($request->documents, $driver->user->id);
         $driver->update($request->all());
         flash('Driver updated', 'success');
         return redirect()->back();
@@ -191,5 +193,24 @@ class DriverController extends Controller
         $driver->update();
         flash('Driver is offline now', 'success');
         return redirect(route('drivers.index'));
+    }
+
+    /**
+     * Upload driver documentation if exists.
+     * @param  Illuminate\Http\UploadedFile $file
+     * @param  integer $for
+     * @return void
+     */
+    private function uploadDocuments($file, $for)
+    {
+        if (is_null($file)) {
+            return;
+        } else {
+            UserMeta::create([
+                'name' => 'documents_' . $for, 
+                'value' => basename($file->store('public/documents/')), 
+                'user_id' => $for,
+            ]);
+        }
     }
 }
