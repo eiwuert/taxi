@@ -187,12 +187,11 @@ class DriverController extends Controller
      */
     public function offline(Driver $driver)
     {
-        $driver = Driver::whereId($driver->id)->firstOrFail();
         $driver->online = false;
         $driver->available = false;
         $driver->update();
         flash('Driver is offline now', 'success');
-        return redirect(route('drivers.index'));
+        return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 
     /**
@@ -212,5 +211,12 @@ class DriverController extends Controller
                 'user_id' => $for,
             ]);
         }
+    }
+
+    public function deleteDocument(Driver $driver)
+    {
+        UserMeta::where('user_id', $driver->user->id)->delete();
+        flash('Driver documents deleted.', 'success');
+        return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 }

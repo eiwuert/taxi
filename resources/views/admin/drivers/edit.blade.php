@@ -62,6 +62,13 @@
     <p class="help-block">Upload zip file.</p>
   </div>
 </div>
+@else
+<div class="form-group">
+  {!! Form::label('documents', 'Documents: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    @include('admin.drivers.includes.document', ['driver' => $driver])
+  </div>
+</div>
 @endif
 <div class="box-group" id="accordion">
   <div class="panel box box-primary">
