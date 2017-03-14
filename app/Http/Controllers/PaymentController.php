@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Trip;
 use App\Client;
 use App\Payment;
@@ -167,7 +168,7 @@ class PaymentController extends Controller
         $trip = $client->trips()->orderBy('id', 'desc')->first();
         $cost = $trip->transaction->total;
         if ($client->balance >= $cost) {
-            dispatch(new SendDriverNotification('pay_wallet', '7', $client->device_token));
+            dispatch(new SendDriverNotification('pay_wallet', '7', $trip->driver->device_token));
             Payment::forceCreate([
                 // NOTICE: it added with trip ID
                 'trip_id' => $trip->id,
@@ -197,7 +198,7 @@ class PaymentController extends Controller
     {
         $client = Auth::user()->client()->first();
         $trip = $client->trips()->orderBy('id', 'desc')->first();
-        dispatch(new SendDriverNotification('pay_cash', '6', $client->device_token));
+        dispatch(new SendDriverNotification('pay_cash', '6', $trip->driver->device_token));
         Payment::forceCreate([
             'trip_id' => $trip->id,
             'client_id' => $client->id,
