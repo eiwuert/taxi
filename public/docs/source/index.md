@@ -18,7 +18,7 @@ toc_footers:
 # Change log
 
 <aside class="notice">
-HEAD UP! new changes to API will be here as refrence.
+HEAD UP! new changes to API will be here as reference.
 </aside>
 
 * created_at and updated_at property removed from client and driver profile.
@@ -289,7 +289,7 @@ Parameter | Type | Status | Description
     "success": true,
     "data": [
         {
-            "content": "Phone verified successfuly"
+            "content": "Phone verified successfully"
         }
     ]
 }
@@ -302,8 +302,8 @@ Parameter | Type | Status | Description
     "success": false,
     "data": [
         {
-            "title": "You are already verfied",
-            "detail": "You are verfied, there is no need for verify again.",
+            "title": "You are already verified",
+            "detail": "You are verified, there is no need for verify again.",
             "code": 500
         }
     ]
@@ -404,7 +404,7 @@ Parameter | Type | Status | Description
     "success": true,
     "data": [
         {
-            "content": "Phone verified successfuly"
+            "content": "Phone verified successfully"
         }
     ]
 }
@@ -417,8 +417,8 @@ Parameter | Type | Status | Description
     "success": false,
     "data": [
         {
-            "title": "You are already verfied",
-            "detail": "You are verfied, there is no need for verify again.",
+            "title": "You are already verified",
+            "detail": "You are verified, there is no need for verify again.",
             "code": 500
         }
     ]
@@ -498,7 +498,7 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
-            "content": "SMS code re-sent successfuly"
+            "content": "SMS code re-sent successfully"
         }
     ]
 }
@@ -511,8 +511,8 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "title": "You are already verfied",
-            "detail": "You are verfied, there is no need for verify again.",
+            "title": "You are already verified",
+            "detail": "You are verified, there is no need for verify again.",
             "code": 500
         }
     ]
@@ -575,7 +575,7 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
-            "content": "SMS code re-sent successfuly"
+            "content": "SMS code re-sent successfully"
         }
     ]
 }
@@ -588,8 +588,8 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "title": "You are already verfied",
-            "detail": "You are verfied, there is no need for verify again.",
+            "title": "You are already verified",
+            "detail": "You are verified, there is no need for verify again.",
             "code": 500
         }
     ]
@@ -4178,9 +4178,9 @@ $.ajax(settings).done(function (response) {
 ```
 
 
-# Middlewares
+# Middleware
 ##Authenticate
-Authorize the access token for countinue using protected routes. Given on `Authorization` header.
+Authorize the access token for continue using protected routes. Given on `Authorization` header.
 
 > Example response - on failed authenticate
 
@@ -4205,7 +4205,7 @@ Check if the current driver is an approved driver to go online.
     "data": [
         {
             "title":  "Not an approved driver",
-            "detail": "You should contact your area car center to begin approving proccess.",
+            "detail": "You should contact your area call center to begin approving proccess.",
             "code": 401
         }
     ]
@@ -4277,7 +4277,7 @@ Check if the current driver has a registered car.
     "data": [
         {
             "title": "No car",
-            "detail": "You should contact your area car center to register your car.",
+            "detail": "You should contact your area call center to register your car.",
             "code": 401
         }
     ]
@@ -4286,7 +4286,7 @@ Check if the current driver has a registered car.
 ```
 
 ##Check POST size
-Check the max POST contetn size. in case of failure:
+Check the max POST content size. in case of failure:
 
 > Exceed POST content size
 
@@ -4322,7 +4322,7 @@ if not:
 
 ##Paid or can't change
 
-Payment record is already been paid or choose somethind else and now cannot be modified.
+Payment record is already been paid or choose something else and now cannot be modified.
 
 ```josn
 
