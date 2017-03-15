@@ -36,7 +36,8 @@
     var info = @jsonify($info);
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
-      center: {lat: 35.757610, lng: 51.409954}
+      center: {lat: 35.757610, lng: 51.409954},
+      streetViewControl: false
     });
 
     if (navigator.geolocation) {

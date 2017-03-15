@@ -21,7 +21,8 @@
     var map = new google.maps.Map(document.getElementById('map'), {
       center: from,
       scrollwheel: false,
-      zoom: 7
+      zoom: 7,
+      streetViewControl: false
     });
 
     var directionsDisplay = new google.maps.DirectionsRenderer({
