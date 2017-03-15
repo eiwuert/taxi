@@ -32,8 +32,8 @@ class SmsController extends Controller
 
         if (Gate::denies('verify')) {
             return fail([
-                    'title'  => 'You are already verfied',
-                    'detail' => 'You are verfied, there is no need for verify again.'
+                    'title'  => 'You are already verified',
+                    'detail' => 'You are verified, there is no need for verify again.'
                 ]);
         }
 
@@ -47,12 +47,12 @@ class SmsController extends Controller
         $sms = $this->getSMS();
         $sms->first()->increment('attempts');
 
-        if ($sms->count()) {
+        if ($sms->exists()) {
             if ($sms->first()->code == $request->code) {
                 event(new UserVerified(Auth::user()));
                 $this->verifyUser();
                 return ok([
-                            'content' => 'Phone verified successfuly'
+                            'content' => 'Phone verified successfully'
                         ]);
             } else {
                 return fail([
@@ -78,8 +78,8 @@ class SmsController extends Controller
     {
         if (Gate::denies('verify')) {
             return fail([
-                    'title'  => 'You are already verfied',
-                    'detail' => 'You are verfied, there is no need for verify again.'
+                    'title'  => 'You are already verified',
+                    'detail' => 'You are verified, there is no need for verify again.'
                 ]);
         }
 
@@ -101,7 +101,7 @@ class SmsController extends Controller
      */
     private function getSMS($minute = 8)
     {
-        return Sms::whereUserId(Auth::user()->id)->received($minute);
+        return Sms::whereUserId(Auth::user()->id)->received($minute)->orderBy('id', 'desc');
     }
 
     /**
