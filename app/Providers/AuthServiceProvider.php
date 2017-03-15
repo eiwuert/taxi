@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('attempts', function ($user, $sms) {
-            return $sms->first()->attempts <= 3;
+            return $sms->first()->attempts < 3;
         });
 
         Gate::define('client', function ($user, $trip) {

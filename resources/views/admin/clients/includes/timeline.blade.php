@@ -6,6 +6,7 @@
     <span class="label-primary">
       {{ $t->updated_at->diffForHumans() }}
     </span>
+    <a class="btn-sm btn-link" href="{{ route('trips.show', ['trip'=>$t]) }}">Go to trip</a>
   </li>
   <!-- /.timeline-label -->
   <!-- timeline item -->
