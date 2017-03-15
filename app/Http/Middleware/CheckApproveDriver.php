@@ -40,7 +40,7 @@ class CheckApproveDriver
         } else {
             return fail([
                 'title'  => 'Not an approved driver',
-                'detail' => 'You should contact your area car center to begin approving proccess.'
+                'detail' => 'You should contact your area call center to begin approving process.'
             ], 401);
         }
     }

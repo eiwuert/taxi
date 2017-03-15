@@ -41,7 +41,7 @@ class HasCar
         } else {
             return fail([
                 'title'  => 'No car',
-                'detail' => 'You should contact your area car center to register your car.'
+                'detail' => 'You should contact your area call center to register your car.'
             ], 401);
         }
     }
