@@ -71,14 +71,13 @@ class ProfileController extends Controller
     private function user()
     {
         if (Auth::user()->role == 'client') {
-            $client = User::wherePhone(Auth::user()->phone)
-                                    ->orderBy('id', 'desc')
-                                    ->first()->client()->first();
-            $client = $client->toArray();
+            $client = Auth::user()->client()->first()->toArray();
+            unset($client['created_at'], $client['updated_at']);
             $client['phone'] = Auth::user()->phone;
             return $client;
         } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first()->toArray();
+            unset($driver['created_at'], $driver['updated_at']);
             $driver['phone'] = Auth::user()->phone;
             return $driver;
         } else {

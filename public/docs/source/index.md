@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as refrence.
 </aside>
 
+* created_at and updated_at property removed from client and driver profile.
 * History order fixed (desc).
 * Payment updated.
 * Payment with card removed.
