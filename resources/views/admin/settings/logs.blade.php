@@ -8,6 +8,8 @@
 <div class="box box-solid">
     <div class="box-header">
         <h3 class="box-title">System Logs</h3>
+        <span> | </span>
+        <small>Only last 100 items listed here.</small>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
