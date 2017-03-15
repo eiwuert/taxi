@@ -278,4 +278,13 @@ class User extends Authenticatable
                   ->update(['read_at' => Carbon::now()]);
         }
     }
+
+    /**
+     * A user has one meta data.
+     * @return Illuminate\Database\Eloquent\Concerns\hasOne
+     */
+    public function meta()
+    {
+        return $this->hasOne('App\UserMeta');
+    }
 }

@@ -1,4 +1,4 @@
-{!! Form::model($driver, ['method' => 'PATCH', 'action' => ['Admin\DriverController@update', $driver->id], 'class' => 'form-horizontal']) !!}
+{!! Form::model($driver, ['method' => 'PATCH', 'action' => ['Admin\DriverController@update', $driver->id], 'class' => 'form-horizontal', 'files' => true]) !!}
 <div class="form-group">
   {!! Form::label('phone', 'Phone: ', ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
@@ -54,6 +54,22 @@
     {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
   </div>
 </div>
+@if (is_null($driver->user->meta))
+<div class="form-group">
+  {!! Form::label('documents', 'Documents: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    {!! Form::file('documents', null, ['class' => 'form-control']) !!}
+    <p class="help-block">Upload zip file.</p>
+  </div>
+</div>
+@else
+<div class="form-group">
+  {!! Form::label('documents', 'Documents: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    @include('admin.drivers.includes.document', ['driver' => $driver])
+  </div>
+</div>
+@endif
 <div class="box-group" id="accordion">
   <div class="panel box box-primary">
     <div class="box-header">

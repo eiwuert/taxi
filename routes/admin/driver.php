@@ -13,5 +13,7 @@ Route::group(['prefix' => 'drivers'], function () {
         ->name('drivers.approve');
     Route::post('decline/{driver}', 'DriverController@decline')
         ->name('drivers.decline');
+    Route::get('delete/document/{driver}', 'DriverController@deleteDocument')
+        ->name('drivers.delete.document');
 });
 Route::resource('drivers', 'DriverController');
