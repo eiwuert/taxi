@@ -77,7 +77,7 @@ class ProfileController extends Controller
             return $client;
         } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first()->toArray();
-            unset($driver['created_at'], $driver['updated_at']);
+            unset($driver['created_at'], $driver['updated_at'], $driver['deleted_at']);
             $driver['phone'] = Auth::user()->phone;
             return $driver;
         } else {
