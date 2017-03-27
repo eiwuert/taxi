@@ -48,6 +48,24 @@ class LocationRepository
     }
 
     /**
+     * Show drivers on maps includes their name and link to their profile.
+     * @param \App\Driver $driver
+     * @param String $filter
+     * @return array
+     */
+    public static function driverOnMap(Driver $driver, $filter = null)
+    {
+        $info = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . 
+                (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' . 
+                (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
+        $driver = [$driver->lastLatLng()];
+        return [
+            'driver' => $driver,
+            'info' => [$info],
+        ];
+    }
+
+    /**
      * Return a new location id that has been saved.
      *
      * @param  decimal  $lat

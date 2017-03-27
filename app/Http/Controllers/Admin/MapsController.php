@@ -22,9 +22,18 @@ class MapsController extends Controller
      * Go full screen for Google maps.
      * @return Illuminate\Http\Response
      */
-    public function fullscreen(Request $request)
+    public function fullscreen()
     {
         return view('admin.maps.fullscreen')->withBody('sidebar-collapse');
+    }
+
+    /**
+     * Go full screen for Google maps.
+     * @return Illuminate\Http\Response
+     */
+    public function track(Driver $driver)
+    {
+        return view('admin.maps.track', compact('driver'))->withBody('sidebar-collapse');
     }
 
     /**
@@ -34,5 +43,14 @@ class MapsController extends Controller
     public function getDriversJson(Request $request)
     {
         return LocationRepository::driversOnMap($request->status);
+    }
+
+    /**
+     * Get driver info as json.
+     * @return json
+     */
+    public function getDriverJson(Driver $driver, Request $request)
+    {
+        return LocationRepository::driverOnMap($driver, $request->status);
     }
 }

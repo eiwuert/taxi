@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 /**
  * Client Routes.
  */
-
 Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@client')
          ->name('registerClient');

@@ -37,6 +37,10 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            'admin.components.googlemaps-marker', 'App\Http\ViewComposers\GoogleMapsMarkerComposer'
+        );
+
+        View::composer(
             'admin.charts.flot-line', 'App\Http\ViewComposers\FlotLineComposer'
         );
 

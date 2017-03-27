@@ -16,9 +16,6 @@
       'text' => 'Offline'])
       @endif
     </p>
-    <hr>
-    <strong><i class="fa fa-map-marker margin-r-5"></i> Last Location</strong>
-    <p class="text-muted">{{ $driver->lastLocation() }}</p>
     @if (!is_null($driver->user->meta))
     <hr>
     <strong><i class="fa fa-file-o margin-r-5"></i> Documents</strong>
@@ -30,3 +27,4 @@
   <!-- /.box-body -->
 </div>
 <!-- /.box -->
+@include('admin.components.googlemaps-marker')

@@ -1,10 +1,10 @@
-@if(! str_contains(Request::url(), route('maps.fullscreen')))
+@if(! str_contains(Request::url(), route('maps.track', ['driver' => $driverModel])))
 <div class="box box-solid">
   <div class="box-header with-border">
     <i class="fa fa-map-marker" aria-hidden="true"></i>
     <h3 class="box-title">Markers</h3>
     <div class="box-tools">
-    <a href="{{ route('maps.fullscreen') }}">Go full screen <i class="ion-arrow-expand"></i></a>
+    <a href="{{ route('maps.track', ['driver' => $driverModel]) }}">Go full screen <i class="ion-arrow-expand"></i></a>
     </div>
   </div>
   <!-- /.box-header -->
@@ -62,7 +62,7 @@
   var image = "{{ asset('img/driver.png') }}";
   var refreshTime = 10000;
   function initMap() {
-    @if(str_contains(Request::url(), route('maps.fullscreen')))
+    @if(str_contains(Request::url(), route('maps.track', ['driver' => $driverModel])))
     var body = document.body,
         html = document.documentElement;
     var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -70,11 +70,11 @@
     document.getElementById('map').setAttribute("style","min-height: " + height);
     window.scrollTo(0, 100);
     @endif
-    var neighborhoods = @jsonify($drivers);
+    var neighborhoods = @jsonify($driver);
     var info = @jsonify($info);
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
-      center: {lat: 35.757610, lng: 51.409954},
+      center: {lat: parseFloat(neighborhoods[0].lat), lng: parseFloat(neighborhoods[0].lng)},
       streetViewControl: false
     });
 
@@ -122,17 +122,19 @@
 
   function updateMarkers() {
     setTimeout(this.updateMarkers, refreshTime);
-    var newDrivers = [];
+    var newDriver = [];
     var newInfo = [];
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
            if (xmlhttp.status == 200) {
-            newDrivers = JSON.parse(xmlhttp.responseText).drivers;
+            newDriver = JSON.parse(xmlhttp.responseText).driver;
             newInfo = JSON.parse(xmlhttp.responseText).info;
             clearMarkers();
-            for (var i = 0; i < newDrivers.length; i++) {
-              addMarker(newDrivers[i], newInfo[i]);
+            for (var i = 0; i < newDriver.length; i++) {
+              addMarker(newDriver[i], newInfo[i]);
+              map.setCenter({lat: parseFloat(newDriver[i].lat), 
+                             lng: parseFloat(newDriver[i].lng)}); 
             }
            }
            else if (xmlhttp.status == 400) {
@@ -143,9 +145,13 @@
            }
         }
     };
-    xmlhttp.open("GET", "{{ route('getDriversJson', Request::all()) }}", true);
+    @php
+      $segments = Request::segments();
+    @endphp
+    xmlhttp.open("GET", "{{ route('getDriverJson', ['driver' => end($segments)]) }}", true);
     xmlhttp.send();
   };
+
   function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('address').value;
     geocoder.geocode({'address': address}, function(results, status) {
