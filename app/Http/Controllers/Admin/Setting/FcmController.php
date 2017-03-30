@@ -17,7 +17,7 @@ class FcmController extends Controller
         $projections = ['multicast_id', 'success', 'failure', 'canonical_ids',
         'results', 'head', 'device_token', 'title', 'message'];
         $logs = Fcm::orderBy('_id', 'desc')
-                    ->paginate(config('admin.perPage'), $projections);
+                    ->paginate((int) option('pagination', 15), $projections);
         return view('admin.settings.fcm', compact('logs'));
     }
 }

@@ -17,7 +17,7 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::orderBy('id', 'desc')
-                           ->paginate(config('admin.perPage'));
+                           ->paginate(option('pagination', 15));
         return view('admin.payments.index', compact('payments'));
     }
 
@@ -35,7 +35,7 @@ class PaymentController extends Controller
         } else {
             $payments = Payment::charge();
         }
-        $payments = $payments->orderBy('id', 'desc')->paginate(config('admin.perPage'));
+        $payments = $payments->orderBy('id', 'desc')->paginate(option('pagination', 15));
         return view('admin.payments.index', compact('payments'));
     }
 
@@ -78,7 +78,7 @@ class PaymentController extends Controller
                 $drivers = $drivers->paginate(Driver::count());
             }
         } else {
-            $drivers = $drivers->paginate(config('admin.perPage'));
+            $drivers = $drivers->paginate(option('pagination', 15));
         }
 
         return view('admin.payments.drivers', compact('drivers'));
@@ -105,7 +105,7 @@ class PaymentController extends Controller
                                                        ->range(@$filters['date_range'])
                                                        ->get(['id'])
                                                        ->flatten())
-                           ->paginate(config('admin.perPage'));
+                           ->paginate(option('pagination', 15));
         return view('admin.payments.trips', compact('payments', 'driver'));
     }
 }

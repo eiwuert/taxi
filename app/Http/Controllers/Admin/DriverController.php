@@ -23,7 +23,7 @@ class DriverController extends Controller
     {
         $drivers = Driver::with('user')
                         ->orderBy('created_at', 'desc')
-                        ->paginate(config('admin.perPage'));
+                        ->paginate(option('pagination', 15));
         return view('admin.drivers.index', compact('drivers'));
     }
 
@@ -150,7 +150,7 @@ class DriverController extends Controller
                 $drivers = $drivers->paginate(Driver::count());
             }
         } else {
-            $drivers = $drivers->paginate(config('admin.perPage'));
+            $drivers = $drivers->paginate(option('pagination', 15));
         }
 
         return view('admin.drivers.index', compact('drivers'));
@@ -176,7 +176,7 @@ class DriverController extends Controller
                         ->orWhere('zipcode', 'ilike', "%$q%")
                         ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")
                                                     ->get(['id'])->flatten())
-                        ->paginate(config('admin.perPage'));
+                        ->paginate(option('pagination', 15));
 
         return view('admin.drivers.index', compact('drivers'));
     }

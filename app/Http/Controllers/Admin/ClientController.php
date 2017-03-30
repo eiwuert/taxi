@@ -23,7 +23,7 @@ class ClientController extends Controller
     {
         $clients = Client::with('user')
                         ->orderby('created_at', 'desc')
-                        ->paginate(config('admin.perPage'));
+                        ->paginate(option('pagination', 15));
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -109,7 +109,7 @@ class ClientController extends Controller
                 $clients = $clients->paginate(Client::count());
             }
         } else {
-            $clients = $clients->paginate(config('admin.perPage'));
+            $clients = $clients->paginate(option('pagination', 15));
         }
 
         return view('admin.clients.index', compact('clients'));
@@ -163,7 +163,7 @@ class ClientController extends Controller
                         ->orWhere('zipcode', 'ilike', "%$q%")
                         ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")
                                                     ->get(['id'])->flatten())
-                        ->paginate(config('admin.perPage'));
+                        ->paginate(option('pagination', 15));
 
         return view('admin.clients.index', compact('clients'));
     }
