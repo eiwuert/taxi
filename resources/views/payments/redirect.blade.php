@@ -7,7 +7,7 @@
     <form action="https://fcp.shaparak.ir/_ipgw_//payment/simple/" method="post" style="display: none;" id="form">
       <fieldset>
         <p>Merchant ID:
-          <input type="text" name="MID" value="21339760"/>
+          <input type="text" name="MID" value="{{ option('payment.username', config('payment.username')) }}"/>
         </p>
         <p>ResNum:
           <input type="text" name="resNum" value="{{ $resNum }}"/>

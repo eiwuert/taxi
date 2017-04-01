@@ -142,8 +142,8 @@ class PaymentController extends Controller
     private function getContext()
     {
         $loginParams = [
-            'username' => config('payment.username'),
-            'password' => config('payment.password'),
+            'username' => option('payment_username', config('payment.username')),
+            'password' => option('payment_password', config('payment.password')),
         ];
         $soap = new nusoap_client(config('payment.ipg'), 'wsdl');
         $session = $soap->call('login', ['loginRequest' => $loginParams])['return'];
