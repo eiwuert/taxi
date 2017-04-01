@@ -45,9 +45,7 @@ class VerifyDriverTest extends TestCase
      */
     public function testDriverSuccessVerification()
     {
-        $response = $this->request([
-                        'code' => '55555',
-                    ]);
+        $response = $this->request(['code' => '55555']);
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -62,16 +60,13 @@ class VerifyDriverTest extends TestCase
      */
     public function testDriverDoubleVerification()
     {
-        $this->request([
-                        'code' => '55555',
-                    ]);
-        $response = $this->request([
-                        'code' => '55555',
-                    ]);
+        $this->request(['code' => '55555']);
+        $this->refreshApplication();
+        $response = $this->request(['code' => '55555']);
         $response
             ->assertStatus(200)
             ->assertJson([
-                'success' => true,
+                'success' => false,
             ]);
     }
 
@@ -82,14 +77,11 @@ class VerifyDriverTest extends TestCase
      */
     public function testDriverWrongCode()
     {
-        $response = $this->request([
-                        'code' => '00000',
-                    ]);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
+        $response = $this->request(['code' => '00000']);
+        $response->assertStatus(200)
+                ->assertJson([
+                    'success' => false,
+                ]);
     }
 
     /**
@@ -100,9 +92,7 @@ class VerifyDriverTest extends TestCase
     public function testDriverWrongCodeExceed()
     {
         for ($i = 0; $i <= 5; $i++) {
-            $response = $this->request([
-                                            'code' => '00000',
-                                        ]);
+            $response = $this->request(['code' => '00000']);
         }
         $response
             ->assertStatus(200)
