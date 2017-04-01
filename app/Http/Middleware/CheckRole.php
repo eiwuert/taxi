@@ -44,7 +44,7 @@ class CheckRole
                 'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
             ], 401);
         }
-
+        $role = $this->auth->guard('api')->user()->role;
         if ($role == 'client' && ! is_null(User::wherePhone($this->auth->guard('api')->user()->phone)
                                                 ->orderBy('id', 'desc')
                                                 ->first()->client()->first())) {
