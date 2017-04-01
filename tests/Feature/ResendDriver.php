@@ -1,10 +1,13 @@
 <?php
 namespace Tests\Feature;
 
+use DB;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
-class VerifyDriverTest extends TestCase
+class ResendDriverTest extends TestCase
 {
+    use WithoutMiddleware;
     private $accessToken;
 
     public function setUp()
@@ -39,65 +42,39 @@ class VerifyDriverTest extends TestCase
     }
 
     /**
-     * Test driver success verification.
+     * Test driver for asking SMS resend while not verified And not passed time limit.
      *
      * @return void
      */
-    public function testDriverSuccessVerification()
-    {
-        $response = $this->request(['code' => '55555']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-            ]);
-    }
-
-    /**
-     * Test driver double verification.
-     *
-     * @return void
-     */
-    public function testDriverDoubleVerification()
+    public function testAskForResendWhileNotVerifiedAndNotPassedTimeLimit()
     {
         $this->request(['code' => '55555']);
         $this->refreshApplication();
-        $response = $this->request(['code' => '55555']);
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
-    }
-
-    /**
-     * Test driver wrong code verification.
-     *
-     * @return void
-     */
-    public function testDriverWrongCode()
-    {
-        $response = $this->request(['code' => '00000']);
+        $response = $this->json('GET', 'api/v1/driver/resend', [
+            'Accept' => 'application/json',
+            'Authorization' => $this->accessToken,
+        ]);
         $response->assertStatus(200)
-                ->assertJson([
-                    'success' => false,
+                 ->assertJson(['success' => false])
+                 ->assertJsonStructure([
+                    'success',
+                    'data' => [['title', 'detail']]
                 ]);
     }
 
     /**
-     * Test driver wrong code exceed verification.
+     * Test driver resend while not yet verified.
      *
      * @return void
      */
-    public function testDriverWrongCodeExceed()
+    public function testAskForResendWhileNotVerifiedAndTimeLimitPassed()
     {
-        for ($i = 0; $i <= 5; $i++) {
-            $response = $this->request(['code' => '00000']);
-        }
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => false,
-            ]);
+        $response = $this->json('GET', 'api/v1/driver/resend', [
+            'Accept' => 'application/json',
+            'Authorization' => $this->accessToken,
+        ]);
+        $response->assertStatus(200)
+                 ->assertJson(['success' => true])
+                 ->assertJsonStructure(['success', 'data' => [['content']]]);
     }
 }

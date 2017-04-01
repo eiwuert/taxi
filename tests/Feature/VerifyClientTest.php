@@ -31,7 +31,7 @@ class VerifyClientTest extends TestCase
     private function request($data = array())
     {
         return $this->json('POST', 'api/v1/client/verify', $data, [
-            'Accept' => 'application/josn',
+            'Accept' => 'application/json',
             'Authorization' => $this->accessToken,
         ]);
     }
