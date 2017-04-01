@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
@@ -22,6 +23,7 @@ class Option extends Model
     {
         foreach ($options as $key => $value) {
             if ($option = self::whereName($key)->first()) {
+                Cache::forever($key, $value);
                 $option->update(['value' => $value]);
             }
         }
