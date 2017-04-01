@@ -2,15 +2,13 @@
 
 namespace Tests\Feature\Api\Driver;
 
-use App\User;
+use App\Driver;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StatusTest extends TestCase
 {
-    use WithoutMiddleware;
-
     private $accessToken;
     private $phone;
 
@@ -29,6 +27,13 @@ class StatusTest extends TestCase
 
         $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' . 
                              $response->getOriginalContent()['data'][0]['access_token'];
+
+        $this->json('POST', '/api/v1/driver/verify', 
+                            ['code' => '55555'], 
+                            ['Authorization' => $this->accessToken, 'Accept' => 'application/json']);
+
+        $this->refreshApplication();
+        Driver::orderBy('id', 'desc')->first()->forceFill(['approve' => 'true'])->save();
     }
 
     /**
@@ -42,27 +47,45 @@ class StatusTest extends TestCase
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true]);
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['result']]]);
         $this->refreshApplication();
         $response = $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => false]);
+            ->assertJson(['success' => false])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
     }
 
     /**
      * Test driver going offline.
      *
+     * @depends testGoOnline
      * @return void
      */
     public function testGoOffline()
     {
-        $res = $this->json('GET', 'api/v1/driver/offline', [], [
+        $response = $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => false]);
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['result']]]);
+        $this->refreshApplication();
+        $response = $this->get('api/v1/driver/offline', [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['result']]]);
+        $this->refreshApplication();
+        $response = $this->get('api/v1/driver/offline', [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => false])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
     }
 
     /**
@@ -72,11 +95,25 @@ class StatusTest extends TestCase
      */
     public function testStatus()
     {
+        $this->get('api/v1/driver/online', [
+            'Authorization' => $this->accessToken]);
+        $this->refreshApplication();
+        $this->json('GET', 'api/v1/driver/status', [], [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonFragment(['online' => true]);
+        $this->refreshApplication();
+        $this->get('api/v1/driver/offline', [
+            'Authorization' => $this->accessToken]);
+        $this->refreshApplication();
         $this->json('GET', 'api/v1/driver/status', [], [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson(['success' => true])
             ->assertJsonFragment(['online' => false]);
+        $this->refreshApplication();
     }
 }
