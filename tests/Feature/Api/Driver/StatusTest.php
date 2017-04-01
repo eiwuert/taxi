@@ -11,6 +11,7 @@ class StatusTest extends TestCase
 {
     private $accessToken;
     private $phone;
+    private $driver;
 
     public function setUp()
     {
@@ -33,35 +34,56 @@ class StatusTest extends TestCase
                             ['Authorization' => $this->accessToken, 'Accept' => 'application/json']);
 
         $this->refreshApplication();
-        Driver::orderBy('id', 'desc')->first()->forceFill(['approve' => 'true'])->save();
+        ($this->driver = Driver::orderBy('id', 'desc')->first())->forceFill(['approve' => 'true'])->save();
     }
 
     /**
-     * Test driver going online.
+     * Test driver going online V1.
      *
      * @return void
      */
-    public function testGoOnline()
+    public function testGoOnlineV1()
     {
-        $response = $this->get('api/v1/driver/online', [
+        $response = $this->get('api/v2/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['result']]]);
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
-        $response = $this->get('api/v1/driver/online', [
+
+        $response = $this->get('api/v2/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => false])
+            ->assertJson(['success' => true])
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+    }
+
+    /**
+     * Test driver going online V2
+     *
+     * @return void
+     */
+    public function testGoOnlineV2()
+    {
+        $response = $this->get('api/v2/driver/online', [
+            'Authorization' => $this->accessToken])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true]);
+        $this->refreshApplication();
+        $response = $this->get('api/v2/driver/online', [
+            'Authorization' => $this->accessToken])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true]);
+        // TODO: Onway
     }
 
     /**
      * Test driver going offline.
      *
-     * @depends testGoOnline
      * @return void
      */
     public function testGoOffline()
@@ -89,11 +111,33 @@ class StatusTest extends TestCase
     }
 
     /**
-     * Test driver getting status.
+     * Test driver going offline v2.
      *
      * @return void
      */
-    public function testStatus()
+    public function testGoOfflineV2()
+    {
+        $response = $this->get('api/v2/driver/offline', [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+        $response = $this->get('api/v2/driver/offline', [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+    }
+
+    /**
+     * Test driver getting status V1.
+     *
+     * @return void
+     */
+    public function testStatusV1()
     {
         $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken]);
@@ -116,4 +160,34 @@ class StatusTest extends TestCase
             ->assertJsonFragment(['online' => false]);
         $this->refreshApplication();
     }
+
+    /**
+     * Test driver getting status v2.
+     *
+     * @return void
+     */
+    public function testStatusV2()
+    {
+        $this->get('api/v2/driver/online', [
+            'Authorization' => $this->accessToken]);
+        $this->refreshApplication();
+        $this->json('GET', 'api/v2/driver/status', [], [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+        $this->get('api/v2/driver/offline', [
+            'Authorization' => $this->accessToken]);
+        $this->refreshApplication();
+        $this->json('GET', 'api/v2/driver/status', [], [
+            'Authorization' => $this->accessToken,])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => false])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+    }
+
 }
