@@ -35,6 +35,9 @@ class DriverTest extends TestCase
             'Authorization' => $accessToken,
         ])->assertStatus(200)
           ->assertHeader('Content-Type', 'application/json')
-          ->assertJson(['success' => true]);
+          ->assertJson(['success' => true])
+          ->assertJsonStructure(['success', 'data' => [['id', 'first_name', 
+            'last_name', 'email', 'gender', 'device_token', 'device_type', 'lang', 
+            'address', 'state', 'country', 'zipcode', 'picture', 'user_id', 'phone']]]);
     }
 }
