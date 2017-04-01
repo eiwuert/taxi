@@ -89,26 +89,32 @@ class RequestTest extends TestCase
                 'eta_value', 'distance_text', 'distance_value', 'trip_status',
                 'source_name', 'destination_name']]]);
         $this->refreshApplication();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverArrivesToTheStartPoint();
-        // $this->driverIsMoving();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->clientChooseThePayment();
         $this->driverSeesThePaymentMode();
+        $this->driverSetsHerCurrentLocation('41.435529', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverEndsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.434229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverRatesTheTrip();
+        $this->driverSetsHerCurrentLocation('41.425229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->clientRatesTheTrip();
     }
@@ -127,12 +133,14 @@ class RequestTest extends TestCase
 
     /**
      * Set driver location.
+     * @param  float $lat
+     * @param  float $long
      * @return void
      */
-    private function driverSetsHerCurrentLocation()
+    private function driverSetsHerCurrentLocation($lat = '41.410874', $long = '2.157207')
     {
         $response = $this->post('api/v1/driver/location',
-            ['lat' => '41.410874', 'long' => '2.157207'],
+            ['lat' => $lat, 'long' => $long],
             ['Authorization' => $this->driverAccessToken,
             'Accept' => 'application/json']);
         $this->refreshApplication();
@@ -312,6 +320,10 @@ class RequestTest extends TestCase
         $this->refreshApplication();
     }
 
+    /**
+     * Driver sees the new payment mode.
+     * @return void
+     */
     private function driverSeesThePaymentMode()
     {
         $this->get('/api/v1/driver/trip',
