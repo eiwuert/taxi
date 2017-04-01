@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ClientTest extends TestCase
+class DriverTest extends TestCase
 {
     use WithoutMiddleware, DatabaseTransactions;
     private $accessToken;
@@ -15,12 +15,14 @@ class ClientTest extends TestCase
     {
         parent::setUp();
 
-        $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(11111111, 999999999),
+        $response = $this->json('POST', '/api/v1/driver/register', [
+            'phone' => rand(11111, 99999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
+            'country' => 'Iran',
+            'state' => 'Isfahan'
         ]);
 
         $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' . 
@@ -29,7 +31,7 @@ class ClientTest extends TestCase
 
     private function successful($lat, $long, $version = 'v1')
     {
-        $this->json('POST', 'api/' . $version . '/client/location', 
+        $this->json('POST', 'api/' . $version . '/driver/location', 
             ['lat' => $lat, ($version == 'v1') ? 'long' : 'lng' => $long,], [
             'Authorization' => $this->accessToken,
         ])->assertStatus(200)
@@ -41,7 +43,7 @@ class ClientTest extends TestCase
 
     private function unsuccessful($lat, $long, $version = 'v1', $status = 422)
     {
-        $this->json('POST', 'api/' . $version . '/client/location', 
+        $this->json('POST', 'api/' . $version . '/driver/location', 
             ['lat' => $lat, ($version == 'v1') ? 'long' : 'lng' => $long,], [
             'Authorization' => $this->accessToken,
         ])->assertStatus($status)
@@ -51,7 +53,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test setting location for client.
+     * Test setting location for driver.
      *
      * @return void
      */
@@ -71,7 +73,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * Test setting location for client.
+     * Test setting location for driver.
      *
      * @return void
      */
@@ -85,7 +87,7 @@ class ClientTest extends TestCase
         $this->unsuccessful('∆ß˚∆˚∂∆˚', '≈ç∆ß∆˜ß¬');
 
         // Wrong version parameters
-        $this->json('POST', 'api/v1/client/location', [
+        $this->json('POST', 'api/v1/driver/location', [
                 'lat' => '0.0',
                 'lng' => '30.0',
             ], [
@@ -95,7 +97,7 @@ class ClientTest extends TestCase
           ->assertJson(['success' => false]);
 
         // abc, 0.0 - v2
-        $this->json('POST', 'api/v2/client/location', [
+        $this->json('POST', 'api/v2/driver/location', [
                 'lat' => 'abc',
                 'long' => '0.0',
             ], [
@@ -111,7 +113,7 @@ class ClientTest extends TestCase
         $this->unsuccessful('∆ß˚∆˚∂∆˚', '≈ç∆ß∆˜ß¬', 'v2');
 
         // Wrong version parameters
-        $this->json('POST', 'api/v2/client/location', [
+        $this->json('POST', 'api/v2/driver/location', [
                 'lat' => '0.0',
                 'long' => '30.0',
             ], [
