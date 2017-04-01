@@ -84,7 +84,7 @@ class MainRepository
 
     protected static function dev($pending)
     {
-        if (env('APP_ENV', 'production') == 'local') {
+        if (env('APP_ENV', 'production') == 'local' || \App::runningUnitTests()) {
             if (is_null($pending->first()->driver)) {
                 $pending->first()->updateStatusTo('no_driver');
             } else {

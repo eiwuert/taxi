@@ -44,19 +44,18 @@ class StatusTest extends TestCase
      */
     public function testGoOnlineV1()
     {
-        $response = $this->get('api/v2/driver/online', [
+        $response = $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+            ->assertJsonStructure(['success', 'data' => [['result']]]);
         $this->refreshApplication();
-
-        $response = $this->get('api/v2/driver/online', [
+        $response = $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken,])
             ->assertStatus(200)
             ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true])
+            ->assertJson(['success' => false])
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
     }
 
@@ -86,7 +85,7 @@ class StatusTest extends TestCase
      *
      * @return void
      */
-    public function testGoOffline()
+    public function testGoOfflineV1()
     {
         $response = $this->get('api/v1/driver/online', [
             'Authorization' => $this->accessToken,])

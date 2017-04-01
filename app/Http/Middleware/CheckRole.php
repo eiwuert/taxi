@@ -45,11 +45,8 @@ class CheckRole
             ], 401);
         }
         $role = $this->auth->guard('api')->user()->role;
-        if ($role == 'client' && ! is_null(User::wherePhone($this->auth->guard('api')->user()->phone)
-                                                ->orderBy('id', 'desc')
-                                                ->first()->client()->first())) {
-            return $next($request);
-        } elseif ($role == 'driver' && ! is_null($this->auth->guard('api')->user()->driver()->first())) {
+        if (($role == 'client' && ! is_null($this->auth->guard('api')->user()->client()->first())) || 
+            ($role == 'driver' && ! is_null($this->auth->guard('api')->user()->driver()->first()))) {
             return $next($request);
         } else {
             return fail([
