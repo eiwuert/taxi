@@ -39,5 +39,7 @@ class DriverTest extends TestCase
           ->assertJsonStructure(['success', 'data' => [['id', 'first_name', 
             'last_name', 'email', 'gender', 'device_token', 'device_type', 'lang', 
             'address', 'state', 'country', 'zipcode', 'picture', 'user_id', 'phone']]]);
+
+        // Test picture upload
     }
 }

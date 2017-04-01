@@ -94,6 +94,8 @@ class ClientTest extends TestCase
                             'device_token' => 'sample_device_token_from_phpunit',
                             'phone' => $this->phone,
                         ]]]);
+
+        // Test picture upload
     }
 
     public function testValidations()
