@@ -57,7 +57,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('driver', function ($user, $trip) {
             return
             (
-                (Driver::whereId($trip->driver_id)->first()->id === $trip->driver_id) &&
+                (Driver::whereId($trip->driver_id)->first()->id == $trip->driver_id) &&
                 (is_null($trip->rate()->firstOrCreate([])->driver) ) && 
                 ( ($trip->status_id == 9) || ($trip->status_id == 16) )
             );

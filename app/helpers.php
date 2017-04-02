@@ -105,6 +105,29 @@ if (! function_exists('js_josn')) {
     }
 }
 
+if (! function_exists('option')) {
+    /**
+     * Get the value by its name.
+     * @param  String $name
+     * @param  mix $default
+     * @return String
+     */
+    function option($name, $default)
+    {
+        if (Cache::has($name)) {
+            return Cache::get($name, $default);
+        } else {
+            if ($option = App\Option::whereName($name)->first()) {
+                Cache::forever($name, $option->value);
+                return $option->value;
+            } else {
+                return $default;
+            }
+        }
+
+    }
+}
+
 if (! function_exists('nearby')) {
     /**
      * Find nearby
@@ -117,7 +140,7 @@ if (! function_exists('nearby')) {
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5, $exclude = 0)
     {
         // TODO: remove this stupid number. :)
-        $distance = 100;
+        $distance = option('distance', 1);
         if ($type == 'any') {
             $type = "SELECT id FROM car_types";
         } else {

@@ -3,8 +3,10 @@
  * Settings related routes.
  */
 Route::group(['prefix' => 'settings'], function () {
-    Route::get('general', 'SettingController@general')
-            ->name('settings.general');
+    Route::get('general', 'Setting\GeneralController@index')
+            ->name('settings.general.index');
+    Route::patch('general', 'Setting\GeneralController@update')
+            ->name('settings.general.update');
     Route::group(['prefix' => 'backup', 'namespace' => 'Setting'], function () {
         Route::get('/', 'BackupController@index')
                 ->name('settings.backup.index');

@@ -47,14 +47,19 @@ class ClientTest extends TestCase
             'Authorization' => $this->accessToken,
         ])->assertStatus(200)
           ->assertHeader('Content-Type', 'application/json')
-          ->assertJson(['success' => true]);
+          ->assertJson(['success' => true])
+          ->assertJsonStructure(['success', 'data' => [['balance']]]);
 
         // GET client profile
         $this->json('GET', 'api/v1/client/profile', [], [
             'Authorization' => $this->accessToken,
         ])->assertStatus(200)
           ->assertHeader('Content-Type', 'application/json')
-          ->assertJson(['success' => true]);
+          ->assertJson(['success' => true])
+          ->assertJsonStructure(['success', 'data' => [['id', 'first_name', 
+            'last_name', 'email', 'gender', 'device_token', 'device_type', 'lock', 
+            'lang', 'address', 'state', 'country', 'zipcode', 'picture', 'balance', 
+            'user_id', 'phone']]]);
 
         // Update client profile
         $this->json('POST', 'api/v1/client/profile', [
@@ -89,6 +94,8 @@ class ClientTest extends TestCase
                             'device_token' => 'sample_device_token_from_phpunit',
                             'phone' => $this->phone,
                         ]]]);
+
+        // Test picture upload
     }
 
     public function testValidations()

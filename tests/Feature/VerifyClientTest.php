@@ -31,7 +31,7 @@ class VerifyClientTest extends TestCase
     private function request($data = array())
     {
         return $this->json('POST', 'api/v1/client/verify', $data, [
-            'Accept' => 'application/josn',
+            'Accept' => 'application/json',
             'Authorization' => $this->accessToken,
         ]);
     }
@@ -60,16 +60,13 @@ class VerifyClientTest extends TestCase
      */
     public function testClientDoubleVerification()
     {
-        $this->request([
-                        'code' => '55555',
-                    ]);
-        $response = $this->request([
-                        'code' => '55555',
-                    ]);
+        $this->request(['code' => '55555']);
+        $this->refreshApplication();
+        $response = $this->request(['code' => '55555']);
         $response
             ->assertStatus(200)
             ->assertJson([
-                'success' => true,
+                'success' => false,
             ]);
     }
 
@@ -80,9 +77,7 @@ class VerifyClientTest extends TestCase
      */
     public function testClientWrongCode()
     {
-        $response = $this->request([
-                        'code' => '00000',
-                    ]);
+        $response = $this->request(['code' => '00000']);
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -98,9 +93,7 @@ class VerifyClientTest extends TestCase
     public function testClientWrongCodeExceed()
     {
         for ($i = 0; $i <= 5; $i++) {
-            $response = $this->request([
-                                            'code' => '00000',
-                                        ]);
+            $response = $this->request(['code' => '00000']);
         }
         $response
             ->assertStatus(200)

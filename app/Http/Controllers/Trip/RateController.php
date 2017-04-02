@@ -21,20 +21,12 @@ class RateController extends Controller
      */
     public function client(RateRequest $request)
     {
-        $user = User::wherePhone(Auth::user()->phone)
-                ->orderBy('id', 'desc')
-                ->first()->client()->first()
-                ->trips()->where('driver_id', '<>', null)
-                ->orderBy('id', 'desc')->first();
-
+        $user = Auth::user()->client()->first()->trips()
+            ->where('driver_id', '<>', null)->orderBy('id', 'desc')->first();
         if (Gate::allows('client', $user)) {
             $this->rateOfClient($request->stars, $request->comment);
-
             $this->postRatingProcessing($user);
-
-            return ok([
-                        'title' => 'Thanks for rating',
-                    ]);
+            return ok(['title' => 'Thanks for rating']);
         } else {
             return fail([
                 'title'  => 'You cannot rate',
@@ -50,16 +42,12 @@ class RateController extends Controller
      */
     public function driver(RateRequest $request)
     {
-        if (Gate::allows('driver', Auth::user()->driver()->first()->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')->first())) {
+        $user = Auth::user()->driver()->first()->trips()
+            ->where('driver_id', '<>', null)->orderBy('id', 'desc')->first();
+        if (Gate::allows('driver', $user)) {
             $this->rateOfDriver($request->stars, $request->comment);
-
-            $this->postRatingProcessing(Auth::user()->driver()->first()
-                                                     ->trips()->where('driver_id', '<>', null)->orderBy('id', 'desc')
-                                                     ->first());
-
-            return ok([
-                        'title' => 'Thanks for rating',
-                    ]);
+            $this->postRatingProcessing($user);
+            return ok(['title' => 'Thanks for rating']);
         } else {
             return fail([
                     'title'  => 'You cannot rate',

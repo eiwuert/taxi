@@ -24,7 +24,7 @@ class TripController extends Controller
      */
     public function index()
     {
-        $trips = Trip::orderBy('created_at', 'desc')->paginate(config('admin.perPage'));
+        $trips = Trip::orderBy('created_at', 'desc')->paginate(option('pagination', 15));
         return view('admin.trips.index', compact('trips'));
     }
 
@@ -74,7 +74,7 @@ class TripController extends Controller
                 $trips = $trips->paginate(Trip::count());
             }
         } else {
-            $trips = $trips->paginate(config('admin.perPage'));
+            $trips = $trips->paginate(option('pagination', 15));
         }
 
         return view('admin.trips.index', compact('trips'));
@@ -100,7 +100,7 @@ class TripController extends Controller
                                                     ->get(['id'])->flatten())
                         ->orWhereIn('destination', Location::where('name', 'ilike', "%$q%")
                                                     ->get(['id'])->flatten())
-                        ->paginate(config('admin.perPage'));
+                        ->paginate(option('pagination', 15));
 
         return view('admin.trips.index', compact('trips'));
     }

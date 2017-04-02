@@ -4,10 +4,11 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Tests\Unit\ApiAuthClientCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CarTypesTest extends TestCase
 {
-    use WithoutMiddleware;
+    use WithoutMiddleware, DatabaseTransactions;
 
     /**
      * Test getting car types.
@@ -32,8 +33,7 @@ class CarTypesTest extends TestCase
         ]);
 
         $response->assertStatus(200)
-                 ->assertJson([
-                    'success' => true,
-                 ]);
+                 ->assertJson(['success' => true])
+                 ->assertJsonStructure(['success', 'data']);
     }
 }
