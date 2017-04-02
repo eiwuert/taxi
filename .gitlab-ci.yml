@@ -16,6 +16,7 @@ variables:
   POSTGRES_USER: root
   POSTGRES_PASSWORD: ""
 
+
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
 cache:
@@ -45,7 +46,7 @@ before_script:
 
   # Install Node dependencies.
   # comment this out if you don't have a node dependency
-  - npm install
+  # - npm install
 
   # Copy over testing configuration.
   # Don't forget to set the database config in .env.testing correctly
