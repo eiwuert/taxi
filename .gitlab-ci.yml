@@ -32,7 +32,7 @@ before_script:
   - pecl install mongodb-3.4.3 && docker-php-ext-enable mongodb
 
   # Install php extensions
-  - docker-php-ext-install mbstring mcrypt pdo_mysql curl json intl gd xml zip bz2 opcache
+  - docker-php-ext-install mbstring mcrypt pdo_pgsql curl json intl gd xml zip bz2 opcache
 
   # Install Composer and project dependencies.
   - curl -sS https://getcomposer.org/installer | php
