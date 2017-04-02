@@ -9,7 +9,7 @@ image: php:latest
 services:
   - postgres:latest
   - redis:latest
-  - mongodb:latest
+  - mongo:latest
 
 variables:
   POSTGRES_DB: saamtaxi
