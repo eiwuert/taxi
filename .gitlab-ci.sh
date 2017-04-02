@@ -9,10 +9,10 @@ apt-get update -yqq
 apt-get install git -yqq
 sudo apt-get install -y postgresql postgresql-client libpq-dev
 sudo -u postgres psql -d template1
-CREATE USER root WITH PASSWORD 'root' CREATEDB;
-CREATE DATABASE saamtaxi OWNER root;
+CREATE USER postgres WITH PASSWORD 'root' CREATEDB;
+CREATE DATABASE saamtaxi OWNER postgres;
 \q
-psql -U runner -h localhost -d nice_marmot -W
+psql -U postgres -h localhost -d saamtaxi -W
 
 
 # Install mysql driver

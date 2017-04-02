@@ -69,7 +69,7 @@ before_script:
 test:
   script:
   # run laravel tests
-  - php vendor/bin/phpunit --coverage-text --colors=never 
+  - php vendor/bin/phpunit tests/Feature/
 
   # run frontend tests
   # if you have any task for testing frontend
