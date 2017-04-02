@@ -9,7 +9,12 @@ image: php:latest
 services:
   - redis:latest
   - mongo:latest
+  - postgres:latest
 
+variables:
+  POSTGRES_DB: saamtaxi
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: "root"
 
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
