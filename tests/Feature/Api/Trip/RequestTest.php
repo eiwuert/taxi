@@ -5,90 +5,30 @@ namespace Tests\Feature\Api\Trip;
 use App\Client;
 use App\Driver;
 use Tests\TestCase;
+use Tests\Feature\Api\Trip\TripTrait;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RequestTest extends TestCase
 {
-    private $phone;
-    private $client;
-    private $driver;
-    private $clientAccessToken;
-    private $driverAccessToken;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $response = $this->json('POST', '/api/v1/driver/register', [
-            'phone' => ($this->phone = rand(11111111, 999999999)),
-            'login_by' => 'manual',
-            'lang' => 'en',
-            'device_type' => 'ios',
-            'device_token' => 'sample_device_token_from_phpunit',
-            'state' => 'Esf',
-            'country' => 'Iran',
-        ]);
-
-        $this->driverAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
-                                   $response->getOriginalContent()['data'][0]['access_token'];
-
-        $this->json('POST', '/api/v1/driver/verify',
-                            ['code' => '55555'],
-                            ['Authorization' => $this->driverAccessToken,
-                             'Accept' => 'application/json']);
-
-        ($this->driver = Driver::orderBy('id', 'desc')->first())->forceFill(['approve' => 'true'])->save();
-        $this->refreshApplication();
-
-        $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => '12345',
-            'login_by' => 'manual',
-            'lang' => 'en',
-            'device_type' => 'ios',
-            'device_token' => 'sample_device_token_from_phpunit'
-        ]);
-        $this->client = Client::orderBy('id', 'desc')->first();
-        $this->clientAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
-                                   $response->getOriginalContent()['data'][0]['access_token'];
-
-        $this->refreshApplication();
-
-        $response = $this->json('POST', '/api/v1/driver/verify',
-                            ['code' => '55555'],
-                            ['Authorization' => $this->clientAccessToken,
-                             'Accept' => 'application/json']);
-
-        $this->refreshApplication();
-    }
-
-    public function teardown()
-    {
-        $this->driver->forceDelete();
-        $this->client->delete();
-    }
+    /**
+     * TODO: no_response, cancel_request_taxi
+     */
+    use TripTrait;
 
     /**
-     * Test request taxi v1 within the range.
+     * Test request taxi v1 within the range. (17)
+     *
      * @return void
      */
     public function testRequestTaxiV1WithinTheRange()
     {
         $this->driverGoesOnline();
         $this->driverSetsHerCurrentLocation();
-        $this->clientCalculateTrip('41.410874', '2.157207', '41.435229', '2.171926');
-        $this->post('/api/v1/client/trip',
-            ['s_lat' => '41.410874', 's_long' => '2.157207',
-             'd_lat' => '41.435229', 'd_long' => '2.171926'],
-            ['Authorization' => $this->clientAccessToken,
-             'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['content', 'eta_text',
-                'eta_value', 'distance_text', 'distance_value', 'trip_status',
-                'source_name', 'destination_name']]]);
-        $this->refreshApplication();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
         $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
@@ -120,219 +60,311 @@ class RequestTest extends TestCase
     }
 
     /**
-     * Make driver online.
+     * test rejecting client by driver.
+     *
      * @return void
      */
-    private function driverGoesOnline()
+    public function testRejectClientByDriver()
     {
-        $this->get('api/v1/driver/online', [
-            'Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json']);
-        $this->refreshApplication();
+        // V1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
+
+        // V2
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV2();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
     }
 
     /**
-     * Set driver location.
-     * @param  float $lat
-     * @param  float $long
+     * test rejecting client by driver V1
+     *
      * @return void
      */
-    private function driverSetsHerCurrentLocation($lat = '41.410874', $long = '2.157207')
+    public function testNoDriverV1()
     {
-        $response = $this->post('api/v1/driver/location',
-            ['lat' => $lat, 'long' => $long],
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json']);
-        $this->refreshApplication();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1AndSeesNoDriver();
     }
 
     /**
-     * Driver Accepts the trip.
+     * test rejecting client by driver V2
+     *
      * @return void
      */
-    private function driverAcceptsTheTrip()
+    public function testNoDriverV2()
     {
-        $response = $this->get('api/v1/driver/accept',
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
-        $this->refreshApplication();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV2AndSeesNoDriver();
     }
 
     /**
-     * Driver arrives to the start point.
+     * Test driver rejects the started trip.
+     *
      * @return void
      */
-    public function driverArrivesToTheStartPoint()
+    public function testDriverRejectsStartedTrip()
     {
-        $this->get('/api/v1/driver/arrived',
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
-        $this->refreshApplication();
+        // V1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
+
+        // V2
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV2();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
     }
 
     /**
-     * Driver starts to the trip.
+     * Client cancels the onway driver.
+     *
      * @return void
      */
-    public function driverStartsTheTrip()
+    public function testCancelOnwayDriverByClient()
     {
-        $this->get('/api/v1/driver/start',
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
-        $this->refreshApplication();
+        // V1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->clientCancelsTheTrip();
+
+        // V2
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientRequestsATaxiV2();
+        $this->driverAcceptsTheTrip();
+        $this->clientCancelsTheTrip();
+    }
+
+
+    /**
+     * Driver cancels the onway trip.
+     *
+     * @return void
+     */
+    public function testCancelOnwayDriverByDriver()
+    {
+        // v1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
+
+        // v2
+        $this->driverSetsHerCurrentLocation();
+        $this->clientRequestsATaxiV2();
+        $this->driverAcceptsTheTrip();
+        $this->driverCancelsTheTrip();
     }
 
     /**
-     * Client choose the payment mode
+     * Test client cancel the arrived driver.
+     *
      * @return void
      */
-    public function clientChooseThePayment()
+    public function testClientCancelArrivedDriver()
     {
-        $this->get('/api/v1/client/pay/cash',
-            ['Authorization' => $this->clientAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
-        $this->refreshApplication();
+        // V1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->clientCancelsTheTrip();
+
+        // V2
+        $this->driverSetsHerCurrentLocation();
+        $this->clientRequestsATaxiV2();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->clientCancelsTheTrip();
     }
 
     /**
-     * Driver ends to the trip.
+     * Test client cancel the arrived driver.
+     *
      * @return void
      */
-    public function driverEndsTheTrip()
+    public function testDriverCancelsTheTripWhenArrived()
     {
-        $this->get('/api/v1/driver/end',
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
-        $this->refreshApplication();
+        // v1 
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
+
+        // v2
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV2();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
     }
 
     /**
-     * Driver rates the trip.
+     * Test driver cancels the trip after the trip has been started
+     *
      * @return void
      */
-    private function driverRatesTheTrip()
+    public function testDriverCancelsTheTripAfterTheTripHasBeenStarted()
     {
-        $this->post('/api/v1/driver/rate',
-            ['stars'  => '5',
-            'comment' => 'Sample comment from driver for client.'],
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title']]]);
-        $this->refreshApplication();
-    }
+        // v1
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
 
-    /**
-     * Client rates the trip.
-     * @return void
-     */
-    private function clientRatesTheTrip()
-    {
-        $this->post('/api/v1/client/rate',
-                    ['stars'  => '5',
-                    'comment' => 'Sample comment from client for driver.'],
-                    ['Authorization' => $this->clientAccessToken,
-                    'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['title']]]);
-        $this->refreshApplication();
-    }
-
-    /**
-     * Calculate trip cost by client.
-     * @param  float $s_lat
-     * @param  float $s_long
-     * @param  float $d_lat
-     * @param  float $d_long
-     * @return void
-     */
-    private function clientCalculateTrip($s_lat, $s_long, $d_lat, $d_long)
-    {
-        $this->post('/api/v1/client/calculate',
-            ['s_lat' => $s_lat, 's_long' => $s_long,
-             'd_lat' => $d_lat, 'd_long' => $d_long],
-            ['Authorization' => $this->clientAccessToken,
-             'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => 'true'])
-            ->assertJsonStructure(['success', 'data' => [['source', 'destination',
-                'distance', 'duration', 'transactions']]]);
-        $this->refreshApplication();
-    }
-
-    /**
-     * Get client trip.
-     * @return void
-     */
-    private function clientGetsCurrentTrip()
-    {
-        $this->get('/api/v1/client/trip',
-            ['Authorization' => $this->clientAccessToken, 
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['paid', 'payment', 
-                'driver', 'trip', 'status', 'car', 'type', 'source', 
-                'destination', 'driver_location', 'total']]]);
-        $this->refreshApplication();
-    }
-
-    /**
-     * Get driver trip.
-     * @return void
-     */
-    private function driverGetsCurrentTrip()
-    {
-        $this->get('/api/v1/driver/trip',
-            ['Authorization' => $this->driverAccessToken, 
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['paid', 'payment', 
-                'client', 'trip', 'status', 'source', 'destination', 'total']]]);
-        $this->refreshApplication();
-    }
-
-    /**
-     * Driver sees the new payment mode.
-     * @return void
-     */
-    private function driverSeesThePaymentMode()
-    {
-        $this->get('/api/v1/driver/trip',
-            ['Authorization' => $this->driverAccessToken,
-            'Accept' => 'application/json'])
-            ->assertStatus(200)
-            ->assertHeader('Content-Type', 'application/json')
-            ->assertJson(['success' => true])
-            ->assertJsonStructure(['success', 'data' => [['paid']]]);
-        $this->refreshApplication();
+        // v2
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV2();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverCancelsTheTrip();
     }
 }
