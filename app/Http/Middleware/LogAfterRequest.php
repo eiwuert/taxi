@@ -16,6 +16,10 @@ class LogAfterRequest
 
     public function terminate($request, $response)
     {
+        if (\App::runningUnitTests()) {
+            return;
+        }
+
         $time = microtime(true) - LARAVEL_START;
         DB::connection('mongodb')
             ->table('requests')
