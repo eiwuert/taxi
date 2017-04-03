@@ -50,7 +50,7 @@ class CreateRepository extends MainRepository
      * @param  string $user
      * @return static
      */
-    public static function for($user)
+    public static function forThis($user)
     {
         // Fetch the user.
         if ($user == 'auth') {

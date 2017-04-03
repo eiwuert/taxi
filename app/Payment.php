@@ -93,7 +93,7 @@ class Payment extends Model
      * Determine that this payment is for a trip or its for charge.
      * @return string
      */
-    public function for()
+    public function purpose()
     {
         if (is_null($this->trip_id)) {
             return 'Charge';

@@ -34,7 +34,8 @@ class StatusTest extends TestCase
                             ['Authorization' => $this->accessToken, 'Accept' => 'application/json']);
 
         $this->refreshApplication();
-        ($this->driver = Driver::orderBy('id', 'desc')->first())->forceFill(['approve' => 'true'])->save();
+        $this->driver = Driver::orderBy('id', 'desc')->first();
+        $this->driver->forceFill(['approve' => 'true'])->save();
     }
 
     /**

@@ -133,7 +133,7 @@ class CancelRepository
                         ];
                     $exclude = DriversTo::exclude($trip->client_id);
                     if ($exclude['count'] < 10) {
-                        Create::this($tripRequest)->for(Client::find($trip->client_id)->user->id)->exclude($exclude['result'])->now();
+                        Create::this($tripRequest)->forThis(Client::find($trip->client_id)->user->id)->exclude($exclude['result'])->now();
                     } else {
                         $trip->updateStatusTo('no_driver');
                         dispatch(new SendClientNotification('no_driver_found', '1', $deviceToken));

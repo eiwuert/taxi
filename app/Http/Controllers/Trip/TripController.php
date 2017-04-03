@@ -27,7 +27,7 @@ class TripController extends Controller
      */
     public function requestTaxi(TripRequest $trip)
     {
-        $result = Create::this($trip)->for('auth')->now();
+        $result = Create::this($trip)->forThis('auth')->now();
         if (in_array('ok', $result)) {
             return ok([
                 'content'          => 'Trip request created successfully.',

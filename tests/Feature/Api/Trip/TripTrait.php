@@ -39,7 +39,8 @@ trait TripTrait
                             ['Authorization' => $this->driverAccessToken,
                              'Accept' => 'application/json']);
 
-        ($this->driver = Driver::orderBy('id', 'desc')->first())->forceFill(['approve' => 'true'])->save();
+        $this->driver = Driver::orderBy('id', 'desc')->first();
+        $this->driver->forceFill(['approve' => 'true'])->save();
         $this->refreshApplication();
 
         $response = $this->json('POST', '/api/v1/client/register', [

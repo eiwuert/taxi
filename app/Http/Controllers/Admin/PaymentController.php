@@ -45,7 +45,7 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        if ($payment->for() == 'Trip') {
+        if ($payment->purpose() == 'Trip') {
             return view('admin.payments.show', compact('payment'));
         } else {
             return view('admin.payments.charge', compact('payment'));

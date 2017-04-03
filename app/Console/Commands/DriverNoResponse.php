@@ -93,7 +93,7 @@ class driverNoResponse extends Command
             ];
             $exclude = DriversTo::exclude($prevTrip->client_id);
             if ($exclude['count'] < 10) {
-                Create::this($tripRequest)->for(Client::find($prevTrip->client_id)->user->id)
+                Create::this($tripRequest)->forThis(Client::find($prevTrip->client_id)->user->id)
                     ->exclude($exclude['result'])->now();
             } else {
                 dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
