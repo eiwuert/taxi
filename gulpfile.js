@@ -18,7 +18,8 @@ elixir(mix => {
        .webpack('app.js');
 
     // Admin
-    mix.styles([
+    mix.sass('rtl.scss', 'public/css/admin/rtl.css')
+        .styles([
         'bootstrap/css/bootstrap.css',
         'dist/css/AdminLTE.css',
         'dist/css/skins/skin-blue.css',
@@ -42,6 +43,7 @@ elixir(mix => {
         .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/build/css/fonts')
         .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin')
         .version(['css/admin/admin.css', 
+                'css/admin/rtl.css', 
                 'js/admin/admin.js', 
                 'js/admin/iCheck.js',
                 'js/admin/jquery.inputmask.js',

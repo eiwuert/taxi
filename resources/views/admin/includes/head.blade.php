@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <script src="http://{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
   <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
+  <link rel="stylesheet" href="{{ elixir('css/admin/rtl.css') }}">
   @stack('style')
 
   <!--[if lt IE 9]>

@@ -1,0 +1,1 @@
+{"version":3,"sources":["rtl.scss"],"names":[],"mappings":"AACA;EACI,SAAS;EACT,cAAc;CACjB;;AAED;EACI,oBAAoB;EACpB,eAAe;CAClB","file":"rtl.css","sourcesContent":["// General\n.main-sidebar {\n    right: 0;\n    left: inherit;\n}\n\n.content-wrapper {\n    margin-right: 230px;\n    margin-left: 0;\n}"]}
