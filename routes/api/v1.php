@@ -91,6 +91,9 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
         Route::post('profile', 'ProfileController@updateDriver')
              ->name('updateDriverProfile');
 
+        Route::get('income', 'ProfileController@income')
+             ->name('driverIncome');
+
         Route::get('history', 'Trip\HistoryController@driver')
              ->name('driverHistory');
 

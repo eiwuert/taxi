@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Income route for driver.
 * created_at and updated_at property removed from client and driver profile.
 * History order fixed (desc).
 * Payment updated.
@@ -3399,6 +3400,55 @@ $.ajax(settings).done(function (response) {
 }
 
 ```
+
+## Income
+Get driver income.
+
+> Example request
+
+```bash
+curl "https://saamtaxi.net/api/v1/driver/income" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/driver/income",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/income`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "income": "0"
+        }
+    ]
+}
+```
+
 
 
 # Rate

@@ -45,6 +45,7 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
+<li>Income route for driver.</li>
 <li>created_at and updated_at property removed from client and driver profile.</li>
 <li>History order fixed (desc).</li>
 <li>Payment updated.</li>
@@ -3258,6 +3259,44 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Income</h2>
+<p>Get driver income.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "https://saamtaxi.net/api/v1/driver/income" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://saamtaxi.net/api/v1/driver/income",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/income</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "income": "0"
+        }
+    ]
+}</code></pre>
 <h1>Rate</h1>
 <h2>Driver</h2>
 <p>Rate of driver to client.</p>

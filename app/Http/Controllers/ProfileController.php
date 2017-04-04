@@ -99,4 +99,13 @@ class ProfileController extends Controller
                 'balance' => Auth::user()->client()->first()->balance,
             ]);
     }
+
+    /**
+     * Get driver total income.
+     * @return json
+     */
+    public function income()
+    {
+        return ok(['income' => Auth::user()->driver()->first()->income()]);
+    }
 }

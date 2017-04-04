@@ -246,6 +246,7 @@ class Driver extends Model
 
     /**
      * Get driver income
+     * 
      * @return numeric
      */
     public function income($date = null)
@@ -254,7 +255,7 @@ class Driver extends Model
         $this->trips()->range($date)->finished()->each(function ($t) use (& $income) {
             $income += $t->transaction()->sum('total');
         });
-        return number_format($income * .87, 2);
+        return number_format($income * .87, 0);
     }
 
     /**
