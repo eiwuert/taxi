@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use Auth;
 use App\User;
 use Validator;
@@ -213,10 +214,16 @@ class DriverController extends Controller
         }
     }
 
-    public function deleteDocument(Driver $driver)
+    /**
+     * Delete driver document.
+     * @param  Driver $driver
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deletePicture(Driver $driver)
     {
-        UserMeta::where('user_id', $driver->user->id)->delete();
-        flash('Driver documents deleted.', 'success');
+        DB::table('drivers')->where('id', $driver->id)
+            ->update(['picture' => 'no-profile.png']);
+        flash('Driver picture deleted.', 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 }

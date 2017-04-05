@@ -6,13 +6,13 @@
     <p class="text-muted text-center">Driver</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>Trips</b> <a class="pull-right">{{ $driver->countOfTrips() }}</a>
+        <b>Trips</b> <sapn class="pull-right">{{ $driver->countOfTrips() }}</span>
       </li>
       <li class="list-group-item">
-        <b>Income</b> <a class="pull-right">{{ $driver->income() }}</a>
+        <b>Income</b> <span class="pull-right">{{ $driver->income() }}</span>
       </li>
       <li class="list-group-item">
-        <b>Rate</b> <a class="pull-right">{{ $driver->rate() }}</a>
+        <b>Rate</b> <span class="pull-right">{{ $driver->rate() }}</span>
       </li>
     </ul>
     <div class="row">

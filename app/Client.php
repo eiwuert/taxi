@@ -186,7 +186,7 @@ class Client extends Model
         $this->trips()->finished()->each(function ($t) use (& $disbursement) {
             $disbursement += $t->transaction()->sum('total');
         });
-        return number_format($disbursement, 2);
+        return number_format($disbursement);
     }
 
     /**

@@ -27,6 +27,7 @@ class Transaction extends Model
         'currency',
         'timezone',
         'total',
+        'commission',
     ];
 
     /**
@@ -75,6 +76,44 @@ class Transaction extends Model
      */
     public function withoutSurcharge()
     {
-        return number_format($this->entry + $this->distance_value + $this->time_value, 2);
+        return number_format($this->entry + $this->distance_value + $this->time_value);
+    }
+
+    /**
+     * Share of driver.
+     * 
+     * @return int
+     */
+    public function driverShare()
+    {
+        return (int)((((100 - (int)($this->commission)) / 100)) * $this->total);
+    }
+
+    /**
+     * Our share of the trip.
+     * 
+     * @return string 
+     */
+    public function ourShare()
+    {
+        return (int)(((int)($this->commission) / 100) * $this->total);
+    }
+
+    /**
+     * Our commission.
+     * @return string
+     */
+    public function ourCommission()
+    {
+        return ((int)($this->commission)) . '%';
+    }
+
+    /**
+     * driver commission.
+     * @return float
+     */
+    public function driverCommission()
+    {
+        return (100 - (int)($this->commission)) . '%';
     }
 }

@@ -70,6 +70,22 @@
   </div>
 </div>
 @endif
+@if ($driver->picture == 'no-profile.png')
+<div class="form-group">
+  {!! Form::label('picture', 'Picture: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    {!! Form::file('picture', null, ['class' => 'form-control']) !!}
+    <p class="help-block">Upload driver profile picture.</p>
+  </div>
+</div>
+@else
+<div class="form-group">
+  {!! Form::label('picture', 'Picture: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    @include('admin.drivers.includes.picture', ['driver' => $driver])
+  </div>
+</div>
+@endif
 <div class="box-group" id="accordion">
   <div class="panel box box-primary">
     <div class="box-header">

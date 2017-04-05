@@ -26,23 +26,25 @@ class DriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'    => 'sometimes|required|min:2|max:255',
-            'last_name'     => 'sometimes|required|min:2|max:255',
+            'first_name'    => 'sometimes|max:255',
+            'last_name'     => 'sometimes|max:255',
             'email'         => [
                             'sometimes',
-                            Rule::unique('clients')
-                                ->ignore(is_null($driver = Driver::whereEmail(FormRequest::get('email'))->first())?0:$driver->id),
-                            'required',
+                            Rule::unique('drivers')
+                                ->ignore(is_null(Driver::whereEmail(FormRequest::get('email'))->first()) 
+                                        ? 0 
+                                        : Driver::whereEmail(FormRequest::get('email'))->first()->id),
                             'email',
                             ],
-            'gender'        => 'sometimes|required|in:"male", "female", "not specified"',
-            'address'       => 'sometimes|required|max:255',
-            'state'         => 'sometimes|required|max:255',
-            'country'       => 'sometimes|required|max:255',
-            'zipcode'       => 'sometimes|required|max:255',
-            'lang'          => 'sometimes|required|in:fa,en,ku',
-            'device_token'  => 'sometimes|required|max:255',
-            'device_type'   => 'sometimes|required|in:manual,ios,android',
+            'gender'        => 'sometimes|in:"male", "female", "not specified"',
+            'address'       => 'sometimes|max:255',
+            'state'         => 'sometimes|max:255',
+            'country'       => 'sometimes|max:255',
+            'zipcode'       => 'sometimes|max:255',
+            'lang'          => 'sometimes|in:fa,en,ku',
+            'device_token'  => 'sometimes|max:255',
+            'device_type'   => 'sometimes|in:manual,ios,android',
+            'picture'      => 'sometimes|image',
         ];
     }
 }
