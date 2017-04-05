@@ -11,5 +11,7 @@ Route::group(['prefix' => 'clients'], function () {
         ->name('clients.lock');
     Route::post('unlock/{client}', 'ClientController@unlock')
         ->name('clients.unlock');
+    Route::get('delete/picture/{client}', 'ClientController@deletePicture')
+        ->name('clients.delete.picture');
 });
 Route::resource('clients', 'ClientController');

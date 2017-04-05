@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use Auth;
 use App\User;
 use DateTime;
@@ -136,7 +137,7 @@ class ClientController extends Controller
      */
     public function unlock(Client $client)
     {
-        $client = CLient::whereId($client->id)->firstOrFail();
+        $client = Client::whereId($client->id)->firstOrFail();
         $client->lock = false;
         $client->update();
         flash('Client unlocked', 'success');
@@ -166,5 +167,19 @@ class ClientController extends Controller
                         ->paginate(option('pagination', 15));
 
         return view('admin.clients.index', compact('clients'));
+    }
+
+    /**
+     * Delete client profile picture.
+     * 
+     * @param  \App\Client $client
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deletePicture(Client $client)
+    {
+        DB::table('clients')->where('id', $client->id)
+            ->update(['picture' => 'no-profile.png']);
+        flash('Client picture deleted.', 'success');
+        return redirect(route('clients.show', ['client'=>$client]));
     }
 }

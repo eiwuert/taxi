@@ -1,4 +1,4 @@
-{!! Form::model($client, ['method' => 'PATCH', 'action' => ['Admin\ClientController@update', $client->id], 'class' => 'form-horizontal']) !!}
+{!! Form::model($client, ['method' => 'PATCH', 'action' => ['Admin\ClientController@update', $client->id], 'class' => 'form-horizontal', 'files' => true]) !!}
 <div class="form-group">
   {!! Form::label('phone', 'Phone: ', ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
@@ -57,9 +57,25 @@
 <div class="form-group">
   {!! Form::label('balance', 'Balance: ', ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
-    {!! Form::text('balance', null, ['class' => 'form-control']) !!}
+    {!! Form::number('balance', null, ['class' => 'form-control', 'step' => '10']) !!}
   </div>
 </div>
+@if ($client->picture == 'no-profile.png')
+<div class="form-group">
+  {!! Form::label('picture', 'Picture: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    {!! Form::file('picture', null, ['class' => 'form-control']) !!}
+    <p class="help-block">Upload client profile picture.</p>
+  </div>
+</div>
+@else
+<div class="form-group">
+  {!! Form::label('picture', 'Picture: ', ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    @include('admin.clients.includes.picture', ['client' => $client])
+  </div>
+</div>
+@endif
 <div class="box-group" id="accordion">
   <div class="panel box box-primary">
     <div class="box-header">
