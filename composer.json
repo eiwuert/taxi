@@ -20,7 +20,8 @@
         "mpociot/laravel-apidoc-generator": "^2.0",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^2.6",
-        "webpatser/laravel-uuid": "2.*"
+        "webpatser/laravel-uuid": "2.*",
+        "potsky/laravel-localization-helpers" : "2.5.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
