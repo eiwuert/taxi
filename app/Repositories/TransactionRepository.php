@@ -61,6 +61,7 @@ class TransactionRepository
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
             'total'          => $total,
+            'commission'     => option('commission', 13),
         ];
 
         return $transaction;
@@ -82,7 +83,9 @@ class TransactionRepository
         foreach (config('fare.IRR') as $type => $rules) {
             $this->type = $type;
             $this->rules($type);
-            $transactions[] = $this->transaction($distance_value, $eta_value, $timezone);
+            $transaction = $this->transaction($distance_value, $eta_value, $timezone);
+            unset($transaction['commission']);
+            $transactions[] = $transaction;
         }
         return $transactions;
     }
@@ -115,6 +118,7 @@ class TransactionRepository
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
             'total'          => $total,
+            'commission'     => option('commission', 13),
         ];
     }
 
