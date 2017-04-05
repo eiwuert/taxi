@@ -290,6 +290,6 @@ class TransactionRepository
                     ->join('trips', 'transactions.trip_id', '=', 'trips.id')
                     ->select(['total'])
                     ->whereIn('status_id', Trip::$finished)
-                    ->sum('total') * 0.13;
+                    ->sum('total') * ((int)(option('commission', '13')) / 100);
     }
 }

@@ -36,6 +36,8 @@ class CreateTransactionsTable extends Migration
             $table->string('currency');
             $table->string('timezone');
             $table->float('total');
+            // SAAMTaxi commission
+            $table->string('commission')->default('13');
             $table->timestamps();
         });
     }
