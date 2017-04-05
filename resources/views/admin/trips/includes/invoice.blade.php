@@ -57,7 +57,7 @@
                         </tr>
                         <tr>
                             <th style="width:50%">Subtotal:</th>
-                            <td>$ {{ $trip->transaction->withoutSurcharge() }}</td>
+                            <td>{{ $trip->transaction->withoutSurcharge() }}</td>
                         </tr>
                         <tr>
                             <th>Surcharge:</th>
@@ -65,7 +65,15 @@
                         </tr>
                         <tr>
                             <th>Total:</th>
-                            <td>$ {{ number_format($trip->transaction->total, 2) }}</td>
+                            <td>{{ number_format($trip->transaction->total) }}</td>
+                        </tr>
+                        <tr>
+                            <th>Our share:</th>
+                            <td>{{ number_format($trip->transaction->ourShare()) }} ({{ $trip->transaction->ourCommission() }})</td>
+                        </tr>
+                        <tr>
+                            <th>Driver share:</th>
+                            <td>{{ number_format($trip->transaction->driverShare()) }} ({{ $trip->transaction->driverCommission() }})</td>
                         </tr>
                     </tbody>
                 </table>

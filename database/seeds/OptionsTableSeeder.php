@@ -33,6 +33,10 @@ class OptionsTableSeeder extends Seeder
             'value' => '35', 
             'created_at' => Carbon::now(), 
             'updated_at' => Carbon::now()],
+            ['name' => 'commission', 
+            'value' => '13', 
+            'created_at' => Carbon::now(), 
+            'updated_at' => Carbon::now()],
         ]);
     }
 }
