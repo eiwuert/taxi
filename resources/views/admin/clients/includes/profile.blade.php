@@ -6,13 +6,13 @@
     <p class="text-muted text-center">Client</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>Trips</b> <a class="pull-right">{{ $client->countOfTrips() }}</a>
+        <b>Trips</b> <span class="pull-right">{{ $client->countOfTrips() }}</span>
       </li>
       <li class="list-group-item">
-        <b>Disbursement</b> <a class="pull-right">{{ $client->disbursement() }}</a>
+        <b>Disbursement</b> <span class="pull-right">{{ $client->disbursement() }}</span>
       </li>
       <li class="list-group-item">
-        <b>Rate</b> <a class="pull-right">{{ $client->rate() }}</a>
+        <b>Rate</b> <span class="pull-right">{{ $client->rate() }}</span>
       </li>
     </ul>
     <div class="row">
