@@ -253,7 +253,7 @@ class Driver extends Model
     {
         $income = 0;
         $this->trips()->range($date)->finished()->each(function ($t) use (& $income) {
-            $income += $t->transaction()->total;
+            $income += $t->transaction()->sum('total');
         });
         return number_format($income * .87, 0);
     }
