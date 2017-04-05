@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fa',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,7 @@ return [
         //Spatie\Backup\BackupServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Potsky\LaravelLocalizationHelpers\LaravelLocalizationHelpersServiceProvider::class,
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
 
