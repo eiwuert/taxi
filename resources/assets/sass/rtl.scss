@@ -8,3 +8,31 @@
     margin-right: 230px;
     margin-left: 0;
 }
+
+@media (min-width: 768px) {
+    .sidebar-collapse .content-wrapper, 
+    .sidebar-collapse .right-side, 
+    .sidebar-collapse .main-footer {
+        margin-right: 0;
+    }
+
+    .sidebar-mini.sidebar-collapse .content-wrapper, 
+    .sidebar-mini.sidebar-collapse .right-side, 
+    .sidebar-mini.sidebar-collapse .main-footer {
+        margin-left: 0px !important;
+        margin-right: 50px !important;
+    }
+
+    .content-wrapper, 
+    .right-side, 
+    .main-footer {
+        margin-right: 230px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-sidebar, 
+    .left-side {
+        margin-right: -230px !important;
+    }
+}
