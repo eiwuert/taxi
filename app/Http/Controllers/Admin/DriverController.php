@@ -27,7 +27,7 @@ class DriverController extends Controller
         $drivers = Driver::orderBy('created_at', 'desc')
                         ->paginate(option('pagination', 15));
 
-        if ($request->export) {
+        if (@$request->export) {
             return Export::from('Index', $drivers->toArray()['data'], $request->type ?? 'pdf');
         } else {
             return view('admin.drivers.index', compact('drivers'));
@@ -159,7 +159,7 @@ class DriverController extends Controller
             $drivers = $drivers->paginate(option('pagination', 15));
         }
 
-        if ($request->export) {
+        if (@$request->export) {
             return Export::from('Filters', $drivers->toArray()['data'], $request->type ?? 'pdf');
         } else {
             return view('admin.drivers.index', compact('drivers'));
@@ -188,7 +188,7 @@ class DriverController extends Controller
                                                     ->get(['id'])->flatten())
                         ->paginate(option('pagination', 15));
 
-        if ($request->export) {
+        if (@$request->export) {
             return Export::from('Search', $drivers->toArray()['data'], $request->type ?? 'pdf');
         } else {
             return view('admin.drivers.index', compact('drivers'));

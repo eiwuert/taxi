@@ -12,20 +12,26 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\ClientRequest;
+use App\Repositories\ExportRepository as Export;
 
 class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::with('user')
-                        ->orderby('created_at', 'desc')
+        $clients = Client::orderby('created_at', 'desc')
                         ->paginate(option('pagination', 15));
-        return view('admin.clients.index', compact('clients'));
+
+        if (@$request->export) {
+            return Export::from('Index', $clients->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.clients.index', compact('clients'));
+        }
     }
 
     /**
@@ -73,7 +79,6 @@ class ClientController extends Controller
      */
     public function filter(Request $request, Client $clients)
     {
-        $clients = $clients->with('user');
         if ($request->status == 'locked') {
             $clients = Client::locked();
         } elseif ($request->status == 'unlocked') {
@@ -113,7 +118,11 @@ class ClientController extends Controller
             $clients = $clients->paginate(option('pagination', 15));
         }
 
-        return view('admin.clients.index', compact('clients'));
+        if (@$request->export) {
+            return Export::from('Filter', $clients->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.clients.index', compact('clients'));
+        }
     }
 
     /**
@@ -166,7 +175,11 @@ class ClientController extends Controller
                                                     ->get(['id'])->flatten())
                         ->paginate(option('pagination', 15));
 
-        return view('admin.clients.index', compact('clients'));
+        if (@$request->export) {
+            return Export::from('Search', $clients->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.clients.index', compact('clients'));
+        }
     }
 
     /**
