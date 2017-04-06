@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Driver;
-use App\Http\Controllers\Controller;
 use App\Payment;
-use App\Repositories\FilterRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\FilterRepository;
+use App\Repositories\ExportRepository as Export;
 
 class PaymentController extends Controller
 {
@@ -28,15 +29,35 @@ class PaymentController extends Controller
      */
     public function filter(Request $request)
     {
+        $payments = new Payment();
         if ($request->status == 'cash') {
             $payments = Payment::cash();
         } elseif ($request->status == 'wallet') {
             $payments = Payment::wallet();
-        } else {
+        } elseif ($request->status == 'charge') {
             $payments = Payment::charge();
         }
-        $payments = $payments->orderBy('id', 'desc')->paginate(option('pagination', 15));
-        return view('admin.payments.index', compact('payments'));
+
+        if (isset($request->date_range)) {
+            $payments = FilterRepository::daterange($request->date_range, $payments);
+        }
+
+
+        if (isset($request->count)) {
+            if ($request->count == 15 || $request->count == 30) {
+                $payments = $payments->paginate($request->count);
+            } else {
+                $payments = $payments->paginate(Payment::count());
+            }
+        } else {
+            $payments = $payments->orderBy('id', 'desc')->paginate(option('pagination', 15));
+        }
+
+        if (@$request->export) {
+            return Export::from('Filters', $payments->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.payments.index', compact('payments'));
+        }
     }
 
     /**
@@ -107,5 +128,56 @@ class PaymentController extends Controller
                                                        ->flatten())
                            ->paginate(option('pagination', 15));
         return view('admin.payments.trips', compact('payments', 'driver'));
+    }
+
+    /**
+     * Filter status modes.
+     * @param  string $status
+     * @return view
+     */
+    public function filterTrips(Driver $driver, Request $request)
+    {
+        $filters = [];
+        foreach (explode('&', $request->filters) as $chunk) {
+            $param = explode("=", $chunk);
+
+            if ($param) {
+                $filters[@$param[0]] = @$param[1];
+            }
+        }
+        $payments = Payment::orderBy('id', 'desc')
+                           ->whereIn('trip_id', $driver->trips()
+                                                       ->range(@$filters['date_range'])
+                                                       ->get(['id'])
+                                                       ->flatten());
+
+        if (isset($request->date_range)) {
+            $payments = FilterRepository::daterange($request->date_range, $payments);
+        }
+
+
+        if (isset($request->count)) {
+            if ($request->count == 15 || $request->count == 30) {
+                $payments = $payments->paginate($request->count);
+            } else {
+                $payments = $payments->paginate(Payment::count());
+            }
+        } else {
+            $payments = $payments->orderBy('id', 'desc')->paginate(option('pagination', 15));
+        }
+        if (@$request->export) {
+            foreach($payments as $payment) {
+                $payment['for'] = $payment->purpose();
+                $payment['client'] = $payment->trip->client->first_name . ' ' . $payment->trip->client->last_name;
+                $payment['driver'] = $payment->trip->driver->first_name . ' ' . $payment->trip->driver->last_name;
+                $payment['amount'] = $payment->amount();
+                $payment['paid']   = $payment->paid ? 'ok' : 'fail';
+                $payment['detail'] = print_r($payment->detail);
+                unset($payment['trip']);
+            }
+            return Export::from('Payment of the ' . $driver->first_name . ' ' . $driver->last_name, $payments->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.payments.trips', compact('payments', 'driver'));
+        }
     }
 }
