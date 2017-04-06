@@ -226,4 +226,16 @@ class DriverController extends Controller
         flash('Driver picture deleted.', 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
+
+    /**
+     * Delete driver document.
+     * @param  App\Driver $driver
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deleteDocument(Driver $driver)
+    {
+        UserMeta::where('user_id', $driver->user->id)->delete();
+        flash('Driver documents deleted.', 'success');
+        return redirect(route('drivers.show', ['driver'=>$driver]));
+    }
 }
