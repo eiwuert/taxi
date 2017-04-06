@@ -12,20 +12,26 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\DriverRequest;
+use App\Repositories\ExportRepository as Export;
 
 class DriverController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $drivers = Driver::with('user')
-                        ->orderBy('created_at', 'desc')
+        $drivers = Driver::orderBy('created_at', 'desc')
                         ->paginate(option('pagination', 15));
-        return view('admin.drivers.index', compact('drivers'));
+
+        if ($request->export) {
+            return Export::from('Index', $drivers->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.drivers.index', compact('drivers'));
+        }
     }
 
     /**
@@ -106,7 +112,6 @@ class DriverController extends Controller
      */
     public function filter(Request $request, Driver $drivers)
     {
-        $drivers = $drivers->with('user');
         if ($request->status == 'online') {
             // online
             $drivers = Driver::online();
@@ -154,7 +159,11 @@ class DriverController extends Controller
             $drivers = $drivers->paginate(option('pagination', 15));
         }
 
-        return view('admin.drivers.index', compact('drivers'));
+        if ($request->export) {
+            return Export::from('Filters', $drivers->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.drivers.index', compact('drivers'));
+        }
     }
 
     /**
@@ -179,7 +188,11 @@ class DriverController extends Controller
                                                     ->get(['id'])->flatten())
                         ->paginate(option('pagination', 15));
 
-        return view('admin.drivers.index', compact('drivers'));
+        if ($request->export) {
+            return Export::from('Search', $drivers->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.drivers.index', compact('drivers'));
+        }
     }
 
     /**
