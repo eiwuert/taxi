@@ -19,12 +19,12 @@ class DriverController extends Controller
         // Driver can go online?
         if (Auth::user()->driver->first()->goOnline()) {
             return ok([
-                    'result' => 'Driver is online.'
+                    'result' => __('api/driver.Driver is online')
                 ]);
         } else {
             return fail([
-                    'title' => 'Driver cannot go online',
-                    'detail'=> 'You are currently online.' 
+                    'title' => __('api/driver.Driver cannot go online'),
+                    'detail'=> __('api/driver.You are currently online') 
                 ]);
         }
     }
@@ -41,12 +41,12 @@ class DriverController extends Controller
         // Driver can go online?
         if (Auth::user()->driver->first()->goOffline()) {
             return ok([
-                    'result' => 'Driver is offline.'
+                    'result' => __('api/driver.Driver is offline')
                 ]);
         } else {
             return fail([
-                    'title' => 'Driver cannot go offline',
-                    'detail'=> 'An onway or currently offline driver cannot go offline.' 
+                    'title' => __('api/driver.Driver cannot go offline'),
+                    'detail'=> __('api/driver.An onway or currently offline driver cannot go offline'), 
                 ]);
         }
     }

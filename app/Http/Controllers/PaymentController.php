@@ -179,13 +179,13 @@ class PaymentController extends Controller
             ]);
             $client->updateBalance((int)$cost * (-1));
             return ok([
-                'title'  => 'Pay wallet',
-                'detail' => 'Your trip paid with your wallet balance.'
+                'title'  => __('api/payment.Paid with wallet'),
+                'detail' => __('api/payment.Your have paid your trip with your wallet balance')
             ]);
         } else {
             return fail([
-                'title'  => 'Not enough balance',
-                'detail' => 'You don\'t have enough balance in your wallet.'
+                'title'  => __('api/payment.Not enough balance'),
+                'detail' => __('api/payment.You don\'t have sufficient balance in your wallet')
             ]);            
         }
     }
@@ -207,8 +207,8 @@ class PaymentController extends Controller
             'ref'  => '00000',
         ]);
         return ok([
-            'title'  => 'Pay cash',
-            'detail' => 'Please pay trip cost to the driver.'
+            'title'  => __('api/payment.Pay in cash'),
+            'detail' => __('api/payment.Please pay trip cost to the driver')
         ]);
     }
 }
