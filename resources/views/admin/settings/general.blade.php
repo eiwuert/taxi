@@ -12,9 +12,10 @@ General
     {{ csrf_field() }}
     @foreach($options as $option)
     <div class="form-group">
-        <label class="col-sm-2 control-label" id="name">{{ $option->name }}</label>
+        <label class="col-sm-2 control-label" id="name">@lang('admin/settings.' . $option->name)</label>
         <div class="col-sm-10">
             <input type="{{ is_numeric($option->value) ? 'number' : 'text' }}" name="{{ $option->name }}" class="form-control" value="{{ $option->value }}">
+            <p class="help-block">@lang('admin/settings.' . $option->name . 'Help')</p>
         </div>
     </div>
     @endforeach
