@@ -22,14 +22,14 @@ class DriverController extends Controller
         // response is OK on both situations.
         if (!Auth::user()->driver->first()->available && Auth::user()->driver->first()->online) {
             return fail([
-                    'title' => 'Onway',
-                    'detail' => 'You\'re onway.'
+                    'title' => __('api/driver.Onway'),
+                    'detail' => __('api/driver.You\'re onway')
                 ]);
         }
         Auth::user()->driver->first()->goOnline();
         return ok([
-            'title' => 'Online',
-            'detail' => 'You\'re online now.'
+            'title' => __('api/driver.Online'),
+            'detail' => __('api/driver.You\'re online now')
         ]);
     }
 
@@ -45,14 +45,14 @@ class DriverController extends Controller
         // Driver is online but not available so the driver is onway.
         if (!Auth::user()->driver->first()->available && Auth::user()->driver->first()->online) {
             return fail([
-                    'title' => 'Onway',
-                    'detail' => 'You\'re onway.'
+                    'title' => __('api/driver.Onway'),
+                    'detail' => __('api/driver.You\'re onway')
                 ]);
         }
         Auth::user()->driver->first()->goOffline();
         return ok([
-                'title' => 'Offline',
-                'detail' => 'You\'re offline now.'
+                'title' => __('api/driver.Offline'),
+                'detail' => __('api/driver.You\'re offline now')
             ]);
     }
 
@@ -64,13 +64,13 @@ class DriverController extends Controller
     {
         if (Auth::user()->driver->first()->online) {
             return ok([
-                'title' => 'Online',
-                'detail' => 'You\'re online'
+                'title' => __('api/driver.Online'),
+                'detail' => __('api/driver.You\'re online')
             ]);
         } else {
             return fail([
-                'title' => 'Offline',
-                'detail' => 'You\'re offline'
+                'title' => __('api/driver.Offline'),
+                'detail' => __('api/driver.You\'re offline')
             ]);
         }
     }

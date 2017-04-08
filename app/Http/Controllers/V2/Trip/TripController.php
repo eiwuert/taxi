@@ -23,7 +23,7 @@ class TripController extends Controller
         $result = Create::this($trip)->forThis('auth')->now();
         if (in_array('ok', $result)) {
             return ok([
-                'content'          => 'Trip request created successfully.',
+                'content'          => __('api/trip.Trip request created'),
                 'eta_text'         => $result['data']['matrix']['duration']['text'],
                 'eta_value'        => $result['data']['matrix']['duration']['value'],
                 'distance_text'    => $result['data']['matrix']['distance']['text'],
@@ -37,27 +37,27 @@ class TripController extends Controller
             switch ($result['fail']) {
                 case 'no_driver':
                     return fail([
-                        'title'       => 'No driver available',
-                        'detail'      => 'There is no driver available in your area.',
+                        'title'       => __('api/trip.No driver available'),
+                        'detail'      => __('api/trip.There is no driver available in your area'),
                         'trip_status' => 5,
                     ], 404);
                     break;
                 case 'location':
                     return fail([
-                        'title'  => 'Not valid trip',
-                        'detail' => 'You cannot trip there!'
+                        'title'  => __('api/trip.Not a valid trip'),
+                        'detail' => __('api/trip.You cannot trip there!'),
                     ]);
                     break;
                 case 'pending':
                     return fail([
-                        'title' => 'You have pending request',
-                        'detail'=> 'Please address your pending trip request at first',
+                        'title' => __('api/trip.You have pending request'),
+                        'detail'=> __('api/trip.Please address your pending trip request'),
                     ]);
                     break;
                 default:
                     return fail([
-                        'title' => 'failed',
-                        'detail'=> 'failed to create trip.',
+                        'title' => __('api/trip.failed'),
+                        'detail'=> __('api/trip.failed to create trip'),
                     ]);
                     break;
             }

@@ -53,6 +53,7 @@ Drivers
         <table class="table table-striped">
           <thead>
             <tr>
+              <th></th>
               <th>First name</th>
               <th>Last name</th>
               <th>Income</th>
@@ -61,9 +62,10 @@ Drivers
           </thead>
           <tbody>
             @foreach($drivers as $driver)
-            <tr onclick="window.document.location='{{ route('payments.drivers.trips', ['driver' => $driver->id, 'filters' => http_build_query(Request::all())]) }}'" style="cursor: pointer;">
+            <tr onclick="window.document.location='{{ route('payments.drivers.trips', $driver) }}'" style="cursor: pointer;">
+              <td><img src="{{ $driver->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
               <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
-              <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
+              <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
               <td>{{ $driver->income(Request::input('date_range')) }}</td>
               <td>{{ $driver->trips()->range(Request::input('date_range'))->count() }}</td>
             </tr>

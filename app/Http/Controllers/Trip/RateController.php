@@ -26,11 +26,11 @@ class RateController extends Controller
         if (Gate::allows('client', $user)) {
             $this->rateOfClient($request->stars, $request->comment);
             $this->postRatingProcessing($user);
-            return ok(['title' => 'Thanks for rating']);
+            return ok(['title' => __('api/rate.Thanks for rating')]);
         } else {
             return fail([
-                'title'  => 'You cannot rate',
-                'detail' => 'You cannot rate this trip',
+                'title'  => __('api/rate.You cannot rate'),
+                'detail' => __('api/rate.You cannot rate this trip'),
             ]);
         }
     }
@@ -47,11 +47,11 @@ class RateController extends Controller
         if (Gate::allows('driver', $user)) {
             $this->rateOfDriver($request->stars, $request->comment);
             $this->postRatingProcessing($user);
-            return ok(['title' => 'Thanks for rating']);
+            return ok(['title' => __('api/rate.Thanks for rating')]);
         } else {
             return fail([
-                    'title'  => 'You cannot rate',
-                    'detail' => 'You cannot rate this trip',
+                    'title'  => __('api/rate.You cannot rate'),
+                    'detail' => __('api/rate.You cannot rate this trip'),
                 ]);
         }
     }

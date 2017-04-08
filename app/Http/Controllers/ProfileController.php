@@ -36,15 +36,13 @@ class ProfileController extends Controller
         // All field are optional, but we are not going to accept empty response.
         if (empty($profileRequest->all())) {
             return fail([
-                    'title'  => 'Empty request is prohibited',
-                    'detail' => 'All profile fields are optional, but empty request is prohibited'
+                    'title'  => __('api/profile.Empty request is prohibited'),
+                    'detail' => __('api/profile.All profile fields are optional, but empty request is prohibited')
                 ], 400);
         }
 
-        User::wherePhone(Auth::user()->phone)
-            ->orderBy('id', 'desc')
-            ->first()->client()->first()
-            ->fill($profileRequest->intersect(array_keys($profileRequest->rules())))
+        Auth::user()->client()->orderBy('id', 'desc')
+            ->first()->fill($profileRequest->intersect(array_keys($profileRequest->rules())))
             ->save();
 
         return $this->get();
@@ -82,8 +80,8 @@ class ProfileController extends Controller
             return $driver;
         } else {
             return fail([
-                    'title'  => 'Undefined type.',
-                    'detail' => 'You are using undefined type, please contact your administrator.'
+                    'title'  => __('api/profile.Undefined type'),
+                    'detail' => __('api/profile.You are using undefined type, please contact your administrator')
                 ], 400);
         }
     }

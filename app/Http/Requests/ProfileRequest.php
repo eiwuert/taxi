@@ -20,9 +20,7 @@ class ProfileRequest extends Request
             'first_name'   => 'max:255',
             'last_name'    => 'max:255',
             'email'        => [
-                    Rule::unique('clients')->ignore(User::wherePhone(Auth::user()->phone)
-                                    ->orderBy('id', 'desc')
-                                    ->first()->client()->first()->email, 'email'),
+                    Rule::unique('clients')->ignore(Auth::user()->client()->first()->email, 'email'),
                     'min:6',
                     'max:255',
                     'email'

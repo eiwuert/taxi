@@ -43,6 +43,7 @@ Clients
         'items' => [15 => 15, 30 => 30, 'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
         'label' => 'Date range'])
+        @include('admin.components.export')
         {!! Form::close() !!}
         <!-- /.box-body -->
       </div>

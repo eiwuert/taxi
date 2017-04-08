@@ -14,18 +14,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
 use App\Repositories\FilterRepository;
+use App\Repositories\ExportRepository as Export;
 
 class TripController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $trips = Trip::orderBy('created_at', 'desc')->paginate(option('pagination', 15));
-        return view('admin.trips.index', compact('trips'));
+        if (@$request->export) {
+            return Export::from('Index', $trips->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.trips.index', compact('trips'));
+        }
     }
 
     /**
@@ -40,6 +46,12 @@ class TripController extends Controller
         return view('admin.trips.show', compact('trip'));
     }
 
+    /**
+     * Hard cancel the trip by the admin.
+     * 
+     * @param  \App\Trip $trip
+     * @return \App\Repositories\TripRepository
+     */
     public function cancel($trip)
     {
         flash('Trip ended.', 'success');
@@ -77,7 +89,11 @@ class TripController extends Controller
             $trips = $trips->paginate(option('pagination', 15));
         }
 
-        return view('admin.trips.index', compact('trips'));
+        if (@$request->export) {
+            return Export::from('Filter', $trips->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.trips.index', compact('trips'));
+        }
     }
 
     /**
@@ -102,6 +118,10 @@ class TripController extends Controller
                                                     ->get(['id'])->flatten())
                         ->paginate(option('pagination', 15));
 
-        return view('admin.trips.index', compact('trips'));
+        if (@$request->export) {
+            return Export::from('Search', $trips->toArray()['data'], $request->type ?? 'pdf');
+        } else {
+            return view('admin.trips.index', compact('trips'));
+        }
     }
 }

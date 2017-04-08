@@ -55,9 +55,7 @@ class CreateRepository extends MainRepository
         // Fetch the user.
         if ($user == 'auth') {
             self::$user = Auth::user();
-            self::$client = User::wherePhone(self::$user->phone)
-                                ->orderBy('id', 'desc')
-                                ->first()->client()->first();
+            self::$client = self::$user->client->first();
         } else {
             self::$user = User::find($user);
             self::$client = User::wherePhone(self::$user->phone)

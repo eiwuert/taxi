@@ -3,7 +3,7 @@
 Payments
 @endsection
 @section('header')
-Payments
+Payments of {{ $driver->first_name }} {{ $driver->last_name }}
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
@@ -15,6 +15,33 @@ Payments
 @section('content')
 <div class="row">
   <div class="col-xs-12">
+    <div class="box box-solid">
+      <div class="box-header with-border">
+        <i class="fa fa-filter"></i>
+        <h3 class="box-title">Filter</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <form action="{{ route('payments.drivers.trips.filter', ['driver' => $driver]) }}"
+            method="get"
+            class="form-inline"> 
+        <input type="hidden" type="text" value="{{ csrf_token() }}" />
+        @include('components.bootstrap.select', ['name' => 'count',
+        'label' => 'Count',
+        'items' => [
+        15 => 15,
+        30 => 30,
+        'all' => 'All']])
+        @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
+        'label' => 'Date range'])
+        @include('admin.components.export')
+        </form>
+      </div>
+      <div class="box-footer">
+        @include('admin.components.filter')
+      </div>
+      <!-- /.box-body -->
+    </div>
     <div class="box box-solid">
       <div class="box-header">
         <h3 class="box-title">List</h3>

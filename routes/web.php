@@ -22,4 +22,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     require base_path('routes/admin/payment.php');
     // PROFILE
     require base_path('routes/admin/web.php');
+    // Export
+    Route::get('export/{name}', 'ExportController@export')->name('admin.export');
 });
