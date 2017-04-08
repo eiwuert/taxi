@@ -409,4 +409,27 @@ class Driver extends Model
         $this->available = $state;
         $this->save();
     }
+
+    /**
+     * Calculate angle between last 2 position of the driver.
+     * @return int
+     */
+    public function angle()
+    {
+        $locations = Location::whereUserId($this->user_id)
+                            ->orderBy('id', 'desc')
+                            ->limit(2);
+        if (($locations = $locations->get())->count() == 2) {
+            $lng1 = $locations[0]->longitude;
+            $lng2 = $locations[1]->longitude;
+            $lat1 = $locations[0]->latitude;
+            $lat2 = $locations[1]->latitude;
+            $dLon = $lng2 - $lng1;
+            $y = sin($dLon) * cos($lat2);
+            $x = cos($lat1) * sin($lat2) - sin($lat1) * cos($lat2) * cos($dLon);
+            return 360 - ((rad2deg(atan2($y, $x)) + 360) % 360);
+        } else {
+            return 0;
+        }
+    }
 }

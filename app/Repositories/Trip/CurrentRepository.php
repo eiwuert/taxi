@@ -83,6 +83,7 @@ class CurrentRepository extends Main
         $driverLocation = Location::whereUserId($trip->driver()->first()->user_id)
                                     ->orderBy('id', 'desc')
                                     ->first(['latitude', 'longitude', 'name']);
+        $angle = $driver->angle();
         $paid = $trip->payments()->paid()->exists();
         $payment = is_null($payment = $trip->payments()->paid()->first()) ? 'to select' : $payment->type;
         unset($driver->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id,
@@ -99,6 +100,7 @@ class CurrentRepository extends Main
             'type'            => $carType,
             'source'          => $source,
             'destination'     => $destination,
+            'angle'           => $angle,
             'driver_location' => $driverLocation,
             'total'           => $trip->transaction()->first()->total,
         ];
