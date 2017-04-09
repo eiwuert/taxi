@@ -2,8 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Trip accepted' => 'سفر پذیرفته شد',
-  'You are onway' => 'شما درراه هستید',
+  'Not on an active trip right now' => 'شما هم‌اکنون در سفر نیستید',
+  'Not on trip' => 'در سفر نیستید',
   //==================================== Translations ====================================//
   'Arrived' => 'رسیدید',
   'Failed' => 'شکست خورد',
@@ -14,12 +14,14 @@ return array (
   'Please address your pending trip request at first' => 'لطفا سفر پیشین خود را ادامه دهید',
   'Please ask the client to choose a payment method' => 'لطفا از مسافر بخواهید تا روش پرداخت سفر را انتخاب کند',
   'There is no driver available in your area' => 'هیچ راننده‌ای در محدوده شما سرویس‌رسانی نمی‌کند',
+  'Trip accepted' => 'سفر پذیرفته شد',
   'Trip cancelled' => 'سفر لغو شد',
   'Trip cancelled successfully' => 'سفر با موفقیت لغو شد',
   'Trip ended' => 'سفر پایان یافت',
   'Trip is not paid' => 'هزینه سفر پرداخت نشده است',
   'Trip request created' => 'درخواست سفر ایجاد شد',
   'Trip started' => 'سفر آغاز شد',
+  'You are onway' => 'شما درراه هستید',
   'You cannot cancel your ride on this status' => 'شما نمی‌توانید سفر خود را در این وضعیت لغو کنید',
   'You cannot do this' => 'شما مجاز به انجام این کار نیستید',
   'You cannot trip there!' => 'شما نمی‌توانید به این مقصد سفر کنید!',

@@ -4,8 +4,8 @@ require('./bootstrap')
 require('../bower/AdminLTE/dist/js/app.min.js');
 Vue.component('info-box', require('./components/admin/InfoBox.vue'));
 Vue.component('email', require('./components/bootstrap/Email.vue'));
-Vue.component('password', require('./components/bootstrap/Password.vue'));
-Vue.component('checkbox', require('./components/bootstrap/checkbox.vue'));
+Vue.component('password', require('./components/bootstrap/password.vue'));
+Vue.component('checkbox', require('./components/bootstrap/Checkbox.vue'));
 Vue.component('btn-primary', require('./components/bootstrap/btn-primary.vue'));
 Vue.component('btn-danger', require('./components/bootstrap/btn-danger.vue'));
 Vue.component('btn-success', require('./components/bootstrap/btn-success.vue'));

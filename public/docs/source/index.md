@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add angle to nearby and `client/trip` routes. angle starts from 6 o'clock in counter clockwise.
 * Income route for driver.
 * created_at and updated_at property removed from client and driver profile.
 * History order fixed (desc).
@@ -2145,7 +2146,8 @@ limit | numeric |  min: `5`, max: `100`  |
             "longitude": "51.409909",
             "latitude": "35.757580",
             "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
-            "user_id": 3
+            "user_id": 3,
+            "angle": 350
         },
         {
             "id": 4,
@@ -2153,7 +2155,8 @@ limit | numeric |  min: `5`, max: `100`  |
             "longitude": "51.406401",
             "latitude": "35.757223",
             "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
-            "user_id": 1
+            "user_id": 1,
+            "angle": 12
         }
     ]
 }
@@ -2244,7 +2247,8 @@ limit | numeric |  min: `5`, max: `100`  |
             "longitude": "51.409909",
             "latitude": "35.757580",
             "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
-            "user_id": 3
+            "user_id": 3,
+            "anlge": 350
         },
         {
             "id": 4,
@@ -2252,7 +2256,8 @@ limit | numeric |  min: `5`, max: `100`  |
             "longitude": "51.406401",
             "latitude": "35.757223",
             "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
-            "user_id": 1
+            "user_id": 1,
+            "angle": 12
         }
     ]
 }
@@ -2364,6 +2369,7 @@ $.ajax(settings).done(function (response) {
                 "longitude": "32.654306",
                 "name": "Unnamed Road, Chernihivs'ka oblast, اوکراین"
             },
+            "angle": 12,
             "driver_location": {
                 "latitude": "35.714693",
                 "longitude": "51.481892",

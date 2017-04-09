@@ -1,16 +1,16 @@
 @extends('admin.includes.layout')
 @section('title')
-Payments
+@lang('admin/general.payments')
 @endsection
 @section('header')
-Payments of {{ $driver->first_name }} {{ $driver->last_name }}
+@lang('admin/general.payments') {{ $driver->first_name }} {{ $driver->last_name }}
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li><i class="ion-card"></i> payments</li>
-<li><i class="ion-model-s"></i> drivers</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
+<li><i class="ion-card"></i>@lang('admin/general.payment')</li>
+<li><i class="ion-model-s"></i> @lang('admin/general.drivers')</li>
 <li><a href="{{ route('drivers.show', ['driver' => $driver]) }}">{{ $driver->first_name }} {{ $driver->last_name }}</a></li>
-<li class="active"><i class="ion-android-navigate"></i> trips</li>
+<li class="active"><i class="ion-android-navigate"></i>@lang('admin/general.trips')</li>
 @endsection
 @section('content')
 <div class="row">
@@ -44,7 +44,7 @@ Payments of {{ $driver->first_name }} {{ $driver->last_name }}
     </div>
     <div class="box box-solid">
       <div class="box-header">
-        <h3 class="box-title">List</h3>
+        <h3 class="box-title">@lang('admin/general.List')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
@@ -53,15 +53,15 @@ Payments of {{ $driver->first_name }} {{ $driver->last_name }}
           <tbody>
             <tr>
               <tr>
-                <th>For</th>
-                <th>Client</th>
-                <th>Driver</th>
-                <th>Amount</th>
-                <th>Trip</th>
-                <th>Method</th>
-                <th>Result</th>
-                <th>details</th>
-                <th>Created</th>
+                <th>@lang('admin/general.For')</th>
+                <th>@lang('admin/general.Client')</th>
+                <th>@lang('admin/general.Driver')</th>
+                <th>@lang('admin/general.Amount')</th>
+                <th>@lang('admin/general.Trip')</th>
+                <th>@lang('admin/general.Method')</th>
+                <th>@lang('admin/general.Result')</th>
+                <th>@lang('admin/general.details')</th>
+                <th>@lang('admin/general.Created')</th>
               </tr>
               @foreach($payments as $payment)
               <tr onclick="window.document.location='{{ route('payments.show', ['id' => $payment->id]) }}'" style="cursor: pointer;">

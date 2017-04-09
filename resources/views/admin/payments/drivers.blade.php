@@ -1,14 +1,14 @@
 @extends('admin.includes.layout')
 @section('title')
-Drivers
+@lang('admin/general.Drivers')
 @endsection
 @section('header')
-Drivers
+@lang('admin/general.Drivers')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li><a href="{{ route('payments.index') }}"><i class="ion-card"></i> payments</a></li>
-<li class="active"> drivers</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li><a href="{{ route('payments.index') }}"><i class="ion-card"></i>@lang('admin/general.payments') </a></li>
+<li class="active"> @lang('admin/general.drivers')</li>
 @endsection
 @section('content')
 <div class="row">
@@ -16,7 +16,7 @@ Drivers
     <div class="box box-solid">
       <div class="box-header with-border">
         <i class="fa fa-filter"></i>
-        <h3 class="box-title">Filter</h3>
+        <h3 class="box-title">@lang('admin/general.Filter')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -46,7 +46,7 @@ Drivers
     </div>
     <div class="box box-solid">
       <div class="box-header">
-        <h3 class="box-title">List</h3>
+        <h3 class="box-title">@lang('admin/general.List')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
@@ -54,10 +54,10 @@ Drivers
           <thead>
             <tr>
               <th></th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Income</th>
-              <th>Trips</th>
+              <th>@lang('admin/general.First name')</th>
+              <th>@lang('admin/general.Last name')</th>
+              <th>@lang('admin/general.Income')</th>
+              <th>@lang('admin/general.Trips')</th>
             </tr>
           </thead>
           <tbody>

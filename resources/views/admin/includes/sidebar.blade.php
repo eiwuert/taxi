@@ -6,47 +6,47 @@
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
-        <div class="pull-left image">
+        <div class="pull-right image">
           {{ HTML::image(Auth::user()->web->picture, 'User Image', ['class' => 'img-circle']) }}
         </div>
-        <div class="pull-left info">
+        <div class="pull-right info">
           <p>{{ $first_name }}</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-user text-default"></i> Admin</a>
+          <a href="#"><i class="fa fa-user text-default"></i>@lang('admin/general.Admin') </a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <!-- Optionally, you can add icons to the links -->
-        <li class="{{ (str_contains(Request::url(), route('dashboard'))) ? 'active' : '' }}"><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i><span> Dashboard</span></a></li>
-        <li class="{{ (str_contains(Request::url(), route('drivers.index'))) ? 'active' : '' }}"><a href="{{ route('drivers.index') }}"><i class='ion-model-s'></i><span> Drivers</span></a></li>
-        <li class="{{ (str_contains(Request::url(), route('clients.index'))) ? 'active' : '' }}"><a href="{{ route('clients.index') }}"><i class='ion-android-walk'></i><span> Clients</span></a></li>
-        <li class="{{ (str_contains(Request::url(), route('trips.index'))) ? 'active' : '' }}"><a href="{{ route('trips.index') }}"><i class='ion-android-navigate'></i><span> Trips</span></a></li>
-        <li class="{{ (str_contains(Request::url(), route('maps.index'))) ? 'active' : '' }}"><a href="{{ route('maps.index') }}"><i class='ion-map'></i><span> Maps</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('dashboard'))) ? 'active' : '' }}"><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i><span>@lang('admin/general.Dashboard') </span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('drivers.index'))) ? 'active' : '' }}"><a href="{{ route('drivers.index') }}"><i class='ion-model-s'></i><span>@lang('admin/general.Drivers') </span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('clients.index'))) ? 'active' : '' }}"><a href="{{ route('clients.index') }}"><i class='ion-android-walk'></i><span> @lang('admin/general.Clients')</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('trips.index'))) ? 'active' : '' }}"><a href="{{ route('trips.index') }}"><i class='ion-android-navigate'></i><span>  @lang('admin/general.Trips')</span></a></li>
+        <li class="{{ (str_contains(Request::url(), route('maps.index'))) ? 'active' : '' }}"><a href="{{ route('maps.index') }}"><i class='ion-map'></i><span> @lang('admin/general.Maps')</span></a></li>
         <li class="{{ (str_contains(Request::url(), 'admin/payments')) ? 'treeview active' : 'treeview' }}">
-          <a href="#"><i class="ion-card"></i> <span>Payments</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+          <a href="#"><i class="ion-card"></i> <span>@lang('admin/general.Payments')</span>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-left pull-left"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ (ends_with(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">All</span></a></li>
-            <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">Drivers</span></a></li>
+            <li class="{{ (ends_with(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">@lang('admin/general.All')</span></a></li>
+            <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">@lang('admin/general.Drivers')</span></a></li>
           </ul>
         </li>
         <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}">
-          <a href="#"><i class="ion-gear-a"></i> <span>Settings</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+          <a href="#"><i class="ion-gear-a"></i> <span>@lang('admin/general.Settings')</span>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-left pull-left"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ (str_contains(Request::url(), route('settings.general.index'))) ? 'active' : '' }}"><a href="{{ route('settings.general.index') }}">General</a></li>
-            <li class="{{ (str_contains(Request::url(), route('settings.backup.index'))) ? 'active' : '' }}"><a href="{{ route('settings.backup.index') }}">Backup</a></li>
-            <li class="{{ (str_contains(Request::url(), route('settings.logs.index'))) ? 'active' : '' }}"><a href="{{ route('settings.logs.index') }}">Logs</a></li>
-            <li class="{{ (str_contains(Request::url(), route('settings.fcm.index'))) ? 'active' : '' }}"><a href="{{ route('settings.fcm.index') }}">FCM</a></li>
-            <li class="{{ (str_contains(Request::url(), route('settings.requests.index'))) ? 'active' : '' }}"><a href="{{ route('settings.requests.index') }}">Requests</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.general.index'))) ? 'active' : '' }}"><a href="{{ route('settings.general.index') }}">@lang('admin/general.General')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.backup.index'))) ? 'active' : '' }}"><a href="{{ route('settings.backup.index') }}">@lang('admin/general.Backup')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.logs.index'))) ? 'active' : '' }}"><a href="{{ route('settings.logs.index') }}">@lang('admin/general.Logs')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.fcm.index'))) ? 'active' : '' }}"><a href="{{ route('settings.fcm.index') }}">@lang('admin/general.FCM')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.requests.index'))) ? 'active' : '' }}"><a href="{{ route('settings.requests.index') }}">@lang('admin/general.Requests')</a></li>
           </ul>
         </li>
       </ul>

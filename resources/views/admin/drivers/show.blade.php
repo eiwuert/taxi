@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-drivers
+@lang('admin/general.drivers')
 @endsection
 @section('header')
-Drivers
+@lang('admin/general.Drivers')
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active">drivers</li>
+<li><a href="#"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li class="active">@lang('admin/general.drivers')</li>
 @endsection
 @section('content')
 <div class="row">
@@ -20,9 +20,9 @@ Drivers
     @include('admin.errors.form')
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
-        <li><a href="#info" data-toggle="tab">Info</a></li>
-        <li><a href="#car" data-toggle="tab">Car</a></li>
+        <li class="active"><a href="#timeline" data-toggle="tab">@lang('admin/general.Timeline')</a></li>
+        <li><a href="#info" data-toggle="tab">@lang('admin/general.Info')</a></li>
+        <li><a href="#car" data-toggle="tab">@lang('admin/general.Car')</a></li>
       </ul>
       <div class="tab-content">
         <div class="active tab-pane" id="timeline">

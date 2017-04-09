@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-Profile
+@lang('admin/general.Profile')
 @endsection
 @section('header')
-Profile
+@lang('admin/general.Profile')
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active">Profile</li>
+<li><a href="#"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard')</a></li>
+<li class="active">@lang('admin/general.Profile')</li>
 @endsection
 @section('content')
 <div class="row">
@@ -18,14 +18,14 @@ Profile
       {!! Form::label('first_name', 'First name: ', ['class' => 'col-sm-2 control-label']) !!}
       <div class="col-sm-10">
         {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
-        <p class="help-block">Max 24 characters.</p>
+        <p class="help-block">@lang('admin/general.Max 24 characters.')</p>
       </div>
     </div>
     <div class="form-group">
       {!! Form::label('last_name', 'Last name: ', ['class' => 'col-sm-2 control-label']) !!}
       <div class="col-sm-10">
         {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
-        <p class="help-block">Max 24 charecters.</p>
+        <p class="help-block">@lang('admin/general.Max 24 characters')</p>
       </div>
     </div>
     <div class="form-group">
@@ -37,7 +37,7 @@ Profile
     </div>
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
       </div>
     </div>
     {!! Form::close() !!}

@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-payment
+@lang('admin/general.payment')
 @endsection
 @section('header')
-Payment
+@lang('admin/general.Payment')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li><a href="{{ route('clients.index') }}"><i class="ion-card"></i> payments</a></li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li><a href="{{ route('clients.index') }}"><i class="ion-card"></i>@lang('admin/general.payments') </a></li>
 <li class="active">{{ $payment->id }}</li>
 @endsection
 @section('content')

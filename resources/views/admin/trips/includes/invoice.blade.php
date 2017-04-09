@@ -1,7 +1,7 @@
 @if (!is_null($trip->transaction))
 <div class="box box-solid">
     <div class="box-header">
-        <h3 class="box-title">Invoice</h3>
+        <h3 class="box-title">@lang('admin/general.Invoice')</h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
@@ -10,11 +10,11 @@
                 <table class="table table-striped table-hover">
                     <tbody>
                         <tr>
-                            <th>Entry</th>
-                            <th>Distance</th>
-                            <th>Per distance</th>
-                            <th>Time</th>
-                            <th>Per time</th>
+                            <th>@lang('admin/general.Entry')</th>
+                            <th>@lang('admin/general.Distance')</th>
+                            <th>@lang('admin/general.Per distance')</th>
+                            <th>@lang('admin/general.Time')</th>
+                            <th>@lang('admin/general.Per time')</th>
                         </tr>
                         <tr>
                             <td>{{ $trip->transaction->entry }}</td>

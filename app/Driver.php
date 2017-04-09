@@ -419,7 +419,8 @@ class Driver extends Model
         $locations = Location::whereUserId($this->user_id)
                             ->orderBy('id', 'desc')
                             ->limit(2);
-        if (($locations = $locations->get())->count() == 2) {
+        $locations = $locations->get();
+        if ($locations->count() == 2) {
             $lng1 = $locations[0]->longitude;
             $lng2 = $locations[1]->longitude;
             $lat1 = $locations[0]->latitude;

@@ -1,5 +1,5 @@
 <p class="text-center">
     <br />
-    Nothing to show here...
+    @lang('admin/general.Nothing to show here')
     <br />
 </p>

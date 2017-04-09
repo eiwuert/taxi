@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-clients
+@lang('admin/general.clients')
 @endsection
 @section('header')
-Client
+@lang('admin/general.Client')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li><a href="{{ route('clients.index') }}"><i class="ion-android-walk"></i> clients</a></li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li><a href="{{ route('clients.index') }}"><i class="ion-android-walk"></i> @lang('admin/general.clients')</a></li>
 <li class="active">{{ $client->first_name }} {{ $client->last_name }}</li>
 @endsection
 @section('content')
@@ -21,8 +21,8 @@ Client
     @include('admin.errors.form')
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#timeline" data-toggle="tab">Timeline</a></li>
-        <li><a href="#info" data-toggle="tab">Info</a></li>
+        <li class="active"><a href="#timeline" data-toggle="tab">@lang('admin/general.Timeline')</a></li>
+        <li><a href="#info" data-toggle="tab">@lang('admin/general.Info')</a></li>
       </ul>
       <div class="tab-content">
         <div class="active tab-pane" id="timeline">

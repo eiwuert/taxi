@@ -1,9 +1,37 @@
+// @import url(http://awebfont.ir/css?id=1776);
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: BBCNassim,sans-serif;
+}
 // General
 .main-sidebar {
     right: 0;
     left: inherit;
-}
+    direction: rtl;
+    padding-right: 5px;
 
+}
+.info-box{
+    text-align: rtl;
+    direction: rtl;
+}
+.box-body{
+    direction: rtl;
+}
+.box-header.with-border{
+    direction: rtl;
+}
+.input-group{
+    direction: rtl;
+}
+.box.box-solid{
+    direction: rtl;
+    table tr>th {
+        text-align: right !important;
+    }
+}
+.ranges li {
+    text-align :right;
+}
 .content-wrapper, .main-footer {
     margin-right: 230px;
     margin-left: 0;
@@ -35,4 +63,28 @@
     .left-side {
         margin-right: -230px !important;
     }
+}
+
+/**
+ * Sidebar
+ */
+.sidebar-menu, .main-sidebar .user-panel, .sidebar-menu > li.header {
+    margin-right: -5px;
+}
+
+.user-panel > .info {
+    left: inherit;
+    right: 55px;
+}
+
+.user-panel > .info > a {
+    padding-right: 0px;
+    padding-left: 5px;
+}
+
+.user-panel > .info > a > .fa, 
+.user-panel > .info > a > .ion, 
+.user-panel > .info > a > .glyphicon {
+    margin-right: 0;
+    margin-left: 3px;
 }

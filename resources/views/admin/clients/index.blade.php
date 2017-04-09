@@ -1,24 +1,24 @@
 @extends('admin.includes.layout')
 @section('title')
-Clients
+@lang('admin/general.Clients')
 @endsection
 @section('header')
-Clients
+@lang('admin/general.Clients')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active"><i class="ion-android-walk"></i> clients</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
+<li class="active"><i class="ion-android-walk"></i>@lang('admin/general.clients') </li>
 @endsection
 @section('content')
 <div class="row">
   <div class="col-md-6">
     <a href="{{ route('clients.filter') . '?status=unlocked' }}">
-      <info-box text="Unlocked" number="{{ $countOfUnockedClients }}" color="green" icon="ion-unlocked"></info-box>
+      <info-box text="@lang('admin/general.Unlocked')" number="{{ $countOfUnockedClients }}" color="green" icon="ion-unlocked"></info-box>
     </a>
   </div>
   <div class="col-md-6">
     <a href="{{ route('clients.filter') . '?status=locked' }}">
-      <info-box text="Locked" number="{{ $countOfLockedClients }}" color="red" icon="ion-locked"></info-box>
+      <info-box text="@lang('admin/general.locked')" number="{{ $countOfLockedClients }}" color="red" icon="ion-locked"></info-box>
     </a>
   </div>
 </div>
@@ -27,22 +27,22 @@ Clients
     <div class="box box-solid">
       <div class="box-header with-border">
         <i class="fa fa-filter"></i>
-        <h3 class="box-title">Filter</h3>
+        <h3 class="box-title">@lang('admin/general.Filter')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\ClientController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'sortby',
-        'label' => 'Sort by',
+        'label' => __('admin/general.Sort by'),
         'items' => \App\Client::$sortable])
         @include('components.bootstrap.select', ['name' => 'orderby',
-        'label' => 'Order by',
-        'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
+        'label' => __('admin/general.Order by'),
+        'items' => ['asc' => __('admin/general.Ascending'), 'desc' => __('admin/general.Descending')]])
         @include('components.bootstrap.select', ['name' => 'count',
-        'label' => 'Count',
+        'label' => __('admin/general.Count'),
         'items' => [15 => 15, 30 => 30, 'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-        'label' => 'Date range'])
+        'label' => __('admin/general.Date range')])
         @include('admin.components.export')
         {!! Form::close() !!}
         <!-- /.box-body -->
@@ -53,7 +53,7 @@ Clients
     </div>
     <div class="box box-solid">
       <div class="box-header">
-        <h3 class="box-title">List</h3>
+        <h3 class="box-title">@lang('admin/general.List')</h3>
         <div class="box-tools">
           {!! Form::open(['action' => 'Admin\ClientController@search', 'method' => 'get']) !!}
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -73,11 +73,11 @@ Clients
             <tr>
               <tr>
                 <th></th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Country</th>
-                <th>Phone</th>
-                <th>State</th>
+                <th>@lang('admin/general.First name')</th>
+                <th>@lang('admin/general.Last name')</th>
+                <th>@lang('admin/general.Country')</th>
+                <th>@lang('admin/general.Phone')</th>
+                <th>@lang('admin/general.State1')</th>
               </tr>
               @foreach($clients as $client)
               <tr onclick="window.document.location='{{ action('Admin\ClientController@show', ['id' => $client->id]) }}';" style="cursor: pointer;">

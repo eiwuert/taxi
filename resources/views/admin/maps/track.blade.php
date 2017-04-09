@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-Track
+@lang('admin/general.Track')
 @endsection
 @section('header')
-Track
+@lang('admin/general.Track')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active"><i class="ion-map"></i> Track</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li class="active"><i class="ion-map"></i> @lang('admin/general.Track')</li>
 @endsection
 @section('content')
 <div class="row">

@@ -16,7 +16,7 @@
     <nav class="navbar navbar-static-top" role="navigation">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">@lang('admin/general.Toggle navigation')</span>
       </a>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
@@ -62,13 +62,13 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ route('webs.edit') }}" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('webs.edit') }}" class="btn btn-default btn-flat">@lang('admin/general.Profile')</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"  
                       onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-                      Logout
+                      @lang('admin/general.Logout')
                   </a>
 
                   <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

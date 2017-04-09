@@ -1,0 +1,68 @@
+<?php
+/*************************************************************************
+ Generated via "php artisan localization:missing" at 2017/04/05 13:05:41 
+*************************************************************************/
+
+return array (
+  //============================== New strings to translate ==============================//
+  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/settings/logs.blade.php
+  'Logs' => 'لاگ ها ',
+  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/settings/logs.blade.php
+  'Only last 100 items listed here' => ' آخرین 100 موارد ذکر شده ',
+  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/settings/logs.blade.php
+  'System Logs' => 'لاگ های سیستم',
+  //==================================== Translations ====================================//
+  'Backup' => ' پشتیبان گیری',
+  'Canonical IDs' => 'شناسه های قانونی',
+  'Client' => 'مسافر',
+  'Cost' => 'هزینه سفر',
+  'Created' => 'ایجاد شده',
+  'Created at' => 'ایجاد شده در',
+  'Destination' => 'مقصد',
+  'Details' => 'جزئیات',
+  'Device token' => 'رمز دستگاه',
+  'Distance' => 'مسافت',
+  'Driver' => 'راننده',
+  'Driver distance' => 'مسافت راننده',
+  'Duration' => 'مدت زمان',
+  'ETA' => 'ETA',
+  'ETD' => 'ETD',
+  'Entry' => 'ورود',
+  'Extension' => 'فرمت',
+  'FCM' => 'FCM',
+  'FCM Logs' => 'FCM Logs',
+  'Failure' => 'عدم موفقیت',
+  'Filter' => 'صافی',
+  'General' => 'عمومی',
+  'Invoice' => 'فاکتور',
+  'List' => 'لیست',
+  'List of backups' => 'لیست پشیبانی ها ',
+  'Max 24 characters' => 'حداکثر ۲۴ کاراکتر.',
+  'Monthly Recap Report' => 'گزارش ماهیانه',
+  'Multicast ID' => 'شناسه های چند بخشی',
+  'Name' => 'نام',
+  'Per distance' => 'در فاصله',
+  'Per time' => 'در هر زمان',
+  'Permissions' => 'مجوز',
+  'Profile' => ' مشخصات',
+  'Rate' => 'نرخ',
+  'Results' => 'نتایج',
+  'Setting' => 'تنظیمات',
+  'Settings' => 'تنظیمات',
+  'Size' => 'اندازه',
+  'Source' => 'منبع',
+  'Status' => 'وضعیت',
+  'Submit' => 'ارسال',
+  'Success' => 'موفق',
+  'Time' => 'زمان',
+  'Trip' => 'سفر',
+  'Trips' => 'سفرها',
+  'client' => 'مسافر',
+  'created' => 'ایجاد شده',
+  'dashboard' => 'داشبورد',
+  'driver' => 'راننده',
+  'income' => 'درآمد',
+  'message' => 'پیغام',
+  'title' => 'عنوان',
+  'trips' => 'سفرها',
+);

@@ -59,7 +59,7 @@
     {!! Form::label('documents', 'Documents: ', ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
         <div class="btn btn-sm btn-default btn-file">
-            <i class="fa fa-paperclip"></i> Choose Zip File
+            <i class="fa fa-paperclip"></i> @lang('admin/general.Upload zip file')
             {!! Form::file('documents', null, ['class' => 'form-control']) !!}
         </div>
     </div>
@@ -91,13 +91,27 @@
 </div>
 @endif
 <div class="box-group" id="accordion">
-    <div class="panel box box-primary">
-        <div class="box-header">
-            <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="">
-                More <i class="fa fa-angle-down"></i>
-            </a>
-            </h4>
+  <div class="panel box box-primary">
+    <div class="box-header">
+      <h4 class="box-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="">
+        @lang('admin/general.More') <i class="fa fa-angle-down"></i>
+      </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+      <div class="box-body">
+        <div class="form-group">
+          {!! Form::label('lang', 'Lang: ', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-sm-10">
+            {!! Form::select('lang', ['fa' => 'Farsi', 'en' => 'English', 'ku' => 'Kurdi'], null, ['class' => 'form-control']) !!}
+          </div>
+        </div>
+        <div class="form-group">
+          {!! Form::label('device_token', 'Device token: ', ['class' => 'col-sm-2 control-label']) !!}
+          <div class="col-sm-10">
+            {!! Form::text('device_token', null, ['class' => 'form-control']) !!}
+          </div>
         </div>
         <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
             <div class="box-body">
@@ -124,8 +138,8 @@
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+  <div class="col-sm-offset-2 col-sm-10">
+    <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
+  </div>
 </div>
 {!! Form::close() !!}
