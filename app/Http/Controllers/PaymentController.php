@@ -94,11 +94,12 @@ class PaymentController extends Controller
         // If ResNum is not a valid trip_id
         // Revert back money if the state was OK
         // Complete the transaction.
+        // dd($this->response);
         $result = $this->getContext();
         $soap = $result['soap'];
         $verifyParams = array(
             'context' => $result['context'],
-            'verifyRequest' => array('refNumList' => $this->response->ResNum)
+            'verifyRequest' => array('refNumList' => $this->response->RefNum)
         );
         $verifyResponse = $soap->call('verifyTransaction', $verifyParams);
         $soap->call('logout', array('context' => $result['context']));
