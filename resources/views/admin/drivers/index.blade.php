@@ -43,13 +43,13 @@
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\DriverController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'sortby', 
-                                                'label' => 'Sort by', 
+                                                'label' => __('admin/general.Sort by'), 
                                                 'items' => \App\Driver::$sortable])
         @include('components.bootstrap.select', ['name' => 'orderby', 
-                                                'label' => 'Order by', 
-                                                'items' => ['asc' => 'Ascending', 'desc' => 'Descending']])
+                                                'label' => __('admin/general.Order by'), 
+                                                'items' => ['asc' => __('admin/general.Ascending'), 'desc' => __('admin/general.Descending')]])
         @include('components.bootstrap.select', ['name' => 'count', 
-                                                'label' => 'Count', 
+                                                'label' => __('admin/general.Count'), 
                                                 'items' => [15 => 15, 30 => 30, 'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
                                                           'label' => __('admin/general.Date range')])
@@ -65,7 +65,7 @@
     <div class="box box-solid">
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">List</h3>
+                <h3 class="box-title">@lang('admin/general.List')</h3>
                 <div class="box-tools">
                     {!! Form::open(['action' => 'Admin\DriverController@search', 'method' => 'get']) !!}
                     <div class="input-group input-group-sm" style="width: 150px;">
@@ -83,12 +83,12 @@
                 <table class="table table-hover">
                     <tbody><tr>
                         <th></th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>Status</th>
-                        <th>State</th>
-                        <th>Country</th>
-                        <th>Phone</th>
+                        <th>@lang('admin/general.First name')</th>
+                        <th>@lang('admin/general.Last name')</th>
+                        <th>@lang('admin/general.Status')</th>
+                        <th>@lang('admin/general.State')</th>
+                        <th>@lang('admin/general.Country')</th>
+                        <th>@lang('admin/general.Phone')</th>
                     </tr>
                     @foreach($drivers as $driver)
                     <tr onclick="window.document.location='{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}';" style="cursor: pointer;">

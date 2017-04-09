@@ -1,32 +1,12 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/09 07:46:43 
+ Generated via "php artisan localization:missing" at 2017/04/09 07:41:01 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
   // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled arrived driver' => ' Client canceled arrived driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled onway driver' => ' Client canceled onway driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled requested taxi' => ' Client canceled requested taxi ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client rated not yet driver' => ' Client rated not yet driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rated not yet client' => ' Driver rated not yet client ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected on arrived status' => ' Driver rejected on arrived status ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected started trip' => ' Driver rejected started trip ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'No driver' => ' No driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip ended not rated' => ' Trip ended not rated ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over' => ' Trip is over ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over by admin' => ' Trip is over by admin ',
+  'Driver rejected client' => ' Driver rejected client ',
   //==================================== Translations ====================================//
   'About' => 'About',
   'Address:' => 'Address:',
@@ -67,7 +47,6 @@ return array (
   'Download' => 'Download',
   'Driver' => 'Driver',
   'Driver distance' => 'Driver distance',
-  'Driver rejected client' => ' Driver rejected client ',
   'Drivers' => 'Drivers',
   'Duration' => 'Duration',
   'ETA' => 'ETA',
