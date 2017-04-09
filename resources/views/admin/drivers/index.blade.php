@@ -63,21 +63,6 @@
       </div>
     </div>
     <div class="box box-solid">
-      <div class="box-header">
-        <h3 class="box-title">@lang('admin/general.List')</h3>
-        <div class="box-tools">
-          {!! Form::open(['action' => 'Admin\DriverController@search', 'method' => 'get']) !!}
-          <div class="input-group input-group-sm" style="width: 150px;">
-            <input type="text" name="q" class="form-control pull-right" placeholder="Search" value="{{ Request::get('q') }}">
-            <div class="input-group-btn">
-              <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </div>
-            {!! Form::close() !!}
-            <!-- /.box-body -->
-            <div class="box-footer">
-                @include('admin.components.filter')
-            </div>
-        </div>
         <div class="box box-solid">
             <div class="box-header">
                 <h3 class="box-title">List</h3>
@@ -127,41 +112,6 @@
             @include('admin.includes.pagination', ['resource' => $drivers])
         </div>
       </div>
-      <!-- /.box-header -->
-      <div class="box-body table-responsive no-padding">
-        @if (!$drivers->isEmpty())
-        <table class="table table-hover">
-          <tbody><tr>
-            <th></th>
-            <th>@lang('admin/general.First name')</th>
-            <th>@lang('admin/general.Last name')</th>
-            <th>@lang('admin/general.Status')</th>
-            <th>@lang('admin/general.State')</th>
-            <th>@lang('admin/general.Country')</th>
-            <th>@lang('admin/general.Phone')</th>
-          </tr>
-          @foreach($drivers as $driver)
-          <tr onclick="window.document.location='{{ action('Admin\DriverController@show', ['id' => $driver->id]) }}';" style="cursor: pointer;">
-            <td><img src="{{ $driver->getPicture() }}" alt="driver picture" class="img-circle" width="24"></td>
-            <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
-            <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
-            <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
-            <td>{{ $driver->state }}</td>
-            <td>{{ $driver->country }}</td>
-            <td>{{ $driver->phoneNumber() }}</td>
-          </tr>
-          @endforeach
-          </tbody>
-        </table>
-        @else
-        @include('admin.components.empty')
-        @endif
-      </div>
-      <!-- /.box-body -->
-      <div class="box-footer clearfix">
-      @include('admin.includes.pagination', ['resource' => $drivers])
-      </div>
-    </div>
     <!-- /.box -->
 </div>
 </div>

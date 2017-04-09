@@ -3,7 +3,7 @@
 return [
     'IRR' => [
         'luxury' => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => [
                 'thu'  =>  [
                     [
@@ -17,7 +17,7 @@ return [
                     ],
                 ],
             ],
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             // minute
             // hour
@@ -27,49 +27,49 @@ return [
             'distanceـunit'  => 'kilometer',
         ],
         'van'   => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'sport'      => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'sedans'  => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'economy'  => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'off-roader'  => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'motorcycle'  => [
-            'entry'          => 5000,
+            'entry'          => 50000,
             'surcharge'      => 0,
-            'perـdistance'   => 500,
+            'perـdistance'   => 5000,
             'perـtime'       => 0,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',

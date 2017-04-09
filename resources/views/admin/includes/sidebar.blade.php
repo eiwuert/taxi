@@ -6,10 +6,10 @@
 
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
-        <div class="pull-left image">
+        <div class="pull-right image">
           {{ HTML::image(Auth::user()->web->picture, 'User Image', ['class' => 'img-circle']) }}
         </div>
-        <div class="pull-left info">
+        <div class="pull-right info">
           <p>{{ $first_name }}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-user text-default"></i>@lang('admin/general.Admin') </a>
@@ -26,8 +26,8 @@
         <li class="{{ (str_contains(Request::url(), route('maps.index'))) ? 'active' : '' }}"><a href="{{ route('maps.index') }}"><i class='ion-map'></i><span> @lang('admin/general.Maps')</span></a></li>
         <li class="{{ (str_contains(Request::url(), 'admin/payments')) ? 'treeview active' : 'treeview' }}">
           <a href="#"><i class="ion-card"></i> <span>@lang('admin/general.Payments')</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-left pull-left"></i>
             </span>
           </a>
           <ul class="treeview-menu">
@@ -37,8 +37,8 @@
         </li>
         <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}">
           <a href="#"><i class="ion-gear-a"></i> <span>@lang('admin/general.Settings')</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+            <span class="pull-left-container">
+              <i class="fa fa-angle-left pull-left"></i>
             </span>
           </a>
           <ul class="treeview-menu">
