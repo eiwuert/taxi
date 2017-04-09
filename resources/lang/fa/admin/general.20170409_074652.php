@@ -1,32 +1,12 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/09 07:46:50 
+ Generated via "php artisan localization:missing" at 2017/04/09 07:41:03 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
   // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled arrived driver' => ' مسافر راننده رسیده را لغو کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled onway driver' => ' مسافر راننده در راه را لغو کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled requested taxi' => ' مسافر تاکسی درخواست داده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client rated not yet driver' => ' مسافر هنوز به راننده امتیاز نداده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rated not yet client' => ' راننده هنوز به مسافر امتیاز نداده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected on arrived status' => '  راننده وضعیت رسیده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected started trip' => ' راننده سفر آغاز شده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'No driver' => ' بدون راننده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip ended not rated' => ' سفرهای تمام شده بدون امتیاز ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over' => ' سفر به پایان رسیده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over by admin' => ' سفر توسط راننده به پایان رسید ',
+  'Driver rejected client' => ' رد مسافر توسط راننده ',
   //==================================== Translations ====================================//
   'About' => 'درباره',
   'Address:' => 'آدرس: ',
@@ -67,7 +47,6 @@ return array (
   'Download' => 'دانلود',
   'Driver' => ' راننده ',
   'Driver distance' => 'مسافت راننده',
-  'Driver rejected client' => ' رد مسافر توسط راننده ',
   'Drivers' => ' راننده ها ',
   'Duration' => 'مدت زمان',
   'ETA' => 'ETA',

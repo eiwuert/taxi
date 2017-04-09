@@ -1,10 +1,10 @@
 <div class="input-group">
-    <label>Export</label>
+    <label>@lang('admin/general.Export')</label>
     <br>
     <div class="btn-group" role="group" aria-label="export">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Type
+            @lang('admin/general.Type')
             <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">

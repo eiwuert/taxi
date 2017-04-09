@@ -1,39 +1,18 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/09 07:46:50 
+ Generated via "php artisan localization:missing" at 2017/04/09 04:45:54 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled arrived driver' => ' مسافر راننده رسیده را لغو کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled onway driver' => ' مسافر راننده در راه را لغو کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled requested taxi' => ' مسافر تاکسی درخواست داده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client rated not yet driver' => ' مسافر هنوز به راننده امتیاز نداده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rated not yet client' => ' راننده هنوز به مسافر امتیاز نداده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected on arrived status' => '  راننده وضعیت رسیده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected started trip' => ' راننده سفر آغاز شده را رد کرد ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'No driver' => ' بدون راننده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip ended not rated' => ' سفرهای تمام شده بدون امتیاز ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over' => ' سفر به پایان رسیده ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over by admin' => ' سفر توسط راننده به پایان رسید ',
+  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/settings/backup.blade.php
+  'New backup' => 'پشتیبان گیری جدید',
   //==================================== Translations ====================================//
   'About' => 'درباره',
   'Address:' => 'آدرس: ',
   'Admin' => 'ادمین',
   'All' => 'همه',
   'Amount' => 'مقدار',
-  'Ascending' => 'صعودی',
   'Backup' => ' پشتیبان گیری',
   'Built with' => 'ساخته شده با',
   'Canceled' => 'لغو شده',
@@ -42,8 +21,8 @@ return array (
   'Charge' => 'شارژ',
   'Client' => 'مسافر',
   'Clients' => 'مسافرها',
+  'Coding' => 'کد نویسی',
   'Cost' => 'هزینه سفر',
-  'Count' => 'تعداد نمایش',
   'Country' => 'کشور',
   'Country:' => 'کشور: ',
   'Created' => 'ایجاد شده',
@@ -51,9 +30,7 @@ return array (
   'Currency:' => 'واحد پول: ',
   'DISBURSEMENT' => 'پرداخت',
   'Dashboard' => 'داشبورد',
-  'Date range' => 'محدوده زمانی',
   'Delete' => 'حذف',
-  'Descending' => 'نزولی',
   'Destination' => 'مقصد',
   'Details' => 'جزئیات',
   'Device token' => 'رمز دستگاه',
@@ -67,7 +44,6 @@ return array (
   'Download' => 'دانلود',
   'Driver' => ' راننده ',
   'Driver distance' => 'مسافت راننده',
-  'Driver rejected client' => ' رد مسافر توسط راننده ',
   'Drivers' => ' راننده ها ',
   'Duration' => 'مدت زمان',
   'ETA' => 'ETA',
@@ -75,7 +51,6 @@ return array (
   'Email:' => 'ایمیل: ',
   'Entry' => 'ورود',
   'Entry:' => 'ورود: ',
-  'Export' => 'خروجی',
   'Extension' => 'فرمت',
   'FCM' => 'FCM',
   'FCM Logs' => 'FCM Logs',
@@ -96,6 +71,7 @@ return array (
   'Income' => 'درآمد',
   'Info' => 'اطلاعات',
   'Invoice' => 'فاکتور',
+  'Javascript' => 'جاوا اسکریپت',
   'Laravel' => 'لاراول',
   'Last Location' => 'آخرین مکان',
   'Last name' => 'نام خانوادگی',
@@ -112,13 +88,14 @@ return array (
   'More' => 'بیشتر',
   'Multicast ID' => 'شناسه های چند بخشی',
   'Name' => 'نام',
-  'New backup' => 'پشتیبان گیری جدید',
+  'Node' => 'Node.Js',
+  'Notes' => 'یادداشت ها ',
   'Nothing to show here' => 'چیزی برای نمایش وجود ندارد...',
   'Offline' => 'آفلاین',
   'On way' => 'در راه',
   'Online' => 'آنلاین',
   'Only last 100 items listed here' => ' آخرین 100 موارد ذکر شده ',
-  'Order by' => 'مرتب کردن',
+  'PHP' => 'پی اچ پی',
   'Pay cash' => 'پرداخت نقدی',
   'Pay wallet' => 'پرداخت با کیف پول',
   'Payment' => 'پرداخت',
@@ -140,7 +117,7 @@ return array (
   'Setting' => 'تنظیمات',
   'Settings' => 'تنظیمات',
   'Size' => 'اندازه',
-  'Sort by' => 'مرتب سازی بر اساس',
+  'Skills' => 'مهارت ها ',
   'Source' => 'منبع',
   'State' => 'استان',
   'State1' => 'وضعیت',
@@ -167,7 +144,7 @@ return array (
   'Transaction details' => 'جزئیات معامله',
   'Trip' => 'سفر',
   'Trips' => 'سفرها',
-  'Type' => 'نوع',
+  'UI Design' => 'طراحی رابط کاربر',
   'Unapproved' => 'تایید نشده',
   'Unlocked' => 'باز شده',
   'Upload zip file' => 'آپلود فایل زیپ.',

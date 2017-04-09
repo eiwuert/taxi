@@ -1,39 +1,18 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/09 07:46:43 
+ Generated via "php artisan localization:missing" at 2017/04/09 05:32:08 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled arrived driver' => ' Client canceled arrived driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled onway driver' => ' Client canceled onway driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client canceled requested taxi' => ' Client canceled requested taxi ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Client rated not yet driver' => ' Client rated not yet driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rated not yet client' => ' Driver rated not yet client ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected on arrived status' => ' Driver rejected on arrived status ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Driver rejected started trip' => ' Driver rejected started trip ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'No driver' => ' No driver ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip ended not rated' => ' Trip ended not rated ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over' => ' Trip is over ',
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/trips/index.blade.php
-  'Trip is over by admin' => ' Trip is over by admin ',
+  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/drivers/index.blade.php
+  'Date range' => 'Date range',
   //==================================== Translations ====================================//
   'About' => 'About',
   'Address:' => 'Address:',
   'Admin' => 'Admin',
   'All' => 'All',
   'Amount' => 'Amount',
-  'Ascending' => 'Ascending',
   'Backup' => 'Backup',
   'Built with' => 'Built with',
   'Canceled' => 'Canceled',
@@ -43,7 +22,6 @@ return array (
   'Client' => 'Client',
   'Clients' => 'Clients',
   'Cost' => 'Cost',
-  'Count' => 'Count',
   'Country' => 'Country',
   'Country:' => 'Country:',
   'Created' => 'Created',
@@ -51,9 +29,7 @@ return array (
   'Currency:' => 'Currency:',
   'DISBURSEMENT' => 'DISBURSEMENT',
   'Dashboard' => 'Dashboard',
-  'Date range' => 'Date range',
   'Delete' => 'Delete',
-  'Descending' => 'Descending',
   'Destination' => 'Destination',
   'Details' => 'Details',
   'Device token' => 'Device token',
@@ -67,7 +43,6 @@ return array (
   'Download' => 'Download',
   'Driver' => 'Driver',
   'Driver distance' => 'Driver distance',
-  'Driver rejected client' => ' Driver rejected client ',
   'Drivers' => 'Drivers',
   'Duration' => 'Duration',
   'ETA' => 'ETA',
@@ -75,7 +50,6 @@ return array (
   'Email:' => 'Email:',
   'Entry' => 'Entry',
   'Entry:' => 'Entry:',
-  'Export' => 'Export',
   'Extension' => 'Extension',
   'FCM' => 'FCM',
   'FCM Logs' => 'FCM Logs',
@@ -118,7 +92,6 @@ return array (
   'On way' => 'On way',
   'Online' => 'Online',
   'Only last 100 items listed here' => 'Only last 100 items listed here',
-  'Order by' => 'Order by',
   'Pay cash' => 'Pay cash',
   'Pay wallet' => 'Pay wallet',
   'Payment' => 'Payment',
@@ -140,7 +113,6 @@ return array (
   'Setting' => 'Setting',
   'Settings' => 'Settings',
   'Size' => 'Size',
-  'Sort by' => 'Sort by',
   'Source' => 'Source',
   'State' => 'State',
   'State1' => 'State',
@@ -167,7 +139,6 @@ return array (
   'Transaction details' => 'Transaction details',
   'Trip' => 'Trip',
   'Trips' => 'Trips',
-  'Type' => 'Type',
   'Unapproved' => 'UNAPPROVED',
   'Unlocked' => 'Unlocked',
   'Upload zip file' => 'Upload zip file.',
@@ -199,4 +170,15 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
+  //================================== Obsolete strings ==================================//
+  'LLH:obsolete' => 
+  array (
+    'Coding' => 'Coding',
+    'Javascript' => 'Javascript',
+    'Node' => 'Node.Js',
+    'Notes' => 'Notes',
+    'PHP' => 'PHP',
+    'Skills' => 'Skills',
+    'UI Design' => 'UI Design',
+  ),
 );
