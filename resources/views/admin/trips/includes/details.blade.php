@@ -1,17 +1,18 @@
 <div class="box box-solid">
     <div class="box-header">
-        Details
+    @lang('admin/general.Details')
+        
     </div>
     <!-- /.box-header -->
     <div class="box-body">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Status</th>
-                    <th title="Estimate time of arrival">ETA</th>
-                    <th>Distance</th>
-                    <th title="Estimate time of departure">ETD</th>
-                    <th>Driver distance</th>
+                    <th>@lang('admin/general.Status')</th>
+                    <th title="Estimate time of arrival">@lang('admin/general.ETA')</th>
+                    <th>@lang('admin/general.Distance')</th>
+                    <th title="Estimate time of departure">@lang('admin/general.ETD')</th>
+                    <th>@lang('admin/general.Driver distance')</th>
                 </tr>
             </thead>
             <tbody>

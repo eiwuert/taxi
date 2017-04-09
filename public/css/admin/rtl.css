@@ -1,6 +1,43 @@
 .main-sidebar {
   right: 0;
   left: inherit;
+  direction: rtl;
+  padding-right: 5px;
+}
+
+.info-box {
+  text-align: rtl;
+  direction: rtl;
+}
+
+.box-body {
+  direction: rtl;
+}
+
+.box-header.with-border {
+  direction: rtl;
+}
+
+.input-group {
+  direction: rtl;
+}
+
+.box.box-solid {
+  direction: rtl;
+}
+
+.box.box-solid table tr > th {
+  text-align: right !important;
+}
+.main-header .sidebar-toggle{
+  float: right !important;
+}
+
+/* .box.box-solid a{
+    margin-right: 200px;
+} */
+.ranges li {
+  text-align: right;
 }
 
 .content-wrapper, .main-footer {

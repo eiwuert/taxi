@@ -59,7 +59,7 @@
   {!! Form::label('documents', 'Documents: ', ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
     {!! Form::file('documents', null, ['class' => 'form-control']) !!}
-    <p class="help-block">Upload zip file.</p>
+    <p class="help-block">@lang('admin/general.Upload zip file')</p>
   </div>
 </div>
 @else
@@ -75,7 +75,7 @@
     <div class="box-header">
       <h4 class="box-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="">
-        More <i class="fa fa-angle-down"></i>
+        @lang('admin/general.More') <i class="fa fa-angle-down"></i>
       </a>
       </h4>
     </div>
@@ -105,7 +105,7 @@
 </div>
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
   </div>
 </div>
 {!! Form::close() !!}

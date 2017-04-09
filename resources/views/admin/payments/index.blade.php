@@ -1,29 +1,29 @@
 @extends('admin.includes.layout')
 @section('title')
-Payments
+@lang('admin/general.Payments')
 @endsection
 @section('header')
-Payments
+@lang('admin/general.Payments')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active"><i class="ion-card"></i> payments</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li class="active"><i class="ion-card"></i> @lang('admin/general.payments')</li>
 @endsection
 @section('content')
 <div class="row">
   <div class="col-md-4">
     <a href="{{ route('payments.filter') . '?status=cash' }}">
-      <info-box text="Pay cash" number="{{ $countOfCash }}" color="green" icon="ion-cash"></info-box>
+      <info-box text="@lang('admin/general.Pay cash')" number="{{ $countOfCash }}" color="green" icon="ion-cash"></info-box>
     </a>
   </div>
   <div class="col-md-4">
     <a href="{{ route('payments.filter') . '?status=wallet' }}">
-      <info-box text="Pay wallet" number="{{ $countOfWallet }}" color="green" icon="ion-briefcase"></info-box>
+      <info-box text="@lang('admin/general.Pay wallet')" number="{{ $countOfWallet }}" color="green" icon="ion-briefcase"></info-box>
     </a>
   </div>
   <div class="col-md-4">
     <a href="{{ route('payments.filter') . '?status=charge' }}">
-      <info-box text="Charge" number="{{ $countOfCharge }}" color="green" icon="ion-umbrella"></info-box>
+      <info-box text="@lang('admin/general.Charge')" number="{{ $countOfCharge }}" color="green" icon="ion-umbrella"></info-box>
     </a>
   </div>
 </div>
@@ -31,7 +31,7 @@ Payments
   <div class="col-xs-12">
     <div class="box box-solid">
       <div class="box-header">
-        <h3 class="box-title">List</h3>
+        <h3 class="box-title">@lang('admin/general.List')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body table-responsive no-padding">
@@ -40,15 +40,15 @@ Payments
           <tbody>
             <tr>
               <tr>
-                <th>For</th>
-                <th>Client</th>
-                <th>Driver</th>
-                <th>Amount</th>
-                <th>Trip</th>
-                <th>Method</th>
-                <th>Result</th>
-                <th>details</th>
-                <th>Created</th>
+                <th>@lang('admin/general.For')</th>
+                <th>@lang('admin/general.Client')</th>
+                <th>@lang('admin/general.Driver')</th>
+                <th>@lang('admin/general.Amount')</th>
+                <th>@lang('admin/general.Trip')</th>
+                <th>@lang('admin/general.Method')</th>
+                <th>@lang('admin/general.Result')</th>
+                <th>@lang('admin/general.details')</th>
+                <th>@lang('admin/general.Created')</th>
               </tr>
               @foreach($payments as $payment)
               <tr onclick="window.document.location='{{ route('payments.show', ['id' => $payment->id]) }}'" style="cursor: pointer;">

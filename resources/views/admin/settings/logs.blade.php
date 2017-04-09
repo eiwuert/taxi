@@ -1,15 +1,15 @@
 @extends('admin.includes.layout')
 @section('header', 'Logs')
 @section('breadcrumb')
-<li><a href="#"><i class="ion-gear-a"></i> Setting</a></li>
-<li class="active">Logs</li>
+<li><a href="#"><i class="ion-gear-a"></i> @lang('admin/general.Setting')</a></li>
+<li class="active">@lang('admin/general.Logs')</li>
 @endsection
 @section('content')
 <div class="box box-solid">
     <div class="box-header">
-        <h3 class="box-title">System Logs</h3>
+        <h3 class="box-title">@lang('admin/general.System Logs')</h3>
         <span> | </span>
-        <small>Only last 100 items listed here.</small>
+        <small>@lang('admin/general.Only last 100 items listed here')</small>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">

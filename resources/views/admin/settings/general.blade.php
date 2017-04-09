@@ -1,10 +1,10 @@
 @extends('admin.includes.layout')
 @section('header')
-General
+@lang('admin/general.General')
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="fa fa-dashboard"></i> Settings</a></li>
-<li class="active">General</li>
+<li><a href="#"><i class="fa fa-dashboard"></i>@lang('admin/general.Settings') </a></li>
+<li class="active">@lang('admin/general.General')</li>
 @endsection
 @section('content')
 <form method="post" action="{{ action('Admin\Setting\GeneralController@update') }}" class="form-horizontal">
@@ -20,7 +20,7 @@ General
     @endforeach
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
         </div>
     </div>
 </form>

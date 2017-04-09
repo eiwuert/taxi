@@ -3,16 +3,16 @@
   <div class="box-body box-profile">
     <img src="{{ $client->getPicture() }}" alt="User profile picture" class="profile-user-img img-responsive img-circle">
     <h3 class="profile-username text-center">{{ $client->first_name or 'empty' }} {{ $client->last_name or 'empty' }}</h3>
-    <p class="text-muted text-center">Client</p>
+    <p class="text-muted text-center">@lang('admin/general.Client')</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>Trips</b> <a class="pull-right">{{ $client->countOfTrips() }}</a>
+        <b>@lang('admin/general.Trips')</b> <a class="pull-right">{{ $client->countOfTrips() }}</a>
       </li>
       <li class="list-group-item">
-        <b>Disbursement</b> <a class="pull-right">{{ $client->disbursement() }}</a>
+        <b>@lang('admin/general.Disbursement')</b> <a class="pull-right">{{ $client->disbursement() }}</a>
       </li>
       <li class="list-group-item">
-        <b>Rate</b> <a class="pull-right">{{ $client->rate() }}</a>
+        <b>@lang('admin/general.Rate')</b> <a class="pull-right">{{ $client->rate() }}</a>
       </li>
     </ul>
     <div class="row">

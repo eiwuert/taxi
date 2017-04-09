@@ -5,10 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>@lang('admin/general.Laravel')</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        @import url("../assets/sass/fontiran.css");
 
         <!-- Styles -->
         <style>
@@ -68,20 +69,20 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <a href="{{ url('/admin/login') }}">Login</a>
+                    <a href="{{ url('/admin/login') }}">@lang('admin/general.Login')</a>
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    <b>SAAM</b>TAXI
+                    <b>@lang('admin/general.SAAM')</b>@lang('admin/general.TAXI')
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/docs') }}/">wiki</a>
-                    <a href="{{ url('/admin/dashboard') }}">dashboard</a>
-                    <a href="#">blog</a>
-                    <a href="https://gitlab.com/amirmasoud/saam">gitlab</a>
+                    <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
+                    <a href="{{ url('/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="#">@lang('admin/general.blog')</a>
+                    <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
                 </div>
             </div>
         </div>

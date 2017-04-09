@@ -4,7 +4,7 @@
   <div class="widget-user-header bg-gray disabled color-palette">
     <h3 class="widget-user-username">{{ $driver->first_name }} {{ $driver->last_name }}</h3>
     <h5 class="widget-user-desc"><i class="ion-model-s"></i> <i>{{ ucfirst($driver->user->role) }}</i></h5>
-    <h6><a href="{{ route('drivers.show', [$driver]) }}" target="blank"><i class="ion-share"></i> Go to profile</a></h6>
+    <h6><a href="{{ route('drivers.show', [$driver]) }}" target="blank"><i class="ion-share"></i>@lang('admin/general.Go to profile') </a></h6>
   </div>
   <div class="widget-user-image">
     <img class="img-circle" src="{{ $driver->getPicture() }}" alt="User Avatar">
@@ -14,7 +14,7 @@
       <div class="col-sm-4 border-right">
         <div class="description-block">
           <h5 class="description-header">{{ number_format($driver->trips->count()) }}</h5>
-          <span class="description-text">TRIPS</span>
+          <span class="description-text">@lang('admin/general.TRIPS')</span>
         </div>
         <!-- /.description-block -->
       </div>
@@ -22,7 +22,7 @@
       <div class="col-sm-4 border-right">
         <div class="description-block">
           <h5 class="description-header">$ {{ $driver->income() }}</h5>
-          <span class="description-text">INCOME</span>
+          <span class="description-text">@lang('admin/general.INCOME')</span>
         </div>
         <!-- /.description-block -->
       </div>
@@ -30,7 +30,7 @@
       <div class="col-sm-4">
         <div class="description-block">
           <h5 class="description-header">{{ $driver->rate() }}</h5>
-          <span class="description-text">RATE</span>
+          <span class="description-text">@lang('admin/general.RATE')</span>
         </div>
         <!-- /.description-block -->
       </div>

@@ -2,31 +2,31 @@
 @extends('admin.includes.layout')
 @section('header', 'Requests')
 @section('breadcrumb')
-<li><a href="#"><i class="ion-gear-a"></i> Setting</a></li>
-<li class="active">Requests</li>
+<li><a href="#"><i class="ion-gear-a"></i>@lang('admin/general.Setting')</a></li>
+<li class="active">@lang('admin/general.Requests')</li>
 @endsection
 @section('content')
 <div class="box box-solid">
     <div class="box-header">
-        <h3 class="box-title">System requests</h3>
+        <h3 class="box-title">@lang('admin/general.System requests')</h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
         <table class="table table-bordered table-hover table-striped">
             <thead>
                 <tr>
-                    <th>Duration</th>
-                    <th>url</th>
-                    <th>method</th>
-                    <th>ip</th>
-                    <th>locale</th>
-                    <th>languages</th>
-                    <th>charsets</th>
-                    <th>encodings</th>
-                    <th>isXml</th>
-                    <th>proxies</th>
-                    <th>parameters</th>
-                    <th>created</th>
+                    <th>@lang('admin/general.Duration')</th>
+                    <th>@lang('admin/general.url')</th>
+                    <th>@lang('admin/general.method')</th>
+                    <th>@lang('admin/general.ip')</th>
+                    <th>@lang('admin/general.locale')</th>
+                    <th>@lang('admin/general.languages')</th>
+                    <th>@lang('admin/general.charsets')</th>
+                    <th>@lang('admin/general.encodings')</th>
+                    <th>@lang('admin/general.isXml')</th>
+                    <th>@lang('admin/general.proxies')</th>
+                    <th>@lang('admin/general.parameters')</th>
+                    <th>@lang('admin/general.created')</th>
                 </tr>
             </thead>
             <tbody>

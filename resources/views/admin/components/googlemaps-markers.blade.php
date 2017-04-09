@@ -2,9 +2,9 @@
 <div class="box box-solid">
   <div class="box-header with-border">
     <i class="fa fa-map-marker" aria-hidden="true"></i>
-    <h3 class="box-title">Markers</h3>
+    <h3 class="box-title">@lang('admin/general.Markers')</h3>
     <div class="box-tools">
-    <a href="{{ route('maps.fullscreen') }}">Go full screen <i class="ion-arrow-expand"></i></a>
+    <a href="{{ route('maps.fullscreen') }}">@lang('admin/general.Go full screen') <i class="ion-arrow-expand"></i></a>
     </div>
   </div>
   <!-- /.box-header -->

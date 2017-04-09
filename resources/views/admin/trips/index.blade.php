@@ -1,28 +1,28 @@
 @extends('admin.includes.layout')
 @section('title')
-Trips
+@lang('admin/general.Trips')
 @endsection
 @section('header')
-Trips
+@lang('admin/general.Rate')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active"><i class="ion-android-walk"></i> Trips</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li class="active"><i class="ion-android-walk"></i>@lang('admin/general.Trips') </li>
 @endsection
 @section('content')
 <div class="row">
   <div class="col-md-6">
-    <info-box text="Finished" number="{{ $countOfFinishedTrips }}" color="green" icon="ion-android-pin"></info-box>
+    <info-box text="@lang('admin/general.Finished')" number="{{ $countOfFinishedTrips }}" color="green" icon="ion-android-pin"></info-box>
   </div>
   <div class="col-md-6">
-    <info-box text="Canceled" number="{{ $countOfCancelledTrips }}" color="red" icon="ion-android-watch"></info-box>
+    <info-box text="@lang('admin/general.Canceled')" number="{{ $countOfCancelledTrips }}" color="red" icon="ion-android-watch"></info-box>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <div class="box box-solid">
       <div class="box-header with-border">
-        <h3 class="box-title">Monthly Recap Report</h3>
+        <h3 class="box-title">@lang('admin/general.Monthly Recap Report')</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
           </button>
@@ -90,7 +90,7 @@ Trips
     <div class="box box-solid">
       <div class="box-header with-border">
         <i class="fa fa-filter"></i>
-        <h3 class="box-title">Filter</h3>
+        <h3 class="box-title">@lang('admin/general.Filter')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -123,7 +123,7 @@ Trips
     </div>
     <div class="box box-solid">
       <div class="box-header">
-        <h3 class="box-title">List</h3>
+        <h3 class="box-title">@lang('admin/general.List')</h3>
         <div class="box-tools">
           {!! Form::open(['action' => 'Admin\TripController@search', 'method' => 'get']) !!}
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -142,15 +142,15 @@ Trips
           <tbody>
             <tr>
               <tr>
-                <th>Driver</th>
-                <th>Client</th>
-                <th>Source</th>
-                <th>Destination</th>
-                <th>Distance</th>
-                <th>Cost</th>
-                <th>Duration</th>
-                <th>Created at</th>
-                <th>Status</th>
+                <th>@lang('admin/general.Driver')</th>
+                <th>@lang('admin/general.Client')</th>
+                <th>@lang('admin/general.Source')</th>
+                <th>@lang('admin/general.Destination')</th>
+                <th>@lang('admin/general.Distance')</th>
+                <th>@lang('admin/general.Cost')</th>
+                <th>@lang('admin/general.Duration')</th>
+                <th>@lang('admin/general.Created at')</th>
+                <th>@lang('admin/general.Status')</th>
               </tr>
               @foreach($trips as $trip)
               <tr onclick="window.document.location='{{ action('Admin\TripController@show', ['id' => $trip->id]) }}';" style="cursor: pointer;">

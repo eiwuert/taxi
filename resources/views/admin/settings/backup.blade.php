@@ -1,31 +1,31 @@
 @extends('admin.includes.layout')
 @section('header')
-Backup
+@lang('admin/general.Backup')
 @endsection
 @section('desc')
 <a href="{{ route('settings.backup.new') }}">
-    <btn-primary type="button" icon="plus" add-class="btn-xs" text="New backup"></btn-primary>
+    <btn-primary type="button" icon="plus" add-class="btn-xs" text="@lang('admin/general.New backup')"></btn-primary>
 </a>
 @endsection
 @section('breadcrumb')
-<li><a href="#"><i class="ion-gear-a"></i> Setting</a></li>
-<li class="active">Backup</li>
+<li><a href="#"><i class="ion-gear-a"></i>@lang('admin/general.Setting') </a></li>
+<li class="active">@lang('admin/general.Backup')</li>
 @endsection
 @section('content')
 <div class="box box-solid">
     <div class="box-header">
-        <h3 class="box-title">List of backups</h3>
+        <h3 class="box-title">@lang('admin/general.List of backups')</h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
         <table class="table table-striped table-hover">
             <tbody>
                 <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Extension</th>
-                    <th>Permissions</th>
-                    <th>Created</th>
+                    <th>@lang('admin/general.Name')</th>
+                    <th>@lang('admin/general.Size')</th>
+                    <th>@lang('admin/general.Extension')</th>
+                    <th>@lang('admin/general.Permissions')</th>
+                    <th>@lang('admin/general.Created')</th>
                     <th></th>
                 </tr>
                 @foreach($backups as $b)

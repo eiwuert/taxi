@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-Maps
+@lang('admin/general.Maps')
 @endsection
 @section('header')
-Maps
+@lang('admin/general.Maps')
 @endsection
 @section('breadcrumb')
-<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> dashboard</a></li>
-<li class="active"><i class="ion-map"></i> Maps</li>
+<li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
+<li class="active"><i class="ion-map"></i>@lang('admin/general.Maps') </li>
 @endsection
 @section('content')
 <div class="row">
