@@ -292,7 +292,6 @@ class Trip extends Model
     public function scopePassed($query, $seconds = 35)
     {
         $seconds = option('passed', 35);
-        \Log::debug($seconds);
         return $query->where('created_at', '<', Carbon::now()->subSeconds($seconds)->toDateTimeString());
     }
 
