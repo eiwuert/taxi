@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $drivers = number_format(is_object($count = User::driversCount())?0:$count);
         $tripCount = Trip::count();
         $trips   = is_object($tripCount) ? 0 : $tripCount;
-        $income  = number_format($transaction->income(), 2);
+        $income  = number_format($transaction->income());
 
         return view('admin.dashboard', compact('clients', 'drivers', 'trips', 'income'));
     }

@@ -114,6 +114,7 @@
         'items' => \App\Trip::$status])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
         'label' => 'Date range'])
+        @include('admin.components.export')
         {!! Form::close() !!}
       </div>
       <div class="box-footer">

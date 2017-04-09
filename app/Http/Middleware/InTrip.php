@@ -18,9 +18,7 @@ class InTrip
     public function handle($request, Closure $next)
     {
         if (Auth::user()->role == 'client') {
-            $client = User::wherePhone(Auth::user()->phone)
-                            ->orderBy('id', 'desc')
-                            ->first()->client()->first();
+            $client = Auth::user()->client->first();
             $trip = $client->trips()->where('prev', null)->orderBy('id', 'desc')->first();
         } else {
             $driver = Auth::user()->driver()->first();
@@ -28,8 +26,8 @@ class InTrip
         }
         if (is_null($trip)) {
             return fail([
-                'title'  => 'Not on trip',
-                'detail' => 'Not on an active trip right now',
+                'title'  => __('api/trip.Not on trip'),
+                'detail' => __('api/trip.Not on an active trip right now'),
             ]);
         }
 
@@ -37,8 +35,8 @@ class InTrip
             // DRIVER_RATED
             $trip->status_id   ==  16) {
             return fail([
-                'title'  => 'Not on trip',
-                'detail' => 'Not on an active trip right now',
+                'title'  => __('api/trip.Not on trip'),
+                'detail' => __('api/trip.Not on an active trip right now'),
             ]);
         }
 
@@ -46,8 +44,8 @@ class InTrip
             // DRIVER_RATED
             $trip->status_id   ==  15) {
             return fail([
-                'title'  => 'Not on trip',
-                'detail' => 'Not on an active trip right now',
+                'title'  => __('api/trip.Not on trip'),
+                'detail' => __('api/trip.Not on an active trip right now'),
             ]);
         }
 
@@ -62,8 +60,8 @@ class InTrip
             $trip->status_id == 18 ||
             $trip->status_id == 3) {
             return fail([
-                'title'  => 'Not on trip',
-                'detail' => 'Not on an active trip right now',
+                'title'  => __('api/trip.Not on trip'),
+                'detail' => __('api/trip.Not on an active trip right now'),
             ]);
         } else {
             return $next($request);

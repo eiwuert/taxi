@@ -25,7 +25,7 @@
 <!-- /.row -->
 <div class="row">
     <div class=@if(!is_null($trip->driver))"col-md-6"@else"col-md-12"@endif>
-        @include('admin.components.googlemaps-directions', ['trip' => $trip, 'height' => '282px'])
+        @include('admin.components.googlemaps-directions', ['trip' => $trip, 'height' => '357px'])
     </div>
     <!-- /.col -->
     <div class="col-md-6">

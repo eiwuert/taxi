@@ -25,22 +25,22 @@ class SmsController extends Controller
     {
         if (is_null($this->getSMS()->first())) {
             return fail([
-                    'title'  => 'Please ask for verification again',
-                    'detail' => 'There is no active code for verifying this phone number.'
+                    'title'  => __('api/sms.Please ask for verification again'),
+                    'detail' => __('api/sms.There is no active code for verifying this phone number'),
                 ]);
         }
 
         if (Gate::denies('verify')) {
             return fail([
-                    'title'  => 'You are already verified',
-                    'detail' => 'You are verified, there is no need for verify again.'
+                    'title'  => __('api/sms.You are already verified'),
+                    'detail' => __('api/sms.You are verified, there is no need for verify again'),
                 ]);
         }
 
         if (Gate::denies('attempts', $this->getSMS())) {
             return fail([
-                    'title'  => 'Exceed attempts tries',
-                    'detail' => 'You\'ve entered verification code wrong for too many times',
+                    'title'  => __('api/sms.Exceed attempts tries'),
+                    'detail' => __('api/sms.You\'ve entered verification code wrong for too many times'),
                 ]);
         }
 
@@ -52,18 +52,18 @@ class SmsController extends Controller
                 event(new UserVerified(Auth::user()));
                 $this->verifyUser();
                 return ok([
-                            'content' => 'Phone verified successfully'
+                            'content' => __('api/sms.Phone verified successfully'),
                         ]);
             } else {
                 return fail([
-                    'title'  => 'Wrong code',
-                    'detail' => 'You have entered wrong verification code, please check your code again.'
+                    'title'  => __('api/sms.Wrong code'),
+                    'detail' => __('api/sms.You have entered wrong verification code, please check your code again'),
                 ], 404);
             }
         } else {
             return fail([
-                    'title'  => 'Please ask for verification again',
-                    'detail' => 'There is no active code for verifying this phone number.'
+                    'title'  => __('api/sms.Please ask for verification again'),
+                    'detail' => __('api/sms.There is no active code for verifying this phone number'),
                 ], 404);
         }
     }
@@ -78,19 +78,19 @@ class SmsController extends Controller
     {
         if (Gate::denies('verify')) {
             return fail([
-                    'title'  => 'You are already verified',
-                    'detail' => 'You are verified, there is no need for verify again.'
+                    'title'  => __('api/sms.You are already verified'),
+                    'detail' => __('api/sms.You are verified, there is no need for verify again'),
                 ]);
         }
 
         if (Auth::user()->can('resend', Sms::class)) {
             event(new UserRegistered(Auth::user()));
-            return ok(['content' => 'SMS code re-sent successfuly']);
+            return ok(['content' => __('api/sms.SMS code re-sent successfully')]);
         }
 
         return fail([
-                    'title'  => 'You have requested for sms before',
-                    'detail' => 'You have asked for resending sms less than 2 minutes ago.',
+                    'title'  => __('api/sms.You have requested for sms before'),
+                    'detail' => __('api/sms.You have asked for resending sms less than 2 minutes ago'),
                 ]);
     }
 

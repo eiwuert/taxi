@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Trip;
 
+use App\User;
+
 class NearbyRepository
 {
     /**
@@ -38,10 +40,18 @@ class NearbyRepository
     public static function nearby($request)
     {
         $request = self::defaults($request);
-        return nearby($request->lat,
-                      $request->long,
-                      $request->type,
-                      $request->distance,
-                      $request->limit)['result'];
+        $drivers = nearby($request->lat,
+                              $request->long,
+                              $request->type,
+                              $request->distance,
+                              $request->limit)['result'];
+        $nearby = [];
+        foreach ($drivers as $u) {
+            $driver = $u;
+            $driver->angle = User::whereId($u->user_id)->first()
+                                 ->driver->first()->angle();
+            $nearby[] = $driver;
+        }
+        return $nearby;
     }
 }

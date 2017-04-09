@@ -177,6 +177,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Potsky\LaravelLocalizationHelpers\LaravelLocalizationHelpersServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
 
@@ -242,6 +243,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // @todo
         //'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
     ],

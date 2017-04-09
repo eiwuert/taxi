@@ -6,13 +6,13 @@
     <p class="text-muted text-center">@lang('admin/general.Client')</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>@lang('admin/general.Trips')</b> <a class="pull-right">{{ $client->countOfTrips() }}</a>
+        <b>@lang('admin/general.Trips')</b> <span class="pull-right">{{ $client->countOfTrips() }}</span>
       </li>
       <li class="list-group-item">
-        <b>@lang('admin/general.Disbursement')</b> <a class="pull-right">{{ $client->disbursement() }}</a>
+        <b>@lang('admin/general.Disbursement')</b> <span class="pull-right">{{ $client->disbursement() }}</span>
       </li>
       <li class="list-group-item">
-        <b>@lang('admin/general.Rate')</b> <a class="pull-right">{{ $client->rate() }}</a>
+        <b>@lang('admin/general.Rate')</b> <span class="pull-right">{{ $client->rate() }}</span>
       </li>
     </ul>
     <div class="row">

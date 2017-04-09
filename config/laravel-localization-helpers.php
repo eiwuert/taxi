@@ -19,6 +19,7 @@ return array(
 	'folders'             => array(
 		'%BASE/resources/views' ,
 		'%APP/Http/Controllers' ,
+		'%APP/Http/Middleware' ,
 		'%APP/Repositories' ,
 	) ,
 
@@ -88,6 +89,10 @@ return array(
 		'@choice'      => array(
 			'@\@choice\(\s*(\'.*\')\s*,.*\)@U' ,
 			'@\@choice\(\s*(".*")\s*,.*\)@U' ,
+		) ,
+		'__'        => array(
+			'@__\(\s*(\'.*\')\s*(,.*)*\)@U' ,
+			'@__\(\s*(".*")\s*(,.*)*\)@U' ,
 		) ,
 	) ,
 

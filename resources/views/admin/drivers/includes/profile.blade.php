@@ -6,13 +6,13 @@
     <p class="text-muted text-center">@lang('admin/general.Driver')</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>@lang('admin/general.Trips')</b> <a class="pull-right">{{ $driver->countOfTrips() }}</a>
+        <b>@lang('admin/general.Trips')</b> <sapn class="pull-right">{{ $driver->countOfTrips() }}</span>
       </li>
       <li class="list-group-item">
-        <b>@lang('admin/general.Income')</b> <a class="pull-right">{{ $driver->income() }}</a>
+        <b>@lang('admin/general.Income')</b> <span class="pull-right">{{ $driver->income() }}</span>
       </li>
       <li class="list-group-item">
-        <b>@lang('admin/general.Rate')</b> <a class="pull-right">{{ $driver->rate() }}</a>
+        <b>@lang('admin/general.Rate')</b> <span class="pull-right">{{ $driver->rate() }}</span>
       </li>
     </ul>
     <div class="row">
