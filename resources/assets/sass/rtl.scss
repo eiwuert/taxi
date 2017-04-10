@@ -20,6 +20,10 @@ body, h1, h2, h3, h4, h5, h6 {
 .box-header.with-border{
     direction: rtl;
 }
+.box-header > .box-tools{
+    left: 10px !important;
+    right: inherit !important;
+}
 .input-group{
     direction: rtl;
 }
@@ -36,7 +40,18 @@ body, h1, h2, h3, h4, h5, h6 {
     margin-right: 230px;
     margin-left: 0;
 }
-
+.main-header .sidebar-toggle{
+    float: right !important;
+}
+/* .form-control{
+    direction: rtl !important;
+} */
+.form-horizontal .form-group{
+    direction: rtl !important;
+}
+.content-header > .breadcrumb {
+    direction: rtl !important;
+}
 @media (min-width: 768px) {
     .sidebar-collapse .content-wrapper, 
     .sidebar-collapse .right-side, 
@@ -62,6 +77,11 @@ body, h1, h2, h3, h4, h5, h6 {
     .main-sidebar, 
     .left-side {
         margin-right: -230px !important;
+    }
+}
+@media (min-width: 768px){
+    .col-sm-2{
+        float: right !important;
     }
 }
 
