@@ -23,6 +23,7 @@ class PaymentController extends Controller
     public function __construct(Request $response)
     {
         $this->response = $response;
+        $this->middleware(['inTrip', 'notPaid'])->only('ifOnTripAutoDeduct');
     }
 
     /**
@@ -70,6 +71,7 @@ class PaymentController extends Controller
                             'ref'  => $this->response->RefNum,
                             'detail' => $this->response->all(),
                         ]);
+            $this->ifOnTripAutoDeduct();
         } else {
             dispatch(new SendClientNotification('balance_failed_to_update', '11', $client->device_token));
             $payment = $this->payment = Payment::forceCreate([
@@ -189,6 +191,16 @@ class PaymentController extends Controller
                 'detail' => __('api/payment.You don\'t have sufficient balance in your wallet')
             ]);            
         }
+    }
+
+    /**
+     * Determine if the client is on a trip, auto deduct the amount from client
+     * wallet and make the trip as paid.
+     * @return void
+     */
+    private function ifOnTripAutoDeduct()
+    {
+        $this->withWallet();
     }
 
     /**

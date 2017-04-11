@@ -72,6 +72,10 @@ body, h1, h2, h3, h4, h5, h6 {
     margin-right: -5px;
 }
 
+.sidebar-menu > li > a > i {
+    padding: 0 5px;
+} 
+
 .user-panel > .info {
     left: inherit;
     right: 55px;
@@ -87,4 +91,18 @@ body, h1, h2, h3, h4, h5, h6 {
 .user-panel > .info > a > .glyphicon {
     margin-right: 0;
     margin-left: 3px;
+}
+
+/**
+ * Components
+ */
+.fullscreen-link {
+    left: 10px !important;
+    right: inherit !important;
+}
+
+@media (min-width: 768px) {
+    .sidebar-mini.sidebar-collapse .sidebar-menu > li > a {
+        padding-right: 17px;
+    }
 }
