@@ -212,13 +212,15 @@ class PaymentController extends Controller
         $client = Auth::user()->client()->first();
         $trip = $client->trips()->orderBy('id', 'desc')->first();
         dispatch(new SendDriverNotification('pay_cash', '6', $trip->driver->device_token));
-        Payment::forceCreate([
-            'trip_id' => $trip->id,
-            'client_id' => $client->id,
-            'paid' => true,
-            'type' => 'cash',
-            'ref'  => '00000',
-        ]);
+        // Default pay method is cash, so we will not persist this record until 
+        // end of the trip.
+        // Payment::forceCreate([
+        //     'trip_id' => $trip->id,
+        //     'client_id' => $client->id,
+        //     'paid' => true,
+        //     'type' => 'cash',
+        //     'ref'  => '00000',
+        // ]);
         return ok([
             'title'  => __('api/payment.Pay in cash'),
             'detail' => __('api/payment.Please pay trip cost to the driver')

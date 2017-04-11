@@ -5,6 +5,8 @@ namespace App\Listeners;
 use DB;
 use App\User;
 use App\Events\UserVerified;
+use App\Jobs\SendDriverNotification;
+use App\Jobs\SendClientNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -20,14 +22,17 @@ class RevokeOtherAccessToken
     {
         if ($event->user->role == 'driver') {
             // DRIVER
-            $toRevoke = User::wherePhone($event->user->phone)
-                            ->select('id')
-                            ->where('id', '<>', $event->user->id)
-                            ->where('role', 'driver')
-                            ->get(['id']);
-
+            $toRevoke = \App\User::wherePhone($event->user->phone)
+                ->select('id')
+                ->where('id', '<>', $event->user->id)
+                ->where('role', 'driver');
+            foreach ($toRevoke->get() as $user) {
+                if (! $user->driver->isEmpty()) {
+                    dispatch(new SendDriverNotification('logout', '12', $user->driver->first()->device_token));
+                }
+            }
             DB::table('oauth_access_tokens')
-                ->whereIn('user_id', $toRevoke->flatten())
+                ->whereIn('user_id', $toRevoke->get(['id'])->flatten())
                 ->where('name', 'driver')
                 ->update(['revoked' => true]);
         } else if ($event->user->role == 'client') {
@@ -35,11 +40,14 @@ class RevokeOtherAccessToken
             $toRevoke = User::wherePhone($event->user->phone)
                             ->select('id')
                             ->where('id', '<>', $event->user->id)
-                            ->where('role', 'client')
-                            ->get(['id']);
-
+                            ->where('role', 'client');
+            foreach ($toRevoke->get() as $user) {
+                if (! $user->client->isEmpty()) {
+                    dispatch(new SendClientNotification('logout', '8', $user->client->first()->device_token));
+                }
+            }
             DB::table('oauth_access_tokens')
-                ->whereIn('user_id', $toRevoke->flatten())
+                ->whereIn('user_id', $toRevoke->get(['id'])->flatten())
                 ->where('name', 'client')
                 ->update(['revoked' => true]);
         }

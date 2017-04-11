@@ -24,9 +24,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\RateTrip',
         ],
         'App\Events\UserVerified' => [
+            'App\Listeners\RevokeOtherAccessToken',
             'App\Listeners\MultiRecordClient',
             'App\Listeners\MultiRecordDriver',
-            'App\Listeners\RevokeOtherAccessToken',
         ],
         'Laravel\Passport\Events\AccessTokenCreated' => [
             /* */

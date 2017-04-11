@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Trip;
 
-use Auth;
-use App\Status;
 use App\Client;
 use App\Events\TripEnded;
 use App\Jobs\SendClientNotification;
+use App\Payment;
+use App\Status;
+use Auth;
 
 class EndRepository
 {
@@ -27,7 +28,13 @@ class EndRepository
         }
 
         if (! $trip->payments()->paid()->exists()) {
-            return ['fail' => 'not_paid'];
+            Payment::forceCreate([
+                'trip_id' => $trip->id,
+                'client_id' => $trip->client->id,
+                'paid' => true,
+                'type' => 'cash',
+                'ref'  => '00000',
+            ]);
         }
 
         if ($trip->status_id == 6) {
