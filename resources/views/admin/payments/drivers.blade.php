@@ -22,21 +22,21 @@
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\PaymentController@drivers', 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'sortby',
-        'label' => 'Sort by',
+        'label' => __('admin/general.Sort by'),
         'items' => \App\Driver::$sortable])
         @include('components.bootstrap.select', ['name' => 'orderby',
-        'label' => 'Order by',
+        'label' => __('admin/general.Order by'),
         'items' => [
-        'asc'  => 'Ascending',
-        'desc' => 'Descending']])
+        'asc'  => __('admin/general.Ascending'),
+        'desc' => __('admin/general.Descending')]])
         @include('components.bootstrap.select', ['name' => 'count',
-        'label' => 'Count',
+        'label' => __('admin/general.Count'),
         'items' => [
         15 => 15,
         30 => 30,
         'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-        'label' => 'Date range'])
+        'label' => __('admin/general.Date range')])
         {!! Form::close() !!}
       </div>
       <div class="box-footer">

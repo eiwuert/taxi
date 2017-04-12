@@ -55,7 +55,7 @@ class ClientController extends Controller
     public function update(ClientRequest $request, Client $client)
     {
         $client->forceFill($request->except(['_method', '_token']))->save();
-        flash('Client updated', 'success');
+        flash(__('admin/general.Client updated'), 'success');
         return redirect()->back();
     }
 
@@ -68,7 +68,7 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
-        flash('Client soft deleted', 'success');
+        flash(__('admin/general.Client soft deleted'), 'success');
         return redirect(route('clients.index'));
     }
 
@@ -135,7 +135,7 @@ class ClientController extends Controller
         $client = Client::whereId($client->id)->firstOrFail();
         $client->lock = true;
         $client->update();
-        flash('Client locked', 'success');
+        flash(__('admin/general.Client locked'), 'success');
         return back();
     }
 
@@ -149,7 +149,7 @@ class ClientController extends Controller
         $client = Client::whereId($client->id)->firstOrFail();
         $client->lock = false;
         $client->update();
-        flash('Client unlocked', 'success');
+        flash(__('admin/general.Client unlocked'), 'success');
         return back();
     }
 
@@ -192,7 +192,7 @@ class ClientController extends Controller
     {
         DB::table('clients')->where('id', $client->id)
             ->update(['picture' => 'no-profile.png']);
-        flash('Client picture deleted.', 'success');
+        flash(__('admin/general.Client picture deleted'), 'success');
         return redirect(route('clients.show', ['client'=>$client]));
     }
 }

@@ -28,7 +28,7 @@ class WebController extends Controller
     {
         $profile = Auth::user()->web;
         $profile->fill($request->all())->save();
-        flash('Profile updated.');
+        flash(__('admin/general.Profile updated'));
         return back();
     }
 }

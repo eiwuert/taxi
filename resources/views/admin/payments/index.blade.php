@@ -38,13 +38,13 @@
       <div class="box-body">
         {!! Form::open(['action' => ['Admin\PaymentController@filter'], 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'count',
-        'label' => 'Count',
+        'label' => __('admin/general.Count'),
         'items' => [
         15 => 15,
         30 => 30,
         'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-        'label' => 'Date range'])
+        'label' => __('admin/general.Date range')])
         @include('admin.components.export')
         {!! Form::close() !!}
       </div>

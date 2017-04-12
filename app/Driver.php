@@ -177,16 +177,16 @@ class Driver extends Model
     {
         if ($this->online && $this->available && $this->approve) {
             return (object) ['color' => 'success',
-                            'name' => 'Online'];
+                            'name' => __('admin/general.Online')];
         } elseif (! $this->approve) {
             return (object) ['color' => 'danger',
-                            'name' => 'not approved'];
+                            'name' => __('admin/general.not approved')];
         } elseif ($this->online && ! $this->available) {
             return (object) ['color' => 'primary',
-                            'name' => 'onway'];
+                            'name' => __('admin/general.onway')];
         } else {
             return (object) ['color' => 'warning',
-                            'name' => 'Offline'];
+                            'name' => __('admin/general.Offline')];
         }
     }
 

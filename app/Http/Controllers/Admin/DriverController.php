@@ -56,7 +56,7 @@ class DriverController extends Controller
     {
         $this->uploadDocuments($request->documents, $driver->user->id);
         $driver->update($request->all());
-        flash('Driver updated', 'success');
+        flash(__('admin/general.Driver updated'), 'success');
         return redirect()->back();
     }
 
@@ -69,7 +69,7 @@ class DriverController extends Controller
     public function destroy(Driver $driver)
     {
         $driver->delete();
-        flash('Driver soft deleted', 'success');
+        flash(__('admin/general.Driver soft deleted'), 'success');
         return redirect(route('drivers.index'));
     }
 
@@ -85,7 +85,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver approved', 'success');
+        flash(__('admin/general.Driver approved'), 'success');
         return back();
     }
 
@@ -101,7 +101,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver declined', 'success');
+        flash(__('admin/general.Driver declined'), 'success');
         return back();
     }
 
@@ -204,7 +204,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver is offline now', 'success');
+        flash(__('admin/general.Driver is offline now'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 
@@ -236,7 +236,7 @@ class DriverController extends Controller
     {
         DB::table('drivers')->where('id', $driver->id)
             ->update(['picture' => 'no-profile.png']);
-        flash('Driver picture deleted.', 'success');
+        flash(__('admin/general.Driver picture deleted'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 
@@ -248,7 +248,7 @@ class DriverController extends Controller
     public function deleteDocument(Driver $driver)
     {
         UserMeta::where('user_id', $driver->user->id)->delete();
-        flash('Driver documents deleted.', 'success');
+        flash(__('admin/general.Driver documents deleted'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 }

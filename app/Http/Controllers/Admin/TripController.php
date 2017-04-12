@@ -54,7 +54,7 @@ class TripController extends Controller
      */
     public function cancel($trip)
     {
-        flash('Trip ended.', 'success');
+        flash(__('admin/general.Trip ended'), 'success');
         return TripRepository::hardCancel($trip);
     }
 

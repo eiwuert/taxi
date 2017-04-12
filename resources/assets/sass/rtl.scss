@@ -107,6 +107,18 @@ body, h1, h2, h3, h4, h5, h6 {
 .content-header > .breadcrumb {
     direction: rtl !important;
 }
+.close {
+    float: left !important;
+}
+.progress-group .progress-number{
+    float: left !important;
+}
+.checkbox label{
+   direction: rtl !important;   
+}
+.navbar-nav > .user-menu {
+    margin-right: -40px;
+}
 @media (min-width: 768px) {
     .sidebar-collapse .content-wrapper, 
     .sidebar-collapse .right-side, 
