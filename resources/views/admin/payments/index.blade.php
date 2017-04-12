@@ -36,7 +36,7 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        {!! Form::open(['action' => 'Admin\PaymentController@filterTrips', 'method' => 'get', 'class' => 'form-inline']) !!}
+        {!! Form::open(['action' => ['Admin\PaymentController@filter'], 'method' => 'get', 'class' => 'form-inline']) !!}
         @include('components.bootstrap.select', ['name' => 'count',
         'label' => 'Count',
         'items' => [

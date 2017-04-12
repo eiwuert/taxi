@@ -53,7 +53,7 @@
     <i class="fa fa-star bg-yellow"></i>
     <div class="timeline-item">
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->rate->created_at->diffForHumans() }}</span>
-      <h3 class="timeline-header">C@lang('admin/general.client') @include('admin.includes.stars', ['stars' => $t->rataOfClientToDriver()->client ])</h3>
+      <h3 class="timeline-header">@lang('admin/general.client') @include('admin.includes.stars', ['stars' => $t->rataOfClientToDriver()->client ])</h3>
       @if( $t->rataOfClientToDriver()->client_comment != '' )
       <div class="timeline-body">
         {{ $t->rataOfClientToDriver()->client_comment }}

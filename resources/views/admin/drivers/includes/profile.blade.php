@@ -21,7 +21,7 @@
         ['driver' => $driver,
         'addClass' => 'btn-block',
         'icon' => 'trash',
-        'text' => 'Delete'])
+        'text' => __('admin/general.Delete')])
       </div>
       <div class="col-md-6 col-xs-12">
         @if ($driver->approve == true)
@@ -29,13 +29,13 @@
         ['driver' => $driver,
         'addClass' => 'btn-block',
         'icon' => 'times',
-        'text' => 'Decline'])
+        'text' => __('admin/general.Decline')])
         @else
         @include('admin.drivers.includes.approve',
         ['driver' => $driver,
         'addClass' => 'btn-block',
         'icon' => 'check',
-        'text' => 'Approve'])
+        'text' => __('admin/general.Approve')])
         @endif
       </div>
     </div>

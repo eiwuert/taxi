@@ -10,7 +10,7 @@
   <!-- /.box-header -->
   <div class="box-body">
     <input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location">
+        placeholder="@lang('admin/general.Enter a location')">
     <div id="map" style="min-height: {{ $height or '400px' }};"></div>
   </div>
   <!-- /.box-body -->
@@ -18,7 +18,7 @@
 <!-- /.box -->
 @else
 <input id="pac-input" class="controls" type="text"
-    placeholder="Enter a location">
+    placeholder="@lang('admin/general.Enter a location')">
 <div id="map"></div>
 @endif
 @push('style')
@@ -78,15 +78,6 @@
       streetViewControl: false
     });
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        map.setCenter(pos);
-      });
-    }
     clearMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
       addMarker(neighborhoods[i], info[i]);

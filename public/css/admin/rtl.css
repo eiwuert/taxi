@@ -1,5 +1,6 @@
 body, h1, h2, h3, h4, h5, h6 {
   font-family: BBCNassim,sans-serif;
+  direction: rtl;
 }
 
 .main-sidebar {
@@ -50,6 +51,8 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .main-header .sidebar-toggle {
   float: right !important;
+  width: 50px;
+  text-align: center;
 }
 
 /* .form-control{
@@ -135,6 +138,22 @@ body, h1, h2, h3, h4, h5, h6 {
   .sidebar-mini.sidebar-collapse .sidebar-menu > li > a {
     padding-right: 17px;
   }
+}
+
+ul.list-group {
+  padding-right: 0;
+}
+
+li.list-group-item span.pull-right {
+  float: left !important;
+}
+
+.time-label span, div.timeline-item span.time {
+  float: left !important;
+}
+
+.content-header > h1 {
+  text-align: left;
 }
 
 /*# sourceMappingURL=rtl.css.map */

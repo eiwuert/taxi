@@ -14,6 +14,9 @@
       <li class="list-group-item">
         <b>@lang('admin/general.Rate')</b> <span class="pull-right">{{ $client->rate() }}</span>
       </li>
+      <li class="list-group-item">
+        <b>@lang('admin/general.Balance')</b> <span class="pull-right">{{ $client->balance }}</span>
+      </li>
     </ul>
     <div class="row">
       <div class="col-md-6 col-xs-12">
@@ -21,7 +24,7 @@
         ['client' => $client,
         'addClass' => 'btn-block',
         'icon' => 'trash',
-        'text' => 'Delete'])
+        'text' => __('admin/general.Delete')])
       </div>
       <div class="col-md-6 col-xs-12">
         @if ($client->lock == true)
@@ -29,13 +32,13 @@
         ['client' => $client,
         'addClass' => 'btn-block',
         'icon' => 'unlock',
-        'text' => 'Unlock'])
+        'text' => __('admin/general.Unlock')])
         @else
         @include('admin.clients.includes.lock',
         ['client' => $client,
         'addClass' => 'btn-block',
         'icon' => 'lock',
-        'text' => 'Lock'])
+        'text' => __('admin/general.Lock')])
         @endif
       </div>
     </div>

@@ -32,18 +32,18 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th colspan="2">Details</th>
+                            <th colspan="2">@lang('admin/general.Details')</th>
                         </tr>
                         <tr>
-                            <th style="width:50%">Currency:</th>
+                            <th style="width:50%">@lang('admin/general.Currency:')</th>
                             <td>{{ $trip->transaction->currency }}</td>
                         </tr>
                         <tr>
-                            <th>Car type:</th>
+                            <th>@lang('admin/general.Car type:')</th>
                             <td>{{ ucfirst($trip->transaction->type->name) }}</td>
                         </tr>
                         <tr>
-                            <th>Time zone:</th>
+                            <th>@lang('admin/general.Time zone:')</th>
                             <td>{{ $trip->transaction->timezone }}</td>
                         </tr>
                     </tbody>
@@ -53,26 +53,26 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th colspan="2">Charged</th>
+                            <th colspan="2">@lang('admin/general.Charged')</th>
                         </tr>
                         <tr>
-                            <th style="width:50%">Subtotal:</th>
+                            <th style="width:50%">@lang('admin/general.Subtotal:')</th>
                             <td>{{ $trip->transaction->withoutSurcharge() }}</td>
                         </tr>
                         <tr>
-                            <th>Surcharge:</th>
+                            <th>@lang('admin/general.Surcharge:')</th>
                             <td>× {{ $trip->transaction->surcharge }}</td>
                         </tr>
                         <tr>
-                            <th>Total:</th>
+                            <th>@lang('admin/general.Total:')</th>
                             <td>{{ number_format($trip->transaction->total) }}</td>
                         </tr>
                         <tr>
-                            <th>Our share:</th>
+                            <th>@lang('admin/general.Our share:')</th>
                             <td>{{ number_format($trip->transaction->ourShare()) }} ({{ $trip->transaction->ourCommission() }})</td>
                         </tr>
                         <tr>
-                            <th>Driver share:</th>
+                            <th>@lang('admin/general.Driver share:')</th>
                             <td>{{ number_format($trip->transaction->driverShare()) }} ({{ $trip->transaction->driverCommission() }})</td>
                         </tr>
                     </tbody>

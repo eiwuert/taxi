@@ -3,7 +3,7 @@
   <!-- Add the bg color to the header using any of the bg-* classes -->
   <div class="widget-user-header bg-gray disabled color-palette">
     <h3 class="widget-user-username">{{ $driver->first_name }} {{ $driver->last_name }}</h3>
-    <h5 class="widget-user-desc"><i class="ion-model-s"></i> <i>{{ ucfirst($driver->user->role) }}</i></h5>
+    <h5 class="widget-user-desc"><i class="ion-model-s"></i> <i>{{ __('admin/general.' . $driver->user->role) }}</i></h5>
     <h6><a href="{{ route('drivers.show', [$driver]) }}" target="blank"><i class="ion-share"></i>@lang('admin/general.Go to profile') </a></h6>
   </div>
   <div class="widget-user-image">

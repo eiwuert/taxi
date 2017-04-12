@@ -1,7 +1,7 @@
 <div class="box box-solid">
   <div class="box-header with-border">
     <i class="fa fa-bar-chart-o"></i>
-    <h3 class="box-title">{{ $title or 'Line Chart' }}</h3>
+    <h3 class="box-title">{{ $title or __('admin/general.Line Chart') }}</h3>
   </div>
   <div class="box-body">
     <div id="line-chart" style="height: 300px; padding: 0px; position: relative;"></div>
@@ -53,13 +53,13 @@ $("#line-chart").bind("plothover", function (event, pos, item) {
   if (item) {
     var x = item.datapoint[0];
     if (x == 1) {
-      x = '1st';
+      x = "@lang('admin/general.1st')";
     } else if (x == 2) {
-      x = '2nd';
+      x = "@lang('admin/general.2nd')";
     } else if (x == 3) {
-      x = '3rd';
+      x = "@lang('admin/general.3rd')";
     } else {
-      x = x + 'th';
+      x = x + "@lang('admin/general.th')";
     }
     y = item.datapoint[1];
     $("#line-chart-tooltip").html(x + " = " + y)

@@ -18,7 +18,7 @@
     <div class="box box-solid">
       <div class="box-header with-border">
         <i class="fa fa-filter"></i>
-        <h3 class="box-title">Filter</h3>
+        <h3 class="box-title">@lang('admin/general.Filter')</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -27,13 +27,13 @@
             class="form-inline"> 
         <input type="hidden" type="text" value="{{ csrf_token() }}" />
         @include('components.bootstrap.select', ['name' => 'count',
-        'label' => 'Count',
+        'label' => __('admin/general.Count'),
         'items' => [
         15 => 15,
         30 => 30,
         'all' => 'All']])
         @include('components.bootstrap.daterangepicker', ['name' => 'date_range',
-        'label' => 'Date range'])
+        'label' => __('admin/general.Date range')])
         @include('admin.components.export')
         </form>
       </div>

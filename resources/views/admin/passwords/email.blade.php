@@ -3,7 +3,7 @@
 <body class="hold-transition login-page">
     <div class="login-box" id="admin">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><b>@lang('admin/general.SAAM')</b>Taxi</a>
+            <a href="{{ url('/') }}"> {{ config('app.name') }}</a>
             <p>@lang('admin/general.Reset Password')</p>
         </div>
         <!-- /.login-logo -->
