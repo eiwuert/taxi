@@ -45,13 +45,14 @@ class CurrentRepository extends Main
         $source = $trip->source()->first(['latitude', 'longitude', 'name']);
         $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
         $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
-        $paid = $trip->payments()->paid()->exists();
-        $payment = is_null($payment = $trip->payments()->paid()->first())?'to select':$payment->type;
+        // Will be true always.
+        // $paid = $trip->payments()->paid()->exists();
+        $payment = is_null($payment = $trip->payments()->paid()->first())?'cash':$payment->type;
         unset($client->user_id, $trip->id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id,
               $trip->status_id, $trip->source, $trip->destination, $trip->created_at, $trip->updated_at,
               $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
         return [
-            'paid'        => $paid,
+            'paid'        => true,
             'payment'     => $payment,
             'client'      => $client,
             'trip'        => $trip,
