@@ -71,7 +71,7 @@ class PaymentController extends Controller
                             'ref'  => $this->response->RefNum,
                             'detail' => $this->response->all(),
                         ]);
-            $this->ifOnTripAutoDeduct();
+            $this->ifOnTripAutoDeduct($client);
         } else {
             dispatch(new SendClientNotification('balance_failed_to_update', '11', $client->device_token));
             $payment = $this->payment = Payment::forceCreate([
@@ -163,11 +163,14 @@ class PaymentController extends Controller
 
     /**
      * Deduct client balance for the trip.
+     * @param  App\Client $client
      * @return json
      */
-    public function withWallet()
+    public function withWallet($client = null)
     {
-        $client = Auth::user()->client()->first();
+        if (is_null($client)) {
+            $client = Auth::user()->client()->first();
+        }
         $trip = $client->trips()->orderBy('id', 'desc')->first();
         $cost = $trip->transaction->total;
         if ($client->balance >= $cost) {
@@ -196,11 +199,12 @@ class PaymentController extends Controller
     /**
      * Determine if the client is on a trip, auto deduct the amount from client
      * wallet and make the trip as paid.
+     * @param  App\Client $client
      * @return void
      */
-    private function ifOnTripAutoDeduct()
+    private function ifOnTripAutoDeduct($client)
     {
-        $this->withWallet();
+        $this->withWallet($client);
     }
 
     /**
