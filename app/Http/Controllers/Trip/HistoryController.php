@@ -23,15 +23,10 @@ class HistoryController extends Controller
      */
     public function client()
     {
-        $clientIds = Client::whereIn('user_id', User::wherePhone(Auth::user()->phone)
-                                                ->whereVerified(true)
-                                                ->where('role', 'client')
-                                                ->get(['id']))->get(['id']);
-
-        return ok($this->formatClientTrips(Trip::whereIn('client_id', $clientIds)
-                                                ->whereIn('status_id', ['5', '8', '11', '13', '14', '9', '15', '16', '17'])
-                                                ->orderBy('id', 'desc')
-                                                ->get()), 200, [], false);
+        return ok($this->formatDriverTrips(Auth::user()->client()->first()
+                                            ->trips()->whereIn('status_id', ['9', '15', '16', '17'])
+                                            ->orderBy('id', 'desc')
+                                            ->get()), 200, [], false);
     }
 
     /**
@@ -68,6 +63,8 @@ class HistoryController extends Controller
             $t->rate = $t->rate;
 
             unset($t->id,
+                  $t->next,
+                  $t->prev,
                   $t->driver_id,
                   $t->client_id,
                   $t->updated_at,
