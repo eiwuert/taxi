@@ -52,10 +52,10 @@ class UserLang
                   ? $this->request->get('lang') 
                   : $this->request->segment(1);
             // Switch to segment 1 language or user defined language.
-            $this->switch($lang);
+            $this->changeTo($lang);
         } else {
             // Switch to user (API) preselected language.
-            $this->switch(call_user_func([$user, $user->role])->first()->lang);
+            $this->changeTo(call_user_func([$user, $user->role])->first()->lang);
         }
         return $next($request);
     }
@@ -66,7 +66,7 @@ class UserLang
      * @param  string $lang
      * @return void
      */
-    private function switch($lang)
+    private function changeTo($lang)
     {
         Carbon::setLocale($lang);
         App::setLocale($lang);
