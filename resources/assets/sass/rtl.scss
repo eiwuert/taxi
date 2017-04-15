@@ -163,21 +163,22 @@ body, h1, h2, h3, h4, h5, h6 {
     padding: 0 5px;
 } 
 
-.user-panel > .info {
-    left: inherit;
-    right: 55px;
-}
-
-.user-panel > .info > a {
-    padding-right: 0px;
-    padding-left: 5px;
-}
-
-.user-panel > .info > a > .fa, 
-.user-panel > .info > a > .ion, 
-.user-panel > .info > a > .glyphicon {
-    margin-right: 0;
-    margin-left: 3px;
+.user-panel {
+    .image {
+        float: right !important;
+    }
+    > .info {
+        left: inherit;
+        right: 55px;
+    }
+    > a {
+        padding-right: 0px;
+        padding-left: 5px;
+        .fa, .ion, .glyphicon {
+            margin-right: 0;
+            margin-left: 3px;
+        }
+    }
 }
 
 /**
@@ -198,10 +199,8 @@ ul.list-group {
     padding-right: 0;
 }
 
-li.list-group-item {
-    span.pull-right {
-        float: left !important;
-    }
+span.pull-right{
+    float: left !important;
 }
 
 .time-label span, div.timeline-item span.time {

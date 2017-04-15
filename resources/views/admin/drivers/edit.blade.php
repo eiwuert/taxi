@@ -20,13 +20,13 @@
 <div class="form-group">
     {!! Form::label('email', __('admin/general.Email: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+        {!! Form::text('email', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
     </div>
 </div>
 <div class="form-group">
     {!! Form::label('gender', __('admin/general.Gender: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::select('gender', ['male' => 'male', 'female' => 'female', 'not specified'=>'not specified'],
+        {!! Form::select('gender', ['male' => __('admin/general.male'), 'female' => __('admin/general.female'), 'not specified'=> __('admin/general.not specified')],
         null, ['class' => 'form-control']) !!}
     </div>
 </div>
@@ -77,7 +77,7 @@
     {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
         <div class="btn btn-sm btn-default btn-file">
-            <i class="fa fa-picture-o"></i> Choose picture
+            <i class="fa fa-picture-o"></i> @lang('admin/general.Choose picture')
             {!! Form::file('picture', null, ['class' => 'form-control']) !!}
         </div>
     </div>

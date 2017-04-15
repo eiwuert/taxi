@@ -10,6 +10,7 @@ use App\Driver;
 use App\UserMeta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\TripRepository;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\DriverRequest;
 use App\Repositories\ExportRepository as Export;
@@ -201,11 +202,50 @@ class DriverController extends Controller
      */
     public function offline(Driver $driver)
     {
+        if (! $this->canChangeState($driver)) {
+            flash(__('admin/general.Driver is in trip'), 'danger');
+            return redirect(route('drivers.show', ['driver'=>$driver]));
+        }
         $driver->online = false;
         $driver->available = false;
         $driver->update();
         flash(__('admin/general.Driver is offline now'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
+    }
+
+    /**
+     * Make an driver online manually
+     * @return Illuminate\Http\Response
+     */
+    public function online(Driver $driver)
+    {
+        if (! $this->canChangeState($driver)) {
+            flash(__('admin/general.Driver is in trip'), 'danger');
+            return redirect(route('drivers.show', ['driver'=>$driver]));
+        }
+        $driver->online = true;
+        $driver->available = true;
+        $driver->update();
+        flash(__('admin/general.Driver is online now'), 'success');
+        return redirect(route('drivers.show', ['driver'=>$driver]));
+    }
+
+    /**
+     * Can driver change state.
+     * 
+     * @param  \App\Driver $driver
+     * @return void|Illuminate\Support\Facades\Redirect
+     */
+    private function canChangeState($driver)
+    {
+        if (! is_null($driver->trips())) {
+            $trip = $driver->trips()->whereNotIn('status_id', \App\Trip::$ended)->orderBy('id', 'desc')->first();
+            if (!is_null($trip)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /**
@@ -220,8 +260,8 @@ class DriverController extends Controller
             return;
         } else {
             UserMeta::create([
-                'name' => 'documents_' . $for, 
-                'value' => basename($file->store('public/documents/')), 
+                'name' => 'documents_' . $for,
+                'value' => basename($file->store('public/documents/')),
                 'user_id' => $for,
             ]);
         }

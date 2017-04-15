@@ -27,4 +27,18 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', compact('clients', 'drivers', 'trips', 'income'));
     }
+
+    /**
+     * Switch language between en and fa.
+     * @return \Illuminate\Support\Facades\Redirect
+     */
+    public function switch()
+    {
+        $lang = \Request::segment(1);
+        if ($lang == 'fa') {
+            return redirect()->to('en/admin/dashboard');
+        } else {
+            return redirect()->to('fa/admin/dashboard');
+        }
+    }
 }

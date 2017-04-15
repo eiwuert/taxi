@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 
+use App;
 use Auth;
 use Blade;
 use Request;
-use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 use Laravel\Dusk\DuskServiceProvider;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +25,13 @@ class AppServiceProvider extends ServiceProvider
         View::share('taxi', 'TAXI');
         Blade::directive('jsonify', function ($expression) {
             return "<?php echo json_encode($expression); ?>";
+        });
+        Validator::extend('sizeOfPhone', function($attribute, $value, $parameters, $validator) {
+            return strlen($value) == 10 || strlen($value) == 11;
+        });
+
+        Validator::replacer('sizeOfPhone', function($message, $attribute, $rule, $parameters) {
+            return __('validation.sizeOfPhone');
         });
     }
 

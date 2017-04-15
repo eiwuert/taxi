@@ -79,7 +79,7 @@
 
                 <div class="links">
                     <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
-                    <a href="{{ url('/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="{{ url('/admin/fa/dashboard') }}">@lang('admin/general.dashboard')</a>
                     <a href="#">@lang('admin/general.blog')</a>
                     <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
                 </div>

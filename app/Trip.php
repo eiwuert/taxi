@@ -65,6 +65,12 @@ class Trip extends Model
     public static $finished = [9, 15, 16, 17];
 
     /**
+     * Finished or canceled.
+     * @var array
+     */
+    public static $ended = [10, 5, 4, 11, 8, 13, 14, 17, 18, 3];
+
+    /**
      * The event map for the model.
      *
      * @var array

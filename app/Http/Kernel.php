@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+            \App\Http\Middleware\UserLang::class,
         ],
 
         'api' => [
@@ -40,6 +41,7 @@ class Kernel extends HttpKernel
             'bindings',
             'post.size',
             'log.req',
+            'lang'
         ],
     ];
 
@@ -68,6 +70,7 @@ class Kernel extends HttpKernel
         'log.req'    => \App\Http\Middleware\LogAfterRequest::class,
         'csrf'       => \App\Http\Middleware\VerifyCsrfToken::class,
         'inTrip'     => \App\Http\Middleware\InTrip::class,
-        'notPaid'     => \App\Http\Middleware\NotPaid::class,
+        'notPaid'    => \App\Http\Middleware\NotPaid::class,
+        'lang'       => \App\Http\Middleware\UserLang::class,
     ];
 }

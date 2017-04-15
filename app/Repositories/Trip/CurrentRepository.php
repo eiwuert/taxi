@@ -86,7 +86,7 @@ class CurrentRepository extends Main
                                     ->first(['latitude', 'longitude', 'name']);
         $angle = $driver->angle();
         $paid = $trip->payments()->paid()->exists();
-        $payment = is_null($payment = $trip->payments()->paid()->first()) ? 'to select' : $payment->type;
+        $payment = is_null($payment = $trip->payments()->paid()->first()) ? 'cash' : $payment->type;
         unset($driver->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id, $trip->status_id,
               $trip->source, $trip->destination, $trip->created_at, $trip->updated_at, $trip->transaction_id,
               $trip->rate_id, $trip->driver_location, $driver->user);
