@@ -3,7 +3,7 @@
 <body class="hold-transition login-page">
     <div class="login-box" id="admin">
         <div class="login-logo">
-            <a href="{{ url('/') }}"><b>SAAM</b>Taxi</a>
+            <a href="{{ url('/') }}">{{ config('app.name') }}</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
@@ -16,16 +16,16 @@
                     <div class="col-xs-8">
                         @include('components.bootstrap.checkbox',
                         ['name' => 'remember',
-                        'label' => 'Remember Me'])
+                        'label' => __('admin/general.Remember Me')])
                     </div>
                     <div class="col-xs-4">
                         @include('components.bootstrap.btn-primary',
-                        ['text' => 'Sign in',
+                        ['text' => __('admin/general.Sign in'),
                         'addClass' => 'btn-block btn-flat'])
                     </div>
                     @include('components.bootstrap.btn-link', 
                         ['href' => url('/password/reset'),
-                        'text' => 'Forgot Your Password?'])
+                        'text' => __('admin/general.Forgot Your Password?')])
                 </div>
             </form>
         </div>

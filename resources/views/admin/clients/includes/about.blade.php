@@ -13,12 +13,13 @@
       ['client' => $client,
       'addClass' => 'btn-block btn-xs',
       'icon' => 'check',
-      'text' => 'Offline'])
+      'text' => __('admin/general.Offline')])
       @endif
     </p>
     <hr>
     <strong><i class="fa fa-map-marker margin-r-5"></i> @lang('admin/general.Last Location')</strong>
     <p class="text-muted">{{ $client->lastLocation() }}</p>
-  <!-- /.box-body -->
+    <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
 </div>
-<!-- /.box -->

@@ -11,7 +11,7 @@
   <!-- /.timeline-label -->
   <!-- timeline item -->
   <li>
-    <i class="fa fa-motorcycle label-primary"></i>
+    <i class="fa fa-car label-primary"></i>
     <div class="timeline-item">
       <span class="time"><i class="fa fa-clock-o"></i> {{ $t->created_at->diffForHumans() }}</span>
       <h3 class="timeline-header"><tag color="primary">{{ $t->statusName() }}</tag></h3>

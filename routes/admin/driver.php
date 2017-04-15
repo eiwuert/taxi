@@ -9,6 +9,8 @@ Route::group(['prefix' => 'drivers'], function () {
         ->name('drivers.search');
     Route::post('offline/{driver}', 'DriverController@offline')
         ->name('drivers.offline');
+    Route::post('online/{driver}', 'DriverController@online')
+        ->name('drivers.online');
     Route::post('approve/{driver}', 'DriverController@approve')
         ->name('drivers.approve');
     Route::post('decline/{driver}', 'DriverController@decline')

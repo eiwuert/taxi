@@ -287,4 +287,26 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\UserMeta');
     }
+
+    /**
+     * Set the phone value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = '98' . substr($value, -10);
+    }
+
+    /**
+     * Get the phone value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPhoneAttribute($value)
+    {
+        return '0' . substr($value, -10);
+    }
 }

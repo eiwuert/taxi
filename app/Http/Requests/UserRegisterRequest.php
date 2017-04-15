@@ -14,7 +14,7 @@ class UserRegisterRequest extends Request
     public function rules()
     {
         return [
-            'phone'        => 'required',
+            'phone'        => 'required|numeric|sizeOfPhone',
             'login_by'     => 'required|in:manual,facebook,google',
         ];
     }

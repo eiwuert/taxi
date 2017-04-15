@@ -16,6 +16,7 @@ Body | Header
 9 | `trip_is_over_by_admin`
 10| `balance_updated`
 11| `balance_failed_to_update`
+12| `logout`
 
 
 ### Driver
@@ -30,3 +31,4 @@ Body | Header
 5 | `trip_is_over_by_admin`
 6 | `pay_cash`
 7 | `pay_wallet`
+8 | `logout`

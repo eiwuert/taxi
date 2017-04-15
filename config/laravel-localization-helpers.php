@@ -21,6 +21,7 @@ return array(
 		'%APP/Http/Controllers' ,
 		'%APP/Http/Middleware' ,
 		'%APP/Repositories' ,
+		'%APP/' ,
 	) ,
 
 

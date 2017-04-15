@@ -145,7 +145,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                SAAMTaxi
+                                {{ config('app.name') }}
                             </td>
                             
                             <td>

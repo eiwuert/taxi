@@ -81,6 +81,7 @@ class FcmRepository
      */
     public function to_driver($title, $message, $device_token)
     {
+        Log::debug('to driver: ' . $message . ': ' . $title);
         return $this->message($title, $message, $device_token);
     }
 
@@ -93,6 +94,7 @@ class FcmRepository
      */
     public function to_client($title, $message, $device_token)
     {
+        Log::debug('to client: ' . $message . ': ' . $title);
         return $this->message($title, $message, $device_token);
     }
 }

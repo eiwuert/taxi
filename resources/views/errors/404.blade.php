@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Not found.</title>
+        <title>@lang('admin/general.Not found')</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -50,13 +50,13 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Not found.</div>
+                <div class="title">@lang('admin/general.Not found')</div>
                 <div class="links">
-                    <a href="{{ url('/') }}/">home</a>
-                    <a href="{{ url('/docs') }}/">wiki</a>
-                    <a href="{{ url('/admin/dashboard') }}">dashboard</a>
-                    <a href="#">blog</a>
-                    <a href="https://gitlab.com/amirmasoud/saam">gitlab</a>
+                    <a href="{{ url('/') }}/">@lang('admin/general.home')</a>
+                    <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
+                    <a href="{{ url('/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="#">@lang('admin/general.blog')</a>
+                    <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
                 </div>
             </div>
         </div>

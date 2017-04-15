@@ -10,6 +10,7 @@ use App\Driver;
 use App\UserMeta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\TripRepository;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\DriverRequest;
 use App\Repositories\ExportRepository as Export;
@@ -56,7 +57,7 @@ class DriverController extends Controller
     {
         $this->uploadDocuments($request->documents, $driver->user->id);
         $driver->update($request->all());
-        flash('Driver updated', 'success');
+        flash(__('admin/general.Driver updated'), 'success');
         return redirect()->back();
     }
 
@@ -69,7 +70,7 @@ class DriverController extends Controller
     public function destroy(Driver $driver)
     {
         $driver->delete();
-        flash('Driver soft deleted', 'success');
+        flash(__('admin/general.Driver soft deleted'), 'success');
         return redirect(route('drivers.index'));
     }
 
@@ -85,7 +86,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver approved', 'success');
+        flash(__('admin/general.Driver approved'), 'success');
         return back();
     }
 
@@ -101,7 +102,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver declined', 'success');
+        flash(__('admin/general.Driver declined'), 'success');
         return back();
     }
 
@@ -201,11 +202,50 @@ class DriverController extends Controller
      */
     public function offline(Driver $driver)
     {
+        if (! $this->canChangeState($driver)) {
+            flash(__('admin/general.Driver is in trip'), 'danger');
+            return redirect(route('drivers.show', ['driver'=>$driver]));
+        }
         $driver->online = false;
         $driver->available = false;
         $driver->update();
-        flash('Driver is offline now', 'success');
+        flash(__('admin/general.Driver is offline now'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
+    }
+
+    /**
+     * Make an driver online manually
+     * @return Illuminate\Http\Response
+     */
+    public function online(Driver $driver)
+    {
+        if (! $this->canChangeState($driver)) {
+            flash(__('admin/general.Driver is in trip'), 'danger');
+            return redirect(route('drivers.show', ['driver'=>$driver]));
+        }
+        $driver->online = true;
+        $driver->available = true;
+        $driver->update();
+        flash(__('admin/general.Driver is online now'), 'success');
+        return redirect(route('drivers.show', ['driver'=>$driver]));
+    }
+
+    /**
+     * Can driver change state.
+     * 
+     * @param  \App\Driver $driver
+     * @return void|Illuminate\Support\Facades\Redirect
+     */
+    private function canChangeState($driver)
+    {
+        if (! is_null($driver->trips())) {
+            $trip = $driver->trips()->whereNotIn('status_id', \App\Trip::$ended)->orderBy('id', 'desc')->first();
+            if (!is_null($trip)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /**
@@ -220,8 +260,8 @@ class DriverController extends Controller
             return;
         } else {
             UserMeta::create([
-                'name' => 'documents_' . $for, 
-                'value' => basename($file->store('public/documents/')), 
+                'name' => 'documents_' . $for,
+                'value' => basename($file->store('public/documents/')),
                 'user_id' => $for,
             ]);
         }
@@ -236,7 +276,7 @@ class DriverController extends Controller
     {
         DB::table('drivers')->where('id', $driver->id)
             ->update(['picture' => 'no-profile.png']);
-        flash('Driver picture deleted.', 'success');
+        flash(__('admin/general.Driver picture deleted'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 
@@ -248,7 +288,7 @@ class DriverController extends Controller
     public function deleteDocument(Driver $driver)
     {
         UserMeta::where('user_id', $driver->user->id)->delete();
-        flash('Driver documents deleted.', 'success');
+        flash(__('admin/general.Driver documents deleted'), 'success');
         return redirect(route('drivers.show', ['driver'=>$driver]));
     }
 }

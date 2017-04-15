@@ -3,14 +3,14 @@
   <div class="box-header with-border">
     <i class="fa fa-map-marker" aria-hidden="true"></i>
     <h3 class="box-title">@lang('admin/general.Markers')</h3>
-    <div class="box-tools">
-    <a href="{{ route('maps.fullscreen') }}">@lang('admin/general.Go full screen') <i class="ion-arrow-expand"></i></a>
+    <div class="box-tools fullscreen-link">
+      <a href="{{ route('maps.fullscreen') }}">@lang('admin/general.Go full screen') <i class="ion-arrow-expand"></i></a>
     </div>
   </div>
   <!-- /.box-header -->
   <div class="box-body">
     <input id="pac-input" class="controls" type="text"
-        placeholder="Enter a location">
+        placeholder="@lang('admin/general.Enter a location')">
     <div id="map" style="min-height: {{ $height or '400px' }};"></div>
   </div>
   <!-- /.box-body -->
@@ -18,7 +18,7 @@
 <!-- /.box -->
 @else
 <input id="pac-input" class="controls" type="text"
-    placeholder="Enter a location">
+    placeholder="@lang('admin/general.Enter a location')">
 <div id="map"></div>
 @endif
 @push('style')

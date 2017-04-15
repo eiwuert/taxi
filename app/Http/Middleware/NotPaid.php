@@ -20,9 +20,7 @@ class NotPaid
         if (Auth::user()->role == 'driver') {
             return $next($request);
         } else {
-            $client = User::wherePhone(Auth::user()->phone)
-                            ->orderBy('id', 'desc')
-                            ->first()->client()->first();
+            $client = Auth::user()->client->first();
             $trip = $client->trips()->where('prev', null)->orderBy('id', 'desc')->first();
             if ($trip->payments()->exists()) {
                 return fail([

@@ -4,7 +4,7 @@
 <div class="input-group">
   {{ Form::label($name, $label) }}
   <br />
-  <button class="btn btn-default btn-sm" id="daterangepicker" type="button">Date range</button>
+  <button class="btn btn-default btn-sm" id="daterangepicker" type="button">@lang('admin/general.Date range')</button>
   {{ Form::input('hidden', $name, Request::input($name), ['class' => 'form-control input-sm', 'id' => 'daterangepicker']) }}
 </div>
 @push('js')
@@ -28,12 +28,12 @@ $(function() {
         startDate: start,
         endDate: end,
         ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+           "@lang('admin/general.Today')": [moment(), moment()],
+           "@lang('admin/general.Yesterday')": [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           "@lang('admin/general.Last 7 Days')": [moment().subtract(6, 'days'), moment()],
+           "@lang('admin/general.Last 30 Days')": [moment().subtract(29, 'days'), moment()],
+           "@lang('admin/general.This Month')": [moment().startOf('month'), moment().endOf('month')],
+           "@lang('admin/general.Last Month')": [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         }
     }, cb);
     cb(start, end);

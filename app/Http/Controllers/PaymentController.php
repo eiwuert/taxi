@@ -23,6 +23,7 @@ class PaymentController extends Controller
     public function __construct(Request $response)
     {
         $this->response = $response;
+        $this->middleware(['inTrip', 'notPaid'])->only('ifOnTripAutoDeduct');
     }
 
     /**
@@ -70,6 +71,7 @@ class PaymentController extends Controller
                             'ref'  => $this->response->RefNum,
                             'detail' => $this->response->all(),
                         ]);
+            $this->ifOnTripAutoDeduct();
         } else {
             dispatch(new SendClientNotification('balance_failed_to_update', '11', $client->device_token));
             $payment = $this->payment = Payment::forceCreate([
@@ -192,6 +194,16 @@ class PaymentController extends Controller
     }
 
     /**
+     * Determine if the client is on a trip, auto deduct the amount from client
+     * wallet and make the trip as paid.
+     * @return void
+     */
+    private function ifOnTripAutoDeduct()
+    {
+        $this->withWallet();
+    }
+
+    /**
      * State the trip payment with the cash.
      * @return json
      */
@@ -200,13 +212,15 @@ class PaymentController extends Controller
         $client = Auth::user()->client()->first();
         $trip = $client->trips()->orderBy('id', 'desc')->first();
         dispatch(new SendDriverNotification('pay_cash', '6', $trip->driver->device_token));
-        Payment::forceCreate([
-            'trip_id' => $trip->id,
-            'client_id' => $client->id,
-            'paid' => true,
-            'type' => 'cash',
-            'ref'  => '00000',
-        ]);
+        // Default pay method is cash, so we will not persist this record until 
+        // end of the trip.
+        // Payment::forceCreate([
+        //     'trip_id' => $trip->id,
+        //     'client_id' => $client->id,
+        //     'paid' => true,
+        //     'type' => 'cash',
+        //     'ref'  => '00000',
+        // ]);
         return ok([
             'title'  => __('api/payment.Pay in cash'),
             'detail' => __('api/payment.Please pay trip cost to the driver')

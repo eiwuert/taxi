@@ -8,12 +8,18 @@
     <strong><i class="fa fa-info-circle margin-r-5"></i> @lang('admin/general.Status')</strong>
     <p class="text-muted">
       <tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag>
-      @if ($driver->state()->name == 'Online')
+      @if ($driver->online && $driver->approve)
       @include('admin.drivers.includes.offline',
       ['driver' => $driver,
       'addClass' => 'btn-block btn-xs',
       'icon' => 'check',
-      'text' => 'Offline'])
+      'text' => __('admin/general.Go offline')])
+      @elseif(!$driver->online && $driver->approve)
+      @include('admin.drivers.includes.online',
+      ['driver' => $driver,
+      'addClass' => 'btn-block btn-xs',
+      'icon' => 'check',
+      'text' => __('admin/general.Go online')])
       @endif
     </p>
     @if (!is_null($driver->user->meta))

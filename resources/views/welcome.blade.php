@@ -8,14 +8,14 @@
         <title>@lang('admin/general.Laravel')</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
+        <link rel="stylesheet" href="{{ elixir('css/admin/rtl.css') }}">
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'IRANSans', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -79,7 +79,7 @@
 
                 <div class="links">
                     <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
-                    <a href="{{ url('/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="{{ url('/admin/fa/dashboard') }}">@lang('admin/general.dashboard')</a>
                     <a href="#">@lang('admin/general.blog')</a>
                     <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
                 </div>
