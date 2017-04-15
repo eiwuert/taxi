@@ -7,7 +7,7 @@
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <form action="{{ url('admin/login') }}" method="POST" role="form">
+            <form action="{{ url('fa/admin/login') }}" method="POST" role="form">
                 {{ csrf_field() }}
                 @include('components.bootstrap.danger-status')
                 @include('components.bootstrap.email')
