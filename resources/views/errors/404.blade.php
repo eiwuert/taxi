@@ -3,37 +3,47 @@
     <head>
         <title>@lang('admin/general.Not found')</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
+        <link rel="stylesheet" href="{{ elixir('css/admin/rtl.css') }}">
 
+        <!-- Styles -->
         <style>
             html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'IRANSans', sans-serif;
                 font-weight: 100;
-                font-family: 'Lato', sans-serif;
+                height: 100vh;
+                margin: 0;
             }
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
+            .full-height {
+                height: 100vh;
+            }
+
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+
+            .position-ref {
+                position: relative;
+            }
+
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
             }
 
             .content {
                 text-align: center;
-                display: inline-block;
             }
 
             .title {
-                font-size: 72px;
-                margin-bottom: 40px;
+                font-size: 84px;
             }
 
             .links > a {
@@ -45,18 +55,30 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+
+            .m-b-md {
+                margin-bottom: 30px;
+            }
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    <a href="{{ url('fa/admin/login') }}">@lang('admin/general.Login')</a>
+                </div>
+            @endif
+
             <div class="content">
-                <div class="title">@lang('admin/general.Not found')</div>
+                <div class="title m-b-md">
+                    404
+                </div>
+
                 <div class="links">
-                    <a href="{{ url('/') }}/">@lang('admin/general.home')</a>
                     <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
-                    <a href="{{ url('/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="{{ url('/fa/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
                     <a href="#">@lang('admin/general.blog')</a>
-                    <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
+                    <a href="https://gitlab.com/amirmasoud/saam">GITLab</a>
                 </div>
             </div>
         </div>

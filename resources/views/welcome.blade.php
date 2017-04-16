@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>@lang('admin/general.Laravel')</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
@@ -68,20 +68,20 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <a href="{{ url('/admin/login') }}">@lang('admin/general.Login')</a>
+                    <a href="{{ url('fa/admin/login') }}">@lang('admin/general.Login')</a>
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    <b>@lang('admin/general.SAAM')</b>@lang('admin/general.TAXI')
+                    {{ config('app.name') }}
                 </div>
 
                 <div class="links">
                     <a href="{{ url('/docs') }}/">@lang('admin/general.wiki')</a>
-                    <a href="{{ url('/admin/fa/dashboard') }}">@lang('admin/general.dashboard')</a>
+                    <a href="{{ url('/fa/admin/dashboard') }}">@lang('admin/general.dashboard')</a>
                     <a href="#">@lang('admin/general.blog')</a>
-                    <a href="https://gitlab.com/amirmasoud/saam">@lang('admin/general.gitlab')</a>
+                    <a href="https://gitlab.com/amirmasoud/saam">GITLab</a>
                 </div>
             </div>
         </div>
