@@ -23,7 +23,7 @@ class HistoryController extends Controller
      */
     public function client()
     {
-        return ok($this->formatDriverTrips(Auth::user()->client()->first()
+        return ok($this->formatClientTrips(Auth::user()->client()->first()
                                             ->trips()->whereIn('status_id', ['9', '15', '16', '17'])
                                             ->orderBy('id', 'desc')
                                             ->get()), 200, [], false);
