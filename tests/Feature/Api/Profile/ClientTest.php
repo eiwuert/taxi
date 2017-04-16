@@ -17,7 +17,7 @@ class ClientTest extends TestCase
     {
         parent::setUp();
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => ($this->phone = rand(11111111, 999999999)),
+            'phone' => ($this->phone = rand(1111111111, 9999999999)),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',

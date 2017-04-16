@@ -21,7 +21,7 @@ class AuthTest extends TestCase
     public function testClientSuccessRegister()
     {
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -42,7 +42,7 @@ class AuthTest extends TestCase
     public function testClientPhoneMissedRegister()
     {
         $response = $this->json('POST', '/api/v1/client/register', [
-            // 'phone' => rand(11111, 99999), Phone is missed
+            // 'phone' => rand(1111111111, 9999999999), Phone is missed
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -63,7 +63,7 @@ class AuthTest extends TestCase
     public function testClientLoginByLangDeviceTypeAndDeviceTokenMissedRegister()
     {
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             // 'login_by' => 'manual',
             // 'lang' => 'en',
             // 'device_type' => 'ios',
@@ -84,7 +84,7 @@ class AuthTest extends TestCase
     public function testClientWithExtraFieldsRegister()
     {
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -108,7 +108,7 @@ class AuthTest extends TestCase
     public function testDriverSuccessRegister()
     {
         $response = $this->json('POST', '/api/v1/driver/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -131,7 +131,7 @@ class AuthTest extends TestCase
     public function testDriverPhoneMissedRegister()
     {
         $response = $this->json('POST', '/api/v1/driver/register', [
-            // 'phone' => rand(11111, 99999), Phone is missed
+            // 'phone' => rand(1111111111, 9999999999), Phone is missed
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -154,7 +154,7 @@ class AuthTest extends TestCase
     public function testDriverLoginByLangDeviceTypeCountryStateAndDeviceTokenMissedRegister()
     {
         $response = $this->json('POST', '/api/v1/driver/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             // 'login_by' => 'manual',
             // 'lang' => 'en',
             // 'device_type' => 'ios',
@@ -177,7 +177,7 @@ class AuthTest extends TestCase
     public function testDriverWithExtraFieldsRegister()
     {
         $response = $this->json('POST', '/api/v1/driver/register', [
-            'phone' => rand(11111, 99999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',

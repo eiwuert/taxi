@@ -58,9 +58,7 @@ class CreateRepository extends MainRepository
             self::$client = self::$user->client->first();
         } else {
             self::$user = User::find($user);
-            self::$client = User::wherePhone(self::$user->phone)
-                                ->orderBy('id', 'desc')
-                                ->first()->client()->first();
+            self::$client = self::$user->client()->first();
         }
         //
         // Check pending trips.

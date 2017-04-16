@@ -21,7 +21,7 @@ trait TripTrait
     {
         parent::setUp();
         $response = $this->json('POST', '/api/v1/driver/register', [
-            'phone' => rand(11111111, 999999999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
@@ -44,7 +44,7 @@ trait TripTrait
         $this->refreshApplication();
 
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(11111111, 999999999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',

@@ -18,7 +18,7 @@ class infoTest extends TestCase
     public function testGettingCarInfo()
     {
         $response = $this->post('/api/v1/driver/register', [
-            'phone' => rand(11111111, 999999999),
+            'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
             'device_type' => 'ios',
