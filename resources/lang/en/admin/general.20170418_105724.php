@@ -1,12 +1,8 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/18 10:57:20 
-*************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/maps/track.blade.php
-  'back to driver' => 'back to driver',
+  'Choose picture' => 'Choose picture',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -35,7 +31,6 @@ return array (
   'Car type:' => 'Car type:',
   'Charge' => 'Charge',
   'Charged' => 'Charged',
-  'Choose picture' => 'Choose picture',
   'Client' => 'Client',
   'Client canceled arrived driver' => ' Client canceled arrived driver ',
   'Client canceled onway driver' => ' Client canceled onway driver ',
@@ -136,6 +131,7 @@ return array (
   'Info' => 'Info',
   'Invoice' => 'Invoice',
   'Lang: ' => 'Lang: ',
+  'Laravel' => 'Laravel',
   'Last 30 Days' => 'Last 30 Days',
   'Last 7 Days' => 'Last 7 Days',
   'Last Location' => 'Last Location',
@@ -207,6 +203,7 @@ return array (
   'Reset Password' => 'Reset Password',
   'Result' => 'Result',
   'Results' => 'Results',
+  'SAAM' => 'SAAM',
   'SAAMTaxi' => 'SAAMTaxi',
   'Search' => 'Search',
   'Send Password Reset Link' => 'Send Password Reset Link',
@@ -230,6 +227,7 @@ return array (
   'Switch to Farsi' => 'Switch to Farsi',
   'System Logs' => 'System Logs',
   'System requests' => 'System requests',
+  'TAXI' => 'TAXI',
   'TRIPS' => 'TRIPS',
   'Taxi requested' => 'Taxi requested',
   'This Month' => 'This Month',
@@ -258,6 +256,7 @@ return array (
   'Unapproved' => 'UNAPPROVED',
   'Unlock' => 'Unlock',
   'Unlocked' => 'Unlocked',
+  'Upload client profile picture' => 'Upload client profile picture',
   'Upload zip file' => 'Upload zip file.',
   'Web' => 'Web',
   'Yesterday' => 'Yesterday',
@@ -299,12 +298,4 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
-  //================================== Obsolete strings ==================================//
-  'LLH:obsolete' => 
-  array (
-    'Laravel' => 'Laravel',
-    'SAAM' => 'SAAM',
-    'TAXI' => 'TAXI',
-    'Upload client profile picture' => 'Upload client profile picture',
-  ),
 );

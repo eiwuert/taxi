@@ -3,7 +3,7 @@
 @lang('admin/general.Track')
 @endsection
 @section('header')
-@lang('admin/general.Track')
+<a href="{{ route('drivers.show', ['driver' => $driver]) }}">@lang('admin/general.back to driver')</a>
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
