@@ -2,7 +2,7 @@
 <div class="form-group">
     {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::text('phone', $driver->PhoneNumber(), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+        {!! Form::text('phone', $driver->user->phone, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
     </div>
 </div>
 <div class="form-group">

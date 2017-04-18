@@ -2,7 +2,7 @@
 <div class="form-group">
   {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
-    {!! Form::text('phone', $client->PhoneNumber(), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
+    {!! Form::text('phone', $client->user->phone(), ['class' => 'form-control', 'disabled' => 'disabled']) !!}
   </div>
 </div>
 <div class="form-group">
@@ -62,11 +62,13 @@
 </div>
 @if ($client->picture == 'no-profile.png')
 <div class="form-group">
-  {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
-  <div class="col-sm-10">
-    {!! Form::file('picture', null, ['class' => 'form-control']) !!}
-    <p class="help-block">  @lang('admin/general.Upload client profile picture')</p>
-  </div>
+        {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        <div class="btn btn-sm btn-default btn-file">
+            <i class="fa fa-picture-o"></i> @lang('admin/general.Choose picture')
+            {!! Form::file('picture', null, ['class' => 'form-control']) !!}
+        </div>
+    </div>
 </div>
 @else
 <div class="form-group">

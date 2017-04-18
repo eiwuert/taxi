@@ -40,6 +40,7 @@
             <li class="{{ (str_contains(Request::url(), route('settings.logs.index'))) ? 'active' : '' }}"><a href="{{ route('settings.logs.index') }}">@lang('admin/general.Logs')</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.fcm.index'))) ? 'active' : '' }}"><a href="{{ route('settings.fcm.index') }}">@lang('admin/general.FCM')</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.requests.index'))) ? 'active' : '' }}"><a href="{{ route('settings.requests.index') }}">@lang('admin/general.Requests')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.sms.index'))) ? 'active' : '' }}"><a href="{{ route('settings.sms.index') }}">@lang('admin/general.Sms')</a></li>
         </ul>
     </li>
 </ul>
