@@ -300,13 +300,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the phone value.
-     *
-     * @param  string  $value
+     * Get the phone attribute started with 0.
+     * 
      * @return string
      */
-    public function getPhoneAttribute($value)
+    public function phone()
     {
-        return '0' . substr($value, -10);
+        return '0' . substr($this->phone, -10);
     }
 }

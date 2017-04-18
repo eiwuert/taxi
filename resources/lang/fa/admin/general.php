@@ -7,6 +7,7 @@ return array (
   //============================== New strings to translate ==============================//
   // Defined in file /home/pezhman/saamtaxi/resources/views/admin/maps/track.blade.php
   'back to driver' => 'بازگشت به راننده',
+  'SMS codes' => 'کد اس ام اس',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -21,6 +22,7 @@ return array (
   'Approve' => 'تایید',
   'Arrived' => 'راننده به مبدا مسافر رسیده',
   'Ascending' => 'صعودی',
+  'Attempts' => 'تعداد تلاش‌ها',
   'Backup' => ' پشتیبان گیری',
   'Balance' => 'اعتبار',
   'Balance: ' => 'اعتبار: ',
@@ -48,6 +50,7 @@ return array (
   'Client unlocked' => 'مسافر باز شد',
   'Client updated' => 'مسافر به روز رسانی شد ',
   'Clients' => ' مسافرها ',
+  'Code' => 'کد',
   'Color: ' => 'رنگ: ',
   'Confirm Password' => 'تایید رمزعبور',
   'Cost' => 'هزینه سفر',
@@ -126,6 +129,7 @@ return array (
   'Gender:' => 'جنسیت: ',
   'Gender: ' => 'جنسیت: ',
   'General' => 'عمومی',
+  'Generated' => 'درخواست شده',
   'Go full screen' => 'تمام صفحه',
   'Go offline' => 'آفلاین شدن',
   'Go online' => 'آنلاین شدن',
@@ -214,6 +218,7 @@ return array (
   'Settings' => ' تنظیمات ',
   'Sign in' => 'ورود',
   'Size' => 'اندازه',
+  'Sms' => 'کد‌های تایید',
   'Sort by' => 'مرتب سازی بر اساس',
   'Source' => 'منبع',
   'Started' => 'سفر آغاز شد',
@@ -300,11 +305,4 @@ return array (
   'url' => 'آدرس',
   'wiki' => 'ویکی',
   //================================== Obsolete strings ==================================//
-  'LLH:obsolete' => 
-  array (
-    'Laravel' => 'لاراول',
-    'SAAM' => 'سام',
-    'TAXI' => 'تاکسی',
-    'Upload client profile picture' => 'بارگذاری عکس پروفایل مسافر',
-  ),
 );

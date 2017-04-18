@@ -7,6 +7,8 @@ return array (
   //============================== New strings to translate ==============================//
   // Defined in file /home/pezhman/saamtaxi/resources/views/admin/maps/track.blade.php
   'back to driver' => 'back to driver',
+
+  'SMS codes' => 'SMS codes',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -21,6 +23,7 @@ return array (
   'Approve' => 'Approve',
   'Arrived' => 'Arrived',
   'Ascending' => 'Ascending',
+  'Attempts' => 'Attempts',
   'Backup' => 'Backup',
   'Balance' => 'Balance',
   'Balance: ' => 'Balance: ',
@@ -48,6 +51,7 @@ return array (
   'Client unlocked' => 'Client unlocked',
   'Client updated' => 'Client updated',
   'Clients' => 'Clients',
+  'Code' => 'Code',
   'Color: ' => 'Color: ',
   'Confirm Password' => 'Confirm Password',
   'Cost' => 'Cost',
@@ -126,6 +130,7 @@ return array (
   'Gender:' => 'Gender:',
   'Gender: ' => 'Gender: ',
   'General' => 'General',
+  'Generated' => 'Generated',
   'Go full screen' => 'Go full screen',
   'Go offline' => 'Go offline',
   'Go online' => 'Go online',
@@ -214,6 +219,7 @@ return array (
   'Settings' => 'Settings',
   'Sign in' => 'Sign in',
   'Size' => 'Size',
+  'Sms' => 'Sms codes',
   'Sort by' => 'Sort by',
   'Source' => 'Source',
   'Started' => 'Started',
@@ -300,11 +306,4 @@ return array (
   'url' => 'url',
   'wiki' => 'wiki',
   //================================== Obsolete strings ==================================//
-  'LLH:obsolete' => 
-  array (
-    'Laravel' => 'Laravel',
-    'SAAM' => 'SAAM',
-    'TAXI' => 'TAXI',
-    'Upload client profile picture' => 'Upload client profile picture',
-  ),
 );
