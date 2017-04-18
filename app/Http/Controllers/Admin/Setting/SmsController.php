@@ -31,13 +31,14 @@ class SmsController extends Controller
     {
         foreach ($codes as $code) {
             $user = call_user_func([$code->user, $code->user->role])->first();
-            $code->picture = $user->getPicture();
-            if (is_null($user->first_name) && is_null($user->last_name)) {
-                $code->name = null;
+            $code->name = $code->user->name();
+            if (is_null($user)) {
+                $code->picture = asset('img/no-profile.png');
+                $code->phone = null;
             } else {
-                $code->name = $user->first_name . ' ' . $user->last_name;
+                $code->picture = $user->getPicture();
+                $code->phone = $code->user->phone();
             }
-            $code->phone = $user->phone();
         }
         return $codes;
     }
