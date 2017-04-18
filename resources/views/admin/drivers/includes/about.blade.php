@@ -33,4 +33,3 @@
   <!-- /.box-body -->
 </div>
 <!-- /.box -->
-@include('admin.components.googlemaps-marker')

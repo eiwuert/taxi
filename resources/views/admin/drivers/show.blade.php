@@ -18,6 +18,7 @@
   <!-- /.col -->
   <div class="col-md-9">
     @include('admin.errors.form')
+    @include('admin.drivers.includes.marker')
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#timeline" data-toggle="tab">@lang('admin/general.Timeline')</a></li>

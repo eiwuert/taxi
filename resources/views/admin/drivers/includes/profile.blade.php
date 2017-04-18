@@ -6,7 +6,7 @@
     <p class="text-muted text-center">@lang('admin/general.Driver')</p>
     <ul class="list-group list-group-unbordered">
       <li class="list-group-item">
-        <b>@lang('admin/general.Trips')</b> <sapn class="pull-right">{{ $driver->countOfTrips() }}</span>
+        <b>@lang('admin/general.Trips')</b> <span class="pull-right">{{ $driver->countOfTrips() }}</span>
       </li>
       <li class="list-group-item">
         <b>@lang('admin/general.Income')</b> <span class="pull-right">{{ $driver->income() }}</span>

@@ -11,7 +11,7 @@
   <div class="box-body">
     <input id="pac-input" class="controls" type="text"
         placeholder="@lang('admin/general.Enter a location')">
-    <div id="map" style="min-height: {{ $height or '400px' }};"></div>
+    <div id="map" style="min-height: {{ $height or '306px' }};"></div>
   </div>
   <!-- /.box-body -->
 </div>
