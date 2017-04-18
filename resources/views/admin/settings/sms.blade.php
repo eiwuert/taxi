@@ -28,7 +28,7 @@
                              class="img-responsive img-circle"
                              width="24"></td>
                     <td>{!! $code->name or '<tag color="default"></tag>' !!}</td>
-                    <td>{{ $code->phone }}</td>
+                    <td>{!! $code->phone or '<tag color="warning">Deleted</tag>' !!}</td>
                     <td>{{ $code->code }}</td>
                     <td>{{ $code->attempts }}</td>
                     <td>{{ $code->created_at->diffForHumans() }}</td>
