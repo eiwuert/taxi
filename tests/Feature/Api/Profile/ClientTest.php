@@ -24,7 +24,7 @@ class ClientTest extends TestCase
             'device_token' => 'sample_device_token_from_phpunit',
         ]);
 
-        $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' . 
+        $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
                              $response->getOriginalContent()['data'][0]['access_token'];
     }
 
@@ -56,9 +56,9 @@ class ClientTest extends TestCase
         ])->assertStatus(200)
           ->assertHeader('Content-Type', 'application/json')
           ->assertJson(['success' => true])
-          ->assertJsonStructure(['success', 'data' => [['id', 'first_name', 
-            'last_name', 'email', 'gender', 'device_token', 'device_type', 'lock', 
-            'lang', 'address', 'state', 'country', 'zipcode', 'picture', 'balance', 
+          ->assertJsonStructure(['success', 'data' => [['id', 'first_name',
+            'last_name', 'email', 'gender', 'device_token', 'device_type', 'lock',
+            'lang', 'address', 'state', 'country', 'zipcode', 'picture', 'balance',
             'user_id', 'phone']]]);
 
         // Update client profile
@@ -92,7 +92,7 @@ class ClientTest extends TestCase
                             'lang' => 'en',
                             'device_type' => 'ios',
                             'device_token' => 'sample_device_token_from_phpunit',
-                            'phone' => $this->phone,
+                            'phone' => '98' . $this->phone,
                         ]]]);
 
         // Test picture upload
@@ -103,13 +103,13 @@ class ClientTest extends TestCase
         // Update client profile
         $this->json('POST', 'api/v1/client/profile', [
             'first_name' => 'new first name new first name new first name new first name new first name new first no
-            new first name new first name new first name new first name new first name new first name new first name 
             new first name new first name new first name new first name new first name new first name new first name
             new first name new first name new first name new first name new first name new first name new first name
-            new first name new first name new first name new first name new first name new first name new first name 
             new first name new first name new first name new first name new first name new first name new first name
             new first name new first name new first name new first name new first name new first name new first name
-            new first name new first name new first name new first name new first name new first name new first name 
+            new first name new first name new first name new first name new first name new first name new first name
+            new first name new first name new first name new first name new first name new first name new first name
+            new first name new first name new first name new first name new first name new first name new first name
             new first name new first name new first name new first name new first name new first name new first name',
             'last_name' => 'new last name',
             'email' => 'newemail@email.com',
