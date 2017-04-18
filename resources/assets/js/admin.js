@@ -18,13 +18,8 @@ Vue.component('bs-input', require('./components/bootstrap/input.vue'));
 Vue.component('notification-menu', require('./components/admin/NotificationsCount.vue'));
 Vue.component('notification-client-count', require('./components/admin/NotificationsClientCount.vue'));
 Vue.component('notification-driver-count', require('./components/admin/NotificationsDriverCount.vue'));
+Vue.component('switch-state', require('./components/admin/SwitchState.vue'));
 
 const app = new Vue({
     el: '#admin',
-    data: {
-        cities : [
-            'Bangalore','Chennai','Cochin','Delhi','Kolkata','Mumbai'
-        ],
-        value: ''
-    }
 });
