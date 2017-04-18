@@ -23,4 +23,6 @@ Route::group(['prefix' => 'settings'], function () {
          ->name('settings.requests.index');
     Route::get('fcm', 'Setting\FcmController@index')
          ->name('settings.fcm.index');
+     Route::get('sms', 'Setting\SmsController@index')
+          ->name('settings.sms.index');
 });
