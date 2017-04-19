@@ -421,16 +421,32 @@ class Driver extends Model
                             ->limit(2);
         $locations = $locations->get();
         if ($locations->count() == 2) {
+            $cache = 'driver_' . $this->id . '_angle';
             $lng1 = $locations[0]->longitude;
             $lng2 = $locations[1]->longitude;
             $lat1 = $locations[0]->latitude;
             $lat2 = $locations[1]->latitude;
+            // If last location is within the 20 meter return the previous angle.
+            if ($this->distance($lat1, $lng1, $lat2, $lng2) < 0.02 && Cache::has($cache)) {
+                return Cache::get($cache);
+            }
             $dLon = $lng2 - $lng1;
             $y = sin($dLon) * cos($lat2);
             $x = cos($lat1) * sin($lat2) - sin($lat1) * cos($lat2) * cos($dLon);
-            return 360 - ((rad2deg(atan2($y, $x)) + 360) % 360);
+            $angle = 360 - ((rad2deg(atan2($y, $x)) + 360) % 360);
+            Cache::forever($cache, $angle);
+            return $angle;
         } else {
             return 0;
         }
+    }
+
+    protected function distance($lat1, $lng1, $lat2, $lng2)
+    {
+        $p = 0.017453292519943295;
+        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 + 
+            cos($lat1 * $p) * cos($lat2 * $p) * 
+            (1 - cos(($lng2 - $lng1) * $p)) / 2;
+        return 12742 * asin(sqrt($a));
     }
 }
