@@ -1,6 +1,9 @@
 <template>
 <div>
-    <button v-show="isOnline"
+    <alert-dismissible alert="warning"
+        :message="error"
+        v-show="hasError"></alert-dismissible>
+    <button v-if="isOnline"
         class="btn btn-default btn-block btn-sm"
         :disabled="disabled == 1 ? true : false"
         @click="switchOffline">
@@ -9,7 +12,7 @@
             style="margin-top: 3px"
             v-show="disabled == 1"></i>
     </button>
-    <button v-show="!isOnline"
+    <button v-else
         class="btn btn-default btn-block btn-sm"
         :disabled="disabled == 1 ? true : false"
         @click="switchOnline">
@@ -26,7 +29,8 @@
     data: function () {
         return {
             isOnline: this.online == 1 ? true : false,
-            disabled: 0
+            disabled: 0,
+            hasError: false
         }
     },
     props: {
@@ -39,30 +43,33 @@
         online: {
             type: String
         },
-        driver: {
+        goOnlineUrl: {
+            type: String
+        },
+        goOfflineUrl: {
+            type: String
+        },
+        error: {
             type: String
         }
     },
     methods: {
-        switchOnline: function () {
+        request: function (url) {
             this.disabled = (this.disabled + 1) % 2
-            this.$http.post('/fa/admin/drivers/online/' + this.driver).then(response => {
+            this.$http.post(url).then(response => {
                 this.isOnline = !this.isOnline
+                this.hasError = false
                 this.disabled = (this.disabled + 1) % 2
             }, response => {
-                alert('in trip')
+                this.hasError = true
                 this.disabled = (this.disabled + 1) % 2
             })
         },
+        switchOnline: function () {
+            this.request(this.goOnlineUrl)
+        },
         switchOffline: function () {
-            this.disabled = (this.disabled + 1) % 2
-            this.$http.post('/fa/admin/drivers/offline/' + this.driver).then(response => {
-                this.isOnline = !this.isOnline
-                this.disabled = (this.disabled + 1) % 2
-            }, response => {
-                alert('in trip')
-                this.disabled = (this.disabled + 1) % 2
-            })
+            this.request(this.goOfflineUrl)
         }
     }
   }
