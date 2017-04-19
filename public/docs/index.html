@@ -165,12 +165,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "phone": [
-                "The phone field is required."
-            ],
-            "login_by": [
-                "The login by field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -181,15 +175,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "lang": [
-                "The lang field is required."
-            ],
-            "device_type": [
-                "The device type field is required."
-            ],
-            "device_token": [
-                "The device token field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -725,9 +710,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "long": [
-                "The long field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -814,9 +796,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "long": [
-                "The long field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -902,9 +881,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "lng": [
-                "The lng field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -991,9 +967,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "lng": [
-                "The lng field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -1303,9 +1276,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "picture": [
-                "The picture field is required."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "status": 422
@@ -1461,9 +1431,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "first_name": [
-                "The first name may not be greater than 255 characters."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -2133,9 +2100,6 @@ console.log(response);
     "success": false,
     "data": [
         {
-            "lat": [
-                "The lat format is invalid."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -2245,9 +2209,6 @@ console.log(response);
     "success": false,
     "data": [
         {
-            "lat": [
-                "The lat format is invalid."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -3171,9 +3132,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "comment": [
-                "The comment may not be greater than 5000 characters."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -3387,10 +3345,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "stars": [
-                "The stars must be a number.",
-                "The selected stars is invalid."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -3404,9 +3358,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "comment": [
-                "The comment may not be greater than 5000 characters."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -3496,10 +3447,6 @@ $.ajax(settings).done(function (response) {
     "success": false,
     "data": [
         {
-            "stars": [
-                "The stars must be a number.",
-                "The selected stars is invalid."
-            ],
             "title": "Validation failed",
             "detail": "Validation for given fields have been failed, please check your inputs.",
             "code": 422
@@ -3512,12 +3459,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}" \
+<pre><code class="language-bash">curl "https://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "https://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}",
+    "url": "https://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}",
     "method": "GET",
     "data": {}
 }
@@ -4125,7 +4072,7 @@ if not:</p>
 }</code></pre>
 <h2>Paid or can't change</h2>
 <p>Payment record is already been paid or choose something else and now cannot be modified.</p>
-<pre><code class="language-josn">
+<pre><code class="language-json">
 {
     "success": false,
     "data": [
@@ -4299,6 +4246,10 @@ if not:</p>
 <td>11</td>
 <td><code>balance_failed_to_update</code></td>
 </tr>
+<tr>
+<td>12</td>
+<td><code>logout</code></td>
+</tr>
 </tbody>
 </table>
 <h3>Driver</h3>
@@ -4341,6 +4292,10 @@ if not:</p>
 <tr>
 <td>7</td>
 <td><code>pay_wallet</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>logout</code></td>
 </tr>
 </tbody>
 </table>
