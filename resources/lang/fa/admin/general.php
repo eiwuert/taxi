@@ -2,7 +2,10 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'SMS codes' => 'کد اس ام اس',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
+  'Offline, Go online' => 'آفلاین، آنلاین شوید',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
+  'Online, Go offline' => 'آنلاین، آفلاین شدن',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -126,8 +129,6 @@ return array (
   'General' => 'عمومی',
   'Generated' => 'درخواست شده',
   'Go full screen' => 'تمام صفحه',
-  'Go offline' => 'آفلاین شدن',
-  'Go online' => 'آنلاین شدن',
   'Go to profile' => 'رفتن به پروفایل',
   'Go to trip' => 'رفتن به سفر',
   'INCOME' => 'درآمد',
@@ -207,6 +208,7 @@ return array (
   'Result' => 'نتیجه',
   'Results' => 'نتایج',
   'SAAMTaxi' => 'سام تاکسی',
+  'SMS codes' => 'کد اس ام اس',
   'Search' => 'جستجو',
   'Send Password Reset Link' => 'ارسال لینک ریست کلمه عبور',
   'Setting' => ' تنظیمات ',
@@ -300,8 +302,13 @@ return array (
   'url' => 'آدرس',
   'wiki' => 'ویکی',
   //================================== Obsolete strings ==================================//
-  'LLH:obsolete.Laravel' => 'لاراول',
-  'LLH:obsolete.SAAM' => 'سام',
-  'LLH:obsolete.TAXI' => 'تاکسی',
-  'LLH:obsolete.Upload client profile picture' => 'بارگذاری عکس پروفایل مسافر',
+  'LLH:obsolete' =>
+  array (
+    'Go offline' => 'آفلاین شدن',
+    'Go online' => 'آنلاین شدن',
+    'Laravel' => 'لاراول',
+    'SAAM' => 'سام',
+    'TAXI' => 'تاکسی',
+    'Upload client profile picture' => 'بارگذاری عکس پروفایل مسافر',
+  ),
 );

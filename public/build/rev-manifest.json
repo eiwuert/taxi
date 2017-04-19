@@ -1,8 +1,8 @@
 {
   "css/admin/admin.css": "css/admin/admin-20a5c8223e.css",
   "css/admin/rtl.css": "css/admin/rtl-6467b2cd0c.css",
-  "js/admin/admin.js": "js/admin/admin-8f2161df25.js",
-  "js/admin/flot.js": "js/admin/flot-cdc0a61bbe.js",
-  "js/admin/iCheck.js": "js/admin/iCheck-e6a4ff8d9e.js",
-  "js/admin/jquery.inputmask.js": "js/admin/jquery-888a2883e8.inputmask.js"
+  "js/admin/admin.js": "js/admin/admin-c145524d98.js",
+  "js/admin/flot.js": "js/admin/flot-75b6ceabf6.js",
+  "js/admin/iCheck.js": "js/admin/iCheck-3b2787efbe.js",
+  "js/admin/jquery.inputmask.js": "js/admin/jquery-1438225808.inputmask.js"
 }
