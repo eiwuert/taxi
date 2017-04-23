@@ -32,7 +32,7 @@ class DashboardController extends Controller
      * Switch language between en and fa.
      * @return \Illuminate\Support\Facades\Redirect
      */
-    public function switch()
+    public function switchLang()
     {
         $lang = \Request::segment(1);
         if ($lang == 'fa') {

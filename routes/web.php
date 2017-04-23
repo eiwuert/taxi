@@ -25,5 +25,5 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     // Export
     Route::get('export/{name}', 'ExportController@export')->name('admin.export');
     // Change Language
-    Route::get('switch', 'DashboardController@switch')->name('switch');
+    Route::get('switch', 'DashboardController@switchLang')->name('switch');
 });
