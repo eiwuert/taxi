@@ -331,4 +331,18 @@ class User extends Authenticatable
             return $user->first_name . ' ' . $user->last_name;
         }
     }
+
+    /**
+     * Get the user last trip if existed.
+     * @return \App\Trip|null
+     */
+    public function trip()
+    {
+        $user = call_user_func([$this, $this->role])->first();
+        if (!is_null($user->trips())) {
+            return $user->trips()->orderBy('id', 'desc')->first();
+        } else {
+            return null;
+        }
+    }
 }
