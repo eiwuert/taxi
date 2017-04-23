@@ -14,8 +14,8 @@ Route::group(['prefix' => 'settings'], function () {
                 ->name('settings.backup.download');
         Route::get('delete/{file}', 'BackupController@delete')
                 ->name('settings.backup.delete');
-        Route::get('new', 'BackupController@new')
-                ->name('settings.backup.new');
+        Route::get('new', 'BackupController@newBackup')
+                ->name('settings.backup.newBackup');
     });
     Route::get('logs', 'Setting\LogController@index')
          ->name('settings.logs.index');
