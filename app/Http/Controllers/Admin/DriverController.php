@@ -29,7 +29,10 @@ class DriverController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Index', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Index', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }
@@ -161,7 +164,10 @@ class DriverController extends Controller
         }
 
         if (@$request->export) {
-            return Export::from('Filters', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Filters', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }
@@ -190,7 +196,10 @@ class DriverController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Search', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Search', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }

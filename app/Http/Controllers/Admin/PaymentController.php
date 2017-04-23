@@ -15,11 +15,18 @@ class PaymentController extends Controller
      * Show pagination of payments.
      * @return Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $payments = Payment::orderBy('id', 'desc')
                            ->paginate(option('pagination', 15));
-        return view('admin.payments.index', compact('payments'));
+        if (@$request->export) {
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Index', $payments->toArray()['data'], $request->type);
+        } else {
+            return view('admin.payments.index', compact('payments'));
+        }
     }
 
     /**
@@ -54,7 +61,10 @@ class PaymentController extends Controller
         }
 
         if (@$request->export) {
-            return Export::from('Filters', $payments->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Filters', $payments->toArray()['data'], $request->type);
         } else {
             return view('admin.payments.index', compact('payments'));
         }
@@ -127,7 +137,14 @@ class PaymentController extends Controller
                                                        ->get(['id'])
                                                        ->flatten())
                            ->paginate(option('pagination', 15));
-        return view('admin.payments.trips', compact('payments', 'driver'));
+        if (@$request->export) {
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Payment of the ' . $driver->first_name . ' ' . $driver->last_name, $payments->toArray()['data'], $request->type);
+        } else {
+            return view('admin.payments.trips', compact('payments', 'driver'));
+        }
     }
 
     /**
@@ -175,7 +192,10 @@ class PaymentController extends Controller
                 $payment['detail'] = print_r($payment->detail);
                 unset($payment['trip']);
             }
-            return Export::from('Payment of the ' . $driver->first_name . ' ' . $driver->last_name, $payments->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Payment of the ' . $driver->first_name . ' ' . $driver->last_name, $payments->toArray()['data'], $request->type);
         } else {
             return view('admin.payments.trips', compact('payments', 'driver'));
         }

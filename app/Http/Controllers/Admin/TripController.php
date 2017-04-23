@@ -28,7 +28,10 @@ class TripController extends Controller
     {
         $trips = Trip::orderBy('created_at', 'desc')->paginate(option('pagination', 15));
         if (@$request->export) {
-            return Export::from('Index', $trips->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Index', $trips->toArray()['data'], $request->type);
         } else {
             return view('admin.trips.index', compact('trips'));
         }
@@ -90,7 +93,10 @@ class TripController extends Controller
         }
 
         if (@$request->export) {
-            return Export::from('Filter', $trips->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Filter', $trips->toArray()['data'], $request->type);
         } else {
             return view('admin.trips.index', compact('trips'));
         }
@@ -119,7 +125,10 @@ class TripController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Search', $trips->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Search', $trips->toArray()['data'], $request->type);
         } else {
             return view('admin.trips.index', compact('trips'));
         }
