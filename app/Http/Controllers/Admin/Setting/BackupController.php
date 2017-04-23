@@ -76,7 +76,7 @@ class BackupController extends Controller
      * New backup.
      * @return redirect
      */
-    public function new()
+    public function newBackup()
     {
         Artisan::queue('backup:run');
         flash('New backup created');
