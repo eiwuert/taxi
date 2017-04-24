@@ -123,7 +123,6 @@ class CancelRepository
                     $driver->updateDriverAvailability(true);
                     $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
-                    dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
                     // Request new taxi
                     $tripRequest = [
                             's_lat'  => $trip->source()->first()->latitude,
