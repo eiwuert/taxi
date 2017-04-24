@@ -35,9 +35,9 @@ class FcmRepository
     private function message($title, $message, $device_token)
     {
         if (debug_backtrace()[1]['function'] == 'to_driver') {
-            $server_key = config('fcm.driver_server_key');
+            $server_key = config('fcm.server_key');
         } elseif (debug_backtrace()[1]['function'] == 'to_client') {
-            $server_key = config('fcm.client_server_key');
+            $server_key = config('fcm.server_key');
         }
 
         $response = $this->http->request('POST', config('fcm.send_url'),
