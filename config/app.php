@@ -172,6 +172,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
         //Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
         //Spatie\Backup\BackupServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
