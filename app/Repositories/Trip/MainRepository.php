@@ -117,6 +117,7 @@ class MainRepository
      */
     public static function exclude($clientId)
     {
+        Log::debug('Client for next trip: ' . $clientId);
         if (env('APP_ENV', 'production') == 'local') {
             $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
                             ->where('client_id', $clientId)
