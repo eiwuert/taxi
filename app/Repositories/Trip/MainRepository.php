@@ -117,16 +117,15 @@ class MainRepository
      */
     public static function exclude($clientId)
     {
-        Log::debug('Client for next trip: ' . $clientId);
         if (env('APP_ENV', 'production') == 'local') {
             $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
                             ->where('client_id', $clientId)
-                            ->where('created_at', '>', Carbon::now()->subMinutes(10)->toDateTimeString())
+                            ->where('created_at', '>', Carbon::now()->subMinutes(1)->toDateTimeString())
                             ->get(['driver_id'])->flatten();
         } else {
             $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
                             ->where('client_id', $clientId)
-                            ->whereDate('created_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->where('created_at', '>', Carbon::now()->subMinutes(10)->toDateTimeString())
                             ->get(['driver_id'])->flatten();
         }
 
