@@ -174,7 +174,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         //Spatie\UptimeMonitor\UptimeMonitorServiceProvider::class,
-        //Spatie\Backup\BackupServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
         Potsky\LaravelLocalizationHelpers\LaravelLocalizationHelpersServiceProvider::class,
