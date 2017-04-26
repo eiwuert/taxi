@@ -122,7 +122,7 @@ return array (
   'First name: ' => 'نام: ',
   'Firstname' => 'نام',
   'For' => 'برای',
-  'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید?',
+  'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید؟',
   'Fresh as a daisy' => 'تازه',
   'From' => 'از',
   'From:' => 'از: ',
