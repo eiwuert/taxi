@@ -125,7 +125,7 @@ class MainRepository
         } else {
             $exclude = Trip::whereNotIn('status_id', [15, 16, 17])
                             ->where('client_id', $clientId)
-                            ->whereDate('created_at', '>', Carbon::now()->subMinutes(15)->toDateTimeString())
+                            ->where('created_at', '>', Carbon::now()->subMinutes(10)->toDateTimeString())
                             ->get(['driver_id'])->flatten();
         }
 

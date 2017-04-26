@@ -11,7 +11,13 @@ class ExportController extends Controller
     public function export($name, Request $request)
     {
         if (!is_null($request->model)) {
-            return Export::from($name, $request->model, $request->type ?? 'pdf', $request->sheet ?? 'sheet');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            if (is_null($request->sheet)) {
+                $request->sheet = 'sheet';
+            }
+            return Export::from($name, $request->model, $request->type, $request->sheet);
         } else {
             return redirect()->back();
         }

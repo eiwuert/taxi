@@ -9,6 +9,8 @@ return array (
   'back to driver' => 'back to driver',
 
   'SMS codes' => 'SMS codes',
+  'Offline, Go online' => 'Offline, Go online',
+  'Online, Go offline' => 'Online, Go offline',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -132,8 +134,6 @@ return array (
   'General' => 'General',
   'Generated' => 'Generated',
   'Go full screen' => 'Go full screen',
-  'Go offline' => 'Go offline',
-  'Go online' => 'Go online',
   'Go to profile' => 'Go to profile',
   'Go to trip' => 'Go to trip',
   'INCOME' => 'INCOME',
@@ -213,6 +213,7 @@ return array (
   'Result' => 'Result',
   'Results' => 'Results',
   'SAAMTaxi' => 'SAAMTaxi',
+  'SMS codes' => 'SMS codes',
   'Search' => 'Search',
   'Send Password Reset Link' => 'Send Password Reset Link',
   'Setting' => 'Setting',
@@ -307,3 +308,4 @@ return array (
   'wiki' => 'wiki',
   //================================== Obsolete strings ==================================//
 );
+

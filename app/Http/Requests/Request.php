@@ -25,7 +25,7 @@ class Request extends FormRequest
      */
     protected function formatErrors(Validator $validator)
     {
-        $data = $validator->getMessageBag()->toArray();
+        // $data = $validator->getMessageBag()->toArray();
         $data['title'] = __('api/validation.Validation failed');
         $data['detail'] = __('api/validation.Validation for given fields have been failed, please check your inputs');
         $data['status'] = 422;

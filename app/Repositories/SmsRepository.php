@@ -18,7 +18,7 @@ class SmsRepository
      */
     public function send($to, $message)
     {
-        if (env('APP_ENV', 'production') == 'local') {
+        if (env('APP_ENV', 'production') == 'local' || env('APP_ENV', 'production') == 'testing') {
             return true;
         }
         if (env('SMS') == 'ir') {

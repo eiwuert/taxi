@@ -28,7 +28,10 @@ class ClientController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Index', $clients->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Index', $clients->toArray()['data'], $request->type);
         } else {
             return view('admin.clients.index', compact('clients'));
         }
@@ -119,7 +122,10 @@ class ClientController extends Controller
         }
 
         if (@$request->export) {
-            return Export::from('Filter', $clients->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Filter', $clients->toArray()['data'], $request->type);
         } else {
             return view('admin.clients.index', compact('clients'));
         }
@@ -176,7 +182,10 @@ class ClientController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Search', $clients->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Search', $clients->toArray()['data'], $request->type);
         } else {
             return view('admin.clients.index', compact('clients'));
         }

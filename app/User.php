@@ -301,11 +301,48 @@ class User extends Authenticatable
 
     /**
      * Get the phone attribute started with 0.
-     * 
+     *
      * @return string
      */
     public function phone()
     {
         return '0' . substr($this->phone, -10);
+    }
+
+    /**
+     * Get name of the client or driver.
+     *
+     * @return string|null
+     */
+    public function name()
+    {
+        $user = call_user_func([$this, $this->role])->first();
+        if (is_null($user)) {
+            return null;
+        }
+        if ((is_null($user->first_name) && is_null($user->last_name)) ||
+            ($user->first_name == '' && $user->last_name == '')) {
+            return null;
+        } else if ($user->first_name == '' &&  $user->last_name != '') {
+            return $user->last_name;
+        } else if ($user->first_name != '' &&  $user->last_name == '') {
+            return $user->first_name;
+        } else {
+            return $user->first_name . ' ' . $user->last_name;
+        }
+    }
+
+    /**
+     * Get the user last trip if existed.
+     * @return \App\Trip|null
+     */
+    public function trip()
+    {
+        $user = call_user_func([$this, $this->role])->first();
+        if (!is_null($user->trips())) {
+            return $user->trips()->orderBy('id', 'desc')->first();
+        } else {
+            return null;
+        }
     }
 }

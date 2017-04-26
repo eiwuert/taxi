@@ -29,7 +29,10 @@ class DriverController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Index', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Index', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }
@@ -161,7 +164,10 @@ class DriverController extends Controller
         }
 
         if (@$request->export) {
-            return Export::from('Filters', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Filters', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }
@@ -190,7 +196,10 @@ class DriverController extends Controller
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
-            return Export::from('Search', $drivers->toArray()['data'], $request->type ?? 'pdf');
+            if (is_null($request->type)) {
+                $request->type = 'pdf';
+            }
+            return Export::from('Search', $drivers->toArray()['data'], $request->type);
         } else {
             return view('admin.drivers.index', compact('drivers'));
         }
@@ -203,14 +212,12 @@ class DriverController extends Controller
     public function offline(Driver $driver)
     {
         if (! $this->canChangeState($driver)) {
-            flash(__('admin/general.Driver is in trip'), 'danger');
-            return redirect(route('drivers.show', ['driver'=>$driver]));
+            return response('', 409);
         }
-        $driver->online = false;
-        $driver->available = false;
-        $driver->update();
-        flash(__('admin/general.Driver is offline now'), 'success');
-        return redirect(route('drivers.show', ['driver'=>$driver]));
+        // $driver->online = false;
+        // $driver->available = false;
+        $driver->forceFill(['online' => false, 'available' => false])->save();
+        return response('', 200);
     }
 
     /**
@@ -220,19 +227,15 @@ class DriverController extends Controller
     public function online(Driver $driver)
     {
         if (! $this->canChangeState($driver)) {
-            flash(__('admin/general.Driver is in trip'), 'danger');
-            return redirect(route('drivers.show', ['driver'=>$driver]));
+            return response('', 409);
         }
-        $driver->online = true;
-        $driver->available = true;
-        $driver->update();
-        flash(__('admin/general.Driver is online now'), 'success');
-        return redirect(route('drivers.show', ['driver'=>$driver]));
+        $driver->forceFill(['online' => true, 'available' => true])->save();
+        return response('', 200);
     }
 
     /**
      * Can driver change state.
-     * 
+     *
      * @param  \App\Driver $driver
      * @return void|Illuminate\Support\Facades\Redirect
      */
