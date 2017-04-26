@@ -1,18 +1,8 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/18 10:57:20 
-*************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/maps/track.blade.php
-  'back to driver' => 'بازگشت به راننده',
-  'SMS codes' => 'کد اس ام اس',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
-  'Offline, Go online' => 'آفلاین، آنلاین شوید',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
-  'Online, Go offline' => 'آنلاین، آفلاین شدن',
-
+  'Choose picture' => 'انتخاب تصویر نمایه',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -27,7 +17,6 @@ return array (
   'Approve' => 'تایید',
   'Arrived' => 'راننده به مبدا مسافر رسیده',
   'Ascending' => 'صعودی',
-  'Attempts' => 'تعداد تلاش‌ها',
   'Backup' => ' پشتیبان گیری',
   'Balance' => 'اعتبار',
   'Balance: ' => 'اعتبار: ',
@@ -42,7 +31,6 @@ return array (
   'Car type:' => 'نوع خودرو:',
   'Charge' => 'شارژ',
   'Charged' => 'شارژ شده',
-  'Choose picture' => 'انتخاب تصویر نمایه',
   'Client' => 'مسافر',
   'Client canceled arrived driver' => ' مسافر راننده رسیده را لغو کرد ',
   'Client canceled onway driver' => ' مسافر راننده در راه را لغو کرد ',
@@ -55,7 +43,6 @@ return array (
   'Client unlocked' => 'مسافر باز شد',
   'Client updated' => 'مسافر به روز رسانی شد ',
   'Clients' => ' مسافرها ',
-  'Code' => 'کد',
   'Color: ' => 'رنگ: ',
   'Confirm Password' => 'تایید رمزعبور',
   'Cost' => 'هزینه سفر',
@@ -127,15 +114,16 @@ return array (
   'First name: ' => 'نام: ',
   'Firstname' => 'نام',
   'For' => 'برای',
-  'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید؟',
+  'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید?',
   'Fresh as a daisy' => 'تازه',
   'From' => 'از',
   'From:' => 'از: ',
   'Gender:' => 'جنسیت: ',
   'Gender: ' => 'جنسیت: ',
   'General' => 'عمومی',
-  'Generated' => 'درخواست شده',
   'Go full screen' => 'تمام صفحه',
+  'Go offline' => 'آفلاین شدن',
+  'Go online' => 'آنلاین شدن',
   'Go to profile' => 'رفتن به پروفایل',
   'Go to trip' => 'رفتن به سفر',
   'INCOME' => 'درآمد',
@@ -143,6 +131,7 @@ return array (
   'Info' => 'اطلاعات',
   'Invoice' => 'فاکتور',
   'Lang: ' => 'زبان: ',
+  'Laravel' => 'لاراول',
   'Last 30 Days' => 'سی روز گذشه',
   'Last 7 Days' => 'هفت روز گذشته',
   'Last Location' => 'آخرین مکان',
@@ -214,15 +203,14 @@ return array (
   'Reset Password' => 'تنظیم مجدد رمز عبور',
   'Result' => 'نتیجه',
   'Results' => 'نتایج',
+  'SAAM' => 'سام',
   'SAAMTaxi' => 'سام تاکسی',
-  'SMS codes' => 'کد اس ام اس',
   'Search' => 'جستجو',
   'Send Password Reset Link' => 'ارسال لینک ریست کلمه عبور',
   'Setting' => ' تنظیمات ',
   'Settings' => ' تنظیمات ',
   'Sign in' => 'ورود',
   'Size' => 'اندازه',
-  'Sms' => 'کد‌های تایید',
   'Sort by' => 'مرتب سازی بر اساس',
   'Source' => 'منبع',
   'Started' => 'سفر آغاز شد',
@@ -239,6 +227,7 @@ return array (
   'Switch to Farsi' => 'تبدیل به انگلیسی',
   'System Logs' => 'لاگ های سیستم',
   'System requests' => 'درخواست سیستم',
+  'TAXI' => 'تاکسی',
   'TRIPS' => ' سفرها ',
   'Taxi requested' => 'مسافر درخواست تاکسی داد',
   'This Month' => 'این ماه',
@@ -267,6 +256,7 @@ return array (
   'Unapproved' => 'تایید نشده',
   'Unlock' => 'باز کردن',
   'Unlocked' => 'باز شده',
+  'Upload client profile picture' => 'بارگذاری عکس پروفایل مسافر',
   'Upload zip file' => 'آپلود فایل زیپ',
   'Web' => 'وب',
   'Yesterday' => 'دیروز',
@@ -308,6 +298,4 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
-  //================================== Obsolete strings ==================================//
-
 );

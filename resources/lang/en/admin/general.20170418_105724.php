@@ -1,16 +1,8 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/18 10:57:20 
-*************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/maps/track.blade.php
-  'back to driver' => 'back to driver',
-
-  'SMS codes' => 'SMS codes',
-  'Offline, Go online' => 'Offline, Go online',
-  'Online, Go offline' => 'Online, Go offline',
+  'Choose picture' => 'Choose picture',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -25,7 +17,6 @@ return array (
   'Approve' => 'Approve',
   'Arrived' => 'Arrived',
   'Ascending' => 'Ascending',
-  'Attempts' => 'Attempts',
   'Backup' => 'Backup',
   'Balance' => 'Balance',
   'Balance: ' => 'Balance: ',
@@ -40,7 +31,6 @@ return array (
   'Car type:' => 'Car type:',
   'Charge' => 'Charge',
   'Charged' => 'Charged',
-  'Choose picture' => 'Choose picture',
   'Client' => 'Client',
   'Client canceled arrived driver' => ' Client canceled arrived driver ',
   'Client canceled onway driver' => ' Client canceled onway driver ',
@@ -53,7 +43,6 @@ return array (
   'Client unlocked' => 'Client unlocked',
   'Client updated' => 'Client updated',
   'Clients' => 'Clients',
-  'Code' => 'Code',
   'Color: ' => 'Color: ',
   'Confirm Password' => 'Confirm Password',
   'Cost' => 'Cost',
@@ -132,8 +121,9 @@ return array (
   'Gender:' => 'Gender:',
   'Gender: ' => 'Gender: ',
   'General' => 'General',
-  'Generated' => 'Generated',
   'Go full screen' => 'Go full screen',
+  'Go offline' => 'Go offline',
+  'Go online' => 'Go online',
   'Go to profile' => 'Go to profile',
   'Go to trip' => 'Go to trip',
   'INCOME' => 'INCOME',
@@ -141,6 +131,7 @@ return array (
   'Info' => 'Info',
   'Invoice' => 'Invoice',
   'Lang: ' => 'Lang: ',
+  'Laravel' => 'Laravel',
   'Last 30 Days' => 'Last 30 Days',
   'Last 7 Days' => 'Last 7 Days',
   'Last Location' => 'Last Location',
@@ -212,15 +203,14 @@ return array (
   'Reset Password' => 'Reset Password',
   'Result' => 'Result',
   'Results' => 'Results',
+  'SAAM' => 'SAAM',
   'SAAMTaxi' => 'SAAMTaxi',
-  'SMS codes' => 'SMS codes',
   'Search' => 'Search',
   'Send Password Reset Link' => 'Send Password Reset Link',
   'Setting' => 'Setting',
   'Settings' => 'Settings',
   'Sign in' => 'Sign in',
   'Size' => 'Size',
-  'Sms' => 'Sms codes',
   'Sort by' => 'Sort by',
   'Source' => 'Source',
   'Started' => 'Started',
@@ -237,6 +227,7 @@ return array (
   'Switch to Farsi' => 'Switch to Farsi',
   'System Logs' => 'System Logs',
   'System requests' => 'System requests',
+  'TAXI' => 'TAXI',
   'TRIPS' => 'TRIPS',
   'Taxi requested' => 'Taxi requested',
   'This Month' => 'This Month',
@@ -265,6 +256,7 @@ return array (
   'Unapproved' => 'UNAPPROVED',
   'Unlock' => 'Unlock',
   'Unlocked' => 'Unlocked',
+  'Upload client profile picture' => 'Upload client profile picture',
   'Upload zip file' => 'Upload zip file.',
   'Web' => 'Web',
   'Yesterday' => 'Yesterday',
@@ -306,6 +298,4 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
-  //================================== Obsolete strings ==================================//
 );
-
