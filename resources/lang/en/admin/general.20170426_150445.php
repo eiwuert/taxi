@@ -1,12 +1,15 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/26 15:04:34 
+ Generated via "php artisan localization:missing" at 2017/04/18 10:57:20 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/includes/head-page.blade.php
-  'Flip' => 'Flip',
+  'back to driver' => 'back to driver',
+
+  'SMS codes' => 'SMS codes',
+  'Offline, Go online' => 'Offline, Go online',
+  'Online, Go offline' => 'Online, Go offline',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -77,6 +80,7 @@ return array (
   'Distance' => 'Distance',
   'Distance to client:' => 'Distance to client:',
   'Distance:' => 'Distance:',
+  'Documents' => 'Documents',
   'Documents: ' => 'Documents: ',
   'Download' => 'Download',
   'Driver' => 'Driver',
@@ -85,6 +89,8 @@ return array (
   'Driver distance' => 'Driver distance',
   'Driver documents deleted' => 'Driver documents deleted',
   'Driver is in trip' => 'Driver is in trip',
+  'Driver is offline now' => 'Driver is offline now',
+  'Driver is online now' => 'Driver is online now',
   'Driver picture deleted' => 'Driver picture deleted',
   'Driver rated' => 'Driver rated',
   'Driver rated not yet client' => ' Driver rated not yet client ',
@@ -173,13 +179,11 @@ return array (
   'Nothing to show here' => 'Nothing to show here...',
   'Number: ' => 'Number: ',
   'Offline' => 'Offline',
-  'Offline, Go online' => 'Offline, Go online',
   'Oh Snap!' => 'Oh Snap!',
   'On next trip' => 'On next trip',
   'On next trip canceled' => 'On next trip canceled',
   'On way' => 'On way',
   'Online' => 'Online',
-  'Online, Go offline' => 'Online, Go offline',
   'Only last 100 items listed here' => 'Only last 100 items listed here',
   'Onway' => 'Onway',
   'Order by' => 'Order by',
@@ -264,7 +268,6 @@ return array (
   'Yesterday' => 'Yesterday',
   'Zip code: ' => 'Zip code: ',
   'Zipcode:' => 'Zipcode:',
-  'back to driver' => 'back to driver',
   'blog' => 'blog',
   'charsets' => 'charsets',
   'client' => 'client',
@@ -303,3 +306,4 @@ return array (
   'wiki' => 'wiki',
   //================================== Obsolete strings ==================================//
 );
+

@@ -5,9 +5,9 @@
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>{{ $saam[0] }}</b>{{ $taxi[0] }}</span>
+                <span class="logo-mini"><b>{{ $flip[0] }}</b>{{ $app[0] }}</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>{{ $saam }}</b>{{ $taxi }}</span>
+                <span class="logo-lg"><b>{{ $flip }}</b>{{ $app }}</span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">

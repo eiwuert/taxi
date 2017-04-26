@@ -58,8 +58,8 @@ return array(
     ],
 
     'properties' => [
-        'creator'        => 'SAAMTaxi',
-        'lastModifiedBy' => 'SAAMTaxi',
+        'creator'        => 'Flipapp',
+        'lastModifiedBy' => 'Flip',
         'title'          => 'Spreadsheet',
         'description'    => 'Default spreadsheet export',
         'subject'        => 'Spreadsheet export',

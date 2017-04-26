@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('saam', 'SAAM');
-        View::share('taxi', 'TAXI');
+        View::share('flip', 'Flip');
+        View::share('app', 'App');
         Blade::directive('jsonify', function ($expression) {
             return "<?php echo json_encode($expression); ?>";
         });
