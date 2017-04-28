@@ -66,7 +66,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{{ route('webs.edit') }}" class="btn btn-default btn-flat">@lang('admin/general.Profile')</a>
+                                        <a href="{{ route('users.edit', ['id' => Auth::user()->web->id]) }}" class="btn btn-default btn-flat">@lang('admin/general.Profile')</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"

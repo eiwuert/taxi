@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Auth;
 use Cache;
 use Image;
 use Storage;
@@ -11,6 +11,7 @@ use App\User;
 use App\Status;
 use App\CarType;
 use App\Location;
+use App\Scopes\DriverPermissionScope;
 use App\Repositories\DriverRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -71,6 +72,17 @@ class Driver extends Model
     ];
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new DriverPermissionScope);
+    }
+
+    /**
      * Scope a query to only include offline drivers.
      * online    0
      * available 0
@@ -82,9 +94,9 @@ class Driver extends Model
      */
     public function scopeOffline($query)
     {
-        return $query->where('online', 0)
-                     ->where('available', 0)
-                     ->where('approve', 1);
+        return $query->where('online', false)
+                     ->where('available', false)
+                     ->where('approve', true);
     }
 
     /**
@@ -99,9 +111,9 @@ class Driver extends Model
      */
     public function scopeInapprove($query)
     {
-        return $query->where('online', 0)
-                     ->where('available', 0)
-                     ->where('approve', 0);
+        return $query->where('online', false)
+                     ->where('available', false)
+                     ->where('approve', false);
     }
 
     /**
@@ -116,9 +128,9 @@ class Driver extends Model
      */
     public function scopeOnWay($query)
     {
-        return $query->where('online', 1)
+        return $query->where('online', true)
                      ->where('available', 0)
-                     ->where('approve', 1);
+                     ->where('approve', true);
     }
 
     /**
@@ -133,9 +145,9 @@ class Driver extends Model
      */
     public function scopeAvailable($query)
     {
-        return $query->where('online', 1)
-                     ->where('available', 1)
-                     ->where('approve', 1);
+        return $query->where('online', true)
+                     ->where('available', true)
+                     ->where('approve', true);
     }
 
     /**
@@ -150,9 +162,9 @@ class Driver extends Model
      */
     public function scopeOnline($query)
     {
-        return $query->where('online', 1)
-                     ->where('available', 1)
-                     ->where('approve', 1);
+        return $query->where('online', true)
+                     ->where('available', true)
+                     ->where('approve', true);
     }
 
     /**
@@ -441,6 +453,14 @@ class Driver extends Model
         }
     }
 
+    /**
+     * Get distance between 2 latLng
+     * @param  float $lat1
+     * @param  float $lng1
+     * @param  float $lat2
+     * @param  float $lng2
+     * @return float
+     */
     protected function distance($lat1, $lng1, $lat2, $lng2)
     {
         $p = 0.017453292519943295;
@@ -448,5 +468,15 @@ class Driver extends Model
             cos($lat1 * $p) * cos($lat2 * $p) * 
             (1 - cos(($lng2 - $lng1) * $p)) / 2;
         return 12742 * asin(sqrt($a));
+    }
+
+    /**
+     * Get state name.
+     * 
+     * @return string
+     */
+    public function stateName()
+    {
+        return config('states.' . $this->state);
     }
 }

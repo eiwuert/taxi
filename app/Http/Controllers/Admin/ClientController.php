@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\ClientRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\ExportRepository as Export;
 
 class ClientController extends Controller
@@ -24,8 +25,23 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = Client::orderby('created_at', 'desc')
-                        ->paginate(option('pagination', 15));
+        $clients = Client::select('clients.*', 'users.phone')
+                        ->join('users', 'clients.user_id', '=', 'users.id')
+                        ->orderby('clients.updated_at', 'desc')
+                        ->get();
+
+        $page = $request->get('page', 1); // Get the ?page=1 from the url
+        $perPage = option('pagination', 15); // Number of items per page
+        $offset = ($page * $perPage) - $perPage;
+        $clients = $clients->slice($offset, $perPage);
+
+        $clients = new LengthAwarePaginator(
+            $clients, // Only grab the items we need
+            count($clients), // Total items
+            $perPage, // Items per page
+            $page, // Current page
+            ['path' => $request->url(), 'query' => $request->query()] // We need this so we can keep all old query parameters from the url
+        );
 
         if (@$request->export) {
             if (is_null($request->type)) {

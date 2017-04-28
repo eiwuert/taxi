@@ -6,6 +6,7 @@ use App\Status;
 use Carbon\Carbon;
 use App\Events\TripCreated;
 use App\Events\TripUpdated;
+use App\Scopes\TripPermissionScope;
 use App\Repositories\FilterRepository;
 use Illuminate\Database\Eloquent\Model;
 
@@ -86,6 +87,18 @@ class Trip extends Model
      * @var array
      */
     public static $pending = [1, 2, 7, 12, 6, 9, 15, 20];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new TripPermissionScope);
+    }
+
 
     /**
      * A trip can have one driver.
@@ -204,7 +217,7 @@ class Trip extends Model
             case 'reject_client_found':
                 return __('admin/general.New client rejected by driver');
                 break;
-            case 'no_reponse':
+            case 'no_response':
                 return __('admin/general.No response from driver');
                 break;
             case 'client_found':
