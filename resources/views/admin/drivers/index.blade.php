@@ -96,9 +96,9 @@
                         <td>{!! $driver->first_name or '<tag color="default"></tag>' !!}</td>
                         <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
                         <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
-                        <td>{{ $driver->state }}</td>
+                        <td>{{ $driver->stateName() }}</td>
                         <td>{{ $driver->country }}</td>
-                        <td>{{ $driver->phoneNumber() }}</td>
+                        <td>{{ $driver->user->phone }}</td>
                     </tr>
                     @endforeach
                 </tbody>

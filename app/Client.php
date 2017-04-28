@@ -4,6 +4,7 @@ namespace App;
 
 use Image;
 use Storage;
+use App\Scopes\ClientPermissionScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
@@ -50,6 +51,17 @@ class Client extends Model
         'picture',
         'user_id',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new ClientPermissionScope);
+    }
 
     /**
      * A client can have one user.

@@ -1,13 +1,12 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/26 15:04:34 
+ Generated via "php artisan localization:missing" at 2017/04/27 16:00:45 
 *************************************************************************/
 
 return array (
-  //============================== New strings to translate ==============================//
-  // Defined in file /home/pezhman/saamtaxi/resources/views/admin/includes/head-page.blade.php
-  'Flip' => 'Flip',
-  //==================================== Translations ====================================//
+  'New admin' => 'New admin',
+  'Password: ' => 'Password: ',
+  'Permission: ' => 'Permission: ',
   '1st' => '1st',
   '2nd' => '2nd',
   '3rd' => '3rd',
@@ -15,6 +14,7 @@ return array (
   'Address:' => 'Address:',
   'Address: ' => 'Address: ',
   'Admin' => 'Admin',
+  'Admins' => 'Admins',
   'All' => 'All',
   'Amount' => 'Amount',
   'Android' => 'Android',
@@ -117,6 +117,7 @@ return array (
   'First name' => 'First name',
   'First name: ' => 'First name: ',
   'Firstname' => 'First name',
+  'Flip' => 'Flip',
   'For' => 'For',
   'Forgot Your Password?' => 'Forgot Your Password?',
   'Fresh as a daisy' => 'Fresh as a daisy',
@@ -301,5 +302,4 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
-  //================================== Obsolete strings ==================================//
 );

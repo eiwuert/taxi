@@ -13,16 +13,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class MultiRecordDriver
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param  UserVerified  $event
@@ -38,8 +28,7 @@ class MultiRecordDriver
                                         ->get(['id'])->flatten())
                 ->update(['user_id' => $event->user->id]);
 
-            $updated = DB::table('cars')
-                        ->whereIn('user_id', User::where('phone', $event->user->phone)
+            $updated = Car::whereIn('user_id', User::where('phone', $event->user->phone)
                                                 ->whereVerified(true)
                                                 ->where('role', 'driver')
                                                 ->get(['id'])->flatten())
@@ -74,6 +63,16 @@ class MultiRecordDriver
 
                 $count -= 1;
             }
+
+            // User::where('phone', $event->user->phone)
+            //     ->where('role', 'driver')
+            //     ->each(function ($u) use (& $event) {
+            //         if (!is_null($u->driver->first())) {
+            //             if ($u->driver->first()->user_id != $event->user->id) {
+            //                 $u->driver->first()->delete();
+            //             }
+            //         }
+            //     });
         }
     }
 }

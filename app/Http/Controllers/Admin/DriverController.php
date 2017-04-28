@@ -13,10 +13,25 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
 use App\Repositories\FilterRepository;
 use App\Http\Requests\Admin\DriverRequest;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Repositories\ExportRepository as Export;
+
 
 class DriverController extends Controller
 {
+    /**
+     * List of drivers.
+     * @var \App\Driver
+     */
+    private $drivers;
+
+    public function __construct()
+    {
+        $this->drivers = Driver::select('drivers.*', 'users.phone')
+                            ->join('users', 'drivers.user_id', '=', 'users.id')
+                            ->whereVerified(true)
+                            ->orderBy('drivers.created_at', 'desc');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +40,19 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        $drivers = Driver::orderBy('created_at', 'desc')
-                        ->paginate(option('pagination', 15));
+        $page = $request->get('page', 1); // Get the ?page=1 from the url
+        $perPage = option('pagination', 15); // Number of items per page
+        $offset = ($page * $perPage) - $perPage;
 
+        $drivers = $this->drivers->get()->slice($offset, $perPage);
+        $drivers = new LengthAwarePaginator(
+            $drivers, // Only grab the items we need
+            count($drivers), // Total items
+            $perPage, // Items per page
+            $page, // Current page
+            ['path' => $request->url(), 'query' => $request->query()] // We need this so we can keep all old query parameters from the url
+        );
+        
         if (@$request->export) {
             if (is_null($request->type)) {
                 $request->type = 'pdf';
@@ -116,6 +141,7 @@ class DriverController extends Controller
      */
     public function filter(Request $request, Driver $drivers)
     {
+        // $drivers = $drivers->join('')
         if ($request->status == 'online') {
             // online
             $drivers = Driver::online();

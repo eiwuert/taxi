@@ -15,7 +15,7 @@ class DriverRegisterRequest extends Request
     {
         return [
             'lang'         => 'required|in:fa,en,ku',
-            'state'        => 'required|max:255',
+            'state'        => 'required|max:255|in:' . implode(', ', range(1, 32)),
             'country'      => 'required|max:255',
             'device_type'  => 'required|max:255',
             'device_token' => 'required|max:255',

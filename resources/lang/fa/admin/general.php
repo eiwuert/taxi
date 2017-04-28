@@ -1,9 +1,15 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/26 15:04:34 
+ Generated via "php artisan localization:missing" at 2017/04/27 16:00:46 
 *************************************************************************/
 
 return array (
+  //============================== New strings to translate ==============================//
+  'New admin' => 'مدیر جدید',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
+  'Password: ' => 'رمز عبور: ',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
+  'Permission: ' => 'مجوز: ',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -12,6 +18,7 @@ return array (
   'Address:' => 'آدرس: ',
   'Address: ' => 'آدرس: ',
   'Admin' => 'ادمین',
+  'Admins' => 'ادمین‌ها',
   'All' => 'همه',
   'Amount' => 'مقدار',
   'Android' => 'Android',
@@ -114,6 +121,7 @@ return array (
   'First name' => 'نام',
   'First name: ' => 'نام: ',
   'Firstname' => 'نام',
+  'Flip' => 'فلیپ',
   'For' => 'برای',
   'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید؟',
   'Fresh as a daisy' => 'تازه',
@@ -298,6 +306,4 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
-  'Flip' => 'فلیپ',
-  //================================== Obsolete strings ==================================//
 );

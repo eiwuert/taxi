@@ -26,7 +26,10 @@ class WebRequest extends FormRequest
         return [
             'first_name'   => 'required|max:24',
             'last_name'    => 'required|max:24',
-            'picture'      => 'image|max:255'
+            'picture'      => 'image|max:255',
+            'email'        => 'required|email|unique:users,email',
+            'password'     => 'max:250',
+            'permissions'  => 'required',
         ];
     }
 }
