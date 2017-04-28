@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'inTrip'     => \App\Http\Middleware\InTrip::class,
         'notPaid'    => \App\Http\Middleware\NotPaid::class,
         'lang'       => \App\Http\Middleware\UserLang::class,
+        'superadmin' => \App\Http\Middleware\IsSuperadmin::class,
     ];
 }
