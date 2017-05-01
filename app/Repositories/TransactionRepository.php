@@ -290,8 +290,7 @@ class TransactionRepository
      */
     public function income()
     {
-        return DB::table('transactions')
-                    ->join('trips', 'transactions.trip_id', '=', 'trips.id')
+        return Transaction::join('trips', 'transactions.trip_id', '=', 'trips.id')
                     ->select(['total'])
                     ->whereIn('status_id', Trip::$finished)
                     ->sum('total') * ((int)(option('commission', '13')) / 100);
