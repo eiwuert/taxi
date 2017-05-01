@@ -3,7 +3,8 @@
 namespace App\Scopes;
 
 use Auth;
-use App\User;
+use App\Trip;
+use App\Driver;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
