@@ -4,6 +4,7 @@ namespace App;
 
 use App\Trip;
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\TransactionPermissionScope;
 
 class Transaction extends Model
 {
@@ -29,6 +30,18 @@ class Transaction extends Model
         'total',
         'commission',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new TransactionPermissionScope);
+    }
+
 
     /**
      * A transaction can have one trip.
