@@ -7,10 +7,11 @@ use App\Driver;
 
 trait TripTrait
 {
-    private $client;
-    private $driver;
-    private $clientAccessToken;
-    private $driverAccessToken;
+    protected $client;
+    protected $driver;
+    protected $clientId;
+    protected $clientAccessToken;
+    protected $driverAccessToken;
 
     /**
      * Set up methods.
@@ -26,14 +27,14 @@ trait TripTrait
             'lang' => 'en',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
-            'state' => 'Esf',
+            'state' => '1',
             'country' => 'Iran',
         ]);
         $this->refreshApplication();
 
         $this->driverAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
                                    $response->getOriginalContent()['data'][0]['access_token'];
-
+        $this->refreshApplication();
         $this->json('POST', '/api/v1/driver/verify',
                             ['code' => '55555'],
                             ['Authorization' => $this->driverAccessToken,
@@ -53,13 +54,19 @@ trait TripTrait
         $this->client = Client::orderBy('id', 'desc')->first();
         $this->clientAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
                                    $response->getOriginalContent()['data'][0]['access_token'];
-
+        \Log::debug($this->clientAccessToken);
         $this->refreshApplication();
 
         $response = $this->json('POST', '/api/v1/driver/verify',
                             ['code' => '55555'],
                             ['Authorization' => $this->clientAccessToken,
                              'Accept' => 'application/json']);
+
+        $this->refreshApplication();
+
+        $client = $this->json('GET', 'api/v1/client/profile', [], 
+            ['Authorization' => $this->clientAccessToken]);
+        $this->clientId = $client->getOriginalContent()['data'][0]['id'];
 
         $this->refreshApplication();
     }
@@ -80,7 +87,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverGoesOnline()
+    protected function driverGoesOnline()
     {
         $this->get('api/v1/driver/online', [
             'Authorization' => $this->driverAccessToken,
@@ -95,7 +102,7 @@ trait TripTrait
      * @param  float $long
      * @return void
      */
-    private function driverSetsHerCurrentLocation($lat = '41.410874', $long = '2.157207')
+    protected function driverSetsHerCurrentLocation($lat = '41.410874', $long = '2.157207')
     {
         $response = $this->post('api/v1/driver/location',
             ['lat' => $lat, 'long' => $long],
@@ -109,7 +116,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverAcceptsTheTrip()
+    protected function driverAcceptsTheTrip()
     {
         $response = $this->get('api/v1/driver/accept',
             ['Authorization' => $this->driverAccessToken,
@@ -173,6 +180,35 @@ trait TripTrait
     }
 
     /**
+     * Client choose the payment mode.
+     * @todo  Payment redirect back from IPG.
+     * @return void
+     */
+    public function clientChooseWalletAsThePayment()
+    {
+        // Test with no balance
+        $this->get('/api/v1/client/pay/wallet',
+            ['Authorization' => $this->clientAccessToken,
+            'Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => false])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+        Client::find($this->clientId)
+            ->forceFill(['balance' => 99999999])
+            ->save();
+        $this->get('/api/v1/client/pay/wallet',
+            ['Authorization' => $this->clientAccessToken,
+            'Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => 'true'])
+            ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+    }
+
+    /**
      * Driver ends to the trip.
      * 
      * @return void
@@ -194,7 +230,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverRatesTheTrip()
+    protected function driverRatesTheTrip()
     {
         $this->post('/api/v1/driver/rate',
             ['stars'  => '5',
@@ -213,7 +249,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientRatesTheTrip()
+    protected function clientRatesTheTrip()
     {
         $this->post('/api/v1/client/rate',
                     ['stars'  => '5',
@@ -236,7 +272,7 @@ trait TripTrait
      * @param  float $d_long
      * @return void
      */
-    private function clientCalculateTripV1($s_lat, $s_long, $d_lat, $d_long)
+    protected function clientCalculateTripV1($s_lat, $s_long, $d_lat, $d_long)
     {
         $this->post('/api/v1/client/calculate',
             ['s_lat' => $s_lat, 's_long' => $s_long,
@@ -260,7 +296,7 @@ trait TripTrait
      * @param  float $d_long
      * @return void
      */
-    private function clientCalculateTripV2($s_lat, $s_lng, $d_lat, $d_lng)
+    protected function clientCalculateTripV2($s_lat, $s_lng, $d_lat, $d_lng)
     {
         $this->post('/api/v2/client/calculate',
             ['s_lat' => $s_lat, 's_lng' => $s_lng,
@@ -280,7 +316,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientGetsCurrentTrip()
+    protected function clientGetsCurrentTrip()
     {
         $this->get('/api/v1/client/trip',
             ['Authorization' => $this->clientAccessToken, 
@@ -299,7 +335,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverGetsCurrentTrip()
+    protected function driverGetsCurrentTrip()
     {
         $this->get('/api/v1/driver/trip',
             ['Authorization' => $this->driverAccessToken, 
@@ -317,7 +353,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverSeesThePaymentMode()
+    protected function driverSeesThePaymentMode()
     {
         $this->get('/api/v1/driver/trip',
             ['Authorization' => $this->driverAccessToken,
@@ -334,7 +370,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientRequestsATaxiV1()
+    protected function clientRequestsATaxiV1()
     {
         $this->post('/api/v1/client/trip',
             ['s_lat' => '41.410874', 's_long' => '2.157207',
@@ -355,7 +391,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientRequestsATaxiV1AndSeesNoDriver()
+    protected function clientRequestsATaxiV1AndSeesNoDriver()
     {
         $this->post('/api/v1/client/trip',
             ['s_lat' => '41.410874', 's_long' => '2.157207',
@@ -374,7 +410,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientRequestsATaxiV2()
+    protected function clientRequestsATaxiV2()
     {
         $this->post('/api/v2/client/trip',
             ['s_lat' => '41.410874', 's_lng' => '2.157207',
@@ -395,7 +431,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientRequestsATaxiV2AndSeesNoDriver()
+    protected function clientRequestsATaxiV2AndSeesNoDriver()
     {
         $this->post('/api/v2/client/trip',
             ['s_lat' => '41.410874', 's_lng' => '2.157207',
@@ -414,7 +450,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function clientCancelsTheTrip()
+    protected function clientCancelsTheTrip()
     {
         $this->get('/api/v1/client/cancel',
             ['Authorization' => $this->clientAccessToken,
@@ -431,7 +467,7 @@ trait TripTrait
      * 
      * @return void
      */
-    private function driverCancelsTheTrip()
+    protected function driverCancelsTheTrip()
     {
         $this->get('/api/v1/driver/cancel',
             ['Authorization' => $this->driverAccessToken,
@@ -440,6 +476,53 @@ trait TripTrait
             ->assertHeader('Content-Type', 'application/json')
             ->assertJson(['success' => 'true'])
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
+        $this->refreshApplication();
+    }
+
+    /**
+     * Driver gets his or her history.
+     * 
+     * @return void
+     */
+    protected function driverGetsHisOrHerHistory()
+    {
+        $this->get('/api/v1/driver/history',
+            ['Authorization' => $this->driverAccessToken,
+             'Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['status_id', 'source',
+                'destination', 'eta_value', 'eta_text', 'distance_value', 'distance_text',
+                'etd_value', 'etd_text', 'driver_location' => ['id', 'latitude', 'longitude',
+                'name', 'user_id'], 'driver_distance_value', 'driver_distance_text', 'status_name',
+                's_lat', 's_long', 'd_lat', 'd_long', 'transaction' => ['trip_id', 'car_type_id',
+                'entry', 'distance', 'per_distance', 'distance_unit', 'distance_value', 'time',
+                'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 'timezone', 'total'],
+                'rate' => ['client', 'driver', 'client_comment', 'driver_comment', 'trip_id']]]]);
+        $this->refreshApplication();
+    }
+
+    /**
+     * Client gets his or her history.
+     * 
+     * @return void
+     */
+    protected function clientGetsHisOrHerHistory()
+    {
+        $this->get('/api/v1/client/history',
+            ['Authorization' => $this->clientAccessToken,
+             'Accept' => 'application/json'])
+            ->assertStatus(200)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson(['success' => true])
+            ->assertJsonStructure(['success', 'data' => [['source', 'destination', 
+                'driver_location' => [['lat', 'long', 'name']], 'status_name',
+                's_lat', 's_long', 'd_lat', 'd_long', 'transaction' => [['trip_id', 'car_type_id',
+                'entry', 'distance', 'per_distance', 'distance_unit', 'distance_value', 'time',
+                'per_time', 'time_unit', 'time_value', 'surcharge', 'currency', 'timezone', 'total']],
+                'rate' => [['client', 'client_comment']],
+                'driver' => [['first_name', 'last_name', 'email', 'gender', 'car' => ['number', 'type', 'color'], 'phone']]]]]);
         $this->refreshApplication();
     }
 }

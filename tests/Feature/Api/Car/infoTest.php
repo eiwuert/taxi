@@ -23,7 +23,7 @@ class infoTest extends TestCase
             'lang' => 'en',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
-            'state' => 'Esf',
+            'state' => '1',
             'country' => 'Iran',
         ]);
 

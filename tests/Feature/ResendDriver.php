@@ -21,7 +21,7 @@ class ResendDriverTest extends TestCase
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
             'country' => 'Iran',
-            'state' => 'Isfahan'
+            'state' => '1'
         ]);
 
         $this->accessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' . 

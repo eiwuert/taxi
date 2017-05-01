@@ -114,7 +114,7 @@ class AuthTest extends TestCase
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
             'country' => 'Iran',
-            'state' => 'Isfahan',
+            'state' => '1',
         ]);
 
         $response
@@ -137,7 +137,7 @@ class AuthTest extends TestCase
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
             'country' => 'Iran',
-            'state' => 'Isfahan',
+            'state' => '1',
         ]);
 
         $response
@@ -160,7 +160,7 @@ class AuthTest extends TestCase
             // 'device_type' => 'ios',
             // 'device_token' => 'sample_device_token_from_phpunit',
             // 'country' => 'Iran',
-            // 'state' => 'Isfahan',
+            // 'state' => '1',
         ]);
 
         $response
@@ -185,7 +185,7 @@ class AuthTest extends TestCase
             'field' => 'data',
             'another_field' => 'another data',
             'country' => 'Iran',
-            'state' => 'Isfahan',
+            'state' => '1',
         ]);
 
         $response

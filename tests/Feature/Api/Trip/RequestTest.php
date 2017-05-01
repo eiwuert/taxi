@@ -57,6 +57,53 @@ class RequestTest extends TestCase
         $this->driverSetsHerCurrentLocation('41.425229', '2.171926');
         $this->clientGetsCurrentTrip();
         $this->clientRatesTheTrip();
+        //$this->driverGetsHisOrHerHistory();
+        $this->clientGetsHisOrHerHistory();
+    }
+
+
+    /**
+     * Test request taxi v1 within the range. (17) pay with wallet
+     *
+     * @return void
+     */
+    public function testRequestTaxiV1WithinTheRangeWithWallet()
+    {
+        $this->driverGoesOnline();
+        $this->driverSetsHerCurrentLocation();
+        $this->clientCalculateTripV1('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientCalculateTripV2('41.410874', '2.157207', '41.435229', '2.171926');
+        $this->clientRequestsATaxiV1();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverAcceptsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435329', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverArrivesToTheStartPoint();
+        $this->driverSetsHerCurrentLocation('41.435429', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverStartsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.435229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->clientChooseWalletAsThePayment();
+        $this->driverSeesThePaymentMode();
+        $this->driverSetsHerCurrentLocation('41.435529', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverEndsTheTrip();
+        $this->driverSetsHerCurrentLocation('41.434229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->driverGetsCurrentTrip();
+        $this->driverRatesTheTrip();
+        $this->driverSetsHerCurrentLocation('41.425229', '2.171926');
+        $this->clientGetsCurrentTrip();
+        $this->clientRatesTheTrip();
+        //$this->driverGetsHisOrHerHistory();
+        $this->clientGetsHisOrHerHistory();
     }
 
     /**
@@ -64,7 +111,7 @@ class RequestTest extends TestCase
      *
      * @return void
      */
-    public function testRejectClientByDriver()
+    public function testRejectClientByDriverV1()
     {
         // V1
         $this->driverGoesOnline();
@@ -76,7 +123,15 @@ class RequestTest extends TestCase
         $this->clientGetsCurrentTrip();
         $this->driverGetsCurrentTrip();
         $this->driverCancelsTheTrip();
+    }
 
+    /**
+     * test rejecting client by driver.
+     *
+     * @return void
+     */
+    public function testRejectClientByDriverV2()
+    {
         // V2
         $this->driverGoesOnline();
         $this->driverSetsHerCurrentLocation();
