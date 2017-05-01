@@ -1,5 +1,4 @@
 stages:
-  - php56
   - php70
   - php71
 
@@ -26,12 +25,6 @@ before_script:
   - php artisan key:generate
   - php artisan config:cache
   - php artisan migrate --seed
-
-php56:
-  stage: php56
-  image: php:5.6
-  script:
-  - php vendor/bin/phpunit tests/Feature/
 
 php70:
   stage: php70
