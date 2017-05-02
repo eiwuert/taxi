@@ -109,7 +109,7 @@ class Client extends Model
         if ($picture != 'no-profile.png') {
             return asset('storage/profile/client/' . $picture);
         } else {
-            return $picture;
+            return asset('img/no-profile.png');
         }
     }
 
@@ -243,6 +243,41 @@ class Client extends Model
             return $this->picture;
         }
     }
+
+    /**
+     * Get the first name value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFirstNameAttribute($first_name)
+    {
+        if (is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+            return __('clients.Unknown');
+        } else if (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+            return '';
+        } else {
+            return $first_name;
+        }
+    }
+
+    /**
+     * Get the LastName value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getLastNameAttribute($last_name)
+    {
+        if (is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+            return __('clients.Passenger');
+        } else if (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+            return '';
+        } else {
+            return $last_name;
+        }
+    }
+
 
     /**
      * Update client balance.
