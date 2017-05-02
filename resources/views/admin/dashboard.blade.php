@@ -13,6 +13,7 @@
 
 @section('content')
 <div class="row">
+	@if(Auth::user()->web->superadmin())
 	<div class="col-md-3">
 		<info-box text='@lang('admin/general.client')' number='{{ $clients }}' color='aqua' icon='ion-android-walk'></info-box>
 	</div>
@@ -25,6 +26,17 @@
 	<div class="col-md-3">
 		<info-box text='@lang('admin/general.income')' number='{{ $income }}' color='aqua' icon='ion-cash'></info-box>
 	</div>
+	@else
+	<div class="col-md-4">
+		<info-box text='@lang('admin/general.driver')' number='{{ $drivers }}' color='aqua' icon='ion-model-s'></info-box>
+	</div>
+	<div class="col-md-4">
+		<info-box text='@lang('admin/general.trips')' number='{{ $trips }}' color='aqua' icon='ion-android-navigate'></info-box>
+	</div>
+	<div class="col-md-4">
+		<info-box text='@lang('admin/general.income')' number='{{ $income }}' color='aqua' icon='ion-cash'></info-box>
+	</div>
+	@endif
 </div>
 <div class="row">
 	<div class="col-md-6">
