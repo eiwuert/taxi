@@ -22,7 +22,7 @@ class FormatJson
         } else {
             return fail([
                 'title'  => json_decode($response->getContent()),
-                'detail' => 'You have entered not valid data.'
+                'detail' => __('admin/middleware.You have entered not valid data'),
             ], $response->getStatusCode());
         }
 

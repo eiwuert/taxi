@@ -24,8 +24,8 @@ class NotPaid
             $trip = $client->trips()->where('prev', null)->orderBy('id', 'desc')->first();
             if ($trip->payments()->exists()) {
                 return fail([
-                    'title'  => 'You already paid',
-                    'detail' => 'You paid your trip cost or cannot change payment method',
+                    'title'  => __('admin/middleware.You already paid'),
+                    'detail' => __('admin/middleware.You paid your trip cost or cannot change payment method'),
                 ]);
             } else {
                 return $next($request);

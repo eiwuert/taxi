@@ -40,8 +40,8 @@ class HasCar
             return $next($request);
         } else {
             return fail([
-                'title'  => 'No car',
-                'detail' => 'You should contact your area call center to register your car.'
+                'title'  => __('admin/middleware.No car'),
+                'detail' => __('admin/middleware.You should contact your area call center to register your car'),
             ], 401);
         }
     }

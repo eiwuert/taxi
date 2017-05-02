@@ -28,8 +28,8 @@ class Authenticate extends Auth
             }
         }
         return fail([
-            'title'  => 'Unauthenticated.',
-            'detail' => 'Unauthenticated access token.',
+            'title'  => __('admin/middleware.Unauthenticated'),
+            'detail' => __('admin/middleware.Unauthenticated access token'),
             'status' => 403
         ]);
 
