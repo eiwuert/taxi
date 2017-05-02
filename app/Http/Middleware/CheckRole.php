@@ -40,8 +40,8 @@ class CheckRole
         if (is_null($this->auth->guard('api')->user()) ||
             is_null($this->auth->guard('api')->user()) ) {
             return fail([
-                'title'  => 'You are not authorized to access',
-                'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
+                'title'  => __('admin/middleware.You are not authorized to access'),
+                'detail' => __('admin/middleware.not authorized to access this route'),
             ], 401);
         }
         $role = $this->auth->guard('api')->user()->role;
@@ -50,8 +50,8 @@ class CheckRole
             return $next($request);
         } else {
             return fail([
-                'title'  => 'You are not authorized to access',
-                'detail' => 'You\'re not authorized to access this route of the application, please check your token privileges.'
+                'title'  => __('admin/middleware.You are not authorized to access'),
+                'detail' => __('admin/middleware.not authorized to access this route'),
             ], 401);
         }
     }

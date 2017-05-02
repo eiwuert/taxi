@@ -39,8 +39,8 @@ class CheckApproveDriver
             return $next($request);
         } else {
             return fail([
-                'title'  => 'Not an approved driver',
-                'detail' => 'You should contact your area call center to begin approving process.'
+                'title'  => __('admin/middleware.Not an approved driver'),
+                'detail' => __('admin/middleware.You should contact your area call center to begin approving process'),
             ], 401);
         }
     }
