@@ -13,10 +13,9 @@ class HomeController extends Controller
      */
     public function fa()
     {
-    	return view('frontend.index');
-
+        return view('frontend.index');
     }
- /**
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
@@ -24,7 +23,6 @@ class HomeController extends Controller
     public function faTerms()
     {
         return view('frontend.terms');
-
     }
     /**
      * Show the application dashboard.
@@ -33,8 +31,7 @@ class HomeController extends Controller
      */
     public function en()
     {
-    	return view('frontend.en.index');
-
+        return view('frontend.en.index');
     }
      /**
      * Show the application dashboard.
@@ -44,6 +41,5 @@ class HomeController extends Controller
     public function enTerms()
     {
         return view('frontend.en.terms');
-
     }
 }

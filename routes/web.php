@@ -2,9 +2,9 @@
 require base_path('routes/admin/auth.php');
 
 Route::get('/', 'HomeController@fa')->name('faHome');
-Route::get('/en', 'HomeController@en')->name('enHome');
-Route::get('/fa/terms', 'HomeController@faTerms')->name('faTerms');
-Route::get('/en/terms', 'HomeController@enTerms')->name('enTerms');
+Route::get('/terms', 'HomeController@faTerms')->name('faTerms');
+Route::get('/global', 'HomeController@en')->name('enHome');
+Route::get('/global/terms', 'HomeController@enTerms')->name('enTerms');
 
 // Route::get('/', 'HomeController@index');
 Route::post('payment/charge', 'PaymentController@charge');
