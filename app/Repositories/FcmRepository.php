@@ -34,6 +34,10 @@ class FcmRepository
      */
     private function message($title, $message, $device_token)
     {
+        if (\App::runningUnitTests()) {
+            return true;
+        }
+
         if (debug_backtrace()[1]['function'] == 'to_driver') {
             $server_key = config('fcm.server_key');
         } elseif (debug_backtrace()[1]['function'] == 'to_client') {
@@ -54,9 +58,6 @@ class FcmRepository
                 ],
             ]
         );
-        if (\App::runningUnitTests()) {
-            return $response;
-        }
         $res = json_decode($response->getBody());
         DB::connection('mongodb')->table('fcm')->insert([
             'multicast_id'   => $res->multicast_id,

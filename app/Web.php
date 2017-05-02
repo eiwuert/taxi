@@ -17,6 +17,8 @@ class Web extends Model
         'first_name',
         'last_name',
         'picture',
+        'user_id',
+        'permissions',
     ];
 
     /**
@@ -37,6 +39,9 @@ class Web extends Model
      */
     public function setPictureAttribute($picture)
     {
+        if (is_null($picture)) {
+            return;
+        }
         $name = $this->attributes['picture'] = basename($picture->store('public/profile/web/'));
         $img = Image::make('storage/profile/web/' . $name);
         $img->fit(128);
@@ -56,6 +61,41 @@ class Web extends Model
             return asset('storage/profile/web/' . $picture);
         } else {
             return asset('img/' . $picture);
+        }
+    }
+
+    /**
+     * Set the permissions value.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setPermissionsAttribute($value)
+    {
+        $this->attributes['permissions'] = serialize($value);
+    }
+
+    /**
+     * Get the permissions value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getPermissionsAttribute($value)
+    {
+        return unserialize($value);
+    }
+
+    /**
+     * is super admin.
+     * @return boolean
+     */
+    public function superadmin()
+    {
+        if (in_array(0, $this->permissions)) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

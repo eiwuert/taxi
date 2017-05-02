@@ -30,6 +30,7 @@
                 <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">@lang('admin/general.Drivers')</span></a></li>
             </ul>
         </li>
+        @if(Auth::user()->web->superadmin())
         <li class="{{ (str_contains(Request::url(), 'admin/settings')) ? 'treeview active' : 'treeview' }}">
             <a href="#"><i class="ion-gear-a"></i> <span>@lang('admin/general.Settings')</span>
             @include('admin.includes.angle')
@@ -41,8 +42,10 @@
             <li class="{{ (str_contains(Request::url(), route('settings.fcm.index'))) ? 'active' : '' }}"><a href="{{ route('settings.fcm.index') }}">@lang('admin/general.FCM')</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.requests.index'))) ? 'active' : '' }}"><a href="{{ route('settings.requests.index') }}">@lang('admin/general.Requests')</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.sms.index'))) ? 'active' : '' }}"><a href="{{ route('settings.sms.index') }}">@lang('admin/general.Sms')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('users.index'))) ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang('admin/general.Admins')</a></li>
         </ul>
     </li>
+    @endif
 </ul>
 <!-- /.sidebar-menu -->
 </section>

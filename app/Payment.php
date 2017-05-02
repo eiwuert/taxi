@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Repositories\FilterRepository;
+use App\Scopes\PaymentPermissionScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -12,6 +13,17 @@ class Payment extends Model
         'type',
         'detail',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new PaymentPermissionScope);
+    }
 
     /**
      * Get payment's detail.

@@ -172,7 +172,7 @@ class RegisterController extends Controller
     {
         $uuid = Uuid::generate(1)->string;
         $userRequest['role']     = 'client';
-        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@flipapp.ir';
         $userRequest['uuid']     = $uuid;
         $userRequest['password'] = $uuid;
         $userRequest['email']    = $email;
@@ -197,7 +197,7 @@ class RegisterController extends Controller
     {
         $uuid = Uuid::generate(1)->string;
         $userRequest['role']     = 'driver';
-        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@saamtaxi.com';
+        $email = $userRequest['role'] . '_' . $userRequest['phone'] . '_' . $uuid . '@flipapp.ir';
         $userRequest['uuid']     = $uuid;
         $userRequest['password'] = $uuid;
         $userRequest['email']    = $email;

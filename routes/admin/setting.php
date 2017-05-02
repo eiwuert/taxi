@@ -2,7 +2,7 @@
 /**
  * Settings related routes.
  */
-Route::group(['prefix' => 'settings'], function () {
+Route::group(['prefix' => 'settings', 'middleware' => 'superadmin'], function () {
     Route::get('general', 'Setting\GeneralController@index')
             ->name('settings.general.index');
     Route::patch('general', 'Setting\GeneralController@update')

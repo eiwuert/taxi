@@ -5,9 +5,9 @@
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>{{ $saam[0] }}</b>{{ $taxi[0] }}</span>
+                <span class="logo-mini"><b>{{ $flip[0] }}</b>{{ $app[0] }}</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>{{ $saam }}</b>{{ $taxi }}</span>
+                <span class="logo-lg"><b>{{ $flip }}</b>{{ $app }}</span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -66,7 +66,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="{{ route('webs.edit') }}" class="btn btn-default btn-flat">@lang('admin/general.Profile')</a>
+                                        <a href="{{ route('users.edit', ['id' => Auth::user()->web->id]) }}" class="btn btn-default btn-flat">@lang('admin/general.Profile')</a>
                                     </div>
                                     <div class="pull-right">
                                         <a href="{{ url('/logout') }}" class="btn btn-default btn-flat"

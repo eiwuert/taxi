@@ -1,15 +1,16 @@
 <?php
 /*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/27 16:00:46 
+ Generated via "php artisan localization:missing" at 2017/04/18 10:57:20 
 *************************************************************************/
 
 return array (
   //============================== New strings to translate ==============================//
-  'New admin' => 'مدیر جدید',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
-  'Password: ' => 'رمز عبور: ',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
-  'Permission: ' => 'مجوز: ',
+
+  'back to driver' => 'بازگشت به راننده',
+  'SMS codes' => 'کد اس ام اس',
+  'Offline, Go online' => 'آفلاین، آنلاین شوید',
+  'Online, Go offline' => 'آنلاین، آفلاین شدن',
+
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -18,7 +19,6 @@ return array (
   'Address:' => 'آدرس: ',
   'Address: ' => 'آدرس: ',
   'Admin' => 'ادمین',
-  'Admins' => 'ادمین‌ها',
   'All' => 'همه',
   'Amount' => 'مقدار',
   'Android' => 'Android',
@@ -81,6 +81,7 @@ return array (
   'Distance' => 'مسافت',
   'Distance to client:' => 'فاصله تا مسافر: ',
   'Distance:' => 'فاصله: ',
+  'Documents' => 'مدارک',
   'Documents: ' => 'اسناد: ',
   'Download' => 'دانلود',
   'Driver' => ' راننده ',
@@ -89,6 +90,8 @@ return array (
   'Driver distance' => 'مسافت راننده',
   'Driver documents deleted' => 'اسناد راننده پاک شد ',
   'Driver is in trip' => 'راننده در سفر است',
+  'Driver is offline now' => 'راننده هم اکنون آفلاین است',
+  'Driver is online now' => 'راننده آنلاین شد',
   'Driver picture deleted' => 'تصویر راننده حذف شد',
   'Driver rated' => 'راننده امتیاز داده‌است',
   'Driver rated not yet client' => ' راننده هنوز به مسافر امتیاز نداده ',
@@ -121,7 +124,6 @@ return array (
   'First name' => 'نام',
   'First name: ' => 'نام: ',
   'Firstname' => 'نام',
-  'Flip' => 'فلیپ',
   'For' => 'برای',
   'Forgot Your Password?' => 'رمز ورود خود را فراموش کرده اید؟',
   'Fresh as a daisy' => 'تازه',
@@ -178,13 +180,11 @@ return array (
   'Nothing to show here' => 'چیزی برای نمایش وجود ندارد...',
   'Number: ' => 'شماره پلاک: ',
   'Offline' => 'آفلاین',
-  'Offline, Go online' => 'آفلاین، آنلاین شوید',
   'Oh Snap!' => 'واای!',
   'On next trip' => 'On next trip',
   'On next trip canceled' => 'On next trip canceled',
   'On way' => 'در راه',
   'Online' => 'آنلاین',
-  'Online, Go offline' => 'آنلاین، آفلاین شدن',
   'Only last 100 items listed here' => ' آخرین ۱۰۰ موارد ذکر شده ',
   'Onway' => 'درراه',
   'Order by' => 'مرتب کردن',
@@ -212,6 +212,7 @@ return array (
   'Reset Password' => 'تنظیم مجدد رمز عبور',
   'Result' => 'نتیجه',
   'Results' => 'نتایج',
+  'SAAMTaxi' => 'سام تاکسی',
   'SMS codes' => 'کد اس ام اس',
   'Search' => 'جستجو',
   'Send Password Reset Link' => 'ارسال لینک ریست کلمه عبور',
@@ -269,7 +270,6 @@ return array (
   'Yesterday' => 'دیروز',
   'Zip code: ' => 'کد پستی: ',
   'Zipcode:' => 'کد پستی: ',
-  'back to driver' => 'بازگشت به راننده',
   'blog' => 'وبلاگ',
   'charsets' => 'مجموعه کاراکترها',
   'client' => 'مسافر',
@@ -306,4 +306,6 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
+  //================================== Obsolete strings ==================================//
+
 );
