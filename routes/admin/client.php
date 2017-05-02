@@ -2,7 +2,7 @@
 /**
  * Routes for clients.
  */
-Route::group(['prefix' => 'clients'], function () {
+Route::group(['prefix' => 'clients', 'middleware' => ['superadmin']], function () {
     Route::get('filter', 'ClientController@filter')
         ->name('clients.filter');
     Route::get('search', 'ClientController@search')
@@ -14,4 +14,4 @@ Route::group(['prefix' => 'clients'], function () {
     Route::get('delete/picture/{client}', 'ClientController@deletePicture')
         ->name('clients.delete.picture');
 });
-Route::resource('clients', 'ClientController');
+Route::resource('clients', 'ClientController', ['middleware' => 'superadmin']);
