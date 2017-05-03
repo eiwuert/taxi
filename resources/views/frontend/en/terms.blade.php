@@ -17,7 +17,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i>
                     </button>
-                    <a class="navbar-brand" href="{{ url('en') }}">
+                    <a class="navbar-brand" href="{{ url('en/global') }}">
                         {{ HTML::image('images/logo.png', 'Logo') }}
                     </a>
                 </div>
@@ -60,14 +60,14 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ HTML::image('images/en.png') }} <span class="hidden-sm hidden-md hidden-lg">Language</span></a>
                             <ul class="dropdown-menu">
                                 <li class="lang">
-                                    <a class="" href="{{ route('faHome') }}" title="فارسی">{{ HTML::image('images/fa.png') }} فارسی</a>
+                                    <a class="" href="{{ url('/') }}" title="فارسی">{{ HTML::image('images/fa.png') }} فارسی</a>
                                 </li>
                                 <li class="lang">
-                                    <a class="active" href="{{ route('enHome') }}" title="English">{{ HTML::image('images/en.png') }} English</a>
+                                    <a class="active" href="{{ url('en/global') }}" title="English">{{ HTML::image('images/en.png') }} English</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-link"><a href="{{ url('en') }}">Flip</a></li>
+                        <li class="menu-link"><a href="{{ url('en/global') }}">Flip</a></li>
                     </ul>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                 <br>
                 <div class="row">
                     <div class="col-md-12">
-                        <img class="img-qr" src="../images/en-barcode.png">
+                        <img class="img-qr" src="../../images/en-barcode.png">
                     </div>
                 </div>
             </div>

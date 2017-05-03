@@ -153,11 +153,8 @@
 								<h4> ایمیل : info@flip.com</h4>
 								<br>
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-12">
 									{{ HTML::image('images/fa-barcode.png', 'barcode', ['class' => 'img-qr']) }}
-									</div>
-									<div class="col-md-6">
-										<img style="cursor:pointer" onclick="window.open(&quot;https://trustseal.enamad.ir/Verify.aspx?id=44600&amp;p=odshodshhwmbdrfsdrfs&quot;, &quot;Popup&quot;,&quot;toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30&quot;)" alt="" src="./images/logo.aspx">
 									</div>
 								</div>
 							</div>
