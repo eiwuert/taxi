@@ -21,7 +21,6 @@ elixir(mix => {
             'fontiran.css',
             'ltr.css',
             'more.css',
-            'moreRtl.css',
             'owl.carousel.css',
             'owl.theme.css',
             'styles.css',

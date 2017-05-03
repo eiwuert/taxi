@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="fa">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<title>فلیپ سریع آسان مطمئن</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="{{ elixir('css/fa.css') }}">
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
+@include('frontend.includes.head')
 		<div id="wrap">
 			<header class="masthead">
 				<!-- Fixed navbar -->
@@ -137,61 +123,9 @@
 				</div>
 			</div>
 			<script src="./images/bootstrap.min.js"></script>
-			<footer id="contact">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8 col-md-push-2 clearfix">
-							<div class="section-heading scrollpoint sp-effect3">
-								<h3>
-								<span>تماس با ما</span>
-								</h3>
-								<span class="divider"></span>
-								<br>
-								<h4> آدرس:  میدان ونک ، برج نگار ،  طبقه ۱۶ ، واحد ۲</h4>
-								<h4>تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+</h4>
-								<h4>فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+</h4>
-								<h4> ایمیل : info@flip.com</h4>
-								<br>
-								<div class="row">
-									<div class="col-md-12">
-									{{ HTML::image('images/fa-barcode.png', 'barcode', ['class' => 'img-qr']) }}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div class="social">
-								<ul>
-									<li><a href="https://twitter.com/flipapp96" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
-									<li><a href="https://www.linkedin.com/in/flip-application-63abb5141" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
-									<li><a href="https://www.facebook.com/profile.php?id=100016712433417" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
-									<li><a href="https://t.me/flipapp" target="_blank"><i class="fa fa-paper-plane"></i></a></li>
-									<li><a href="flipapp96@gmail.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-									<li><a href="https://www.instagram.com/flipapplication/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-								</ul>
-							</div>
-							<p class="rights">
-								<span>۲۰۱۷</span>
-								|
-								توسعه یافته توسط
-								<a href="{{ url('/') }}" target="_blank">
-									<span> فلیپ </span>
-								</a>
-								|
-								<a href="{{ route('faTerms') }}">
-									<span>قوانین و مقررات </span>
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</footer>
+			@include('frontend.includes.contact')
 		</div>
-		<script src="../js/jquery.min.js"></script>
-		<script src="../js/bootstrap.min.js"></script>
-		<script src="../js/owl.carousel.min.js"></script>
-		<script src="../js/waypoints.min.js"></script>
-		<script src="../js/script.js"></script>
+		@include('frontend.includes.footer')
 		<script>$(document).ready(function(){appMaster.preLoader();});</script>
 	</body>
 </html>
