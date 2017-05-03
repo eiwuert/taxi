@@ -114,6 +114,7 @@ if (! function_exists('option')) {
      */
     function option($name, $default)
     {
+        $name = config('app.name') . '_' . $name;
         if (Cache::has($name)) {
             return Cache::get($name, $default);
         } else {

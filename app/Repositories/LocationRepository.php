@@ -96,7 +96,7 @@ class LocationRepository
             $user = User::find($userId);
         }
         $status = self::getLastStatusOfTrip($user);
-        Cache::forever('location_' . $user->id, ['lat' => $lat, 'lng' => $long]);
+        Cache::forever(config('app.name') . '_location_' . $user->id, ['lat' => $lat, 'lng' => $long]);
         if ($status) {
             $location = $user->locations()->create([
                 'latitude'  => $lat,

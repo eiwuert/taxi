@@ -23,7 +23,7 @@ class Option extends Model
     {
         foreach ($options as $key => $value) {
             if ($option = self::whereName($key)->first()) {
-                Cache::forever($key, $value);
+                Cache::forever(config('app.name') . '_' . $key, $value);
                 $option->update(['value' => $value]);
             }
         }

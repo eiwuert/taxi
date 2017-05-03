@@ -307,8 +307,9 @@ class Driver extends Model
      */
     public function lastLatLng()
     {
-        if (Cache::has('location_' . $this->user_id)) {
-            return Cache::get('location_' . $this->user_id);
+        $cacheName = config('app.name') . '_location_' . $this->user_id;
+        if (Cache::has($cacheName)) {
+            return Cache::get($cacheName);
         } else {
             $location = Location::whereUserId($this->user_id)
                             ->orderBy('id', 'desc')
@@ -318,7 +319,7 @@ class Driver extends Model
                 $location->latitude = 0.0;
                 $location->longitude = 0.0;
             }
-            Cache::forever('location_' . $this->user_id, ['lat' => $location->latitude, 'lng' => $location->longitude]);
+            Cache::forever($cacheName, ['lat' => $location->latitude, 'lng' => $location->longitude]);
             return ['lat' => $location->latitude, 'lng' => $location->longitude];
         }
     }
@@ -467,7 +468,7 @@ class Driver extends Model
                             ->limit(2);
         $locations = $locations->get();
         if ($locations->count() == 2) {
-            $cache = 'driver_' . $this->id . '_angle';
+            $cache = config('app.name') . '_driver_' . $this->id . '_angle';
             $lng1 = $locations[0]->longitude;
             $lng2 = $locations[1]->longitude;
             $lat1 = $locations[0]->latitude;
