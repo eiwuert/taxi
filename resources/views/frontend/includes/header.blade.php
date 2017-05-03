@@ -95,13 +95,13 @@
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">
                                         
-                                        <div class="item">
+                                        <div class="item active">
                                             <img src="./images/mf1.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
                                         <div class="item">
                                             <img src="./images/mf2.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
-                                        <div class="item active">
+                                        <div class="item ">
                                             <img src="./images/mf3.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
                                         <div class="item">
