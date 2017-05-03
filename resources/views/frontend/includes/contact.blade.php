@@ -15,7 +15,7 @@
                     <br>
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="img-qr" src="./images/fa-barcode.png">
+                            <img class="img-qr" src="../images/fa-barcode.png">
                         </div>
                     </div>
                 </div>
