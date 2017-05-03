@@ -1,0 +1,93 @@
+body  {
+  direction: ltr;
+}
+.slider-caption {
+  text-align: left;
+  margin-left: 647px;
+  margin-top: 135px !important;
+}
+
+.slider-caption {
+  text-align: left;
+  margin-left: 130px;
+  margin-top: 135px !important;
+  margin-right: 640px;
+}
+
+.img-wrapper {
+  border: 1px;
+  padding-right: 30px;
+  float: left;
+  padding-left: 0;
+  padding-bottom: 67px;
+}
+
+.slider-textContent {
+  direction: ltr;
+  text-align: justify;
+  font-size: 19px;
+}
+
+.first-caption {
+  padding-right: 35px;
+}
+
+.third-caption {
+  padding-right: 10px;
+}
+
+.slider-1-caption p,
+.slider-2-caption p {
+  text-align: left;
+}
+
+input {
+  direction: ltr !important;
+}
+
+input[name="email"],
+input[type="password"] {
+  direction: ltr !important;
+}
+
+@media ( max-width : 991px) {
+  .slider-container, .mh-container, #slider {
+    height: 800px !important;
+  }
+}
+
+@media ( max-width : 330px) {
+  .slider-container, .mh-container, #slider {
+    height: 1025px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .slider-textContent {
+      font-size: 17px !important;
+      text-align: left;
+  }
+
+  .img-wrapper {
+    padding-bottom: 0 !important;
+    margin-top: -5px !important;
+  }
+}
+
+@media (max-width: 1200px) {
+  .slider-caption>div {
+    padding: 20px 50px !important;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1200px) {
+  #nav .navbar-nav li a {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 768px){
+  .navbar-nav>li {
+      float: left !important;
+  }
+}
