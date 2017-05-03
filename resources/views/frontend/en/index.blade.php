@@ -18,7 +18,7 @@
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i>
 					</button>
-					<a class="navbar-brand" href="#">
+					<a class="navbar-brand" href="{{ url('en') }}">
 						<img src="../../images/logo.png" alt="Logo">
 					</a>
 				</div>
