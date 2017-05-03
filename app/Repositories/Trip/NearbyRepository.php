@@ -48,8 +48,13 @@ class NearbyRepository
         $nearby = [];
         foreach ($drivers as $u) {
             $driver = $u;
-            $driver->angle = User::whereId($u->user_id)->first()
-                                 ->driver->first()->angle();
+            $driverToCheck = User::whereId($u->user_id)->first()
+                                ->driver->first();
+            if (is_null($driverToCheck)) {
+                $driver->angle = rand(0, 359);
+            } else {
+                $driver->angle = $driverToCheck->angle();
+            }
             $nearby[] = $driver;
         }
         return $nearby;
