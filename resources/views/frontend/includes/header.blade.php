@@ -44,13 +44,13 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right links-to-collaps">
                     <li class="dropdown">
-                        <a href="http://www.flipapp.ir#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="./images/fa.png"> <span class="hidden-sm hidden-md hidden-lg">زبان</span></a>
+                        <a href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="./images/fa.png"> <span class="hidden-sm hidden-md hidden-lg">زبان</span></a>
                         <ul class="dropdown-menu">
                             <li class="lang">
-                                <a class="active" href="#" title="فارسی"><img src="./images/fa.png"> فارسی</a>
+                                <a class="active" href="{{ url('/') }}" title="فارسی"><img src="./images/fa.png"> فارسی</a>
                             </li>
                             <li class="lang">
-                                <a class="" href="#" title="English"><img src="./images/en.png"> English</a>
+                                <a class="" href="{{ url('en/global') }}" title="English"><img src="./images/en.png"> English</a>
                             </li>
                         </ul>
                     </li>
