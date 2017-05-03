@@ -474,7 +474,7 @@ class Driver extends Model
             $lat1 = $locations[0]->latitude;
             $lat2 = $locations[1]->latitude;
             // If last location is within the 20 meter return the previous angle.
-            if ($this->distance($lat1, $lng1, $lat2, $lng2) < 0.02 && Cache::has($cache)) {
+            if ($this->distance($lat1, $lng1, $lat2, $lng2) < 0.01 && Cache::has($cache)) {
                 return Cache::get($cache);
             }
             $dLon = $lng2 - $lng1;
