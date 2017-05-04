@@ -41,9 +41,6 @@ class TransactionRepository
         $this->rules($type);
         $source   = $trip->source()->first();
         $timezone = $this->timezone($source->latitude, $source->longitude);
-        $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($trip->distance_value), 1)
-                                       + round($this->perTime()     * $this->timeValue($trip->eta_value), 1))
-                                       * $this->surcharge($timezone), -2);
 
         $transaction = [
             'car_type'       => $this->type,
@@ -60,7 +57,7 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($trip->eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => $total,
+            'total'          => $this->total($trip->distance_value, $trip->eta_value, $timezone),
             'commission'     => option('commission', 13),
         ];
 
@@ -99,9 +96,6 @@ class TransactionRepository
      */
     private function transaction($distance_value, $eta_value, $timezone)
     {
-        $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
-                                       + round($this->perTime()     * $this->timeValue($eta_value), 1))
-                                                                    * $this->surcharge($timezone), -2);
         return $transaction = [
             'car_type'       => $this->type,
             'car_type_id'    => CarType::whereName($this->type)->first()->id,
@@ -117,9 +111,31 @@ class TransactionRepository
             'time_value'     => round($this->perTime() * $this->timeValue($eta_value), 1),
             'surcharge'      => $this->surcharge($timezone),
             'timezone'       => $timezone,
-            'total'          => $total,
+            'total'          => $this->total($distance_value, $eta_value, $timezone),
             'commission'     => option('commission', 13),
         ];
+    }
+
+    /**
+     * Get total trip cost.
+     * @param  int    $distance_value
+     * @param  string $eta_value
+     * @param  string $timezone
+     * @return int
+     */
+    protected function total(int $distance_value, string $eta_value, string $timezone) : int
+    {
+        $total = round(($this->entry() + round($this->perDistance() * $this->distanceValue($distance_value), 1)
+                                       + round($this->perTime()     * $this->timeValue($eta_value), 1))
+                                                                    * $this->surcharge($timezone), -2);
+
+        // Apply discount
+        $total = $total * ((float) (1 - $this->rules['discount']));
+        if ($total <= $this->minFare()) {
+            $total = $this->minFare();
+        } 
+
+        return (round((($total/1000)+5/2)/5)*5)*1000;
     }
 
     /**
@@ -139,20 +155,43 @@ class TransactionRepository
      */
     public function surcharge($timezone)
     {
+        $now = Carbon::now($timezone);
         $surcharge = $this->rules['surcharge'];
-        $now = Carbon::today($timezone);
+        if (@isset($surcharge['*'])) {
+            foreach ($surcharge['*'] as $range) {
+                if ($this->inSurcharge($timezone, $range)) {
+                    return $range['amount'];
+                }
+            }
+        }
 
         if (@isset($surcharge[$this->dayToWeek($now->dayOfWeek)])) {
             foreach ($surcharge[$this->dayToWeek($now->dayOfWeek)] as $range) {
-                $from = Carbon::now($timezone)->setTimeFromTimeString($range['from']);
-                $to   = Carbon::now($timezone)->setTimeFromTimeString($range['to']);
-                if ($now->between($from, $to)) {
+                if ($this->inSurcharge($timezone, $range)) {
                     return $range['amount'];
                 }
             }
         }
 
         return 1.0;
+    }
+
+    /**
+     * If we are in surcharge range.
+     * @param  string $timezone
+     * @param  array  $range
+     * @return bool
+     */
+    protected function inSurcharge(string $timezone, array $range) : bool
+    {
+        $now = Carbon::now($timezone);
+        $from = Carbon::now($timezone)->setTimeFromTimeString($range['from']);
+        $to   = Carbon::now($timezone)->setTimeFromTimeString($range['to']);
+        if ($now->between($from, $to)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -189,6 +228,15 @@ class TransactionRepository
     public function distanceUnit()
     {
         return $this->rules['distanceـunit'];
+    }
+
+    /**
+     * Min fare of a trip.
+     * @return string
+     */
+    public function minFare()
+    {
+        return $this->rules['min'];
     }
 
     /**
@@ -235,8 +283,11 @@ class TransactionRepository
 
     /**
      * Get the timezone of the given lat and long.
+     * @param float $lat
+     * @param float $long
+     * @return string
      */
-    private function timezone($lat, $long)
+    private function timezone(float $lat, float $long) : string
     {
         $timezone = @GoogleMaps::load('timezone')
                                 ->setParam([

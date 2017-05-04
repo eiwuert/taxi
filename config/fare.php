@@ -3,22 +3,20 @@
 return [
     'IRR' => [
         'luxury' => [
-            'entry'          => 50000,
+            'entry'        => 14000,
+            'discount'     => 0.1,
+            'min'          => 36000,
             'surcharge'      => [
-                'thu'  =>  [
+                '*'  =>  [
                     [
                        'from'  => '00:00',
-                       'to'    => '3:00',
-                       'amount' => 1.1,
-                    ], [
-                       'from'   => '3:00',
-                       'to'     => '6:00',
-                       'amount' => 1.5,
-                    ],
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
                 ],
             ],
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             // minute
             // hour
             'timeـunit'      => 'minute',
@@ -27,50 +25,110 @@ return [
             'distanceـunit'  => 'kilometer',
         ],
         'van'   => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'sport'      => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'sedans'  => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'economy'  => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'off-roader'  => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
         'motorcycle'  => [
-            'entry'          => 50000,
-            'surcharge'      => 0,
-            'perـdistance'   => 5000,
-            'perـtime'       => 0,
+            'entry'          => 14000,
+            'discount'       => 0.1,
+            'min'            => 36000,
+            'surcharge'      => [
+                '*'  =>  [
+                    [
+                       'from'  => '00:00',
+                       'to'    => '6:00',
+                       'amount' => 1.2,
+                    ]
+                ],
+            ],
+            'perـdistance'   => 0,
+            'perـtime'       => 1400,
             'timeـunit'      => 'minute',
             'distanceـunit'  => 'kilometer',
         ],
