@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use Log;
 use App\Trip;
 use App\Client;
@@ -83,7 +84,15 @@ class PaymentController extends Controller
                         ]);
         }
         $response = $this->response;
-        return view('payments.charge', compact('response', 'payment', 'client'));
+        if ($client->device_type == 'ios') {
+            $href = '';
+        } else if ($client->device_type == 'android') {
+            $href = 'http://com.flipapp.app_client/';
+        } else {
+            $href = '#';
+        }
+        App::setLocale($client->lang);
+        return view('payments.charge', compact('response', 'payment', 'client', 'href'));
     }
 
     /**
