@@ -60,7 +60,7 @@
     {!! Form::number('balance', null, ['class' => 'form-control', 'step' => '10']) !!}
   </div>
 </div>
-@if ($client->picture == 'no-profile.png')
+@if (str_contains($client->picture, 'no-profile.png'))
 <div class="form-group">
         {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">

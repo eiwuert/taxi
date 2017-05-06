@@ -1,12 +1,6 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/27 16:00:45 
-*************************************************************************/
 
 return array (
-  'New admin' => 'New admin',
-  'Password: ' => 'Password: ',
-  'Permission: ' => 'Permission: ',
   '1st' => '1st',
   '2nd' => '2nd',
   '3rd' => '3rd',
@@ -26,7 +20,6 @@ return array (
   'Balance' => 'Balance',
   'Balance: ' => 'Balance: ',
   'Be right back' => 'Be right back',
-  'Built with' => 'Built with',
   'Canceled' => 'Canceled',
   'Canceled on arrived by client' => 'Canceled on arrived by client',
   'Canceled on arrived by driver' => 'Canceled on arrived by driver',
@@ -158,6 +151,7 @@ return array (
   'Multicast ID' => 'Multi cast ID',
   'NO available driver' => 'NO available driver',
   'Name' => 'Name',
+  'New admin' => 'New admin',
   'New backup' => 'New backup',
   'New client found' => 'New client found',
   'New client rejected by driver' => 'New client rejected by driver',
@@ -186,12 +180,14 @@ return array (
   'Order by' => 'Order by',
   'Our share:' => 'Our share:',
   'Password' => 'Password',
+  'Password: ' => 'Password: ',
   'Pay cash' => 'Pay cash',
   'Pay wallet' => 'Pay wallet',
   'Payment' => 'Payment',
   'Payments' => 'Payments',
   'Per distance' => 'Per distance',
   'Per time' => 'Per time',
+  'Permission: ' => 'Permission: ',
   'Permissions' => 'Permissions',
   'Phone' => 'Phone',
   'Phone:' => 'Phone:',

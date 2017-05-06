@@ -1,16 +1,6 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/04/27 16:00:46 
-*************************************************************************/
 
 return array (
-  //============================== New strings to translate ==============================//
-  'New admin' => 'مدیر جدید',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
-  'Password: ' => 'رمز عبور: ',
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/webs/create.blade.php
-  'Permission: ' => 'مجوز: ',
-  //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
   '3rd' => 'سوم',
@@ -30,7 +20,6 @@ return array (
   'Balance' => 'اعتبار',
   'Balance: ' => 'اعتبار: ',
   'Be right back' => 'الان بر می گردم',
-  'Built with' => 'ساخته شده با',
   'Canceled' => 'لغو شده',
   'Canceled on arrived by client' => 'مسافر راننده رسیده به مبدا حرکت را لغو کرد',
   'Canceled on arrived by driver' => 'راننده بعد از رسیدن به مبدا مسافر، سفر را لغو کرد',
@@ -162,6 +151,7 @@ return array (
   'Multicast ID' => 'شناسه های چند بخشی',
   'NO available driver' => 'راننده پیدا نشد',
   'Name' => 'نام',
+  'New admin' => 'مدیر جدید',
   'New backup' => 'پشتیبان گیری جدید',
   'New client found' => 'مسافر جدید پیدا شد',
   'New client rejected by driver' => 'مسافر جدید توسط راننده رد شد',
@@ -190,12 +180,14 @@ return array (
   'Order by' => 'مرتب کردن',
   'Our share:' => 'سهم ما:',
   'Password' => 'رمزعبور',
+  'Password: ' => 'رمز عبور: ',
   'Pay cash' => 'پرداخت نقدی',
   'Pay wallet' => 'پرداخت با کیف پول',
   'Payment' => 'پرداخت',
   'Payments' => ' پرداخت ها ',
   'Per distance' => 'در فاصله',
   'Per time' => 'در هر زمان',
+  'Permission: ' => 'مجوز: ',
   'Permissions' => 'مجوز',
   'Phone' => 'تلفن',
   'Phone:' => 'تلفن: ',

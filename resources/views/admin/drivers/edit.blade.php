@@ -72,7 +72,7 @@
     </div>
 </div>
 @endif
-@if ($driver->picture == 'no-profile.png')
+@if (str_contains($driver->picture, 'img/no-profile.png'))
 <div class="form-group">
     {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
