@@ -199,10 +199,47 @@ Parameter | Type | Status | Description
     phone | numeric |  required  | Must have a length between `9` and `255`
     lang | string |  required  | `fa`, `en`, `ar
     country | string |  required  |  Maximum: `255`
-    state | string |  required  |  Maximum: `255`
+    state | string |  required  |  numeric
     device_token | string |  required  |  Maximum: `255`
     device_type | string |  required  |  Maximum: `255`
     login_by | string |  required  |  `manual`
+
+
+#### States
+
+ID | Name | Name
+--------- | ------- | -------
+    1     | Azerbaijan, East | آذربایجان شرقی
+    2     | Azerbaijan, West | آذربایجان غربی
+    3     | Ardabil | اردبیل
+    4     | Isfahan | اصفهان
+    5     | Alborz | البرز
+    6     | Ilam | ایلام
+    7     | Bushehr | بوشهر
+    8     | Tehran | تهران
+    9     | Chahar Mahaal and Bakhtiari | چهارمحال و بختیاری
+    10    | Khorasan, South | خراسان جنوبی
+    11    | Khorasan, Razavi | خراسان رضوی
+    12    | Khorasan, North | خراسان شمالی
+    13    | Khuzestan  | خوزستان
+    14    | Zanjan | زنجان
+    15    | Semnan | سمنان
+    16    | Sistan and Baluchestan | سیستان و بلوچستان
+    17    | Fars | فارس
+    18    | Qazvin | قزوین
+    19    | Qom | قم
+    20    | Kurdistan | کردستان
+    21    | Kerman | کرمان
+    22    | Kermanshah | کرمانشاه
+    23    | Kohgiluyeh and Boyer-Ahmad | کهگیلویه و بویراحمد
+    24    | Golestan | گلستان
+    25    | Gilan | گیلان
+    26    | Luristan | لرستان
+    27    | Mazandaran | مازندران
+    28    | Markazi | مرکزی
+    29    | Hormozgan | هرمزگان
+    30    | Hamadan | همدان
+    31    | Yazd | یزد
     
 > Example response:
 
@@ -3753,112 +3790,7 @@ $.ajax(settings).done(function (response) {
 
 #History
 
-##driver
-
-History of driver trips.
-
-> Example request
-
-```bash
-curl "http://saamtaxi.net/api/v1/driver/history" \
--H "Accept: application/json" \
--H "Authorization: Bearer ACCESS_TOKEN" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/history",
-    "method": "GET",
-    "data": {},
-    "headers": {
-        "accept": "application/json",
-        "authorization": "Bearer ACCESS_TOKEN"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`GET api/v1/driver/history`
-
-    
-> Example response
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "status_id": 17,
-            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
-            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
-            "eta_value": "249",
-            "eta_text": "4 mins",
-            "distance_value": "1289",
-            "distance_text": "1.3 km",
-            "etd_value": "0",
-            "etd_text": "1 min",
-            "driver_location": {
-                "id": 20204,
-                "latitude": "32.623239",
-                "longitude": "51.636149",
-                "name": "TEST",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:58:34",
-                "updated_at": "2017-02-14 14:58:34"
-            },
-            "driver_distance_value": "0",
-            "driver_distance_text": "1 m",
-            "created_at": "2017-02-15 14:38:32",
-            "status_name": "trip_is_over",
-            "s_lat": "32.623239",
-            "s_long": "51.636149",
-            "d_lat": "32.634100",
-            "d_long": "51.639282",
-            "transaction": {
-                "id": 8,
-                "trip_id": 12,
-                "car_type_id": 1,
-                "entry": "2",
-                "distance": "1289",
-                "per_distance": "0.7",
-                "distance_unit": "kilometer",
-                "distance_value": "0.9",
-                "time": "249",
-                "per_time": "0.3",
-                "time_unit": "minute",
-                "time_value": "1.2",
-                "surcharge": "1",
-                "currency": "USD",
-                "timezone": "Asia/Tehran",
-                "total": "4.1",
-                "created_at": "2017-02-15 14:38:43",
-                "updated_at": "2017-02-15 14:38:43"
-            },
-            "rate": {
-                "id": 1,
-                "client": "5",
-                "driver": "4.5",
-                "client_comment": "hello",
-                "driver_comment": "hello",
-                "trip_id": 12,
-                "created_at": "2017-02-15 14:39:28",
-                "updated_at": "2017-02-15 14:39:28"
-            }
-        }
-    ]
-}
-```
-
-
-##client
+##Client
 
 History of client trips.
 
@@ -4168,6 +4100,110 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+##Driver
+
+History of driver trips.
+
+> Example request
+
+```bash
+curl "http://saamtaxi.net/api/v1/driver/history" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://saamtaxi.net/api/v1/driver/history",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/history`
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "status_id": 17,
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "eta_value": "249",
+            "eta_text": "4 mins",
+            "distance_value": "1289",
+            "distance_text": "1.3 km",
+            "etd_value": "0",
+            "etd_text": "1 min",
+            "driver_location": {
+                "id": 20204,
+                "latitude": "32.623239",
+                "longitude": "51.636149",
+                "name": "TEST",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:58:34",
+                "updated_at": "2017-02-14 14:58:34"
+            },
+            "driver_distance_value": "0",
+            "driver_distance_text": "1 m",
+            "created_at": "2017-02-15 14:38:32",
+            "status_name": "trip_is_over",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": {
+                "id": 8,
+                "trip_id": 12,
+                "car_type_id": 1,
+                "entry": "2",
+                "distance": "1289",
+                "per_distance": "0.7",
+                "distance_unit": "kilometer",
+                "distance_value": "0.9",
+                "time": "249",
+                "per_time": "0.3",
+                "time_unit": "minute",
+                "time_value": "1.2",
+                "surcharge": "1",
+                "currency": "USD",
+                "timezone": "Asia/Tehran",
+                "total": "4.1",
+                "created_at": "2017-02-15 14:38:43",
+                "updated_at": "2017-02-15 14:38:43"
+            },
+            "rate": {
+                "id": 1,
+                "client": "5",
+                "driver": "4.5",
+                "client_comment": "hello",
+                "driver_comment": "hello",
+                "trip_id": 12,
+                "created_at": "2017-02-15 14:39:28",
+                "updated_at": "2017-02-15 14:39:28"
+            }
+        }
+    ]
+}
 ```
 
 

@@ -254,7 +254,7 @@ $.ajax(settings).done(function (response) {
 <td>state</td>
 <td>string</td>
 <td>required</td>
-<td>Maximum: <code>255</code></td>
+<td>numeric</td>
 </tr>
 <tr>
 <td>device_token</td>
@@ -273,6 +273,173 @@ $.ajax(settings).done(function (response) {
 <td>string</td>
 <td>required</td>
 <td><code>manual</code></td>
+</tr>
+</tbody>
+</table>
+<h4>States</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Azerbaijan, East</td>
+<td>آذربایجان شرقی</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Azerbaijan, West</td>
+<td>آذربایجان غربی</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ardabil</td>
+<td>اردبیل</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Isfahan</td>
+<td>اصفهان</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Alborz</td>
+<td>البرز</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ilam</td>
+<td>ایلام</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Bushehr</td>
+<td>بوشهر</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Tehran</td>
+<td>تهران</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Chahar Mahaal and Bakhtiari</td>
+<td>چهارمحال و بختیاری</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Khorasan, South</td>
+<td>خراسان جنوبی</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Khorasan, Razavi</td>
+<td>خراسان رضوی</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Khorasan, North</td>
+<td>خراسان شمالی</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Khuzestan</td>
+<td>خوزستان</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Zanjan</td>
+<td>زنجان</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Semnan</td>
+<td>سمنان</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Sistan and Baluchestan</td>
+<td>سیستان و بلوچستان</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Fars</td>
+<td>فارس</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Qazvin</td>
+<td>قزوین</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Qom</td>
+<td>قم</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Kurdistan</td>
+<td>کردستان</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Kerman</td>
+<td>کرمان</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Kermanshah</td>
+<td>کرمانشاه</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Kohgiluyeh and Boyer-Ahmad</td>
+<td>کهگیلویه و بویراحمد</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Golestan</td>
+<td>گلستان</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Gilan</td>
+<td>گیلان</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Luristan</td>
+<td>لرستان</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Mazandaran</td>
+<td>مازندران</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Markazi</td>
+<td>مرکزی</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Hormozgan</td>
+<td>هرمزگان</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Hamadan</td>
+<td>همدان</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Yazd</td>
+<td>یزد</td>
 </tr>
 </tbody>
 </table>
@@ -3555,99 +3722,7 @@ $.ajax(settings).done(function (response) {
 }
 </code></pre>
 <h1>History</h1>
-<h2>driver</h2>
-<p>History of driver trips.</p>
-<blockquote>
-<p>Example request</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/history" \
--H "Accept: application/json" \
--H "Authorization: Bearer ACCESS_TOKEN" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/history",
-    "method": "GET",
-    "data": {},
-    "headers": {
-        "accept": "application/json",
-        "authorization": "Bearer ACCESS_TOKEN"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/v1/driver/history</code></p>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre><code class="language-json">{
-    "success": true,
-    "data": [
-        {
-            "status_id": 17,
-            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
-            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
-            "eta_value": "249",
-            "eta_text": "4 mins",
-            "distance_value": "1289",
-            "distance_text": "1.3 km",
-            "etd_value": "0",
-            "etd_text": "1 min",
-            "driver_location": {
-                "id": 20204,
-                "latitude": "32.623239",
-                "longitude": "51.636149",
-                "name": "TEST",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:58:34",
-                "updated_at": "2017-02-14 14:58:34"
-            },
-            "driver_distance_value": "0",
-            "driver_distance_text": "1 m",
-            "created_at": "2017-02-15 14:38:32",
-            "status_name": "trip_is_over",
-            "s_lat": "32.623239",
-            "s_long": "51.636149",
-            "d_lat": "32.634100",
-            "d_long": "51.639282",
-            "transaction": {
-                "id": 8,
-                "trip_id": 12,
-                "car_type_id": 1,
-                "entry": "2",
-                "distance": "1289",
-                "per_distance": "0.7",
-                "distance_unit": "kilometer",
-                "distance_value": "0.9",
-                "time": "249",
-                "per_time": "0.3",
-                "time_unit": "minute",
-                "time_value": "1.2",
-                "surcharge": "1",
-                "currency": "USD",
-                "timezone": "Asia/Tehran",
-                "total": "4.1",
-                "created_at": "2017-02-15 14:38:43",
-                "updated_at": "2017-02-15 14:38:43"
-            },
-            "rate": {
-                "id": 1,
-                "client": "5",
-                "driver": "4.5",
-                "client_comment": "hello",
-                "driver_comment": "hello",
-                "trip_id": 12,
-                "created_at": "2017-02-15 14:39:28",
-                "updated_at": "2017-02-15 14:39:28"
-            }
-        }
-    ]
-}</code></pre>
-<h2>client</h2>
+<h2>Client</h2>
 <p>History of client trips.</p>
 <blockquote>
 <p>Example request</p>
@@ -3947,6 +4022,98 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Driver</h2>
+<p>History of driver trips.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/history" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://saamtaxi.net/api/v1/driver/history",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/history</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "status_id": 17,
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "eta_value": "249",
+            "eta_text": "4 mins",
+            "distance_value": "1289",
+            "distance_text": "1.3 km",
+            "etd_value": "0",
+            "etd_text": "1 min",
+            "driver_location": {
+                "id": 20204,
+                "latitude": "32.623239",
+                "longitude": "51.636149",
+                "name": "TEST",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:58:34",
+                "updated_at": "2017-02-14 14:58:34"
+            },
+            "driver_distance_value": "0",
+            "driver_distance_text": "1 m",
+            "created_at": "2017-02-15 14:38:32",
+            "status_name": "trip_is_over",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": {
+                "id": 8,
+                "trip_id": 12,
+                "car_type_id": 1,
+                "entry": "2",
+                "distance": "1289",
+                "per_distance": "0.7",
+                "distance_unit": "kilometer",
+                "distance_value": "0.9",
+                "time": "249",
+                "per_time": "0.3",
+                "time_unit": "minute",
+                "time_value": "1.2",
+                "surcharge": "1",
+                "currency": "USD",
+                "timezone": "Asia/Tehran",
+                "total": "4.1",
+                "created_at": "2017-02-15 14:38:43",
+                "updated_at": "2017-02-15 14:38:43"
+            },
+            "rate": {
+                "id": 1,
+                "client": "5",
+                "driver": "4.5",
+                "client_comment": "hello",
+                "driver_comment": "hello",
+                "trip_id": 12,
+                "created_at": "2017-02-15 14:39:28",
+                "updated_at": "2017-02-15 14:39:28"
+            }
+        }
+    ]
+}</code></pre>
 <h1>Middleware</h1>
 <h2>Authenticate</h2>
 <p>Authorize the access token for continue using protected routes. Given on <code>Authorization</code> header.</p>
