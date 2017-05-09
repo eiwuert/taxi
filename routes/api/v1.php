@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+// Socket io authenticate
+Route::get('authenticate', 'SocketController@index')
+     ->middleware('authOrig:api', 'socketInTrip');
+
 /**
  * Client Routes.
  */
@@ -16,6 +20,10 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
     Route::get('resend', 'Auth\SmsController@resend')
          ->name('resendSMS')
          ->middleware('auth:api', 'role:client');
+
+    Route::get('lang/{lang}', 'UserController@changeLang')
+        ->name('change.language')
+        ->middleware('auth:api');
 
     Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function () {
         Route::post('location', 'Trip\LocationController@set')
@@ -129,6 +137,10 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
     Route::get('resend', 'Auth\SmsController@resend')
          ->name('resendSMS')
          ->middleware('auth:api', 'role:driver');
+
+    Route::get('lang/{lang}', 'UserController@changeLang')
+        ->name('change.language')
+        ->middleware('auth:api');
 });
 
 Route::any('{any}', function () {
