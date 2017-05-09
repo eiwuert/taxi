@@ -14,7 +14,8 @@ class ClientRegisterRequest extends Request
     public function rules()
     {
         return [
-            'lang'         => 'required|in:fa,en,ar',
+            'lang'         => 'required|in:fa,en',
+            'state'        => 'required|max:255|in:' . implode(', ', range(1, 32)),
             'device_type'  => 'required|max:255',
             'device_token' => 'required|max:255',
         ];

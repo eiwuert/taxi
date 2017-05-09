@@ -21,24 +21,28 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
-* Add angle to nearby and `client/trip` routes. angle starts from 6 o'clock in counter clockwise.
-* Income route for driver.
-* created_at and updated_at property removed from client and driver profile.
-* History order fixed (desc).
-* Payment updated.
-* Payment with card removed.
-* Add trip status on driver set location.
+* Add states to the client registration 
+* Remove 'ar' from lang param in client and driver registration
+* Add register, payment and logout flow chart
+* Add FCM keys
+* Add angle to nearby and `client/trip` routes. angle starts from 6 o'clock in counter clockwise
+* Income route for driver
+* created_at and updated_at property removed from client and driver profile
+* History order fixed (desc)
+* Payment updated
+* Payment with card removed
+* Add trip status on driver set location
 * Added payment GET route
-* v
 * `d2_lat` and `d2_long` added to `v1/client/trip`
 * Add payment type to `v1/client/trip`
-* Trip ID added to GET `client/trip` API.
-* pended trip list removed from request API.
-* New FCM states for payments.
-* Payment type and status added to current trip API.
-
+* Trip ID added to GET `client/trip` API
+* pended trip list removed from request API
+* New FCM states for payments
+* Payment type and status added to current trip API
 
 #Register
+
+![Image of registration](http://1.1m.yt/_R4OUR7.png)
 
 ## Client
 
@@ -55,6 +59,7 @@ curl "http://flipapp.ir/api/v1/client/register" \
     -d "lang"="sunt" \
     -d "device_type"="sunt" \
     -d "device_token"="sunt" \
+    -d "state"="sunt" \
 
 ```
 
@@ -70,6 +75,7 @@ var settings = {
         "lang": "sunt",
         "device_type": "sunt",
         "device_token": "sunt",
+        "state": "sunt",
 },
     "headers": {
         "accept": "application/json"
@@ -91,10 +97,50 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     phone | numeric |  required  | Must have a length between `9` and `255`
     login_by | string |  required  | `manual`, `facebook`, `google`
-    lang | string |  required  | `fa`, `en`, `ar`
+    lang | string |  required  | `fa`, `en`
     device_type | string |  required  | Maximum: `255`
     device_token | string |  required  | Maximum: `255`
+    state | numeric |  required  | Maximum: `255`, exists in states
     
+
+
+#### States
+
+ID | Name | Name
+--------- | ------- | -------
+    1     | Azerbaijan, East | آذربایجان شرقی
+    2     | Azerbaijan, West | آذربایجان غربی
+    3     | Ardabil | اردبیل
+    4     | Isfahan | اصفهان
+    5     | Alborz | البرز
+    6     | Ilam | ایلام
+    7     | Bushehr | بوشهر
+    8     | Tehran | تهران
+    9     | Chahar Mahaal and Bakhtiari | چهارمحال و بختیاری
+    10    | Khorasan, South | خراسان جنوبی
+    11    | Khorasan, Razavi | خراسان رضوی
+    12    | Khorasan, North | خراسان شمالی
+    13    | Khuzestan  | خوزستان
+    14    | Zanjan | زنجان
+    15    | Semnan | سمنان
+    16    | Sistan and Baluchestan | سیستان و بلوچستان
+    17    | Fars | فارس
+    18    | Qazvin | قزوین
+    19    | Qom | قم
+    20    | Kurdistan | کردستان
+    21    | Kerman | کرمان
+    22    | Kermanshah | کرمانشاه
+    23    | Kohgiluyeh and Boyer-Ahmad | کهگیلویه و بویراحمد
+    24    | Golestan | گلستان
+    25    | Gilan | گیلان
+    26    | Luristan | لرستان
+    27    | Mazandaran | مازندران
+    28    | Markazi | مرکزی
+    29    | Hormozgan | هرمزگان
+    30    | Hamadan | همدان
+    31    | Yazd | یزد
+
+
 > Example response
 
 ```json
@@ -197,7 +243,7 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     phone | numeric |  required  | Must have a length between `9` and `255`
-    lang | string |  required  | `fa`, `en`, `ar
+    lang | string |  required  | `fa`, `en`
     country | string |  required  |  Maximum: `255`
     state | string |  required  |  numeric
     device_token | string |  required  |  Maximum: `255`
@@ -3650,6 +3696,7 @@ comment | text |  optional  | max: `5000`
 
 # Payment
 
+![Image of payment](http://1.1m.yt/pmMfED.png)
 
 ## Charge
 

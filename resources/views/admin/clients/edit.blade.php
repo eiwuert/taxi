@@ -39,7 +39,7 @@
 <div class="form-group">
   {!! Form::label('state', __('admin/general.State: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
-    {!! Form::text('state', null, ['class' => 'form-control']) !!}
+    {!! Form::select('state', config('states'), null, ['class' => 'form-control']) !!}
   </div>
 </div>
 <div class="form-group">
@@ -62,13 +62,13 @@
 </div>
 @if (str_contains($client->picture, 'no-profile.png'))
 <div class="form-group">
-        {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        <div class="btn btn-sm btn-default btn-file">
-            <i class="fa fa-picture-o"></i> @lang('admin/general.Choose picture')
-            {!! Form::file('picture', null, ['class' => 'form-control']) !!}
-        </div>
+  {!! Form::label('picture', __('admin/general.Picture: '), ['class' => 'col-sm-2 control-label']) !!}
+  <div class="col-sm-10">
+    <div class="btn btn-sm btn-default btn-file">
+      <i class="fa fa-picture-o"></i> @lang('admin/general.Choose picture')
+      {!! Form::file('picture', null, ['class' => 'form-control']) !!}
     </div>
+  </div>
 </div>
 @else
 <div class="form-group">

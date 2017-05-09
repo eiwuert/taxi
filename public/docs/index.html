@@ -45,23 +45,27 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
-<li>Add angle to nearby and <code>client/trip</code> routes. angle starts from 6 o'clock in counter clockwise.</li>
-<li>Income route for driver.</li>
-<li>created_at and updated_at property removed from client and driver profile.</li>
-<li>History order fixed (desc).</li>
-<li>Payment updated.</li>
-<li>Payment with card removed.</li>
-<li>Add trip status on driver set location.</li>
+<li>Add states to the client registration </li>
+<li>Remove 'ar' from lang param in client and driver registration</li>
+<li>Add register, payment and logout flow chart</li>
+<li>Add FCM keys</li>
+<li>Add angle to nearby and <code>client/trip</code> routes. angle starts from 6 o'clock in counter clockwise</li>
+<li>Income route for driver</li>
+<li>created_at and updated_at property removed from client and driver profile</li>
+<li>History order fixed (desc)</li>
+<li>Payment updated</li>
+<li>Payment with card removed</li>
+<li>Add trip status on driver set location</li>
 <li>Added payment GET route</li>
-<li>v</li>
 <li><code>d2_lat</code> and <code>d2_long</code> added to <code>v1/client/trip</code></li>
 <li>Add payment type to <code>v1/client/trip</code></li>
-<li>Trip ID added to GET <code>client/trip</code> API.</li>
-<li>pended trip list removed from request API.</li>
-<li>New FCM states for payments.</li>
-<li>Payment type and status added to current trip API.</li>
+<li>Trip ID added to GET <code>client/trip</code> API</li>
+<li>pended trip list removed from request API</li>
+<li>New FCM states for payments</li>
+<li>Payment type and status added to current trip API</li>
 </ul>
 <h1>Register</h1>
+<p><img src="http://1.1m.yt/_R4OUR7.png" alt="Image of registration" /></p>
 <h2>Client</h2>
 <p>Initial step for client to register, using phone no. as the primary param
 for login and validation.</p>
@@ -75,6 +79,7 @@ for login and validation.</p>
     -d "lang"="sunt" \
     -d "device_type"="sunt" \
     -d "device_token"="sunt" \
+    -d "state"="sunt" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -87,6 +92,7 @@ for login and validation.</p>
         "lang": "sunt",
         "device_type": "sunt",
         "device_token": "sunt",
+        "state": "sunt",
 },
     "headers": {
         "accept": "application/json"
@@ -125,7 +131,7 @@ $.ajax(settings).done(function (response) {
 <td>lang</td>
 <td>string</td>
 <td>required</td>
-<td><code>fa</code>, <code>en</code>, <code>ar</code></td>
+<td><code>fa</code>, <code>en</code></td>
 </tr>
 <tr>
 <td>device_type</td>
@@ -138,6 +144,179 @@ $.ajax(settings).done(function (response) {
 <td>string</td>
 <td>required</td>
 <td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>numeric</td>
+<td>required</td>
+<td>Maximum: <code>255</code>, exists in states</td>
+</tr>
+</tbody>
+</table>
+<h4>States</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Azerbaijan, East</td>
+<td>آذربایجان شرقی</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Azerbaijan, West</td>
+<td>آذربایجان غربی</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ardabil</td>
+<td>اردبیل</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Isfahan</td>
+<td>اصفهان</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Alborz</td>
+<td>البرز</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ilam</td>
+<td>ایلام</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Bushehr</td>
+<td>بوشهر</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Tehran</td>
+<td>تهران</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Chahar Mahaal and Bakhtiari</td>
+<td>چهارمحال و بختیاری</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Khorasan, South</td>
+<td>خراسان جنوبی</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Khorasan, Razavi</td>
+<td>خراسان رضوی</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Khorasan, North</td>
+<td>خراسان شمالی</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Khuzestan</td>
+<td>خوزستان</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Zanjan</td>
+<td>زنجان</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Semnan</td>
+<td>سمنان</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Sistan and Baluchestan</td>
+<td>سیستان و بلوچستان</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Fars</td>
+<td>فارس</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Qazvin</td>
+<td>قزوین</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Qom</td>
+<td>قم</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Kurdistan</td>
+<td>کردستان</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Kerman</td>
+<td>کرمان</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Kermanshah</td>
+<td>کرمانشاه</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Kohgiluyeh and Boyer-Ahmad</td>
+<td>کهگیلویه و بویراحمد</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Golestan</td>
+<td>گلستان</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Gilan</td>
+<td>گیلان</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Luristan</td>
+<td>لرستان</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Mazandaran</td>
+<td>مازندران</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Markazi</td>
+<td>مرکزی</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Hormozgan</td>
+<td>هرمزگان</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Hamadan</td>
+<td>همدان</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Yazd</td>
+<td>یزد</td>
 </tr>
 </tbody>
 </table>
@@ -242,7 +421,7 @@ $.ajax(settings).done(function (response) {
 <td>lang</td>
 <td>string</td>
 <td>required</td>
-<td><code>fa</code>, <code>en</code>, `ar</td>
+<td><code>fa</code>, <code>en</code></td>
 </tr>
 <tr>
 <td>country</td>
@@ -3621,6 +3800,7 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h1>Payment</h1>
+<p><img src="http://1.1m.yt/pmMfED.png" alt="Image of payment" /></p>
 <h2>Charge</h2>
 <p>Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be fetched from <code>client/profile</code></p>
 <blockquote>
@@ -4350,6 +4530,30 @@ if not:</p>
 </tr>
 </tbody>
 </table><h1>FCM</h1>
+<table>
+<thead>
+<tr>
+<th>KEY</th>
+<th>VALUE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SERVER_KEY</td>
+<td>AAAAV9D4nlg:APA91bEqhjde3JUOvuIepJ5qB0n58eg0ceLqt8mvXHt2hyPSSylVoQ6vW6bA4zDHiVuiIW4siS4vL3OaZW-pwTT64smL0F0KIBQdIJkrDu1CahXqq-O0MOOjE_L88KmJjBT-W1hAO5qBQookB7bhs5z1YvJ7FLp-DA</td>
+</tr>
+<tr>
+<td>SENDER_ID</td>
+<td>377168109144</td>
+</tr>
+</tbody>
+</table>
+<h2>Logout</h2>
+<h3>Driver</h3>
+<p><img src="http://1.1m.yt/O2gCKqR.png" alt="Image of Logout" /></p>
+<h3>Client</h3>
+<p><img src="http://1.1m.yt/4LPd5Cq.png" alt="Image of Logout" /></p>
+<h2>Codes</h2>
 <h3>Client</h3>
 <table>
 <thead>

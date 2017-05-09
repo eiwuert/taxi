@@ -77,7 +77,7 @@
                 <th>@lang('admin/general.Last name')</th>
                 <th>@lang('admin/general.Country')</th>
                 <th>@lang('admin/general.Phone')</th>
-                <th>@lang('admin/general.State1')</th>
+                <th>@lang('admin/general.State')</th>
               </tr>
               @foreach($clients as $client)
               <tr onclick="window.document.location='{{ action('Admin\ClientController@show', ['id' => $client->id]) }}';" style="cursor: pointer;">
@@ -86,7 +86,7 @@
                 <td>{!! $client->last_name or '<tag color="default"></tag>' !!}</td>
                 <td>{{ $client->country }}</td>
                 <td>{{ $client->phoneNumber() }}</td>
-                <td><tag color="{{ $client->state()->color }}">{!! $client->state()->name !!}</tag></td>
+                <td>{{ $client->stateName() }}</td>
               </tr>
               @endforeach
             </tbody>
