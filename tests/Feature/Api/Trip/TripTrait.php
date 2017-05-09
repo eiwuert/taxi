@@ -48,6 +48,7 @@ trait TripTrait
             'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
+            'state' => '1',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit'
         ]);
