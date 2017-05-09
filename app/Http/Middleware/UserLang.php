@@ -55,7 +55,9 @@ class UserLang
             $this->changeTo($lang);
         } else {
             // Switch to user (API) preselected language.
-            $this->changeTo(call_user_func([$user, $user->role])->first()->lang);
+            if (!is_null(call_user_func([$user, $user->role])->first())) {
+                $this->changeTo(call_user_func([$user, $user->role])->first()->lang);
+            }
         }
         return $next($request);
     }
