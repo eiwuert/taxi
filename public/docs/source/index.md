@@ -40,6 +40,196 @@ HEAD UP! new changes to API will be here as reference.
 * New FCM states for payments
 * Payment type and status added to current trip API
 
+#Change language
+
+![Image of change language](https://image.ibb.co/cDZJO5/Change_Language.png)
+
+## Client
+
+Change language for client
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/client/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/client/lang/{lang}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lang | string |  required  | Must be 'fa' or 'en'
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}
+```
+
+
+> Example response - Validation error(s)
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}
+```
+
+## Driver
+
+Change language for driver
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/driver/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/lang/{lang}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lang | string |  required  | Must be 'fa' or 'en'
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}
+```
+
+
+> Example response - Validation error(s)
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}
+```
+
 #Register
 
 ![Image of registration](http://1.1m.yt/_R4OUR7.png)
