@@ -12,10 +12,12 @@ class UserController extends Controller
     public function changeLang($lang)
     {
         if (in_array($lang, ['fa', 'en'])) {
-            call_user_func([Auth::user(), Auth::user()->role])
-                ->first()
-                ->forceFill(['lang' => $lang])
-                ->save();
+            if (!is_null(Auth::user())) {
+                call_user_func([Auth::user(), Auth::user()->role])
+                    ->first()
+                    ->forceFill(['lang' => $lang])
+                    ->save();
+            }
             App::setlocale($lang);
             return ok([
                 'title'  => __('api/lang.success'),
