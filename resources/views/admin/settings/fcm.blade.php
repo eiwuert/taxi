@@ -5,6 +5,7 @@
 <li class="active">@lang('admin/general.FCM')</li>
 @endsection
 @section('content')
+@include('admin.charts.fcm')
 <div class="box box-solid">
     <div class="box-header">
         <h3 class="box-title">@lang('admin/general.FCM Logs')</h3>

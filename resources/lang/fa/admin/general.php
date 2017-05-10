@@ -2,12 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'accept' => 'قبول سفر',
-  'arrived' => 'رسیدن به مبدا',
-  'default' => 'پیش فرض',
-  'find' => 'پیدا کردن مسافر',
-  'request' => 'درخواست تاکسی',
-  'start' => 'شروع سفر',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/charts/fcm.blade.php
+  'FCM chart' => 'FCM نمودار',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -275,7 +271,9 @@ return array (
   'Yesterday' => 'دیروز',
   'Zip code: ' => 'کد پستی: ',
   'Zipcode:' => 'کد پستی: ',
+  'accept' => 'قبول سفر',
   'agencies' => 'نمایندگان',
+  'arrived' => 'رسیدن به مبدا',
   'back to driver' => 'بازگشت به راننده',
   'blog' => 'وبلاگ',
   'charsets' => 'مجموعه کاراکترها',
@@ -283,12 +281,14 @@ return array (
   'clients' => ' مسافرها ',
   'created' => 'ایجاد شده',
   'dashboard' => ' داشبورد ',
+  'default' => 'پیش فرض',
   'details' => 'جزئیات',
   'driver' => 'راننده',
   'drivers' => 'راننده ها',
   'encodings' => 'رمزگذاری',
   'error' => 'خطا',
   'female' => 'زن',
+  'find' => 'پیدا کردن مسافر',
   'gitlab' => 'گیت لب',
   'home' => 'خانه',
   'iOS' => 'iOS',
@@ -308,6 +308,8 @@ return array (
   'payment' => 'پرداخت',
   'payments' => ' پرداخت ها ',
   'proxies' => 'پروکسی ها',
+  'request' => 'درخواست تاکسی',
+  'start' => 'شروع سفر',
   'th' => '',
   'title' => 'عنوان',
   'trips' => ' سفرها ',

@@ -45,6 +45,10 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            'admin.charts.fcm', 'App\Http\ViewComposers\FcmComposer'
+        );
+
+        View::composer(
             'admin.payments.index', 'App\Http\ViewComposers\PaymentComposer'
         );
     }

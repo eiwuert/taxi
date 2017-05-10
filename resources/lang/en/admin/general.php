@@ -2,12 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'accept' => 'Accept',
-  'arrived' => 'Arrived',
-  'default' => 'Default',
-  'find' => 'Find',
-  'request' => 'Request',
-  'start' => 'Start',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/charts/fcm.blade.php
+  'FCM chart' => 'FCM chart',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -275,7 +271,9 @@ return array (
   'Yesterday' => 'Yesterday',
   'Zip code: ' => 'Zip code: ',
   'Zipcode:' => 'Zipcode:',
+  'accept' => 'Accept',
   'agencies' => 'agencies',
+  'arrived' => 'Arrived',
   'back to driver' => 'back to driver',
   'blog' => 'blog',
   'charsets' => 'charsets',
@@ -283,12 +281,14 @@ return array (
   'clients' => 'clients',
   'created' => 'created',
   'dashboard' => 'dashboard',
+  'default' => 'Default',
   'details' => 'details',
   'driver' => 'driver',
   'drivers' => 'drivers',
   'encodings' => 'encodings',
   'error' => 'error',
   'female' => 'female',
+  'find' => 'Find',
   'gitlab' => 'gitlab',
   'home' => 'home',
   'iOS' => 'iOS',
@@ -308,6 +308,8 @@ return array (
   'payment' => 'payment',
   'payments' => 'payments',
   'proxies' => 'proxies',
+  'request' => 'Request',
+  'start' => 'Start',
   'th' => 'th',
   'title' => 'title',
   'trips' => 'trips',
