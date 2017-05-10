@@ -26,7 +26,7 @@ class AgencyRequest extends FormRequest
         return [
             'phone'   => 'required',
             'address' => 'required',
-            'state' => 'required|in:' . implode(', ', range(1, 32)),
+            'state' => 'required|in:' . implode(', ', range(0, 32)),
         ];
     }
 }

@@ -22,12 +22,11 @@ class Agency extends Model
      * List of available agencies that can be updated.
      * @return array
      */
-    public static function states(\App\Agency $agency = null) : array
+    public static function states($agency = null) : array
     {
         $states = config('states');
-        unset($states[0]);
-        foreach (self::get(['state'])->flatten() as $agency) {
-            unset($states[$agency->state]);
+        foreach (self::get(['state'])->flatten() as $a) {
+            unset($states[$a->state]);
         }
         if (!is_null($agency)) {
             $states[$agency->state] = config('states')[$agency->state];
