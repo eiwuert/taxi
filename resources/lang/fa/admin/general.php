@@ -2,7 +2,12 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Agency has been deleted' => 'اطلاعات تماس نمایندگی پاک شد',
+  'accept' => 'قبول سفر',
+  'arrived' => 'رسیدن به مبدا',
+  'default' => 'پیش فرض',
+  'find' => 'پیدا کردن مسافر',
+  'request' => 'درخواست تاکسی',
+  'start' => 'شروع سفر',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -16,6 +21,7 @@ return array (
   'Agencies' => 'نمایندگان',
   'Agency contact info created' => 'اطلاعات تماس نمایندگی ایجاد شد.',
   'Agency contact info updated' => 'مشخصات نماینده به روز رسانی شد.',
+  'Agency has been deleted' => 'اطلاعات تماس نمایندگی پاک شد',
   'All' => 'همه',
   'Amount' => 'مقدار',
   'Android' => 'Android',

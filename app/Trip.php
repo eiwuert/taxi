@@ -426,4 +426,14 @@ class Trip extends Model
     {
         return FilterRepository::daterange($range, $query);
     }
+
+    /**
+     * A trip can have many logs.
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function logs()
+    {
+        return $this->hasMany('App\TripLog');
+    }
 }

@@ -2,7 +2,12 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Agency has been deleted' => 'Agency has been deleted',
+  'accept' => 'Accept',
+  'arrived' => 'Arrived',
+  'default' => 'Default',
+  'find' => 'Find',
+  'request' => 'Request',
+  'start' => 'Start',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -16,6 +21,7 @@ return array (
   'Agencies' => 'Agencies',
   'Agency contact info created' => 'Agency contact info created',
   'Agency contact info updated' => 'Agency contact info updated',
+  'Agency has been deleted' => 'Agency has been deleted',
   'All' => 'All',
   'Amount' => 'Amount',
   'Android' => 'Android',
