@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add contact to call center
 * Add states to the client registration 
 * Remove 'ar' from lang param in client and driver registration
 * Add register, payment and logout flow chart
@@ -229,6 +230,110 @@ Parameter | Type | Status | Description
     ]
 }
 ```
+
+
+#Contact
+
+## Client
+
+contact to call center.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/client/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/client/contact`
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}
+```
+
+## Driver
+
+contact to call center.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/driver/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/contact`
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}
+```
+
 
 #Register
 

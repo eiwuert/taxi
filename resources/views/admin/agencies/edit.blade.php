@@ -27,13 +27,13 @@
                 <div class="form-group">
                     {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('phone', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('address', __('admin/general.Address: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('address', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">

@@ -45,6 +45,7 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
+<li>Add contact to call center</li>
 <li>Add states to the client registration </li>
 <li>Remove 'ar' from lang param in client and driver registration</li>
 <li>Add register, payment and logout flow chart</li>
@@ -233,6 +234,85 @@ $.ajax(settings).done(function (response) {
         {
             "title": "ناموفق",
             "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}</code></pre>
+<h1>Contact</h1>
+<h2>Client</h2>
+<p>contact to call center.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/client/contact</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}</code></pre>
+<h2>Driver</h2>
+<p>contact to call center.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/contact</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
         }
     ]
 }</code></pre>
