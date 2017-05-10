@@ -1,6 +1,11 @@
 <?php
 require base_path('routes/admin/auth.php');
 
+Route::get('test', function () {
+    dd(\App\Repositories\LocationRepository::isInside(3, [], [], 0, 0));
+});
+
+
 Route::get('/', 'HomeController@fa')->name('faHome');
 Route::get('/terms', 'HomeController@faTerms')->name('faTerms');
 Route::get('/global', 'HomeController@en')->name('enHome');
@@ -32,4 +37,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('export/{name}', 'ExportController@export')->name('admin.export');
     // Change Language
     Route::get('switch', 'DashboardController@switchLang')->name('switch');
+    // Agencies Info
+    Route::resource('agencies', 'AgencyController');
 });
