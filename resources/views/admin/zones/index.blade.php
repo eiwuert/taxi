@@ -15,6 +15,7 @@
 <li class="active"><i class="ion-pinpoint"></i> @lang('admin/general.Zone') </li>
 @endsection
 @section('content')
+@include('admin.components.googlemaps-circle')
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">

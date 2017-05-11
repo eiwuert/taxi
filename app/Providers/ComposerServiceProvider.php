@@ -37,6 +37,10 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            'admin.components.googlemaps-circle', 'App\Http\ViewComposers\GoogleMapsCircleComposer'
+        );
+
+        View::composer(
             'admin.components.googlemaps-marker', 'App\Http\ViewComposers\GoogleMapsMarkerComposer'
         );
 
