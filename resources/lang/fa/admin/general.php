@@ -2,7 +2,7 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'amount' => 'مقدار',
+  'activate' => 'فعال کردن',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -28,6 +28,7 @@ return array (
   'Balance' => 'اعتبار',
   'Balance: ' => 'اعتبار: ',
   'Be right back' => 'الان بر می گردم',
+  'Calculator' => 'ماشین حساب',
   'Canceled' => 'لغو شده',
   'Canceled on arrived by client' => 'مسافر راننده رسیده به مبدا حرکت را لغو کرد',
   'Canceled on arrived by driver' => 'راننده بعد از رسیدن به مبدا مسافر، سفر را لغو کرد',
@@ -300,6 +301,7 @@ return array (
   'Zone: ' => 'منطقه: ',
   'accept' => 'قبول سفر',
   'agencies' => 'نمایندگان',
+  'amount' => 'مقدار',
   'arrived' => 'رسیدن به مبدا',
   'back to driver' => 'بازگشت به راننده',
   'blog' => 'وبلاگ',
@@ -311,6 +313,7 @@ return array (
   'default' => 'پیش فرض',
   'details' => 'جزئیات',
   'discount' => 'تخفیف',
+  'distance' => 'مسافت',
   'distance unit' => 'واحد مسافت',
   'driver' => 'راننده',
   'drivers' => 'راننده ها',
@@ -349,6 +352,7 @@ return array (
   'start' => 'شروع سفر',
   'surcharge' => 'اضافه بها',
   'th' => '',
+  'time' => 'زمان',
   'time unit' => 'واحد زمان',
   'title' => 'عنوان',
   'trips' => ' سفرها ',

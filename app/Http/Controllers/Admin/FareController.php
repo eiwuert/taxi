@@ -105,4 +105,9 @@ class FareController extends Controller
         flash(__('admin/general.Fare has been deleted'));
         return redirect()->route('fares.index');
     }
+
+    public function calculator()
+    {
+        return view('admin.fares.calculator');
+    }
 }

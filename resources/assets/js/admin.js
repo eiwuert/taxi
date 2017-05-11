@@ -20,6 +20,7 @@ Vue.component('notification-client-count', require('./components/admin/Notificat
 Vue.component('notification-driver-count', require('./components/admin/NotificationsDriverCount.vue'));
 Vue.component('alert-dismissible', require('./components/admin/AlertDismissible.vue'));
 Vue.component('switch-state', require('./components/admin/SwitchState.vue'));
+Vue.component('calculator', require('./components/admin/Calculator.vue'));
 
 const app = new Vue({
     el: '#admin',

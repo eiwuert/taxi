@@ -86,6 +86,4 @@ elixir(mix => {
             'js/admin/jquery.inputmask.js',
             'public/js/admin/flot.js'
         ]);
-
-    mix.webpack('fare.js', 'public/js/admin/fare.js', 'resources/assets/js');
 });

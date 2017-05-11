@@ -2,7 +2,7 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'amount' => 'amount',
+  'activate' => 'activate',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -28,6 +28,7 @@ return array (
   'Balance' => 'Balance',
   'Balance: ' => 'Balance: ',
   'Be right back' => 'Be right back',
+  'Calculator' => 'Calculator',
   'Canceled' => 'Canceled',
   'Canceled on arrived by client' => 'Canceled on arrived by client',
   'Canceled on arrived by driver' => 'Canceled on arrived by driver',
@@ -300,6 +301,7 @@ return array (
   'Zone: ' => 'Zone: ',
   'accept' => 'Accept',
   'agencies' => 'agencies',
+  'amount' => 'amount',
   'arrived' => 'Arrived',
   'back to driver' => 'back to driver',
   'blog' => 'blog',
@@ -311,6 +313,7 @@ return array (
   'default' => 'Default',
   'details' => 'details',
   'discount' => 'discount',
+  'distance' => 'distance',
   'distance unit' => 'distance unit',
   'driver' => 'driver',
   'drivers' => 'drivers',
@@ -349,6 +352,7 @@ return array (
   'start' => 'Start',
   'surcharge' => 'surcharge',
   'th' => 'th',
+  'time' => 'time',
   'time unit' => 'time unit',
   'title' => 'title',
   'trips' => 'trips',
