@@ -25,6 +25,7 @@
             <li class="{{ (str_contains(Request::url(), route('maps.index'))) ? 'active' : '' }}"><a href="{{ route('maps.index') }}"><i class='ion-ios-location'></i><span> @lang('admin/general.Maps')</span></a></li>
             @if (Auth::user()->web->superadmin())
             <li class="{{ (str_contains(Request::url(), route('agencies.index'))) ? 'active' : '' }}"><a href="{{ route('agencies.index') }}"><i class='ion-person-stalker'></i><span> @lang('admin/general.Agencies')</span></a></li>
+            <li class="{{ (str_contains(Request::url(), route('types.index'))) ? 'active' : '' }}"><a href="{{ route('types.index') }}"><i class='ion-cube'></i><span> @lang('admin/general.Car types')</span></a></li>
             @endif
             <li class="{{ (str_contains(Request::url(), 'admin/payments')) ? 'treeview active' : 'treeview' }}">
                 <a href="#"><i class="ion-card"></i> <span>@lang('admin/general.Payments')</span>

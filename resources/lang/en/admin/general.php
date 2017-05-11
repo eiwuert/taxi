@@ -2,8 +2,10 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/charts/fcm.blade.php
-  'FCM chart' => 'FCM chart',
+  'Car Types' => 'Car Types',
+  'Car type' => 'Car type',
+  'Name: ' => 'Name: ',
+  'New car type' => 'New car type',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -35,7 +37,10 @@ return array (
   'Canceled onway by client' => 'Canceled onway by client',
   'Canonical IDs' => 'Canonical IDs',
   'Car' => 'Car',
+  'Car type has been deleted' => 'Car type has been deleted',
+  'Car type updated' => 'Car type updated',
   'Car type:' => 'Car type:',
+  'Car types' => 'Car types',
   'Charge' => 'Charge',
   'Charged' => 'Charged',
   'Choose picture' => 'Choose picture',
@@ -113,6 +118,7 @@ return array (
   'Extension' => 'Extension',
   'FCM' => 'FCM',
   'FCM Logs' => 'FCM Logs',
+  'FCM chart' => 'FCM chart',
   'Failure' => 'Failure',
   'Filter' => 'Filter',
   'Finished' => 'Finished',
@@ -163,6 +169,7 @@ return array (
   'New admin' => 'New admin',
   'New agency' => 'New agency',
   'New backup' => 'New backup',
+  'New car type added' => 'New car type added',
   'New client found' => 'New client found',
   'New client rejected by driver' => 'New client rejected by driver',
   'Next trip canceled' => 'Next trip canceled',

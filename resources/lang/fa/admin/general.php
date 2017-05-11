@@ -2,8 +2,10 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/charts/fcm.blade.php
-  'FCM chart' => 'FCM نمودار',
+  'Car Types' => 'انواع خودرو',
+  'Car type' => 'نوع خودرو',
+  'Name: ' => 'نام: ',
+  'New car type' => 'نوع جدید خودرو',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -35,7 +37,10 @@ return array (
   'Canceled onway by client' => 'راننده در راه توسط مسافر لغو شد',
   'Canonical IDs' => 'شناسه های قانونی',
   'Car' => 'ماشین',
+  'Car type has been deleted' => 'نوع خودرو حذف شده است',
+  'Car type updated' => 'نوع خودرو بروز رسانی',
   'Car type:' => 'نوع خودرو:',
+  'Car types' => 'نوع خودروها',
   'Charge' => 'شارژ',
   'Charged' => 'شارژ شده',
   'Choose picture' => 'انتخاب تصویر نمایه',
@@ -113,6 +118,7 @@ return array (
   'Extension' => 'فرمت',
   'FCM' => 'FCM',
   'FCM Logs' => 'لاگ FCM',
+  'FCM chart' => 'FCM نمودار',
   'Failure' => 'عدم موفقیت',
   'Filter' => 'فیلتر',
   'Finished' => 'به پایان رسیده',
@@ -163,6 +169,7 @@ return array (
   'New admin' => 'مدیر جدید',
   'New agency' => 'نماینده جدید',
   'New backup' => 'پشتیبان گیری جدید',
+  'New car type added' => 'نوع ماشین های جدید اضافه شده',
   'New client found' => 'مسافر جدید پیدا شد',
   'New client rejected by driver' => 'مسافر جدید توسط راننده رد شد',
   'Next trip canceled' => 'Next trip canceled',
