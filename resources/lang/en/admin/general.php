@@ -2,7 +2,7 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Zone cannot be deleted' => 'Zone cannot be deleted',
+  'Cannot delete car types' => 'Cannot delete car types',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -36,7 +36,6 @@ return array (
   'Car' => 'Car',
   'Car Types' => 'Car Types',
   'Car type' => 'Car type',
-  'Car type has been deleted' => 'Car type has been deleted',
   'Car type updated' => 'Car type updated',
   'Car type:' => 'Car type:',
   'Car types' => 'Car types',
@@ -288,6 +287,7 @@ return array (
   'Zip code: ' => 'Zip code: ',
   'Zipcode:' => 'Zipcode:',
   'Zone' => 'Zones',
+  'Zone cannot be deleted' => 'Zone cannot be deleted',
   'Zone created' => 'Zone created',
   'Zone has been deleted' => 'Zone has been deleted',
   'Zone updated' => 'Zone updated',

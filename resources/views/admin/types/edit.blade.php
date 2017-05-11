@@ -4,11 +4,6 @@
 @endsection
 @section('header')
 @lang('admin/general.Car Types')
-{!! Form::open(['action' => ['Admin\TypeController@destroy', $type], 'method' => 'DELETE', 'style' => 'display: initial;']) !!}
-    <button class="btn btn-xs btn-danger" type="submit">
-    <i class="ion-trash-b"></i> @lang('admin/general.Delete')
-    </button>
-{!! Form::close() !!}
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>

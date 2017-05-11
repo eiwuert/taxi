@@ -87,8 +87,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        $type->delete();
-        flash(__('admin/general.Car type has been deleted'));
+        // $type->delete();
+        flash(__('admin/general.Cannot delete car types'));
         return redirect()->route('types.index');
     }
 }

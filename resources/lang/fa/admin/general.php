@@ -2,7 +2,7 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Zone cannot be deleted' => 'منطقه پیش فرض را نمی توان حذف کرد',
+  'Cannot delete car types' => 'نوع خودرو‌ها را نمی‌توانید پاک کنید',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -36,7 +36,6 @@ return array (
   'Car' => 'ماشین',
   'Car Types' => 'انواع خودرو',
   'Car type' => 'نوع خودرو',
-  'Car type has been deleted' => 'نوع خودرو حذف شده است',
   'Car type updated' => 'نوع خودرو بروز رسانی',
   'Car type:' => 'نوع خودرو:',
   'Car types' => 'نوع خودروها',
@@ -288,6 +287,7 @@ return array (
   'Zip code: ' => 'کد پستی: ',
   'Zipcode:' => 'کد پستی: ',
   'Zone' => 'منطقه‌ها',
+  'Zone cannot be deleted' => 'منطقه پیش فرض را نمی توان حذف کرد',
   'Zone created' => 'منظقه جدید ایجاد شد',
   'Zone has been deleted' => 'منطقه پاک شد',
   'Zone updated' => 'منطقه به روز شد',
