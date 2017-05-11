@@ -33,19 +33,19 @@
                 <div class="form-group">
                     {!! Form::label('latitude', __('admin/general.Latitude: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('latitude', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('latitude', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('longitude', __('admin/general.Longitude: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('longitude', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('longitude', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('radius', __('admin/general.Radius: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('radius', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('radius', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
                     </div>
                 </div>
                 <div class="form-group">

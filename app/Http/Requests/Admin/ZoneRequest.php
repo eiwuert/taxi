@@ -24,7 +24,7 @@ class ZoneRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:zones,name',
+            'name' => 'required|max:255|unique:zones,name,' . ((is_null($this->zone)) ? '0' : $this->zone->id),
             'latitude' => 'required|regex:/^[+-]?\d+\.\d+$/|max:15',
             'longitude' => 'required|regex:/^[+-]?\d+\.\d+$/|max:15',
             'radius' => 'required|max:255|numeric',
