@@ -38,4 +38,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::resource('types', 'TypeController', ['middleware' => ['superadmin']]);
     // Zones
     Route::resource('zones', 'ZoneController', ['middleware' => ['superadmin']]);
+    // Fares
+    Route::resource('fares', 'FareController', ['middleware' => ['superadmin']]);
 });
