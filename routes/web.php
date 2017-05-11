@@ -39,6 +39,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('switch', 'DashboardController@switchLang')->name('switch');
     // Agencies Info
     Route::resource('agencies', 'AgencyController', ['middleware' => ['superadmin']]);
-    // Agencies Info
+    // Car types
     Route::resource('types', 'TypeController', ['middleware' => ['superadmin']]);
+    // Zones
+    Route::resource('zones', 'ZoneController', ['middleware' => ['superadmin']]);
 });
