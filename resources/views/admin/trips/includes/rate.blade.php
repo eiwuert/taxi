@@ -8,9 +8,9 @@
         @if ($trip->rate->driver != '')
         <!-- Message. Default to the left -->
         <div class="direct-chat-msg">
-            <div class="direct-chat-info clearfix">
+            <div class="direct-chat-info clearfix text-center"  style="display: grid;">
+                <h2 class="text-center"><span class="direct-chat-timestamp">@include('admin.includes.stars', ['stars' => $trip->rate->driver])</span></h2>
                 <span class="direct-chat-name pull-left">{{ $trip->driver->first_name }} {{ $trip->driver->last_name }}</span>
-                <span class="direct-chat-timestamp pull-right">@include('admin.includes.stars', ['stars' => $trip->rate->driver])</span>
             </div>
             <!-- /.direct-chat-info -->
             <img class="direct-chat-img" src="{{ $trip->driver->getPicture() }}" alt="Message User Image"><!-- /.direct-chat-img -->
@@ -20,13 +20,14 @@
             <!-- /.direct-chat-text -->
         </div>
         <!-- /.direct-chat-msg -->
+        <hr>
         @endif
         @if ($trip->rate->client != '')
         <!-- Message to the right -->
         <div class="direct-chat-msg right">
-            <div class="direct-chat-info clearfix">
+            <div class="direct-chat-info clearfix text-center"  style="display: grid;">
+                <h2 class="text-center"><span class="direct-chat-timestamp">@include('admin.includes.stars', ['stars' => $trip->rate->client])</span></h2>
                 <span class="direct-chat-name pull-right">{{ $trip->client->first_name }} {{ $trip->client->last_name }}</span>
-                <span class="direct-chat-timestamp pull-left">@include('admin.includes.stars', ['stars' => $trip->rate->client])</span>
             </div>
             <!-- /.direct-chat-info -->
             <img class="direct-chat-img" src="{{ $trip->client->getPicture() }}" alt="Message User Image"><!-- /.direct-chat-img -->
