@@ -1,6 +1,6 @@
 <div class="box box-solid">
   <div class="box-header">
-    <h3 class="box-title">@lang('admin/general.Circle')</h3>
+    <h3 class="box-title">@lang('admin/general.Zone')</h3>
   </div>
   <!-- /.box-header -->
   <div class="box-body no-padding">

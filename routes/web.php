@@ -1,11 +1,6 @@
 <?php
 require base_path('routes/admin/auth.php');
 
-Route::get('test', function () {
-    dd(\App\Repositories\LocationRepository::isInside(3, [], [], 0, 0));
-});
-
-
 Route::get('/', 'HomeController@fa')->name('faHome');
 Route::get('/terms', 'HomeController@faTerms')->name('faTerms');
 Route::get('/global', 'HomeController@en')->name('enHome');
