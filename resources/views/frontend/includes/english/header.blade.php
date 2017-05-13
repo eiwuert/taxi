@@ -75,7 +75,7 @@
 				</h1>
 				<div class="row">
 				<div class="col-md-6">
-					<img class="img-wrapper pull-left" src="../../images/icon-safer.png">
+					<img class="img-wrapper pull-left" src="../../images/icon-faster.png">
 					<h2 class="slider-headerContent first-caption">Move</h2>
 					<div class="slider-textContent">Enjoy a seamless app &amp; top-notch service. Effortless payment through your phone.</div>
 				</div>
@@ -90,7 +90,7 @@
 				</div>
 				<div class="row">
 				<div class="col-md-6">
-					<img class="img-wrapper pull-left" src="../../images/icon-faster.png">
+					<img class="img-wrapper pull-left" src="../../images/icon-safer.png">
 					<h2 class="slider-headerContent third-caption">Safe</h2>
 					<div class="slider-textContent">Track your drivers identity and cab info on the go. Only verified drivers.</div>
 				</div>
