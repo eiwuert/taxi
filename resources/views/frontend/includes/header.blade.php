@@ -82,7 +82,11 @@
                         <div class="slider-textContent">فقط یک کلیک کنید.</div>
                     </div>
                     <div>
+<<<<<<< HEAD
                         <img class="img-wrapper" src="./images/icon-safer.png"">
+=======
+                        <img class="img-wrapper" src="./images/icon-safer.png">
+>>>>>>> develop
                         <h2 class="slider-headerContent third-caption">مطمئن :</h2>
                         <div class="slider-textContent">با سیستم رهگیری فلیپ، آسوده خاطر باشید.</div>
                     </div>
