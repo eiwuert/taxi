@@ -1814,6 +1814,7 @@ h1 {
 
 section.help {
 	padding: 0 !important;
+	margin-bottom: 70px;
 }
 
 section.help .carousel-indicators li {

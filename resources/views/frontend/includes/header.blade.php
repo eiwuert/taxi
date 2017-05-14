@@ -85,8 +85,6 @@
 
                         <img class="img-wrapper" src="./images/icon-safer.png"">
 
-                        <img class="img-wrapper" src="./images/icon-safer.png">
-
                         <h2 class="slider-headerContent third-caption">مطمئن :</h2>
                         <div class="slider-textContent">با سیستم رهگیری فلیپ، آسوده خاطر باشید.</div>
                     </div>
