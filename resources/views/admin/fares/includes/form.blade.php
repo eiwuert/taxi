@@ -22,10 +22,10 @@
     <div class="form-group">
         {!! Form::label('cost[' . $type->name . '][surcharge]', __('admin/general.surcharge'), ['class' => 'col-sm-2 control-label']) !!}
         <div class="col-sm-3">
-            {!! Form::time('cost[' . $type->name . '][surcharge][to]', null, ['class' => 'form-control']) !!}
+            {!! Form::time('cost[' . $type->name . '][surcharge][from]', null, ['class' => 'form-control']) !!}
         </div>
         <div class="col-sm-3">
-            {!! Form::time('cost[' . $type->name . '][surcharge][from]', null, ['class' => 'form-control']) !!}
+            {!! Form::time('cost[' . $type->name . '][surcharge][to]', null, ['class' => 'form-control']) !!}
         </div>
         <div class="col-sm-4">
             {!! Form::number('cost[' . $type->name . '][surcharge][amount]', null, ['class' => 'form-control', 'min' => '0', 'step' => '1', 'dir' => 'ltr', 'placeholder' => __('admin/general.amount')]) !!}

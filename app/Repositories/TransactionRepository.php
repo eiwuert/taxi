@@ -3,7 +3,10 @@
 namespace App\Repositories;
 
 use DB;
+use Cache;
 use App\Trip;
+use App\Zone;
+use App\Fare;
 use GoogleMaps;
 use App\CarType;
 use Carbon\Carbon;
@@ -73,18 +76,74 @@ class TransactionRepository
      */
     public function calculate($lat, $long, $distance_value, $eta_value, $currency)
     {
+        // default zone
+        $zone_id = Zone::whereName('default')->first()->id;
+        $zones = Zone::orderBy('id', 'desc')->get();
+        foreach ($zones as $zone) {
+            $distance = $zone->radius;
+            if ($zone->unit == 'mile') {
+                $distance = $zone->radius * 1.60934;
+            }
+            if ($this->distance($lat, $long, $zone->latitude, $zone->longitude) <= $zone->radius) {
+                $zone_id = $zone->id;
+            }
+        }
         $this->currency = $currency;
         $timezone = $this->timezone($lat, $long);
         $transactions = [];
         $types = [];
-        foreach (config('fare.IRR') as $type => $rules) {
+        $fares = [];
+        $zone = Zone::find($zone_id);
+        if(Cache::has(config('app.name') . '_fare_' . $zone_id)) {
+            $fares = Cache::get(config('app.name') . '_fare_' . $zone_id);
+        } else {
+            $fares = $zone->fare;
+            if (is_null($zone->fare)) {
+                $default = Zone::whereName('default')->first();
+                if (Cache::has(config('app.name') . '_fare_' . $default->id)) {
+                    $fares = Cache::get(config('app.name') . '_fare_' . $default->id);
+                } else {
+                    $fares = $default->fare->cost;
+                    Cache::forever(config('app.name') . '_fare_' . $default->id, $fares);
+                }
+            } else {
+                $fares = $fares->cost;
+                Cache::forever(config('app.name') . '_fare_' . $zone_id, $fares);
+            }
+        }
+        $formatedFares = [];
+        foreach ($fares as $type => $fare) {
+            $fare['surcharge']['*'] = $fare['surcharge'];
+            unset($fare['surcharge']['to'], $fare['surcharge']['from'], $fare['surcharge']['amount']);
+            $fare['discount'] = (float)($fare['discount'] / 100);
+            $fare['surcharge']['*']['amount'] = (1 + ($fare['surcharge']['*']['amount'] / 100));
+            $formatedFares[$type] = $fare;
+        }
+        foreach ($formatedFares as $type => $rules) {
             $this->type = $type;
-            $this->rules($type);
+            $this->rules($type, $rules);
             $transaction = $this->transaction($distance_value, $eta_value, $timezone);
             unset($transaction['commission']);
             $transactions[] = $transaction;
         }
         return $transactions;
+    }
+
+    /**
+     * Get distance between 2 latLng (KM)
+     * @param  float $lat1
+     * @param  float $lng1
+     * @param  float $lat2
+     * @param  float $lng2
+     * @return float
+     */
+    protected function distance($lat1, $lng1, $lat2, $lng2)
+    {
+        $p = 0.017453292519943295;
+        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 + 
+            cos($lat1 * $p) * cos($lat2 * $p) * 
+            (1 - cos(($lng2 - $lng1) * $p)) / 2;
+        return round(12742 * asin(sqrt($a)));
     }
 
     /**
@@ -158,10 +217,8 @@ class TransactionRepository
         $now = Carbon::now($timezone);
         $surcharge = $this->rules['surcharge'];
         if (@isset($surcharge['*'])) {
-            foreach ($surcharge['*'] as $range) {
-                if ($this->inSurcharge($timezone, $range)) {
-                    return $range['amount'];
-                }
+            if ($this->inSurcharge($timezone, $surcharge['*'])) {
+                return $surcharge['*']['amount'];
             }
         }
 
@@ -200,7 +257,7 @@ class TransactionRepository
      */
     public function perDistance()
     {
-        return $this->rules['perـdistance'];
+        return $this->rules['per_distance'];
     }
 
     /**
@@ -209,7 +266,7 @@ class TransactionRepository
      */
     public function perTime()
     {
-        return $this->rules['perـtime'];
+        return $this->rules['per_time'];
     }
 
     /**
@@ -218,7 +275,7 @@ class TransactionRepository
      */
     public function timeUnit()
     {
-        return $this->rules['timeـunit'];
+        return $this->rules['time_unit'];
     }
 
     /**
@@ -227,7 +284,7 @@ class TransactionRepository
      */
     public function distanceUnit()
     {
-        return $this->rules['distanceـunit'];
+        return $this->rules['distance_unit'];
     }
 
     /**
@@ -244,9 +301,9 @@ class TransactionRepository
      * @param  string $type
      * @return array
      */
-    public function rules($type)
+    public function rules($type, $rules)
     {
-        $this->rules = config('fare.' . $this->currency . '.' . $type);
+        $this->rules = $rules;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Cache;
 use App\Zone;
 use App\Fare;
 use App\CarType;
@@ -50,6 +51,7 @@ class FareController extends Controller
         $zones = Zone::pluck('name', 'id');
         $types = CarType::get();
         flash(__('admin/general.Fare created'));
+        Cache::forever(config('app.name') . '_fare_' . $request->zone_id, $request->cost);
         return view('admin.fares.edit', compact('fare', 'zones', 'types'));
     }
 
@@ -89,6 +91,7 @@ class FareController extends Controller
         $zones = Zone::pluck('name', 'id');
         $types = CarType::get();
         $fare->update($request->all());
+        Cache::forever(config('app.name') . '_fare_' . $request->zone_id, $request->cost);
         flash(__('admin/general.Fare updated'));
         return view('admin.fares.edit', compact('fare', 'zones', 'types'));
     }
