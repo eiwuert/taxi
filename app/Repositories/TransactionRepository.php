@@ -41,8 +41,9 @@ class TransactionRepository
     {
         $this->currency = $currency;
         $this->type     = $type;
-        $this->rules($type);
         $source   = $trip->source()->first();
+        $formatedFares = $this->getTransactins($source->latitude, $source->longitude, $trip->distance_value, $trip->eta_value, 'IRR');
+        $this->rules($type, $formatedFares);
         $timezone = $this->timezone($source->latitude, $source->longitude);
 
         $transaction = [
@@ -76,6 +77,28 @@ class TransactionRepository
      */
     public function calculate($lat, $long, $distance_value, $eta_value, $currency)
     {
+        $timezone = $this->timezone($lat, $long);
+        $formatedFares = $this->getTransactins($lat, $long, $distance_value, $eta_value, $currency);
+        foreach ($formatedFares as $type => $rules) {
+            $this->type = $type;
+            $rules[$type] = $rules;
+            $this->rules($type, $rules);
+            $transaction = $this->transaction($distance_value, $eta_value, $timezone);
+            unset($transaction['commission']);
+            $transactions[] = $transaction;
+        }
+        return $transactions;
+    }
+
+    /**
+     * Get transaction for car types.
+     * @param  App\Trip $trip
+     * @param String $type
+     * @param String $currency
+     * @return array
+     */
+    protected function getTransactins($lat, $long, $distance_value, $eta_value, $currency)
+    {
         // default zone
         $zone_id = Zone::whereName('default')->first()->id;
         $zones = Zone::orderBy('id', 'desc')->get();
@@ -89,7 +112,6 @@ class TransactionRepository
             }
         }
         $this->currency = $currency;
-        $timezone = $this->timezone($lat, $long);
         $transactions = [];
         $types = [];
         $fares = [];
@@ -119,14 +141,7 @@ class TransactionRepository
             $fare['surcharge']['*']['amount'] = (1 + ($fare['surcharge']['*']['amount'] / 100));
             $formatedFares[$type] = $fare;
         }
-        foreach ($formatedFares as $type => $rules) {
-            $this->type = $type;
-            $this->rules($type, $rules);
-            $transaction = $this->transaction($distance_value, $eta_value, $timezone);
-            unset($transaction['commission']);
-            $transactions[] = $transaction;
-        }
-        return $transactions;
+        return $formatedFares;
     }
 
     /**
@@ -303,7 +318,7 @@ class TransactionRepository
      */
     public function rules($type, $rules)
     {
-        $this->rules = $rules;
+        $this->rules = $rules[$type];
     }
 
     /**
