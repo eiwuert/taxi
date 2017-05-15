@@ -5,19 +5,19 @@
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-12">
-                <small>{{ entryText }}</small>
+                <small>{{ entryText }}</small><span class="pull-left formated">{{ this.number_format(theEntry, 0) }}</span>
                 <input type="number" class="form-control" dir="ltr" min="0" step="1" v-model="theEntry" :placeholder="entryText">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <small>{{ discountText }}</small>
+                <small>{{ discountText }}</small><span class="pull-left formated">{{ this.number_format(theDiscount, 0) }} %</span>
                 <input type="number" class="form-control" dir="ltr" min="0" max="100" step="1" v-model="theDiscount" :placeholder="discountText">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-12">
-                <small>{{ minText }}</small>
+                <small>{{ minText }}</small><span class="pull-left formated">{{ this.number_format(theMin, 0) }}</span>
                 <input type="number" class="form-control" dir="ltr" min="0" step="1" v-model="theMin" :placeholder="minText">
             </div>
         </div>
@@ -30,27 +30,27 @@
                 </div>
             </div>
             <div class="col-sm-9">
-                <small>{{ surchargeText }}</small>
+                <small>{{ surchargeText }}</small><span class="pull-left formated">{{ this.number_format(theAmount, 0) }} %</span>
                 <input type="number" class="form-control" v-model="theAmount" min="0" step="1" dir="ltr" :placeholder="surchargeText">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-6">
-                <small>{{ perTimeText }}</small>
+                <small>{{ perTimeText }}</small><span class="pull-left formated">{{ this.number_format(thePerTime, 0) }}</span>
                 <input type="number" class="form-control" v-model="thePerTime" min="0" step="1" dir="ltr" :placeholder="perTimeText">
             </div>
             <div class="col-sm-6">
-                <small>{{ timeText }}</small>
+                <small>{{ timeText }}</small><span class="pull-left formated">{{ this.number_format(theTime, 0) }}</span>
                 <input type="number" class="form-control" v-model="theTime" min="0" step="1" dir="ltr" :placeholder="timeText">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-6">
-                <small>{{ perDistanceText }}</small>
+                <small>{{ perDistanceText }}</small><span class="pull-left formated">{{ this.number_format(thePerDistance, 0) }}</span>
                 <input type="number" class="form-control" v-model="thePerDistance" min="0" step="1" dir="ltr" :placeholder="perDistanceText">
             </div>
             <div class="col-sm-6">
-                <small>{{ distanceText }}</small>
+                <small>{{ distanceText }}</small><span class="pull-left formated">{{ this.number_format(theDistance, 0) }}</span>
                 <input type="number" class="form-control" v-model="theDistance" min="0" step="1" dir="ltr" :placeholder="distanceText">
             </div>
         </div>
@@ -182,5 +182,9 @@
     }
     .activate {
         margin-top: 20px;
+    }
+    .formated {
+        font-size: 10px;
+        margin-left: 13px;
     }
 </style>
