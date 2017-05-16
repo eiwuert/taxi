@@ -19,6 +19,11 @@ class CreateFaresTable extends Migration
             $table->foreign('zone_id')
                   ->references('id')->on('zones')
                   ->onDelete('cascade');
+            $table->unsignedInteger('currency_id');
+            $table->foreign('currency_id')
+                  ->references('id')->on('currencies')
+                  ->onDelete('cascade');
+            $table->unique(['zone_id', 'currency_id']);
             $table->text('cost');
             $table->timestamps();
         });

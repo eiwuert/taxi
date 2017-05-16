@@ -27,6 +27,7 @@
             <li class="{{ (str_contains(Request::url(), route('agencies.index'))) ? 'active' : '' }}"><a href="{{ route('agencies.index') }}"><i class='ion-person-stalker'></i><span> @lang('admin/general.Agencies')</span></a></li>
             <li class="{{ (str_contains(Request::url(), route('types.index'))) ? 'active' : '' }}"><a href="{{ route('types.index') }}"><i class='ion-cube'></i><span> @lang('admin/general.Car types')</span></a></li>
             <li class="{{ (str_contains(Request::url(), route('zones.index'))) ? 'active' : '' }}"><a href="{{ route('zones.index') }}"><i class='ion-pinpoint'></i><span> @lang('admin/general.Zone')</span></a></li>
+            <li class="{{ (str_contains(Request::url(), route('currencies.index'))) ? 'active' : '' }}"><a href="{{ route('currencies.index') }}"><i class='ion-pricetags'></i><span> @lang('admin/general.Currency')</span></a></li>
             <li class="{{ (str_contains(Request::url(), 'fares')) ? 'treeview active' : 'treeview' }}">
                 <a href="#"><i class="ion-cash"></i> <span>@lang('admin/general.Fare')</span> @include('admin.includes.angle')</a>
                 <ul class="treeview-menu">

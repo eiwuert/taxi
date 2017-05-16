@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FareRequest extends FormRequest
+class CurrencyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class FareRequest extends FormRequest
     public function rules()
     {
         return [
-            'currency_id' => 'required',
-            'zone_id'     => 'required',
-            'cost'        => 'required'
+            'name'   => 'required|max:255',
+            'symbol' => 'required|max:255',
         ];
     }
 }

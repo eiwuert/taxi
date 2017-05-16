@@ -6,7 +6,6 @@ Route::get('/terms', 'HomeController@faTerms')->name('faTerms');
 Route::get('/global', 'HomeController@en')->name('enHome');
 Route::get('/global/terms', 'HomeController@enTerms')->name('enTerms');
 
-// Route::get('/', 'HomeController@index');
 Route::post('payment/charge', 'PaymentController@charge');
 Route::get('payment/charge/{id}/{amount}', 'PaymentController@redirectCharge');
 
@@ -44,4 +43,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
         ->name('fares.calculator');
     // Fares
     Route::resource('fares', 'FareController', ['middleware' => ['superadmin']]);
+    // Currencies
+    Route::resource('currencies', 'CurrencyController', ['middleware' => ['superadmin']]);
 });
