@@ -18,7 +18,7 @@
 						<div class="col-md-6 col-sm-6">
 							<div class="row">
 								<div class="btn-group scrollpoint sp-effect4">
-									<a href="#" onclick="window.open('http://www.google.com');" target="_blank" class="btn btn-default"> <span class="playstore"></span>
+									<a href="https://play.google.com/store/apps/details?id=ir.flipapp.app_rider" onclick="window.open('http://www.google.com');" target="_blank" class="btn btn-default"> <span class="playstore"></span>
 								</a>
 							</div>
 						</div>

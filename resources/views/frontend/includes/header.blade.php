@@ -72,7 +72,7 @@
                     <span class="slider-header">فلیپ</span>
                     </h1>
                     <div>
-                        <img class="img-wrapper" src="./images/icon-safer.png">
+                        <img class="img-wrapper" src="./images/icon-faster.png">
                         <h2 class="slider-headerContent first-caption">سریع :</h2>
                         <div class="slider-textContent">به سرعت به شما می رسیم.</div>
                     </div>
@@ -82,7 +82,7 @@
                         <div class="slider-textContent">فقط یک کلیک کنید.</div>
                     </div>
                     <div>
-                        <img class="img-wrapper" src="./images/icon-faster.png">
+                        <img class="img-wrapper" src="./images/icon-safer.png">
                         <h2 class="slider-headerContent third-caption">مطمئن :</h2>
                         <div class="slider-textContent">با سیستم رهگیری فلیپ، آسوده خاطر باشید.</div>
                     </div>
