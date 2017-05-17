@@ -2,7 +2,17 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Can\'t update default record' => 'رکورد پیش فرض قادر به آپدیت منطقه و واحد پول نیست',
+  'Captcha (*) : ' => 'کپچا (*): ',
+  'Contact' => 'تماس با ما',
+  'Contact deleted' => 'حذف شد',
+  'Contacts' => 'تماس‌ها',
+  'Email (*) : ' => 'ایمیل (*) : ',
+  'Subject (*) : ' => 'موضوع (*): ',
+  'Text (*) : ' => 'متن (*): ',
+  'contacts' => 'تماس‌ها',
+  'email' => 'ایمیل',
+  'subject' => 'موضوع',
+  'text' => 'متن',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -29,6 +39,7 @@ return array (
   'Balance: ' => 'اعتبار: ',
   'Be right back' => 'الان بر می گردم',
   'Calculator' => 'ماشین حساب',
+  'Can\'t update default record' => 'رکورد پیش فرض قادر به آپدیت منطقه و واحد پول نیست',
   'Canceled' => 'لغو شده',
   'Canceled on arrived by client' => 'مسافر راننده رسیده به مبدا حرکت را لغو کرد',
   'Canceled on arrived by driver' => 'راننده بعد از رسیدن به مبدا مسافر، سفر را لغو کرد',
