@@ -16,6 +16,7 @@ class SendDriverNotification implements ShouldQueue
 
     protected $title;
     protected $message;
+    protected $user_id;
     protected $device_token;
 
     /**
@@ -26,11 +27,15 @@ class SendDriverNotification implements ShouldQueue
      * @param string $device_token     
      * @return void
      */
-    public function __construct($title, $message, $device_token)
+    public function __construct($title, $message, $device_token, $userId = 0)
     {
         $this->title = $title;
+        $this->user_id = $userId;
         $this->message = $message;
         $this->device_token = $device_token;
+        if ($userId != 0) {
+            Auth::loginUsingId($userId);
+        }
     }
 
     /**

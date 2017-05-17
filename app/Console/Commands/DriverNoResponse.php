@@ -63,7 +63,6 @@ class driverNoResponse extends Command
                             'status_id'              => Status::where('name', 'no_response')->firstOrFail()->value,
                             'updated_at'             => Carbon::now(),
                         ])->save();
-            Log::info($driverId);
 
             while (! is_null($trip->next)) {
                 Trip::find($trip->next)->forceFill([
@@ -72,9 +71,8 @@ class driverNoResponse extends Command
                 ])->save();
                 $trip = Trip::find($trip->next);
             }
-            Log::info($driverId);
-
-            dispatch(new SendDriverNotification('no_reponse_going_offline', '4', Driver::where('id', $driverId)->firstOrFail()->device_token));
+            $driver = Driver::find($driverId);
+            dispatch(new SendDriverNotification('no_reponse_going_offline', '4', $driver->device_token, $driver->user->id));
             Log::info($driverId);
 
             Driver::find($driverId)->forceFill([
@@ -96,7 +94,8 @@ class driverNoResponse extends Command
                 Create::this($tripRequest)->forThis(Client::find($prevTrip->client_id)->user->id)
                     ->exclude($exclude['result'])->now();
             } else {
-                dispatch(new SendClientNotification('no_driver_found', '1', Client::where('id', $prevTrip->client_id)->firstOrFail()->device_token));
+                $client = Client::find($prevTrip->client_id);
+                dispatch(new SendClientNotification('no_driver_found', '1', $client->device_token, $client->user->id));
             }
         }
     }

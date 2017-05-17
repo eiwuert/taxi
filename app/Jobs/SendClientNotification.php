@@ -17,6 +17,7 @@ class SendClientNotification implements ShouldQueue
 
     protected $title;
     protected $message;
+    protected $user_id;
     protected $device_token;
 
     /**
@@ -27,11 +28,15 @@ class SendClientNotification implements ShouldQueue
      * @param string $device_token
      * @return void
      */
-    public function __construct($title, $message, $device_token)
+    public function __construct($title, $message, $device_token, $userId = 0)
     {
         $this->title = $title;
         $this->message = $message;
+        $this->user_id = $userId;
         $this->device_token = $device_token;
+        if ($userId != 0) {
+            Auth::loginUsingId($userId);
+        }
     }
 
     /**
