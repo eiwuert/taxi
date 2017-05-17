@@ -103,10 +103,10 @@
 								<img src="../../images/flip-phone.png" class="phone-mask" alt="Phone mask">
 								<!-- Wrapper for slides -->
 								<div class="carousel-inner">
-									<div class="item">
+									<div class="item active">
 										<img src="../../images/me1.jpg" alt="flip screenshot" class="img-responsive">
 									</div>
-									<div class="item active">
+									<div class="item">
 										<img src="../../images/me2.jpg" alt="flip screenshot" class="img-responsive">
 									</div>
 									<div class="item">
@@ -115,6 +115,9 @@
 									<div class="item">
 										<img src="../../images/me4.jpg" alt="flip screenshot" class="img-responsive">
 									</div>
+									{{-- <div class="item">
+										<img src="../../images/me5.jpg" alt="flip screenshot" class="img-responsive">
+									</div> --}}
 								</div>
 							</div>
 						</div>

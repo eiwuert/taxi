@@ -22,8 +22,16 @@ class ClientPermissionScope implements Scope
         if (is_null(Auth::user()) || Auth::user()->role != 'web') {
             return;
         }
-        $builder->whereIn('user_id', User::whereVerified(true)
+        $permissions = Auth::user()->web->permissions;
+        if (! in_array(0, $permissions)) {
+            $builder->whereIn('state', $permissions)
+                    ->whereIn('user_id', User::whereVerified(true)
+                                            ->where('role', 'client')
+                                            ->get(['id'])->flatten());
+        } else {
+            $builder->whereIn('user_id', User::whereVerified(true)
                                         ->where('role', 'client')
-                                        ->get(['id'])->flatten());
+                                        ->get(['id']));
+        }
     }
 }

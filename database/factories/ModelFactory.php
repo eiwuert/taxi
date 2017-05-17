@@ -95,6 +95,57 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Zone::class, function (Faker\Generator $faker) {
+    return [
+        'name'      => 'default',
+        'latitude'  => '0.0',
+        'longitude' => '0.0',
+        'radius'    => '0'
+    ];
+});
+
+$factory->define(App\Zone::class, function (Faker\Generator $faker) {
+    return [
+        'name'      => 'default',
+        'latitude'  => '0.0',
+        'longitude' => '0.0',
+        'radius'    => '0'
+    ];
+});
+
+$factory->define(App\Currency::class, function (Faker\Generator $faker) {
+    return [
+        'name'      => 'default',
+        'symbol'    => 'DEF',
+    ];
+});
+
+$factory->define(App\Fare::class, function (Faker\Generator $faker) {
+    $default = [
+        'entry' => '14000',
+        'discount' => '10',
+        'min' => '36000',
+        'surcharge' => [
+            'from' => '00:00',
+            'to'   => '06:00',
+            'amount' => '20',
+        ],
+        'per_distance' => '0',
+        'per_time' => '1400',
+        'time_unit' => 'minute',
+        'distance_unit' => 'kilometer',
+    ];
+    $fares = [];
+    foreach(\App\CarType::get() as $type) {
+        $fares[$type->name] = $default;
+    }
+    return [
+        'zone_id'       => \App\Zone::whereName('default')->first()->id,
+        'currency_id'   => \App\Currency::whereName('default')->first()->id,
+        'cost'          => $fares,
+    ];
+});
+
 /**
  * Generate random lat/long within tehran area.
  * @return array

@@ -254,7 +254,7 @@ class Client extends Model
     {
         if (is_null($this->getOriginal('last_name')) && is_null($first_name)) {
             return __('clients.Unknown');
-        } else if (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+        } elseif (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
             return '';
         } else {
             return $first_name;
@@ -271,7 +271,7 @@ class Client extends Model
     {
         if (is_null($this->getOriginal('first_name')) && is_null($last_name)) {
             return __('clients.Passenger');
-        } else if (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+        } elseif (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
             return '';
         } else {
             return $last_name;
@@ -290,5 +290,15 @@ class Client extends Model
         $this->forceFill([
             'balance' => $this->balance + $addition
         ])->save();
+    }
+
+    /**
+     * Get state name.
+     *
+     * @return string
+     */
+    public function stateName()
+    {
+        return config('states.' . $this->state);
     }
 }

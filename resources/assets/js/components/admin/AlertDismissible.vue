@@ -19,10 +19,6 @@
 </script>
 
 <style>
-button.close {
-    margin-left: -20px;
-    margin-top: 3px;
-}
 div.alert-dismissible {
     padding: 8px 10px;
 }

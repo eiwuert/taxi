@@ -4,8 +4,7 @@
 *************************************************************************/
 
 return array (
-  //============================== New strings to translate ==============================//
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/app/Http/Controllers/PaymentController.php
+  'cash' => 'نقدی',
   'Pay in cash' => 'پرداخت نقدی',
   // Defined in file /Applications/MAMP/htdocs/saamtaxi/app/Http/Controllers/PaymentController.php
   'Please pay trip cost to the driver' => 'لطفا هزینه سفر را به صورت نقدی به راننده بدهید',

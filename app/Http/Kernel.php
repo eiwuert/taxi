@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'notPaid'    => \App\Http\Middleware\NotPaid::class,
         'lang'       => \App\Http\Middleware\UserLang::class,
         'superadmin' => \App\Http\Middleware\IsSuperadmin::class,
+        'states'     => \App\Http\Middleware\StatesPermission::class,
     ];
 }

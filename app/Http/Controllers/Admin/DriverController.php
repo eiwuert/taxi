@@ -27,6 +27,7 @@ class DriverController extends Controller
 
     public function __construct()
     {
+        $this->middleware('states')->only('update');
         $this->drivers = Driver::select('drivers.*', 'users.phone')
                             ->join('users', 'drivers.user_id', '=', 'users.id')
                             ->whereVerified(true)

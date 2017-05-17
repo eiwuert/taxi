@@ -6,7 +6,6 @@ Route::get('/terms', 'HomeController@faTerms')->name('faTerms');
 Route::get('/global', 'HomeController@en')->name('enHome');
 Route::get('/global/terms', 'HomeController@enTerms')->name('enTerms');
 
-// Route::get('/', 'HomeController@index');
 Route::post('payment/charge', 'PaymentController@charge');
 Route::get('payment/charge/{id}/{amount}', 'PaymentController@redirectCharge');
 
@@ -32,6 +31,20 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('export/{name}', 'ExportController@export')->name('admin.export');
     // Change Language
     Route::get('switch', 'DashboardController@switchLang')->name('switch');
+    // Agencies Info
+    Route::resource('agencies', 'AgencyController', ['middleware' => ['superadmin']]);
+    // Car types
+    Route::resource('types', 'TypeController', ['middleware' => ['superadmin']]);
+    // Zones
+    Route::resource('zones', 'ZoneController', ['middleware' => ['superadmin']]);
+    // Fare Calculator
+    Route::get('fares/calculator', 'FareController@calculator')
+        ->middleware('superadmin')
+        ->name('fares.calculator');
+    // Fares
+    Route::resource('fares', 'FareController', ['middleware' => ['superadmin']]);
+    // Currencies
+    Route::resource('currencies', 'CurrencyController', ['middleware' => ['superadmin']]);
     // Contacts
     Route::get('contacts', 'ContactController@index')->name('contacts.index');
     Route::get('contacts', 'ContactController@show')->name('contacts.show');

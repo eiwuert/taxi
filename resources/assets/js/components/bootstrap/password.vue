@@ -3,7 +3,8 @@
   <input type="password" 
           class="form-control" 
           :placeholder="placeholder" 
-          :name="name">
+          :name="name"
+          dir="ltr">
   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
   <span class="help-block" v-show="error != ''">
     <strong v-text="error"></strong>

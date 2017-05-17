@@ -45,41 +45,298 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
-<li>Add angle to nearby and <code>client/trip</code> routes. angle starts from 6 o'clock in counter clockwise.</li>
-<li>Income route for driver.</li>
-<li>created_at and updated_at property removed from client and driver profile.</li>
-<li>History order fixed (desc).</li>
-<li>Payment updated.</li>
-<li>Payment with card removed.</li>
-<li>Add trip status on driver set location.</li>
+<li>Add contact to call center</li>
+<li>Add states to the client registration </li>
+<li>Remove 'ar' from lang param in client and driver registration</li>
+<li>Add register, payment and logout flow chart</li>
+<li>Add FCM keys</li>
+<li>Add angle to nearby and <code>client/trip</code> routes. angle starts from 6 o'clock in counter clockwise</li>
+<li>Income route for driver</li>
+<li>created_at and updated_at property removed from client and driver profile</li>
+<li>History order fixed (desc)</li>
+<li>Payment updated</li>
+<li>Payment with card removed</li>
+<li>Add trip status on driver set location</li>
 <li>Added payment GET route</li>
-<li>v</li>
 <li><code>d2_lat</code> and <code>d2_long</code> added to <code>v1/client/trip</code></li>
 <li>Add payment type to <code>v1/client/trip</code></li>
-<li>Trip ID added to GET <code>client/trip</code> API.</li>
-<li>pended trip list removed from request API.</li>
-<li>New FCM states for payments.</li>
-<li>Payment type and status added to current trip API.</li>
+<li>Trip ID added to GET <code>client/trip</code> API</li>
+<li>pended trip list removed from request API</li>
+<li>New FCM states for payments</li>
+<li>Payment type and status added to current trip API</li>
 </ul>
+<h1>Change language</h1>
+<p><img src="https://image.ibb.co/cDZJO5/Change_Language.png" alt="Image of change language" /></p>
+<h2>Client</h2>
+<p>Change language for client</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/client/lang/{lang}</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td>Must be 'fa' or 'en'</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}</code></pre>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Validation error(s)</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}</code></pre>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}</code></pre>
+<h2>Driver</h2>
+<p>Change language for driver</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/lang/{lang}</code></p>
+<h4>Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lang</td>
+<td>string</td>
+<td>required</td>
+<td>Must be 'fa' or 'en'</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}</code></pre>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Validation error(s)</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}</code></pre>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}</code></pre>
+<h1>Contact</h1>
+<h2>Client</h2>
+<p>contact to call center.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/client/contact</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}</code></pre>
+<h2>Driver</h2>
+<p>contact to call center.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/contact</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}</code></pre>
 <h1>Register</h1>
+<p><img src="http://1.1m.yt/_R4OUR7.png" alt="Image of registration" /></p>
 <h2>Client</h2>
 <p>Initial step for client to register, using phone no. as the primary param
 for login and validation.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/register" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/register" \
 -H "Accept: application/json" \
     -d "phone"="sunt" \
     -d "login_by"="sunt" \
     -d "lang"="sunt" \
     -d "device_type"="sunt" \
     -d "device_token"="sunt" \
+    -d "state"="sunt" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/register",
+    "url": "http://flipapp.ir/api/v1/client/register",
     "method": "POST",
     "data": {
         "phone": "sunt",
@@ -87,6 +344,7 @@ for login and validation.</p>
         "lang": "sunt",
         "device_type": "sunt",
         "device_token": "sunt",
+        "state": "sunt",
 },
     "headers": {
         "accept": "application/json"
@@ -125,7 +383,7 @@ $.ajax(settings).done(function (response) {
 <td>lang</td>
 <td>string</td>
 <td>required</td>
-<td><code>fa</code>, <code>en</code>, <code>ar</code></td>
+<td><code>fa</code>, <code>en</code></td>
 </tr>
 <tr>
 <td>device_type</td>
@@ -138,6 +396,179 @@ $.ajax(settings).done(function (response) {
 <td>string</td>
 <td>required</td>
 <td>Maximum: <code>255</code></td>
+</tr>
+<tr>
+<td>state</td>
+<td>numeric</td>
+<td>required</td>
+<td>Maximum: <code>255</code>, exists in states</td>
+</tr>
+</tbody>
+</table>
+<h4>States</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Azerbaijan, East</td>
+<td>آذربایجان شرقی</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Azerbaijan, West</td>
+<td>آذربایجان غربی</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ardabil</td>
+<td>اردبیل</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Isfahan</td>
+<td>اصفهان</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Alborz</td>
+<td>البرز</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ilam</td>
+<td>ایلام</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Bushehr</td>
+<td>بوشهر</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Tehran</td>
+<td>تهران</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Chahar Mahaal and Bakhtiari</td>
+<td>چهارمحال و بختیاری</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Khorasan, South</td>
+<td>خراسان جنوبی</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Khorasan, Razavi</td>
+<td>خراسان رضوی</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Khorasan, North</td>
+<td>خراسان شمالی</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Khuzestan</td>
+<td>خوزستان</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Zanjan</td>
+<td>زنجان</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Semnan</td>
+<td>سمنان</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Sistan and Baluchestan</td>
+<td>سیستان و بلوچستان</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Fars</td>
+<td>فارس</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Qazvin</td>
+<td>قزوین</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Qom</td>
+<td>قم</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Kurdistan</td>
+<td>کردستان</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Kerman</td>
+<td>کرمان</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Kermanshah</td>
+<td>کرمانشاه</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Kohgiluyeh and Boyer-Ahmad</td>
+<td>کهگیلویه و بویراحمد</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Golestan</td>
+<td>گلستان</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Gilan</td>
+<td>گیلان</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Luristan</td>
+<td>لرستان</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Mazandaran</td>
+<td>مازندران</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Markazi</td>
+<td>مرکزی</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Hormozgan</td>
+<td>هرمزگان</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Hamadan</td>
+<td>همدان</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Yazd</td>
+<td>یزد</td>
 </tr>
 </tbody>
 </table>
@@ -187,7 +618,7 @@ for login and validation.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/register" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/register" \
 -H "Accept: application/json" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
@@ -200,7 +631,7 @@ for login and validation.</p>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/register",
+    "url": "http://flipapp.ir/api/v1/driver/register",
     "method": "POST",
     "data": {
         "phone": "eaque",
@@ -242,7 +673,7 @@ $.ajax(settings).done(function (response) {
 <td>lang</td>
 <td>string</td>
 <td>required</td>
-<td><code>fa</code>, <code>en</code>, `ar</td>
+<td><code>fa</code>, <code>en</code></td>
 </tr>
 <tr>
 <td>country</td>
@@ -254,7 +685,7 @@ $.ajax(settings).done(function (response) {
 <td>state</td>
 <td>string</td>
 <td>required</td>
-<td>Maximum: <code>255</code></td>
+<td>numeric</td>
 </tr>
 <tr>
 <td>device_token</td>
@@ -273,6 +704,173 @@ $.ajax(settings).done(function (response) {
 <td>string</td>
 <td>required</td>
 <td><code>manual</code></td>
+</tr>
+</tbody>
+</table>
+<h4>States</h4>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Azerbaijan, East</td>
+<td>آذربایجان شرقی</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Azerbaijan, West</td>
+<td>آذربایجان غربی</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Ardabil</td>
+<td>اردبیل</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Isfahan</td>
+<td>اصفهان</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Alborz</td>
+<td>البرز</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Ilam</td>
+<td>ایلام</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Bushehr</td>
+<td>بوشهر</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Tehran</td>
+<td>تهران</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Chahar Mahaal and Bakhtiari</td>
+<td>چهارمحال و بختیاری</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Khorasan, South</td>
+<td>خراسان جنوبی</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Khorasan, Razavi</td>
+<td>خراسان رضوی</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Khorasan, North</td>
+<td>خراسان شمالی</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Khuzestan</td>
+<td>خوزستان</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Zanjan</td>
+<td>زنجان</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Semnan</td>
+<td>سمنان</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Sistan and Baluchestan</td>
+<td>سیستان و بلوچستان</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Fars</td>
+<td>فارس</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Qazvin</td>
+<td>قزوین</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Qom</td>
+<td>قم</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Kurdistan</td>
+<td>کردستان</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Kerman</td>
+<td>کرمان</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Kermanshah</td>
+<td>کرمانشاه</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Kohgiluyeh and Boyer-Ahmad</td>
+<td>کهگیلویه و بویراحمد</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Golestan</td>
+<td>گلستان</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Gilan</td>
+<td>گیلان</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Luristan</td>
+<td>لرستان</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Mazandaran</td>
+<td>مازندران</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Markazi</td>
+<td>مرکزی</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Hormozgan</td>
+<td>هرمزگان</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Hamadan</td>
+<td>همدان</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Yazd</td>
+<td>یزد</td>
 </tr>
 </tbody>
 </table>
@@ -299,7 +897,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/verify" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="55555" \
@@ -307,7 +905,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/verify",
+    "url": "http://flipapp.ir/api/v1/client/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -410,7 +1008,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/verify" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="eaque" \
@@ -418,7 +1016,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/verify",
+    "url": "http://flipapp.ir/api/v1/driver/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -509,14 +1107,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/resend" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/resend",
+    "url": "http://flipapp.ir/api/v1/client/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -572,14 +1170,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/resend" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/resend",
+    "url": "http://flipapp.ir/api/v1/driver/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -636,7 +1234,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/location" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -645,7 +1243,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/location",
+    "url": "http://flipapp.ir/api/v1/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -721,7 +1319,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/location" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -730,7 +1328,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/location",
+    "url": "http://flipapp.ir/api/v1/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -807,7 +1405,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/client/location" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -816,7 +1414,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/location",
+    "url": "http://flipapp.ir/api/v2/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -892,7 +1490,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/driver/location" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -901,7 +1499,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/location",
+    "url": "http://flipapp.ir/api/v2/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -978,13 +1576,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/car/types" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/car/types" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/car/types",
+    "url": "http://flipapp.ir/api/v1/client/car/types",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1053,13 +1651,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/profile" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/profile" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/profile",
+    "url": "http://flipapp.ir/api/v1/client/profile",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1106,13 +1704,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/balance" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/balance" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/balance",
+    "url": "http://flipapp.ir/api/v1/client/balance",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1141,13 +1739,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/profile" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/profile",
+    "url": "http://flipapp.ir/api/v1/driver/profile",
     "method": "GET",
     "headers": {
        "accept": "application/json",
@@ -1195,7 +1793,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/profile" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "picture"="et" \
@@ -1203,7 +1801,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/profile",
+    "url": "http://flipapp.ir/api/v1/driver/profile",
     "method": "POST",
     "data": {
         "picture": "et"
@@ -1287,7 +1885,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/profile" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "first_name"="et" \
@@ -1304,7 +1902,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/profile",
+    "url": "http://flipapp.ir/api/v1/client/profile",
     "method": "POST",
     "data": {
         "first_name": "et",
@@ -1444,13 +2042,13 @@ set to true as well. An approved drvier can go to online mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/online" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/online",
+    "url": "http://flipapp.ir/api/v1/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1493,13 +2091,13 @@ set to true as well. An approved drvier can go to online mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/driver/online" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/online",
+    "url": "http://flipapp.ir/api/v2/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1542,13 +2140,13 @@ set to false as well. An approved drvier can go to offline mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/offline" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/offline",
+    "url": "http://flipapp.ir/api/v1/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1586,13 +2184,13 @@ set to false as well. An approved drvier can go to offline mode.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/driver/offline" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/offline",
+    "url": "http://flipapp.ir/api/v2/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1634,13 +2232,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/status" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/status",
+    "url": "http://flipapp.ir/api/v1/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1680,13 +2278,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/status" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/status",
+    "url": "http://flipapp.ir/api/v2/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1728,13 +2326,13 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/car/info" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/car/info" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \</code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/car/info",
+    "url": "http://flipapp.ir/api/v1/driver/car/info",
     "method": "GET",
     "headers": {
          "accept": "application/json",
@@ -1757,7 +2355,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/trip" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -1770,7 +2368,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/trip",
+    "url": "http://flipapp.ir/api/v1/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -1891,7 +2489,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/client/trip" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -1901,7 +2499,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/trip",
+    "url": "http://flipapp.ir/api/v2/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -2002,7 +2600,7 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/nearby" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -2013,7 +2611,7 @@ $.ajax(settings).done(function (response) {
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/nearby",
+    "url": "http://flipapp.ir/api/v1/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -2111,7 +2709,7 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/client/nearby" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -2122,7 +2720,7 @@ console.log(response);
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/nearby",
+    "url": "http://flipapp.ir/api/v2/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -2220,14 +2818,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/trip" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/trip",
+    "url": "http://flipapp.ir/api/v1/client/trip",
     "method": "GET",
     "data": {
 },
@@ -2321,14 +2919,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/cancel" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/cancel",
+    "url": "http://flipapp.ir/api/v1/client/cancel",
     "method": "GET",
     "data": {
 },
@@ -2374,7 +2972,7 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/calculate" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/calculate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -2385,7 +2983,7 @@ console.log(response);
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/calculate",
+    "url": "http://flipapp.ir/api/v1/client/calculate",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -2601,7 +3199,7 @@ you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v2/client/calculate" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/client/calculate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -2612,7 +3210,7 @@ you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/calculate",
+    "url": "http://flipapp.ir/api/v2/client/calculate",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -2828,14 +3426,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/accept" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/accept" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/accept",
+    "url": "http://flipapp.ir/api/v1/driver/accept",
     "method": "GET",
     "data": {
 },
@@ -2881,14 +3479,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/start" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/start" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/start",
+    "url": "http://flipapp.ir/api/v1/driver/start",
     "method": "GET",
     "data": {
 },
@@ -2948,14 +3546,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/end" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/end" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/end",
+    "url": "http://flipapp.ir/api/v1/driver/end",
     "method": "GET",
     "data": {
 },
@@ -3013,14 +3611,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/cancel" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/cancel",
+    "url": "http://flipapp.ir/api/v1/driver/cancel",
     "method": "GET",
     "data": {
 },
@@ -3078,14 +3676,14 @@ console.log(response);
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/arrived" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/arrived" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/arrived",
+    "url": "http://flipapp.ir/api/v1/driver/arrived",
     "method": "GET",
     "data": {},
     "headers": {
@@ -3143,14 +3741,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/trip" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/trip",
+    "url": "http://flipapp.ir/api/v1/driver/trip",
     "method": "GET",
     "data": {
 },
@@ -3228,14 +3826,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/income" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/income" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/income",
+    "url": "http://flipapp.ir/api/v1/driver/income",
     "method": "GET",
     "data": {
 },
@@ -3267,14 +3865,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/rate" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/rate",
+    "url": "http://flipapp.ir/api/v1/driver/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -3369,14 +3967,14 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/rate" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/rate",
+    "url": "http://flipapp.ir/api/v1/client/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -3454,17 +4052,18 @@ $.ajax(settings).done(function (response) {
     ]
 }</code></pre>
 <h1>Payment</h1>
+<p><img src="http://1.1m.yt/pmMfED.png" alt="Image of payment" /></p>
 <h2>Charge</h2>
 <p>Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be fetched from <code>client/profile</code></p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
+<pre><code class="language-bash">curl "http://flipapp.ir/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}",
+    "url": "http://flipapp.ir/fa/payment/charge/{CLIENT_ID}/{AMOUNT}",
     "method": "GET",
     "data": {}
 }
@@ -3473,18 +4072,18 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET http://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}</code></p>
+<p><code>GET http://flipapp.ir/payment/charge/{CLIENT_ID}/{AMOUNT}</code></p>
 <h2>Pay cash</h2>
 <p>Pay trip cost in cash. this shall be called by client. take note that this route is bind to <code>inTrip</code> and <code>notPaid</code> middlewares. keep in mind their responses as well. user cannot revert back to wallet.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/pay/cash" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/pay/cash" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/pay/cash",
+    "url": "http://flipapp.ir/api/v1/client/pay/cash",
     "method": "GET",
     "data": {}
 }
@@ -3493,7 +4092,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET http://saamtaxi.net/api/v1/client/pay/cash</code></p>
+<p><code>GET http://flipapp.ir/api/v1/client/pay/cash</code></p>
 <blockquote>
 <p>Example Response</p>
 </blockquote>
@@ -3512,12 +4111,12 @@ $.ajax(settings).done(function (response) {
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/pay/wallet" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/pay/wallet" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/pay/wallet",
+    "url": "http://flipapp.ir/api/v1/client/pay/wallet",
     "method": "GET",
     "data": {}
 }
@@ -3526,7 +4125,7 @@ $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
-<p><code>GET http://saamtaxi.net/api/v1/client/pay/wallet</code></p>
+<p><code>GET http://flipapp.ir/api/v1/client/pay/wallet</code></p>
 <blockquote>
 <p>Example Response</p>
 </blockquote>
@@ -3555,111 +4154,19 @@ $.ajax(settings).done(function (response) {
 }
 </code></pre>
 <h1>History</h1>
-<h2>driver</h2>
-<p>History of driver trips.</p>
-<blockquote>
-<p>Example request</p>
-</blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/driver/history" \
--H "Accept: application/json" \
--H "Authorization: Bearer ACCESS_TOKEN" \
-</code></pre>
-<pre><code class="language-javascript">var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/history",
-    "method": "GET",
-    "data": {},
-    "headers": {
-        "accept": "application/json",
-        "authorization": "Bearer ACCESS_TOKEN"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});</code></pre>
-<h3>HTTP Request</h3>
-<p><code>GET api/v1/driver/history</code></p>
-<blockquote>
-<p>Example response</p>
-</blockquote>
-<pre><code class="language-json">{
-    "success": true,
-    "data": [
-        {
-            "status_id": 17,
-            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
-            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
-            "eta_value": "249",
-            "eta_text": "4 mins",
-            "distance_value": "1289",
-            "distance_text": "1.3 km",
-            "etd_value": "0",
-            "etd_text": "1 min",
-            "driver_location": {
-                "id": 20204,
-                "latitude": "32.623239",
-                "longitude": "51.636149",
-                "name": "TEST",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:58:34",
-                "updated_at": "2017-02-14 14:58:34"
-            },
-            "driver_distance_value": "0",
-            "driver_distance_text": "1 m",
-            "created_at": "2017-02-15 14:38:32",
-            "status_name": "trip_is_over",
-            "s_lat": "32.623239",
-            "s_long": "51.636149",
-            "d_lat": "32.634100",
-            "d_long": "51.639282",
-            "transaction": {
-                "id": 8,
-                "trip_id": 12,
-                "car_type_id": 1,
-                "entry": "2",
-                "distance": "1289",
-                "per_distance": "0.7",
-                "distance_unit": "kilometer",
-                "distance_value": "0.9",
-                "time": "249",
-                "per_time": "0.3",
-                "time_unit": "minute",
-                "time_value": "1.2",
-                "surcharge": "1",
-                "currency": "USD",
-                "timezone": "Asia/Tehran",
-                "total": "4.1",
-                "created_at": "2017-02-15 14:38:43",
-                "updated_at": "2017-02-15 14:38:43"
-            },
-            "rate": {
-                "id": 1,
-                "client": "5",
-                "driver": "4.5",
-                "client_comment": "hello",
-                "driver_comment": "hello",
-                "trip_id": 12,
-                "created_at": "2017-02-15 14:39:28",
-                "updated_at": "2017-02-15 14:39:28"
-            }
-        }
-    ]
-}</code></pre>
-<h2>client</h2>
+<h2>Client</h2>
 <p>History of client trips.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
-<pre><code class="language-bash">curl "http://saamtaxi.net/api/v1/client/history" \
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/history",
+    "url": "http://flipapp.ir/api/v1/client/history",
     "method": "GET",
     "data": {},
     "headers": {
@@ -3947,6 +4454,98 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Driver</h2>
+<p>History of driver trips.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/history" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/history",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/driver/history</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "status_id": 17,
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "eta_value": "249",
+            "eta_text": "4 mins",
+            "distance_value": "1289",
+            "distance_text": "1.3 km",
+            "etd_value": "0",
+            "etd_text": "1 min",
+            "driver_location": {
+                "id": 20204,
+                "latitude": "32.623239",
+                "longitude": "51.636149",
+                "name": "TEST",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:58:34",
+                "updated_at": "2017-02-14 14:58:34"
+            },
+            "driver_distance_value": "0",
+            "driver_distance_text": "1 m",
+            "created_at": "2017-02-15 14:38:32",
+            "status_name": "trip_is_over",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": {
+                "id": 8,
+                "trip_id": 12,
+                "car_type_id": 1,
+                "entry": "2",
+                "distance": "1289",
+                "per_distance": "0.7",
+                "distance_unit": "kilometer",
+                "distance_value": "0.9",
+                "time": "249",
+                "per_time": "0.3",
+                "time_unit": "minute",
+                "time_value": "1.2",
+                "surcharge": "1",
+                "currency": "USD",
+                "timezone": "Asia/Tehran",
+                "total": "4.1",
+                "created_at": "2017-02-15 14:38:43",
+                "updated_at": "2017-02-15 14:38:43"
+            },
+            "rate": {
+                "id": 1,
+                "client": "5",
+                "driver": "4.5",
+                "client_comment": "hello",
+                "driver_comment": "hello",
+                "trip_id": 12,
+                "created_at": "2017-02-15 14:39:28",
+                "updated_at": "2017-02-15 14:39:28"
+            }
+        }
+    ]
+}</code></pre>
 <h1>Middleware</h1>
 <h2>Authenticate</h2>
 <p>Authorize the access token for continue using protected routes. Given on <code>Authorization</code> header.</p>
@@ -4183,6 +4782,30 @@ if not:</p>
 </tr>
 </tbody>
 </table><h1>FCM</h1>
+<table>
+<thead>
+<tr>
+<th>KEY</th>
+<th>VALUE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SERVER_KEY</td>
+<td>AAAAV9D4nlg:APA91bEqhjde3JUOvuIepJ5qB0n58eg0ceLqt8mvXHt2hyPSSylVoQ6vW6bA4zDHiVuiIW4siS4vL3OaZW-pwTT64smL0F0KIBQdIJkrDu1CahXqq-O0MOOjE_L88KmJjBT-W1hAO5qBQookB7bhs5z1YvJ7FLp-DA</td>
+</tr>
+<tr>
+<td>SENDER_ID</td>
+<td>377168109144</td>
+</tr>
+</tbody>
+</table>
+<h2>Logout</h2>
+<h3>Driver</h3>
+<p><img src="http://1.1m.yt/O2gCKqR.png" alt="Image of Logout" /></p>
+<h3>Client</h3>
+<p><img src="http://1.1m.yt/4LPd5Cq.png" alt="Image of Logout" /></p>
+<h2>Codes</h2>
 <h3>Client</h3>
 <table>
 <thead>

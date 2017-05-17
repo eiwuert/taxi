@@ -4,7 +4,8 @@
           class="form-control" 
           :placeholder="placeholder" 
           :name="name" 
-          :value="value">
+          :value="value"
+          dir="ltr">
   <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
   <span class="help-block" v-show="error != ''">
     <strong v-text="error"></strong>

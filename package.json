@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "laravel-echo": "^1.2.5",
+    "locutus": "^2.0.8",
     "pusher-js": "^4.0.0"
   }
 }

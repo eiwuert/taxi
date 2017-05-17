@@ -24,6 +24,7 @@ class AuthTest extends TestCase
             'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
+            'state' => '1',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
         ]);
@@ -45,6 +46,7 @@ class AuthTest extends TestCase
             // 'phone' => rand(1111111111, 9999999999), Phone is missed
             'login_by' => 'manual',
             'lang' => 'en',
+            'state' => '1',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
         ]);
@@ -87,6 +89,7 @@ class AuthTest extends TestCase
             'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
             'lang' => 'en',
+            'state' => '1',
             'device_type' => 'ios',
             'device_token' => 'sample_device_token_from_phpunit',
             'field' => 'data',
