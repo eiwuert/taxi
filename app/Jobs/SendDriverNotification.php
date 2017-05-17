@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use Auth;
+use App\Events\StateChanged;
 use Illuminate\Bus\Queueable;
 use App\Repositories\FcmRepository;
 use Illuminate\Queue\SerializesModels;
