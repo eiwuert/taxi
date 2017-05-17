@@ -10,6 +10,11 @@ Route::post('contacts', 'ContactController@store')->name('contact.store');
 Route::post('payment/charge', 'PaymentController@charge');
 Route::get('payment/charge/{id}/{amount}', 'PaymentController@redirectCharge');
 
+Route::get('test', function () {
+    \Auth::loginUsingId(24);
+    return event(new \App\Events\StateChanged(\Auth::user()));
+});
+
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'can:access', 'verified', 'csrf']], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     // DRIVERS
