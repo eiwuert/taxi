@@ -45,6 +45,7 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
+<li>Add pusher</li>
 <li>Add contact to call center</li>
 <li>Add states to the client registration </li>
 <li>Remove 'ar' from lang param in client and driver registration</li>
@@ -4791,10 +4792,6 @@ if not:</p>
 </thead>
 <tbody>
 <tr>
-<td>SERVER_KEY</td>
-<td>AAAAV9D4nlg:APA91bEqhjde3JUOvuIepJ5qB0n58eg0ceLqt8mvXHt2hyPSSylVoQ6vW6bA4zDHiVuiIW4siS4vL3OaZW-pwTT64smL0F0KIBQdIJkrDu1CahXqq-O0MOOjE_L88KmJjBT-W1hAO5qBQookB7bhs5z1YvJ7FLp-DA</td>
-</tr>
-<tr>
 <td>SENDER_ID</td>
 <td>377168109144</td>
 </tr>
@@ -4916,6 +4913,34 @@ if not:</p>
 </tr>
 </tbody>
 </table>
+<h2>Pusher</h2>
+<table>
+<thead>
+<tr>
+<th>Body</th>
+<th>Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Channel name</td>
+<td><code>private-User.</code> + {UserID} Ex. <code>private-User.12</code></td>
+</tr>
+<tr>
+<td>Event</td>
+<td><code>StateChanged</code></td>
+</tr>
+<tr>
+<td>Auth endpoint</td>
+<td><code>http://flipapp.ir/broadcasting/auth</code></td>
+</tr>
+<tr>
+<td>data</td>
+<td>{&quot;team&quot;: 'pay_wallet', &quot;message&quot;: '7'}`</td>
+</tr>
+</tbody>
+</table>
+<p><code>user_id</code> exists in the GET <code>client/profile</code> or GET <code>driver/profile</code></p>
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
