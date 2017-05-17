@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contact;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,6 +29,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
+        $contact->forceFill(['read_at' => Carbon::now()])->save();
         return view('admin.contacts.show', compact('contact'));
     }
 

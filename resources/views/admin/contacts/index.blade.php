@@ -31,7 +31,9 @@
                         </tr>
                         @foreach($contacts as $contact)
                         <tr onclick="window.document.location='{{ action('Admin\ContactController@show', ['contact' => $contact]) }}';" style="cursor: pointer;">
-                            <td># {{ $contact->id }}</td>
+                            <td>@if(is_null($contact->read_at))
+                                @include('admin.includes.badge', ['string' => '‌'])
+                                @endif</td>
                             <td>{{ $contact->subject }}</td>
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->text }}</td>

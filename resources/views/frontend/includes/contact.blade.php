@@ -6,17 +6,22 @@
                     <h3>
                     <span>تماس با ما</span>
                     </h3>
+                    <br>
                     <span class="divider"></span>
-                    <br>
-                    <h4> آدرس:  میدان ونک ، برج نگار ،  طبقه ۱۶ ، واحد ۲</h4>
-                    <h4>تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+</h4>
-                    <h4>فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+</h4>
-                    <h4> ایمیل : info@flipapp.ir</h4>
-                    <br>
                     <div class="row">
-                        <div class="col-md-12">
-                            <img class="img-qr" src="../images/fa-barcode.png">
+                        <div class="col-md-6">
+                            <h4> آدرس:  میدان ونک ، برج نگار ،  طبقه ۱۶ ، واحد ۲</h4>
+                            <h4>تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+</h4>
+                            <h4>فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+</h4>
+                            <h4> ایمیل : info@flipapp.ir</h4>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="img-qr" src="../images/fa-barcode.png">
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-md-6">@include('frontend.form')</div>
                     </div>
                 </div>
             </div>

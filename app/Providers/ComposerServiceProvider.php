@@ -55,6 +55,10 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer(
             'admin.payments.index', 'App\Http\ViewComposers\PaymentComposer'
         );
+
+        View::composer(
+            'admin.includes.sidebar', 'App\Http\ViewComposers\SidebarComposer'
+        );
     }
 
     /**

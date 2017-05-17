@@ -192,4 +192,14 @@ if (! function_exists('nearby')) {
             'exclude' => $exclude
             ];
     }
+
+    if (! function_exists('convert')) {
+        function convert($string)
+        {
+            $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $num = range(0, 9);
+            $converted = str_replace($num, $persian, $string);
+            return $converted;
+        }
+    }
 }
