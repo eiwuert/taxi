@@ -16,15 +16,32 @@ class StateChanged implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $title;
+    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $title, $message)
     {
-        $this->user = $user;
+        $this->user    = $user;
+        $this->title   = $title;
+        $this->message = $message;
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            "team"    => $this->title, 
+            "message" => $this->message
+        ];
     }
 
     /**

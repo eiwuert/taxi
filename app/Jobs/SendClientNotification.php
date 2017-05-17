@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use Log;
+use Auth;
+use App\Events\StateChanged;
 use Illuminate\Bus\Queueable;
 use App\Repositories\FcmRepository;
 use Illuminate\Queue\SerializesModels;
@@ -40,5 +43,6 @@ class SendClientNotification implements ShouldQueue
     {
         $fcm = new FcmRepository();
         $fcm->to_client($this->title, $this->message, $this->device_token);
+        event(new StateChanged(Auth::user(), $this->title, $this->message));
     }
 }
