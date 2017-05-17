@@ -32,4 +32,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('export/{name}', 'ExportController@export')->name('admin.export');
     // Change Language
     Route::get('switch', 'DashboardController@switchLang')->name('switch');
+    // Contacts
+    Route::get('contacts', 'ContactController@index')->name('contacts.index');
+    Route::get('contacts', 'ContactController@show')->name('contacts.show');
+    Route::delete('contacts', 'ContactController@destroy')->name('contacts.destroy');
 });
