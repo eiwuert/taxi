@@ -1,7 +1,6 @@
 # FCM
 KEY | VALUE
 --- | -------
-SERVER_KEY | AAAAV9D4nlg:APA91bEqhjde3JUOvuIepJ5qB0n58eg0ceLqt8mvXHt2hyPSSylVoQ6vW6bA4zDHiVuiIW4siS4vL3OaZW-pwTT64smL0F0KIBQdIJkrDu1CahXqq-O0MOOjE_L88KmJjBT-W1hAO5qBQookB7bhs5z1YvJ7FLp-DA
 SENDER_ID | 377168109144
 
 ##Logout
@@ -46,3 +45,14 @@ Body | Header
 6 | `pay_cash`
 7 | `pay_wallet`
 8 | `logout`
+
+
+## Pusher
+
+Body | Header
+---------- | -------
+Channel name | `private-User.` + {UserID} Ex. `private-User.12`
+Event | `StateChanged`
+Auth endpoint | `http://flipapp.ir/broadcasting/auth`
+data | {"team": 'pay_wallet', "message": '7'}`
+`user_id` exists in the GET `client/profile` or GET `driver/profile`

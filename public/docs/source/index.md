@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add pusher
 * Add contact to call center
 * Add states to the client registration 
 * Remove 'ar' from lang param in client and driver registration
