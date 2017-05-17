@@ -40,5 +40,6 @@ class SendDriverNotification implements ShouldQueue
     {
         $fcm = new FcmRepository();
         $fcm->to_driver($this->title, $this->message, $this->device_token);
+        event(new StateChanged(Auth::user(), $this->title, $this->message));
     }
 }

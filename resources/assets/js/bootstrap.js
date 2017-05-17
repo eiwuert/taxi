@@ -41,9 +41,14 @@ Vue.http.interceptors.push((request, next) => {
  * allows your team to easily build robust real-time web applications.
  */
 
+import Pusher from "pusher-js"
 import Echo from "laravel-echo"
 
 var echo = window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: window.location.hostname + ':6001'
+    // broadcaster: 'socket.io',
+    // host: window.location.hostname + ':6001'
+    broadcaster: 'pusher',
+    key: 'e3cc7f358bddccc00249',
+    cluster: 'eu',
+    encrypted: true
 });

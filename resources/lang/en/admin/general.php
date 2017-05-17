@@ -2,7 +2,17 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Can\'t update default record' => 'Can\'t update default record',
+  'Captcha (*) : ' => 'Captcha (*) : ',
+  'Contact' => 'Contact',
+  'Contact deleted' => 'Contact deleted',
+  'Contacts' => 'Contacts',
+  'Email (*) : ' => 'Email (*) : ',
+  'Subject (*) : ' => 'Subject (*) : ',
+  'Text (*) : ' => 'Text (*) : ',
+  'contacts' => 'contacts',
+  'email' => 'email',
+  'subject' => 'subject',
+  'text' => 'text',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -29,6 +39,7 @@ return array (
   'Balance: ' => 'Balance: ',
   'Be right back' => 'Be right back',
   'Calculator' => 'Calculator',
+  'Can\'t update default record' => 'Can\'t update default record',
   'Canceled' => 'Canceled',
   'Canceled on arrived by client' => 'Canceled on arrived by client',
   'Canceled on arrived by driver' => 'Canceled on arrived by driver',
