@@ -1,13 +1,13 @@
 @extends('admin.includes.layout')
 @section('title')
-@lang('admin/general.Agencies')
+@lang('admin/general.Contacts')
 @endsection
 @section('header')
-@lang('admin/general.Agencies')
+@lang('admin/general.Contacts')
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li class="active"><i class="ion-android-walk"></i>@lang('admin/general.agencies') </li>
+<li class="active"><i class="ion-paper-airplane"></i> @lang('admin/general.contacts') </li>
 @endsection
 @section('content')
 <div class="row">
@@ -17,34 +17,36 @@
                 <h3 class="box-title">@lang('admin/general.List')</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-                {!! Form::model($agency, ['method' => 'PATCH', 'action' => ['Admin\ClientController@update', $agency], 'class' => 'form-horizontal']) !!}
-                <div class="form-group">
-                    {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-sm-10">
-                        {!! Form::text('phone', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('address', __('admin/general.Address: '), ['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-sm-10">
-                        {!! Form::text('address', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('state', __('admin/general.State: '), ['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-sm-10">
-                        {!! Form::select('state', config('states'), null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
-                    </div>
-                </div>
-                {!! Form::close() !!}
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <td># {{ $contact->id }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('admin/general.subject')</th>
+                            <td>{{ $contact->subject }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('admin/general.email')</th>
+                            <td>{{ $contact->email }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('admin/general.text')</th>
+                            <td>{{ $contact->text }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('admin/general.Created at')</th>
+                            <td>{{ $contact->created_at->diffForHumans() }}</td>
+                        </tr>
+                        <tr>
+                            <th>@lang('admin/general.Updated at')</th>
+                            <td>{{ $contact->updated_at->diffForHumans() }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <!-- /.box-body -->
         </div>
         <!-- /.box -->
     </div>

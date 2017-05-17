@@ -30,7 +30,7 @@
                             <th>@lang('admin/general.Updated at')</th>
                         </tr>
                         @foreach($contacts as $contact)
-                        <tr onclick="window.document.location='{{ action('Admin\ContactController@edit', ['contact' => $contact]) }}';" style="cursor: pointer;">
+                        <tr onclick="window.document.location='{{ action('Admin\ContactController@show', ['contact' => $contact]) }}';" style="cursor: pointer;">
                             <td># {{ $contact->id }}</td>
                             <td>{{ $contact->subject }}</td>
                             <td>{{ $contact->email }}</td>

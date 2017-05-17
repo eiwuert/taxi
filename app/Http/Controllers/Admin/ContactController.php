@@ -26,7 +26,7 @@ class ContactController extends Controller
      * @param  Contact $contact
      * @return Illuminate\Support\Facades\Redirect
      */
-    public function destroy(Contact $contact)
+    public function show(Contact $contact)
     {
         return view('admin.contacts.show', compact('contact'));
     }

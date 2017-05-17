@@ -2,10 +2,6 @@
 
 use Illuminate\Http\Request;
 
-// Socket io authenticate
-Route::get('authenticate', 'SocketController@index')
-     ->middleware('authOrig:api', 'socketInTrip');
-
 /**
  * Client Routes.
  */
