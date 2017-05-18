@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarType extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'car_type_id'
     ];
 
     /**
@@ -49,5 +49,36 @@ class CarType extends Model
     public function transactions()
     {
         return $this->hasMany('App\Transaction');
+    }
+
+    /**
+     * A car type can have many sub types
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function children()
+    {
+        return $this->hasMany('App\CarType', 'car_type_id', 'id');
+    }
+
+    /**
+     * A car type can have a parent
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\CarType', 'id', 'car_type_id');
+    }
+
+    /**
+     * Scope a query for parents types.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeParents($query)
+    {
+        return $query->whereNull('car_type_id');
     }
 }
