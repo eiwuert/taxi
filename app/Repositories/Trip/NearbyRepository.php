@@ -32,6 +32,7 @@ class NearbyRepository
 
         return $request;
     }
+
     /**
      * Get nearby drivers.
      * @param App\Http\Requests\NearbyRequest $request
@@ -56,6 +57,32 @@ class NearbyRepository
                 $driver->angle = $driverToCheck->angle();
             }
             $nearby[] = $driver;
+        }
+        return $nearby;
+    }
+
+    /**
+     * Get nearby drivers.
+     * @param App\Http\Requests\NearbyRequest $request
+     * @return array
+     */
+    public static function nearbyCategorizedByCarType($request)
+    {
+        $request = self::defaults($request);
+        $drivers = nearby($request->lat,
+                              $request->long,
+                              $request->type,
+                              $request->distance,
+                              $request->limit)['result'];
+        $nearby = [];
+        foreach ($drivers as $u) {
+            $driver = $u;
+            $driverToCheck = User::whereId($u->user_id)->first()
+                                ->driver->first();
+            if (!is_null($driverToCheck)) {
+                $driver->angle = $driverToCheck->angle();
+                $nearby[$driverToCheck->car()->type->parent->name][$driverToCheck->car()->type->name][] = $driver;
+            }
         }
         return $nearby;
     }
