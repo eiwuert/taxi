@@ -41,8 +41,9 @@ class TypeController extends Controller
     {
         $type = Type::create($request->all());
         $this->storeChildren($type, $request->children);
+        $types = $this->selectedTypesAndAvailableTypes($type);
         flash(__('admin/general.New car type added'));
-        return view('admin.types.edit', compact('type'));
+        return view('admin.types.edit', compact('type', 'types'));
     }
 
     /**
