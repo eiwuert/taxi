@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add car type to trip request.
 * Add calculate ver. 3 and nearby ver. 3
 * Add pusher
 * Add contact to call center
@@ -2224,9 +2225,7 @@ curl "http://flipapp.ir/api/v1/client/trip" \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_long": "maiores", \ 
-   -d "d2_lat": "maiores", \
-   -d "d2_long": "maiores", \ 
-   -d "payment": "maiores", \ 
+   -d "type": "maiores", \ 
 ```
 
 ```javascript
@@ -2240,9 +2239,7 @@ var settings = {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
-        "d2_lat": "amet",
-        "d2_long": "amet",
-        "payment": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -2267,10 +2264,7 @@ s_lat | numeric |  required  |
 s_long | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_long | numeric |  required  | 
-d2_lat | numeric |  required with d2_long  | 
-d2_long | numeric |  required with d2_lat  | 
-payment | string |  optional  | `cash`(default), `card` and `wallet`
-    
+type | | optional |  Children car types given by nearby
 > Example response
 
 ```json
@@ -2338,6 +2332,7 @@ curl "http://flipapp.ir/api/v2/client/trip" \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ 
 ```
 
 ```javascript
@@ -2351,6 +2346,7 @@ var settings = {
         "s_lng": "amet",
         "d_lat": "amet",
         "d_lng": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -2375,7 +2371,7 @@ s_lat | numeric |  required  |
 s_lng | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_lng | numeric |  required  | 
-    
+type | | optional | Children car types given by nearby
 > Example response
 
 ```json

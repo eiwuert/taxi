@@ -45,6 +45,7 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
+<li>Add car type to trip request.</li>
 <li>Add calculate ver. 3 and nearby ver. 3</li>
 <li>Add pusher</li>
 <li>Add contact to call center</li>
@@ -2364,9 +2365,7 @@ $.ajax(settings).done(function (response) {
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_long": "maiores", \ 
-   -d "d2_lat": "maiores", \
-   -d "d2_long": "maiores", \ 
-   -d "payment": "maiores", \ </code></pre>
+   -d "type": "maiores", \ </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
@@ -2377,9 +2376,7 @@ $.ajax(settings).done(function (response) {
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
-        "d2_lat": "amet",
-        "d2_long": "amet",
-        "payment": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -2424,20 +2421,10 @@ $.ajax(settings).done(function (response) {
 <td>required</td>
 </tr>
 <tr>
-<td>d2_lat</td>
-<td>numeric</td>
-<td>required with d2_long</td>
-</tr>
-<tr>
-<td>d2_long</td>
-<td>numeric</td>
-<td>required with d2_lat</td>
-</tr>
-<tr>
-<td>payment</td>
-<td>string</td>
+<td>type</td>
+<td></td>
 <td>optional</td>
-<td><code>cash</code>(default), <code>card</code> and <code>wallet</code></td>
+<td>Children car types given by nearby</td>
 </tr>
 </tbody>
 </table>
@@ -2497,7 +2484,8 @@ $.ajax(settings).done(function (response) {
    -d "s_lat": "maiores", \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_lng": "maiores", \ </code></pre>
+   -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
     "crossDomain": true,
@@ -2508,6 +2496,7 @@ $.ajax(settings).done(function (response) {
         "s_lng": "amet",
         "d_lat": "amet",
         "d_lng": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -2550,6 +2539,12 @@ $.ajax(settings).done(function (response) {
 <td>d_lng</td>
 <td>numeric</td>
 <td>required</td>
+</tr>
+<tr>
+<td>type</td>
+<td></td>
+<td>optional</td>
+<td>Children car types given by nearby</td>
 </tr>
 </tbody>
 </table>
