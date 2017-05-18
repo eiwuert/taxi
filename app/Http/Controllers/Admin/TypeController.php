@@ -15,7 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::orderBy('id', 'desc')
+        $types = Type::parents()->orderBy('id', 'desc')
                           ->paginate(config('admin.perPage'));
         return view('admin.types.index', compact('types'));
     }
@@ -27,7 +27,8 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.types.create');
+        $types = $this->types();
+        return view('admin.types.create', compact('types'));
     }
 
     /**
@@ -39,8 +40,10 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $type = Type::create($request->all());
+        $this->storeChildren($type, $request->children);
+        $types = $this->selectedTypesAndAvailableTypes($type);
         flash(__('admin/general.New car type added'));
-        return view('admin.types.edit', compact('type'));
+        return view('admin.types.edit', compact('type', 'types'));
     }
 
     /**
@@ -62,7 +65,8 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('admin.types.edit', compact('type'));
+        $types = $this->selectedTypesAndAvailableTypes($type);
+        return view('admin.types.edit', compact('type', 'types'));
     }
 
     /**
@@ -75,8 +79,9 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $type->update($request->all());
+        $types = $this->updateAndGetTypes($type, $request->children);
         flash(__('admin/general.Car type updated'));
-        return view('admin.types.edit', compact('type'));
+        return view('admin.types.edit', compact('type', 'types'));
     }
 
     /**
@@ -90,5 +95,86 @@ class TypeController extends Controller
         // $type->delete();
         flash(__('admin/general.Cannot delete car types'));
         return redirect()->route('types.index');
+    }
+
+    /**
+     * Get available car types.
+     *
+     * @return array
+     */
+    protected function types()
+    {
+        $type_ids = [];
+        foreach (Type::parents()->get() as $type) {
+            if ($type->children()->count() == 0) {
+                $type_ids[] = $type->id;
+            }
+        }
+        return Type::whereIn('id', $type_ids)->pluck('name', 'id');
+    }
+
+    /**
+     * Store new children for given type
+     *
+     * @param  \App\CarType $type
+     * @param  array $children
+     * @return void
+     */
+    protected function storeChildren($type, $children)
+    {
+        foreach ($children as $child) {
+            Type::find($child)->forceFill(['car_type_id' => $type->id])->save();
+        }
+    }
+
+    /**
+     * Array of selected types and available types.
+     *
+     * @param  \App\CarType $type
+     * @return array
+     */
+    protected function selectedTypesAndAvailableTypes($type)
+    {
+        $type_ids = [];
+        $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
+        foreach (Type::parents()->get() as $t) {
+            if ($t->children()->count() == 0 && $t->id != $type->id) {
+                $type_ids[0][] = ['id' => $t->id];
+            }
+        }
+        foreach ($type_ids[0] as $value) {
+            $types[] = $value['id'];
+        }
+        return Type::whereIn('id', $types)->pluck('name', 'id');
+    }
+
+    /**
+     * Update types and get the types for the updated model.
+     * 
+     * @param  \App\CarType $type
+     * @param  array $children
+     * @return array
+     */
+    protected function updateAndGetTypes($type, $children)
+    {
+        foreach (Type::where('car_type_id', $type->id)->get() as $child) {
+            Type::find($child->id)->forceFill(['car_type_id' => null])->save();
+        }
+        if (!is_null($children)) {
+            foreach ($children as $child) {
+                Type::find($child)->forceFill(['car_type_id' => $type->id])->save();
+            }
+        }
+        $type_ids = [];
+        $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
+        foreach (Type::parents()->get() as $t) {
+            if ($t->children()->count() == 0) {
+                $type_ids[0][] = ['id' => $t->id];
+            }
+        }
+        foreach ($type_ids[0] as $value) {
+            $types[] = $value['id'];
+        }
+        return Type::whereIn('id', $types)->pluck('name', 'id');
     }
 }

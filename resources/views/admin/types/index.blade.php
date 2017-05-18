@@ -27,13 +27,25 @@
                 <table class="table table-striped table-hover">
                     <tbody>
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>@lang('admin/general.Name')</th>
+                            <th>@lang('admin/general.Sub categories')</th>
                         </tr>
                         @foreach($types as $type)
-                        <tr onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $type]) }}';" style="cursor: pointer;">
-                            <td># {{ $type->id }}</td>
+                        <tr>
+                            <td onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $type]) }}';" style="cursor: pointer;"># {{ $type->id }}</td>
                             <td>{{ $type->name }}</td>
+                            <td>
+                                <table class="table table-bordered table-hover">
+                                    <tbody>
+                                        @foreach($type->children as $child)
+                                        <tr onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $child]) }}';" style="cursor: pointer;">
+                                            <td>{{ $child->name }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

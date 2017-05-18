@@ -138,9 +138,8 @@ if (! function_exists('nearby')) {
      * @param  integer  $limit
      * @return PDO
      */
-    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5, $exclude = 0)
+    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
-        // TODO: remove this stupid number. :)
         $distance = option('distance', 1);
         if ($type == 'any') {
             $type = "SELECT id FROM car_types";

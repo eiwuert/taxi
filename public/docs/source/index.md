@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add calculate ver. 3 and nearby ver. 3
 * Add pusher
 * Add contact to call center
 * Add states to the client registration 
@@ -2621,6 +2622,143 @@ limit | numeric |  min: `5`, max: `100`  |
 }
 ```
 
+
+## Nearby taxis v2
+
+Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/nearby`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | `(d+).(d+)`
+lng | numeric |  required  | `(d+).(d+)`
+distance | numeric |  min: `1`, max: `5`  | 
+limit | numeric |  min: `5`, max: `100`  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": {
+        "woman": {
+            "luxury": [
+                {
+                    "id": 7947,
+                    "distance": "2.04013276215645",
+                    "longitude": "51.410165",
+                    "latitude": "35.716557",
+                    "name": "NOT SET",
+                    "user_id": 462,
+                    "angle": 192
+                },
+                {
+                    "id": 7341,
+                    "distance": "2.27246822248217",
+                    "longitude": "51.366905",
+                    "latitude": "35.731209",
+                    "name": "NOT SET",
+                    "user_id": 456,
+                    "angle": 327
+                },
+                {
+                    "id": 9159,
+                    "distance": "2.39551047107605",
+                    "longitude": "51.417375",
+                    "latitude": "35.722071",
+                    "name": "NOT SET",
+                    "user_id": 474,
+                    "angle": 115
+                },
+                {
+                    "id": 4008,
+                    "distance": "3.14346537747125",
+                    "longitude": "51.424588",
+                    "latitude": "35.718066",
+                    "name": "NOT SET",
+                    "user_id": 423,
+                    "angle": 19
+                },
+                {
+                    "id": 4715,
+                    "distance": "3.31577013795581",
+                    "longitude": "51.409080",
+                    "latitude": "35.753119",
+                    "name": "NOT SET",
+                    "user_id": 430,
+                    "angle": 237
+                }
+            ],
+            "economy": []
+        },
+        "High-end": {
+            "sport": [],
+            "off-roader": []
+        },
+        "Cheap": {
+            "sedans": [],
+            "van": []
+        }
+    }
+}
+```
+
+> Example response - Validation fails
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}
+```
+
 ## Current
 
 Current state of the client trip.
@@ -3224,6 +3362,195 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 }
 ```
 
+
+## Calculate V3
+
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
+you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/calculate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | [+-]?\d+\.\d+
+s_lng | numeric |  required  | [+-]?\d+\.\d+
+d_lat | numeric |  required  | [+-]?\d+\.\d+
+d_lng | numeric |  required  | [+-]?\d+\.\d+
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "source": "استان مازندران، رامسر، لمتر، ایران",
+            "destination": "استان اصفهان، اصفهان، خیابان نستوه، ایران",
+            "distance": {
+                "text": "737 km",
+                "value": 736912
+            },
+            "duration": {
+                "text": "9 hours 16 mins",
+                "value": 33331
+            },
+            "transactions": {
+                "High-end": {
+                    "off-roader": {
+                        "car_type": "off-roader",
+                        "car_type_id": 6,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sport": {
+                        "car_type": "sport",
+                        "car_type_id": 3,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "woman": {
+                    "luxury": {
+                        "car_type": "luxury",
+                        "car_type_id": 1,
+                        "currency": "IRR",
+                        "entry": "50000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42045000
+                    },
+                    "economy": {
+                        "car_type": "economy",
+                        "car_type_id": 5,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "Cheap": {
+                    "van": {
+                        "car_type": "van",
+                        "car_type_id": 2,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sedans": {
+                        "car_type": "sedans",
+                        "car_type_id": 4,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                }
+            }
+        }
+    ]
+}
+
+```
 
 
 > Example response - Fail to fetch data from Google Maps

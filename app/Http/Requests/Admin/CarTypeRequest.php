@@ -24,7 +24,7 @@ class CarTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:255|unique:car_types,name'
+            'name' => 'required|max:255|unique:car_types,name,' . ((is_null($this->type)) ? '0' : $this->type->id) ,
         ];
     }
 }
