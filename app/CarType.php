@@ -68,10 +68,10 @@ class CarType extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\CarType', 'id', 'car_type_id');
+        return $this->belongsTo('App\CarType', 'car_type_id', 'id');
     }
 
-    /**
+    /*
      * Scope a query for parents types.
      *
      * @param \Illuminate\Database\Eloquent\Builder 
@@ -80,5 +80,16 @@ class CarType extends Model
     public function scopeParents($query)
     {
         return $query->whereNull('car_type_id');
+    }
+
+    /*
+     * Scope a query for children types.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder 
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeChildren($query)
+    {
+        return $query->whereNotNull('car_type_id');
     }
 }
