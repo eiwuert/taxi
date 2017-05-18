@@ -116,7 +116,7 @@ class TransactionRepository
         $types = [];
         $fares = [];
         $zone = Zone::find($zone_id);
-        if(Cache::has(config('app.name') . '_fare_' . $zone_id)) {
+        if (Cache::has(config('app.name') . '_fare_' . $zone_id)) {
             $fares = Cache::get(config('app.name') . '_fare_' . $zone_id);
         } else {
             $fares = $zone->fare;
@@ -135,6 +135,15 @@ class TransactionRepository
         }
         $formatedFares = [];
         foreach ($fares as $type => $fare) {
+            if (is_null(CarType::where('name', $type)->first()->car_type_id)) {
+                continue;
+            }
+            if (is_null($fare['entry']) ||
+                is_null($fare['discount']) || is_null($fare['min']) || is_null($fare['surcharge']['from']) ||
+                is_null($fare['surcharge']['to']) || is_null($fare['surcharge']['amount']) || is_null($fare['per_distance']) ||
+                is_null($fare['per_time']) || is_null($fare['distance_unit']) || is_null($fare['time_unit'])) {
+                continue;
+            }
             $fare['surcharge']['*'] = $fare['surcharge'];
             unset($fare['surcharge']['to'], $fare['surcharge']['from'], $fare['surcharge']['amount']);
             $fare['discount'] = (float)($fare['discount'] / 100);
@@ -155,8 +164,8 @@ class TransactionRepository
     protected function distance($lat1, $lng1, $lat2, $lng2)
     {
         $p = 0.017453292519943295;
-        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 + 
-            cos($lat1 * $p) * cos($lat2 * $p) * 
+        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 +
+            cos($lat1 * $p) * cos($lat2 * $p) *
             (1 - cos(($lng2 - $lng1) * $p)) / 2;
         return round(12742 * asin(sqrt($a)));
     }
@@ -207,7 +216,7 @@ class TransactionRepository
         $total = $total * ((float) (1 - $this->rules['discount']));
         if ($total <= $this->minFare()) {
             $total = $this->minFare();
-        } 
+        }
 
         return (round((($total/1000)+5/2)/5)*5)*1000;
     }
