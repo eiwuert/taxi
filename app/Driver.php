@@ -339,7 +339,8 @@ class Driver extends Model
      */
     public function carTypesPluck()
     {
-        return CarType::pluck('name', 'id');
+        return CarType::orderBy('created_at', 'desc')
+                        ->children()->pluck('name', 'id');
     }
 
     /**
