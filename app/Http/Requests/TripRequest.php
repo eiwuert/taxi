@@ -18,6 +18,7 @@ class TripRequest extends Request
             's_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_lat'    => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_long'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
+            'type'    => '',
         ];
     }
 }

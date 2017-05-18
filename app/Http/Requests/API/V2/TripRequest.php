@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\API\V2;
 
+use App\CarType;
 use App\Http\Requests\Request;
 
 class TripRequest extends Request
@@ -18,6 +19,7 @@ class TripRequest extends Request
             's_lng'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_lat'    => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'd_lng'   => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
+            'type'    => '',
         ];
     }
 }

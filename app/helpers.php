@@ -141,14 +141,14 @@ if (! function_exists('nearby')) {
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
         $distance = option('distance', 1);
-        if ($type == 'any') {
+        if ($type == 'any' || is_null($type)) {
             $type = "SELECT id FROM car_types";
         } else {
             $type = "SELECT id 
                      FROM car_types
                      WHERE name = '$type'";
         }
-        
+
         $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
         FROM (
         SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
