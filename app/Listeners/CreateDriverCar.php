@@ -5,6 +5,7 @@ namespace App\Listeners;
 use DB;
 use App\Car;
 use App\User;
+use App\CarType;
 use App\Events\UserVerified;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,7 +25,8 @@ class CreateDriverCar
                     'number' => '000000',
                     'color' => 'pink',
                     'user_id' => $event->user->id,
-                    'type_id' => 1,
+                    'type_id' => CarType::orderBy('id', 'desc')->children()
+                                        ->get(['id'])->flatten()->random()->id,
                 ]);
         }
     }

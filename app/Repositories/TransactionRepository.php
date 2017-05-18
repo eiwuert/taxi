@@ -91,6 +91,28 @@ class TransactionRepository
     }
 
     /**
+     * Calculate new transaction.
+     * @param  App\Trip $trip
+     * @param String $type
+     * @param String $currency
+     * @return json
+     */
+    public function calculateV3($lat, $long, $distance_value, $eta_value, $currency)
+    {
+        $timezone = $this->timezone($lat, $long);
+        $formatedFares = $this->getTransactins($lat, $long, $distance_value, $eta_value, $currency);
+        foreach ($formatedFares as $type => $rules) {
+            $this->type = $type;
+            $rules[$type] = $rules;
+            $this->rules($type, $rules);
+            $transaction = $this->transaction($distance_value, $eta_value, $timezone);
+            unset($transaction['commission']);
+            $transactions[CarType::whereName($type)->first()->parent->name][CarType::whereName($type)->first()->name] = $transaction;
+        }
+        return $transactions;
+    }
+
+    /**
      * Get transaction for car types.
      * @param  App\Trip $trip
      * @param String $type
