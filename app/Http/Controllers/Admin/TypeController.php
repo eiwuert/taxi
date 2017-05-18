@@ -135,6 +135,7 @@ class TypeController extends Controller
      */
     protected function selectedTypesAndAvailableTypes($type)
     {
+        $types = [];
         $type_ids = [];
         $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
         foreach (Type::parents()->get() as $t) {
@@ -172,6 +173,7 @@ class TypeController extends Controller
                 $type_ids[0][] = ['id' => $t->id];
             }
         }
+        $types = [];
         foreach ($type_ids[0] as $value) {
             $types[] = $value['id'];
         }
