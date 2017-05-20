@@ -61,6 +61,7 @@ class PaymentController extends Controller
             return view('errors.403');
         }
 
+        Auth::loginUsingId($client->user->id);
         if ($this->response->State == 'OK') {
             $this->verifyTransaction();
             dispatch(new SendClientNotification('balance_updated', '10', $client->device_token));
