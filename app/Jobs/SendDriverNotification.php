@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use Auth;
+use App\Events\StateChanged;
 use Illuminate\Bus\Queueable;
 use App\Repositories\FcmRepository;
 use Illuminate\Queue\SerializesModels;
@@ -14,6 +16,7 @@ class SendDriverNotification implements ShouldQueue
 
     protected $title;
     protected $message;
+    protected $user_id;
     protected $device_token;
 
     /**
@@ -24,11 +27,15 @@ class SendDriverNotification implements ShouldQueue
      * @param string $device_token     
      * @return void
      */
-    public function __construct($title, $message, $device_token)
+    public function __construct($title, $message, $device_token, $userId = 0)
     {
         $this->title = $title;
+        $this->user_id = $userId;
         $this->message = $message;
         $this->device_token = $device_token;
+        if ($userId != 0) {
+            Auth::loginUsingId($userId);
+        }
     }
 
     /**
@@ -40,5 +47,6 @@ class SendDriverNotification implements ShouldQueue
     {
         $fcm = new FcmRepository();
         $fcm->to_driver($this->title, $this->message, $this->device_token);
+        event(new StateChanged(Auth::user(), $this->title, $this->message));
     }
 }

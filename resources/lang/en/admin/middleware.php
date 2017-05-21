@@ -1,9 +1,6 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/05/02 16:04:10 
-*************************************************************************/
 
-return array (
+return array(
   'Exceed file size' => 'Exceed file size.',
   'No car' => 'No car.',
   'Not a verified user' => 'Not a verified user.',
@@ -12,7 +9,7 @@ return array (
   'You have entered not valid data' => 'You have entered not valid data.',
   'You paid your trip cost or cannot change payment method' =>
    'You paid your trip cost or cannot change payment method.',
-  'You should contact your area call center to register your car' => 
+  'You should contact your area call center to register your car' =>
   'You should contact your area call center to register your car.',
   'You should verify your phone number first' => 'You should verify your phone number first.',
   'Not an approved driver' => 'Not an approved driver.',

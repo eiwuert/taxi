@@ -114,6 +114,7 @@ if (! function_exists('option')) {
      */
     function option($name, $default)
     {
+        $name = config('app.name') . '_' . $name;
         if (Cache::has($name)) {
             return Cache::get($name, $default);
         } else {
@@ -137,18 +138,17 @@ if (! function_exists('nearby')) {
      * @param  integer  $limit
      * @return PDO
      */
-    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 5, $exclude = 0)
+    function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
-        // TODO: remove this stupid number. :)
         $distance = option('distance', 1);
-        if ($type == 'any') {
+        if ($type == 'any' || is_null($type)) {
             $type = "SELECT id FROM car_types";
         } else {
             $type = "SELECT id 
                      FROM car_types
                      WHERE name = '$type'";
         }
-        
+
         $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
         FROM (
         SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
@@ -190,5 +190,15 @@ if (! function_exists('nearby')) {
             'result' => \DB::select(DB::raw($query)),
             'exclude' => $exclude
             ];
+    }
+
+    if (! function_exists('convert')) {
+        function convert($string)
+        {
+            $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $num = range(0, 9);
+            $converted = str_replace($num, $persian, $string);
+            return $converted;
+        }
     }
 }

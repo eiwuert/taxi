@@ -14,7 +14,7 @@ class DriverRegisterRequest extends Request
     public function rules()
     {
         return [
-            'lang'         => 'required|in:fa,en,ku',
+            'lang'         => 'required|in:fa,en',
             'state'        => 'required|max:255|in:' . implode(', ', range(1, 32)),
             'country'      => 'required|max:255',
             'device_type'  => 'required|max:255',

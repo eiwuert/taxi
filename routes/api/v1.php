@@ -17,6 +17,14 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
          ->name('resendSMS')
          ->middleware('auth:api', 'role:client');
 
+    Route::get('lang/{lang}', 'UserController@changeLang')
+        ->name('change.language')
+        ->middleware('auth:api');
+
+    Route::get('contact', 'UserController@contact')
+        ->name('contact')
+        ->middleware('auth:api');
+
     Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function () {
         Route::post('location', 'Trip\LocationController@set')
              ->name('setLocation');
@@ -129,6 +137,14 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
     Route::get('resend', 'Auth\SmsController@resend')
          ->name('resendSMS')
          ->middleware('auth:api', 'role:driver');
+
+    Route::get('lang/{lang}', 'UserController@changeLang')
+        ->name('change.language')
+        ->middleware('auth:api');
+
+    Route::get('contact', 'UserController@contact')
+        ->name('contact')
+        ->middleware('auth:api');
 });
 
 Route::any('{any}', function () {

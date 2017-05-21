@@ -17,7 +17,7 @@
             <tbody>
                 @foreach($logs as $log)
                 <tr>
-                    <td><pre>{!! $log !!}</pre></td>
+                    <td><pre style="direction: ltr;">{!! $log !!}</pre></td>
                 </tr>
                 @endforeach
             </tbody>

@@ -205,7 +205,7 @@ class CreateRepository extends MainRepository
                       // LIMIT
                       1,
                       // DISTANCE - KM
-                      1, self::$exclude)['result'];
+                      option('distance', 1), self::$exclude)['result'];
     }
 
     /**

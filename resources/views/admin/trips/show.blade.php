@@ -41,6 +41,7 @@
     <!-- /.col -->
     <div class="col-md-6">
         @include('admin.trips.includes.details', ['trip' => $trip])
+        @include('admin.trips.includes.logs', ['trip' => $trip])
     </div>
     <!-- /.col -->
 </div>

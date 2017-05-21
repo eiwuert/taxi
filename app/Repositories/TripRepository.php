@@ -140,4 +140,36 @@ class TripRepository
                 'transactions' => $transactions,
             ]);
     }
+
+    /**
+     * Calculate distance and cost between 2 points.
+     * @return json
+     */
+    public static function calculateV3($tripRequest)
+    {
+        // API V2
+        if (isset($tripRequest->s_lng)) {
+            $tripRequest->s_long = $tripRequest->s_lng;
+            $tripRequest->d_long = $tripRequest->d_lng;
+        }
+        $source = LocationRepository::getGeocoding($tripRequest->s_lat, $tripRequest->s_long);
+        $destination = LocationRepository::getGeocoding($tripRequest->d_lat, $tripRequest->d_long);
+        $distanceMatrix = getDistanceMatrix((array)$tripRequest->all()); // 'distance', 'duration'
+        if (!isset($distanceMatrix['distance'])) {
+            return fail([
+                    'title'  => 'Failed',
+                    'detail' => 'Failed to interact with Google Maps'
+                ]);
+        }
+        $transactions = (new TransactionRepository())->calculateV3($tripRequest->s_lat, $tripRequest->s_long,
+                                             $distanceMatrix['distance']['value'],
+                                             $distanceMatrix['duration']['value'], 'IRR');
+        return ok([
+                'source'       => $source,
+                'destination'  => $destination,
+                'distance'     => $distanceMatrix['distance'],
+                'duration'     => $distanceMatrix['duration'],
+                'transactions' => $transactions,
+            ]);
+    }
 }

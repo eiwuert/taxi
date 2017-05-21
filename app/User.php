@@ -345,4 +345,20 @@ class User extends Authenticatable
             return null;
         }
     }
+
+    public function states()
+    {
+        $permissions = Auth::user()->web->permissions;
+        if (! in_array(0, $permissions)) {
+            $states = [];
+            foreach ($permissions as $key => $value) {
+                $states[$value] = config('states')[$value];
+            }
+            return $states;
+        } else {
+            $states = config('states');
+            unset($states[0]);
+            return $states;
+        }
+    }
 }

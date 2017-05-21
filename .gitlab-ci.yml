@@ -6,7 +6,7 @@ services:
   - postgres:latest
 
 variables:
-  POSTGRES_DB: saamtaxi
+  POSTGRES_DB: flipapp
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: "root"
 

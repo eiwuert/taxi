@@ -82,7 +82,9 @@
                         <div class="slider-textContent">فقط یک کلیک کنید.</div>
                     </div>
                     <div>
-                        <img class="img-wrapper" src="./images/icon-safer.png">
+
+                        <img class="img-wrapper" src="./images/icon-safer.png"">
+
                         <h2 class="slider-headerContent third-caption">مطمئن :</h2>
                         <div class="slider-textContent">با سیستم رهگیری فلیپ، آسوده خاطر باشید.</div>
                     </div>
@@ -95,13 +97,13 @@
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">
                                         
-                                        <div class="item">
+                                        <div class="item active">
                                             <img src="./images/mf1.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
                                         <div class="item">
                                             <img src="./images/mf2.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
-                                        <div class="item active">
+                                        <div class="item ">
                                             <img src="./images/mf3.jpg" alt="flip screenshot" class="img-responsive">
                                         </div>
                                         <div class="item">

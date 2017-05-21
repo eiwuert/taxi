@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>رسید پرداخت</title>
+    <title>@lang('payment.invoice')</title>
     
     <style>
     @import url(http://awebfont.ir/css?id=1776);
@@ -101,6 +101,19 @@
         border-top:2px solid #eee;
         font-weight:bold;
     }
+
+    .text-center {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+        padding: 10px 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+    }
     
     @media only screen and (max-width: 600px) {
         .invoice-box table tr.top table td{
@@ -122,11 +135,11 @@
     <div class="invoice-box">
         @if ($response->State == 'OK')
         <div class="noti noti-success">
-            حساب شما با موفقیت شارژ شد.
+            @lang('payment.successful')
         </div>
         @else
         <div class="noti noti-danger">
-            پرداخت ناموفق بود. {{ $response->State }}
+            @lang('payment.unsuccessful') <b>{{ $response->State }}</b>
         </div>
         @endif
         <table cellpadding="0" cellspacing="0">
@@ -135,12 +148,12 @@
                     <table>
                         <tr>
                             <td class="title">
-                                SAAMTaxi
+                                {{ HTML::image('images/logo.png') }}
                             </td>
                             
                             <td>
-                                #<b>{{ $payment->id }}</b> :فاکتور<br>
-                                {{ $payment->created_at->toDateString() }} :تاریخ<br>
+                                #<b>{{ $payment->id }}</b> :@lang('payment.invoice')<br>
+                                {{ $payment->created_at->toDateString() }} :@lang('payment.date')<br>
                             </td>
                         </tr>
                     </table>
@@ -169,7 +182,7 @@
                 </td>
                 
                 <td>
-                    شماره رزرو
+                    @lang('payment.resNo')
                 </td>
             </tr>
             
@@ -180,7 +193,7 @@
                 </td>
                 
                 <td>
-                    شماره ارجاع
+                    @lang('payment.ref')
                 </td>
             </tr>
             @endif
@@ -192,7 +205,7 @@
                 </td>
                 
                 <td>
-                    شماره پیگیری
+                    @lang('payment.trackNo')
                 </td>
             </tr>
             @endif
@@ -204,7 +217,7 @@
                 </td>
                 
                 <td>
-                    شماره ارجاع مشتری
+                    @lang('payment.refNum')
                 </td>
             </tr>
             @endif
@@ -212,14 +225,14 @@
             <tr class="item">
                 <td>
                     @if ($response->State == 'OK')
-                        <span class="label label-success">موفق</span>
+                        <span class="label label-success">@lang('payment.successful')</span>
                     @else
-                         <span class="label label-fail">ناموفق | {{ $response->State }}</span>
+                         <span class="label label-fail">@lang('payment.unsuccessful') {{ $response->State }}</span>
                     @endif
                 </td>
                 
                 <td>
-                    وضعیت پرداخت
+                    @lang('payment.status')
                 </td>
             </tr>
             
@@ -233,6 +246,11 @@
             </tr>
             @endif
         </table>
+        @if ($href != '#')
+        <p class="text-center">
+            <a href="{{ $href }}">@lang('payment.back')</a>
+        </p>
+        @endif
     </div>
 </body>
 </html>

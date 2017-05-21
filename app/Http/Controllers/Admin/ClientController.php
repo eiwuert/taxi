@@ -17,6 +17,11 @@ use App\Repositories\ExportRepository as Export;
 
 class ClientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('states')->only('update');
+    }
+
     /**
      * Display a listing of the resource.
      *

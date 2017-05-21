@@ -21,24 +21,326 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
-* Add angle to nearby and `client/trip` routes. angle starts from 6 o'clock in counter clockwise.
-* Income route for driver.
-* created_at and updated_at property removed from client and driver profile.
-* History order fixed (desc).
-* Payment updated.
-* Payment with card removed.
-* Add trip status on driver set location.
+* Add car type to trip request.
+* Add calculate ver. 3 and nearby ver. 3
+* Add pusher
+* Add contact to call center
+* Add states to the client registration 
+* Remove 'ar' from lang param in client and driver registration
+* Add register, payment and logout flow chart
+* Add FCM keys
+* Add angle to nearby and `client/trip` routes. angle starts from 6 o'clock in counter clockwise
+* Income route for driver
+* created_at and updated_at property removed from client and driver profile
+* History order fixed (desc)
+* Payment updated
+* Payment with card removed
+* Add trip status on driver set location
 * Added payment GET route
-* v
 * `d2_lat` and `d2_long` added to `v1/client/trip`
 * Add payment type to `v1/client/trip`
-* Trip ID added to GET `client/trip` API.
-* pended trip list removed from request API.
-* New FCM states for payments.
-* Payment type and status added to current trip API.
+* Trip ID added to GET `client/trip` API
+* pended trip list removed from request API
+* New FCM states for payments
+* Payment type and status added to current trip API
+
+#Change language
+
+![Image of change language](https://image.ibb.co/cDZJO5/Change_Language.png)
+
+## Client
+
+Change language for client
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/client/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/client/lang/{lang}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lang | string |  required  | Must be 'fa' or 'en'
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}
+```
+
+
+> Example response - Validation error(s)
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}
+```
+
+## Driver
+
+Change language for driver
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/driver/lang/{lang}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/lang/{lang}",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/lang/{lang}`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+    lang | string |  required  | Must be 'fa' or 'en'
+
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "Success",
+            "detail": "Language changed successfully."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "title": "موفق",
+            "detail": "زبان با موفقیت تغییر کرد."
+        }
+    ]
+}
+```
+
+
+> Example response - Validation error(s)
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Changing language failed."
+        }
+    ]
+}
+```
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "ناموفق",
+            "detail": "تغییر زبان ناموفق بود."
+        }
+    ]
+}
+```
+
+
+#Contact
+
+## Client
+
+contact to call center.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/client/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/client/contact`
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}
+```
+
+## Driver
+
+contact to call center.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/driver/contact" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/contact",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json",
+        "Authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/contact`
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "head": {
+                "phone": "۰۲۱۵۵۵۹۸۷۶۱\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴\r\n۰۹۱۳۱۲۳۴۵۵۴",
+                "address": "خیابان چهارباغ بالا، کوچه نگار، ساختمان، پلاک ۱۰۵"
+            },
+            "branch": {}
+        }
+    ]
+}
+```
 
 
 #Register
+
+![Image of registration](http://1.1m.yt/_R4OUR7.png)
 
 ## Client
 
@@ -48,13 +350,14 @@ for login and validation.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/register" \
+curl "http://flipapp.ir/api/v1/client/register" \
 -H "Accept: application/json" \
     -d "phone"="sunt" \
     -d "login_by"="sunt" \
     -d "lang"="sunt" \
     -d "device_type"="sunt" \
     -d "device_token"="sunt" \
+    -d "state"="sunt" \
 
 ```
 
@@ -62,7 +365,7 @@ curl "http://saamtaxi.net/api/v1/client/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/register",
+    "url": "http://flipapp.ir/api/v1/client/register",
     "method": "POST",
     "data": {
         "phone": "sunt",
@@ -70,6 +373,7 @@ var settings = {
         "lang": "sunt",
         "device_type": "sunt",
         "device_token": "sunt",
+        "state": "sunt",
 },
     "headers": {
         "accept": "application/json"
@@ -91,10 +395,50 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     phone | numeric |  required  | Must have a length between `9` and `255`
     login_by | string |  required  | `manual`, `facebook`, `google`
-    lang | string |  required  | `fa`, `en`, `ar`
+    lang | string |  required  | `fa`, `en`
     device_type | string |  required  | Maximum: `255`
     device_token | string |  required  | Maximum: `255`
+    state | numeric |  required  | Maximum: `255`, exists in states
     
+
+
+#### States
+
+ID | Name | Name
+--------- | ------- | -------
+    1     | Azerbaijan, East | آذربایجان شرقی
+    2     | Azerbaijan, West | آذربایجان غربی
+    3     | Ardabil | اردبیل
+    4     | Isfahan | اصفهان
+    5     | Alborz | البرز
+    6     | Ilam | ایلام
+    7     | Bushehr | بوشهر
+    8     | Tehran | تهران
+    9     | Chahar Mahaal and Bakhtiari | چهارمحال و بختیاری
+    10    | Khorasan, South | خراسان جنوبی
+    11    | Khorasan, Razavi | خراسان رضوی
+    12    | Khorasan, North | خراسان شمالی
+    13    | Khuzestan  | خوزستان
+    14    | Zanjan | زنجان
+    15    | Semnan | سمنان
+    16    | Sistan and Baluchestan | سیستان و بلوچستان
+    17    | Fars | فارس
+    18    | Qazvin | قزوین
+    19    | Qom | قم
+    20    | Kurdistan | کردستان
+    21    | Kerman | کرمان
+    22    | Kermanshah | کرمانشاه
+    23    | Kohgiluyeh and Boyer-Ahmad | کهگیلویه و بویراحمد
+    24    | Golestan | گلستان
+    25    | Gilan | گیلان
+    26    | Luristan | لرستان
+    27    | Mazandaran | مازندران
+    28    | Markazi | مرکزی
+    29    | Hormozgan | هرمزگان
+    30    | Hamadan | همدان
+    31    | Yazd | یزد
+
+
 > Example response
 
 ```json
@@ -151,7 +495,7 @@ for login and validation.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/register" \
+curl "http://flipapp.ir/api/v1/driver/register" \
 -H "Accept: application/json" \
     -d "phone"="eaque" \
     -d "login_by"="manual" \
@@ -167,7 +511,7 @@ curl "http://saamtaxi.net/api/v1/driver/register" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/register",
+    "url": "http://flipapp.ir/api/v1/driver/register",
     "method": "POST",
     "data": {
         "phone": "eaque",
@@ -197,12 +541,49 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     phone | numeric |  required  | Must have a length between `9` and `255`
-    lang | string |  required  | `fa`, `en`, `ar
+    lang | string |  required  | `fa`, `en`
     country | string |  required  |  Maximum: `255`
-    state | string |  required  |  Maximum: `255`
+    state | string |  required  |  numeric
     device_token | string |  required  |  Maximum: `255`
     device_type | string |  required  |  Maximum: `255`
     login_by | string |  required  |  `manual`
+
+
+#### States
+
+ID | Name | Name
+--------- | ------- | -------
+    1     | Azerbaijan, East | آذربایجان شرقی
+    2     | Azerbaijan, West | آذربایجان غربی
+    3     | Ardabil | اردبیل
+    4     | Isfahan | اصفهان
+    5     | Alborz | البرز
+    6     | Ilam | ایلام
+    7     | Bushehr | بوشهر
+    8     | Tehran | تهران
+    9     | Chahar Mahaal and Bakhtiari | چهارمحال و بختیاری
+    10    | Khorasan, South | خراسان جنوبی
+    11    | Khorasan, Razavi | خراسان رضوی
+    12    | Khorasan, North | خراسان شمالی
+    13    | Khuzestan  | خوزستان
+    14    | Zanjan | زنجان
+    15    | Semnan | سمنان
+    16    | Sistan and Baluchestan | سیستان و بلوچستان
+    17    | Fars | فارس
+    18    | Qazvin | قزوین
+    19    | Qom | قم
+    20    | Kurdistan | کردستان
+    21    | Kerman | کرمان
+    22    | Kermanshah | کرمانشاه
+    23    | Kohgiluyeh and Boyer-Ahmad | کهگیلویه و بویراحمد
+    24    | Golestan | گلستان
+    25    | Gilan | گیلان
+    26    | Luristan | لرستان
+    27    | Mazandaran | مازندران
+    28    | Markazi | مرکزی
+    29    | Hormozgan | هرمزگان
+    30    | Hamadan | همدان
+    31    | Yazd | یزد
     
 > Example response:
 
@@ -232,7 +613,7 @@ Verify registered client
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/verify" \
+curl "http://flipapp.ir/api/v1/client/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="55555" \
@@ -243,7 +624,7 @@ curl "http://saamtaxi.net/api/v1/client/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/verify",
+    "url": "http://flipapp.ir/api/v1/client/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -347,7 +728,7 @@ Verify registered driver
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/verify" \
+curl "http://flipapp.ir/api/v1/driver/verify" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "code"="eaque" \
@@ -358,7 +739,7 @@ curl "http://saamtaxi.net/api/v1/driver/verify" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/verify",
+    "url": "http://flipapp.ir/api/v1/driver/verify",
     "method": "POST",
     "data": {
         "code": "amet",
@@ -450,7 +831,7 @@ Resend SMS for client
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/resend" \
+curl "http://flipapp.ir/api/v1/client/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -460,7 +841,7 @@ curl "http://saamtaxi.net/api/v1/client/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/resend",
+    "url": "http://flipapp.ir/api/v1/client/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -527,7 +908,7 @@ Resend SMS for driver
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/resend" \
+curl "http://flipapp.ir/api/v1/driver/resend" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -537,7 +918,7 @@ curl "http://saamtaxi.net/api/v1/driver/resend" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/resend",
+    "url": "http://flipapp.ir/api/v1/driver/resend",
     "method": "GET",
     "data": {},
     "headers": {
@@ -609,7 +990,7 @@ Set current location of client.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/location" \
+curl "http://flipapp.ir/api/v1/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -621,7 +1002,7 @@ curl "http://saamtaxi.net/api/v1/client/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/location",
+    "url": "http://flipapp.ir/api/v1/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -693,7 +1074,7 @@ Set current location of driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/location" \
+curl "http://flipapp.ir/api/v1/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -705,7 +1086,7 @@ curl "http://saamtaxi.net/api/v1/driver/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/location",
+    "url": "http://flipapp.ir/api/v1/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -780,7 +1161,7 @@ Set current location of client. in `v2` of API you can send `lng` instead of `lo
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/client/location" \
+curl "http://flipapp.ir/api/v2/client/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="neque" \
@@ -792,7 +1173,7 @@ curl "http://saamtaxi.net/api/v2/client/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/location",
+    "url": "http://flipapp.ir/api/v2/client/location",
     "method": "POST",
     "data": {
         "lat": "neque",
@@ -864,7 +1245,7 @@ Set current location of driver. in `v2` of API you can send `lng` instead of `lo
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/driver/location" \
+curl "http://flipapp.ir/api/v2/driver/location" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "lat"="atque" \
@@ -876,7 +1257,7 @@ curl "http://saamtaxi.net/api/v2/driver/location" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/location",
+    "url": "http://flipapp.ir/api/v2/driver/location",
     "method": "POST",
     "data": {
         "lat": "atque",
@@ -951,7 +1332,7 @@ Parameter | Type | Status | Description
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/car/types" \
+curl "http://flipapp.ir/api/v1/client/car/types" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -960,7 +1341,7 @@ curl "http://saamtaxi.net/api/v1/client/car/types" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/car/types",
+    "url": "http://flipapp.ir/api/v1/client/car/types",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1038,7 +1419,7 @@ Get client profile data.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/profile" \
+curl "http://flipapp.ir/api/v1/client/profile" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1047,7 +1428,7 @@ curl "http://saamtaxi.net/api/v1/client/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/profile",
+    "url": "http://flipapp.ir/api/v1/client/profile",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1102,7 +1483,7 @@ Get client balance
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/balance" \
+curl "http://flipapp.ir/api/v1/client/balance" \
 -H "Accept: application/json"
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1111,7 +1492,7 @@ curl "http://saamtaxi.net/api/v1/client/balance" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/balance",
+    "url": "http://flipapp.ir/api/v1/client/balance",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1149,7 +1530,7 @@ Get driver profile data.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/profile" \
+curl "http://flipapp.ir/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1158,7 +1539,7 @@ curl "http://saamtaxi.net/api/v1/driver/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/profile",
+    "url": "http://flipapp.ir/api/v1/driver/profile",
     "method": "GET",
     "headers": {
        "accept": "application/json",
@@ -1214,7 +1595,7 @@ Update `driver` profile data. Returned image is croped 128 by 128 pixels from ce
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/profile" \
+curl "http://flipapp.ir/api/v1/driver/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "picture"="et" \
@@ -1225,7 +1606,7 @@ curl "http://saamtaxi.net/api/v1/driver/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/profile",
+    "url": "http://flipapp.ir/api/v1/driver/profile",
     "method": "POST",
     "data": {
         "picture": "et"
@@ -1308,7 +1689,7 @@ Update `client` profile data. Returned image is croped 128 by 128 pixels from ce
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/profile" \
+curl "http://flipapp.ir/api/v1/client/profile" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
     -d "first_name"="et" \
@@ -1328,7 +1709,7 @@ curl "http://saamtaxi.net/api/v1/client/profile" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/profile",
+    "url": "http://flipapp.ir/api/v1/client/profile",
     "method": "POST",
     "data": {
         "first_name": "et",
@@ -1431,7 +1812,7 @@ set to true as well. An approved drvier can go to online mode.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/online" \
+curl "http://flipapp.ir/api/v1/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1440,7 +1821,7 @@ curl "http://saamtaxi.net/api/v1/driver/online" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/online",
+    "url": "http://flipapp.ir/api/v1/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1493,7 +1874,7 @@ set to true as well. An approved drvier can go to online mode.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/driver/online" \
+curl "http://flipapp.ir/api/v2/driver/online" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1502,7 +1883,7 @@ curl "http://saamtaxi.net/api/v2/driver/online" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/online",
+    "url": "http://flipapp.ir/api/v2/driver/online",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1556,7 +1937,7 @@ set to false as well. An approved drvier can go to offline mode.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/offline" \
+curl "http://flipapp.ir/api/v1/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1565,7 +1946,7 @@ curl "http://saamtaxi.net/api/v1/driver/offline" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/offline",
+    "url": "http://flipapp.ir/api/v1/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1613,7 +1994,7 @@ set to false as well. An approved drvier can go to offline mode.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/driver/offline" \
+curl "http://flipapp.ir/api/v2/driver/offline" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1622,7 +2003,7 @@ curl "http://saamtaxi.net/api/v2/driver/offline" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/offline",
+    "url": "http://flipapp.ir/api/v2/driver/offline",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1675,7 +2056,7 @@ Get status of the driver, Online or Offline
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/status" \
+curl "http://flipapp.ir/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1684,7 +2065,7 @@ curl "http://saamtaxi.net/api/v1/driver/status" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/status",
+    "url": "http://flipapp.ir/api/v1/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1734,7 +2115,7 @@ Get status of the driver, Online or Offline
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/status" \
+curl "http://flipapp.ir/api/v1/driver/status" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1743,7 +2124,7 @@ curl "http://saamtaxi.net/api/v1/driver/status" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/driver/status",
+    "url": "http://flipapp.ir/api/v2/driver/status",
     "method": "GET",
     "headers": {
         "accept": "application/json",
@@ -1795,7 +2176,7 @@ $.ajax(settings).done(function (response) {
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/car/info" \
+curl "http://flipapp.ir/api/v1/driver/car/info" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 ```
@@ -1804,7 +2185,7 @@ curl "http://saamtaxi.net/api/v1/driver/car/info" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/car/info",
+    "url": "http://flipapp.ir/api/v1/driver/car/info",
     "method": "GET",
     "headers": {
          "accept": "application/json",
@@ -1837,32 +2218,28 @@ Request new taxi by client
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/trip" \
+curl "http://flipapp.ir/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_long": "maiores", \ 
-   -d "d2_lat": "maiores", \
-   -d "d2_long": "maiores", \ 
-   -d "payment": "maiores", \ 
+   -d "type": "maiores", \ 
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/trip",
+    "url": "http://flipapp.ir/api/v1/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
         "s_long": "amet",
         "d_lat": "amet",
         "d_long": "amet",
-        "d2_lat": "amet",
-        "d2_long": "amet",
-        "payment": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -1887,10 +2264,7 @@ s_lat | numeric |  required  |
 s_long | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_long | numeric |  required  | 
-d2_lat | numeric |  required with d2_long  | 
-d2_long | numeric |  required with d2_lat  | 
-payment | string |  optional  | `cash`(default), `card` and `wallet`
-    
+type | | optional |  Children car types given by nearby
 > Example response
 
 ```json
@@ -1951,26 +2325,28 @@ Request new taxi by client. in `v2` of API you can send `s_lng` instead of `s_lo
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/client/trip" \
+curl "http://flipapp.ir/api/v2/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ 
 ```
 
 ```javascript
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/trip",
+    "url": "http://flipapp.ir/api/v2/client/trip",
     "method": "POST",
     "data": {
         "s_lat": "amet",
         "s_lng": "amet",
         "d_lat": "amet",
         "d_lng": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -1995,7 +2371,7 @@ s_lat | numeric |  required  |
 s_lng | numeric |  required  | 
 d_lat | numeric |  required  | 
 d_lng | numeric |  required  | 
-    
+type | | optional | Children car types given by nearby
 > Example response
 
 ```json
@@ -2055,7 +2431,7 @@ Find near by taxis
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/nearby" \
+curl "http://flipapp.ir/api/v1/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -2069,7 +2445,7 @@ curl "http://saamtaxi.net/api/v1/client/nearby" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/nearby",
+    "url": "http://flipapp.ir/api/v1/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -2153,7 +2529,7 @@ Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/client/nearby" \
+curl "http://flipapp.ir/api/v2/client/nearby" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "lat": "maiores", \
@@ -2167,7 +2543,7 @@ curl "http://saamtaxi.net/api/v2/client/nearby" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/nearby",
+    "url": "http://flipapp.ir/api/v2/client/nearby",
     "method": "POST",
     "data": {
         "lat": "amet",
@@ -2242,6 +2618,143 @@ limit | numeric |  min: `5`, max: `100`  |
 }
 ```
 
+
+## Nearby taxis v2
+
+Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet",
+        "distance": "amet",
+        "limit": "amet",
+},
+        "headers": {
+    "accept": "application/json",
+    "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/nearby`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | `(d+).(d+)`
+lng | numeric |  required  | `(d+).(d+)`
+distance | numeric |  min: `1`, max: `5`  | 
+limit | numeric |  min: `5`, max: `100`  | 
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": {
+        "woman": {
+            "luxury": [
+                {
+                    "id": 7947,
+                    "distance": "2.04013276215645",
+                    "longitude": "51.410165",
+                    "latitude": "35.716557",
+                    "name": "NOT SET",
+                    "user_id": 462,
+                    "angle": 192
+                },
+                {
+                    "id": 7341,
+                    "distance": "2.27246822248217",
+                    "longitude": "51.366905",
+                    "latitude": "35.731209",
+                    "name": "NOT SET",
+                    "user_id": 456,
+                    "angle": 327
+                },
+                {
+                    "id": 9159,
+                    "distance": "2.39551047107605",
+                    "longitude": "51.417375",
+                    "latitude": "35.722071",
+                    "name": "NOT SET",
+                    "user_id": 474,
+                    "angle": 115
+                },
+                {
+                    "id": 4008,
+                    "distance": "3.14346537747125",
+                    "longitude": "51.424588",
+                    "latitude": "35.718066",
+                    "name": "NOT SET",
+                    "user_id": 423,
+                    "angle": 19
+                },
+                {
+                    "id": 4715,
+                    "distance": "3.31577013795581",
+                    "longitude": "51.409080",
+                    "latitude": "35.753119",
+                    "name": "NOT SET",
+                    "user_id": 430,
+                    "angle": 237
+                }
+            ],
+            "economy": []
+        },
+        "High-end": {
+            "sport": [],
+            "off-roader": []
+        },
+        "Cheap": {
+            "sedans": [],
+            "van": []
+        }
+    }
+}
+```
+
+> Example response - Validation fails
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Validation failed",
+            "detail": "Validation for given fields have been failed, please check your inputs.",
+            "code": 422
+        }
+    ]
+}
+```
+
 ## Current
 
 Current state of the client trip.
@@ -2251,7 +2764,7 @@ Current state of the client trip.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/trip" \
+curl "http://flipapp.ir/api/v1/client/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2261,7 +2774,7 @@ curl "http://saamtaxi.net/api/v1/client/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/trip",
+    "url": "http://flipapp.ir/api/v1/client/trip",
     "method": "GET",
     "data": {
 },
@@ -2367,7 +2880,7 @@ Cancel taxi by client.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/cancel" \
+curl "http://flipapp.ir/api/v1/client/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2377,7 +2890,7 @@ curl "http://saamtaxi.net/api/v1/client/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/cancel",
+    "url": "http://flipapp.ir/api/v1/client/cancel",
     "method": "GET",
     "data": {
 },
@@ -2437,7 +2950,7 @@ Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/calculate" \
+curl "http://flipapp.ir/api/v1/client/calculate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -2451,7 +2964,7 @@ curl "http://saamtaxi.net/api/v1/client/calculate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/calculate",
+    "url": "http://flipapp.ir/api/v1/client/calculate",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -2655,7 +3168,7 @@ you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v2/client/calculate" \
+curl "http://flipapp.ir/api/v2/client/calculate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
    -d "s_lat": "maiores", \
@@ -2669,7 +3182,7 @@ curl "http://saamtaxi.net/api/v2/client/calculate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v2/client/calculate",
+    "url": "http://flipapp.ir/api/v2/client/calculate",
     "method": "POST",
     "data": {
         "s_lat": "amet",
@@ -2846,6 +3359,195 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 ```
 
 
+## Calculate V3
+
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
+you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/calculate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | [+-]?\d+\.\d+
+s_lng | numeric |  required  | [+-]?\d+\.\d+
+d_lat | numeric |  required  | [+-]?\d+\.\d+
+d_lng | numeric |  required  | [+-]?\d+\.\d+
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "source": "استان مازندران، رامسر، لمتر، ایران",
+            "destination": "استان اصفهان، اصفهان، خیابان نستوه، ایران",
+            "distance": {
+                "text": "737 km",
+                "value": 736912
+            },
+            "duration": {
+                "text": "9 hours 16 mins",
+                "value": 33331
+            },
+            "transactions": {
+                "High-end": {
+                    "off-roader": {
+                        "car_type": "off-roader",
+                        "car_type_id": 6,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sport": {
+                        "car_type": "sport",
+                        "car_type_id": 3,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "woman": {
+                    "luxury": {
+                        "car_type": "luxury",
+                        "car_type_id": 1,
+                        "currency": "IRR",
+                        "entry": "50000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42045000
+                    },
+                    "economy": {
+                        "car_type": "economy",
+                        "car_type_id": 5,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "Cheap": {
+                    "van": {
+                        "car_type": "van",
+                        "car_type_id": 2,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sedans": {
+                        "car_type": "sedans",
+                        "car_type_id": 4,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                }
+            }
+        }
+    ]
+}
+
+```
+
 
 > Example response - Fail to fetch data from Google Maps
 
@@ -2876,7 +3578,7 @@ Accept ride by driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/accept" \
+curl "http://flipapp.ir/api/v1/driver/accept" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2886,7 +3588,7 @@ curl "http://saamtaxi.net/api/v1/driver/accept" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/accept",
+    "url": "http://flipapp.ir/api/v1/driver/accept",
     "method": "GET",
     "data": {
 },
@@ -2943,7 +3645,7 @@ Start the trip by the driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/start" \
+curl "http://flipapp.ir/api/v1/driver/start" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -2953,7 +3655,7 @@ curl "http://saamtaxi.net/api/v1/driver/start" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/start",
+    "url": "http://flipapp.ir/api/v1/driver/start",
     "method": "GET",
     "data": {
 },
@@ -3026,7 +3728,7 @@ End the trip by the driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/end" \
+curl "http://flipapp.ir/api/v1/driver/end" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3036,7 +3738,7 @@ curl "http://saamtaxi.net/api/v1/driver/end" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/end",
+    "url": "http://flipapp.ir/api/v1/driver/end",
     "method": "GET",
     "data": {
 },
@@ -3108,7 +3810,7 @@ Cancel trip by driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/cancel" \
+curl "http://flipapp.ir/api/v1/driver/cancel" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3118,7 +3820,7 @@ curl "http://saamtaxi.net/api/v1/driver/cancel" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/cancel",
+    "url": "http://flipapp.ir/api/v1/driver/cancel",
     "method": "GET",
     "data": {
 },
@@ -3191,7 +3893,7 @@ When drive arrives at departure point.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/arrived" \
+curl "http://flipapp.ir/api/v1/driver/arrived" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3201,7 +3903,7 @@ curl "http://saamtaxi.net/api/v1/driver/arrived" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/arrived",
+    "url": "http://flipapp.ir/api/v1/driver/arrived",
     "method": "GET",
     "data": {},
     "headers": {
@@ -3274,7 +3976,7 @@ Current state of driver trip.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/trip" \
+curl "http://flipapp.ir/api/v1/driver/trip" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3284,7 +3986,7 @@ curl "http://saamtaxi.net/api/v1/driver/trip" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/trip",
+    "url": "http://flipapp.ir/api/v1/driver/trip",
     "method": "GET",
     "data": {
 },
@@ -3371,7 +4073,7 @@ Get driver income.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/income" \
+curl "http://flipapp.ir/api/v1/driver/income" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3381,7 +4083,7 @@ curl "http://saamtaxi.net/api/v1/driver/income" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/income",
+    "url": "http://flipapp.ir/api/v1/driver/income",
     "method": "GET",
     "data": {
 },
@@ -3424,7 +4126,7 @@ Rate of driver to client.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/driver/rate" \
+curl "http://flipapp.ir/api/v1/driver/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3434,7 +4136,7 @@ curl "http://saamtaxi.net/api/v1/driver/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/rate",
+    "url": "http://flipapp.ir/api/v1/driver/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -3529,7 +4231,7 @@ Rate of client to driver.
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/rate" \
+curl "http://flipapp.ir/api/v1/client/rate" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3539,7 +4241,7 @@ curl "http://saamtaxi.net/api/v1/client/rate" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/rate",
+    "url": "http://flipapp.ir/api/v1/client/rate",
     "method": "POST",
     "data": {},
     "headers": {
@@ -3613,6 +4315,7 @@ comment | text |  optional  | max: `5000`
 
 # Payment
 
+![Image of payment](http://1.1m.yt/pmMfED.png)
 
 ## Charge
 
@@ -3621,7 +4324,7 @@ Charge the wallet/balance with given ClientID and Amount. Client ID (id) can be 
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
+curl "http://flipapp.ir/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 
 ```
 
@@ -3629,7 +4332,7 @@ curl "http://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/fa/payment/charge/{CLIENT_ID}/{AMOUNT}",
+    "url": "http://flipapp.ir/fa/payment/charge/{CLIENT_ID}/{AMOUNT}",
     "method": "GET",
     "data": {}
 }
@@ -3641,7 +4344,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET http://saamtaxi.net/payment/charge/{CLIENT_ID}/{AMOUNT}`
+`GET http://flipapp.ir/payment/charge/{CLIENT_ID}/{AMOUNT}`
 
 
 ##Pay cash
@@ -3651,7 +4354,7 @@ Pay trip cost in cash. this shall be called by client. take note that this route
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/pay/cash" \
+curl "http://flipapp.ir/api/v1/client/pay/cash" \
 
 ```
 
@@ -3659,7 +4362,7 @@ curl "http://saamtaxi.net/api/v1/client/pay/cash" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/pay/cash",
+    "url": "http://flipapp.ir/api/v1/client/pay/cash",
     "method": "GET",
     "data": {}
 }
@@ -3671,7 +4374,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET http://saamtaxi.net/api/v1/client/pay/cash`
+`GET http://flipapp.ir/api/v1/client/pay/cash`
 
 > Example Response
 
@@ -3696,7 +4399,7 @@ Pay trip cost by wallet. this shall be called by client. take note that this rou
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/pay/wallet" \
+curl "http://flipapp.ir/api/v1/client/pay/wallet" \
 
 ```
 
@@ -3704,7 +4407,7 @@ curl "http://saamtaxi.net/api/v1/client/pay/wallet" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/pay/wallet",
+    "url": "http://flipapp.ir/api/v1/client/pay/wallet",
     "method": "GET",
     "data": {}
 }
@@ -3716,7 +4419,7 @@ $.ajax(settings).done(function (response) {
 
 
 ### HTTP Request
-`GET http://saamtaxi.net/api/v1/client/pay/wallet`
+`GET http://flipapp.ir/api/v1/client/pay/wallet`
 
 > Example Response
 
@@ -3753,119 +4456,14 @@ $.ajax(settings).done(function (response) {
 
 #History
 
-##driver
-
-History of driver trips.
-
-> Example request
-
-```bash
-curl "http://saamtaxi.net/api/v1/driver/history" \
--H "Accept: application/json" \
--H "Authorization: Bearer ACCESS_TOKEN" \
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/driver/history",
-    "method": "GET",
-    "data": {},
-    "headers": {
-        "accept": "application/json",
-        "authorization": "Bearer ACCESS_TOKEN"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`GET api/v1/driver/history`
-
-    
-> Example response
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "status_id": 17,
-            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
-            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
-            "eta_value": "249",
-            "eta_text": "4 mins",
-            "distance_value": "1289",
-            "distance_text": "1.3 km",
-            "etd_value": "0",
-            "etd_text": "1 min",
-            "driver_location": {
-                "id": 20204,
-                "latitude": "32.623239",
-                "longitude": "51.636149",
-                "name": "TEST",
-                "user_id": 207,
-                "created_at": "2017-02-14 14:58:34",
-                "updated_at": "2017-02-14 14:58:34"
-            },
-            "driver_distance_value": "0",
-            "driver_distance_text": "1 m",
-            "created_at": "2017-02-15 14:38:32",
-            "status_name": "trip_is_over",
-            "s_lat": "32.623239",
-            "s_long": "51.636149",
-            "d_lat": "32.634100",
-            "d_long": "51.639282",
-            "transaction": {
-                "id": 8,
-                "trip_id": 12,
-                "car_type_id": 1,
-                "entry": "2",
-                "distance": "1289",
-                "per_distance": "0.7",
-                "distance_unit": "kilometer",
-                "distance_value": "0.9",
-                "time": "249",
-                "per_time": "0.3",
-                "time_unit": "minute",
-                "time_value": "1.2",
-                "surcharge": "1",
-                "currency": "USD",
-                "timezone": "Asia/Tehran",
-                "total": "4.1",
-                "created_at": "2017-02-15 14:38:43",
-                "updated_at": "2017-02-15 14:38:43"
-            },
-            "rate": {
-                "id": 1,
-                "client": "5",
-                "driver": "4.5",
-                "client_comment": "hello",
-                "driver_comment": "hello",
-                "trip_id": 12,
-                "created_at": "2017-02-15 14:39:28",
-                "updated_at": "2017-02-15 14:39:28"
-            }
-        }
-    ]
-}
-```
-
-
-##client
+##Client
 
 History of client trips.
 
 > Example request
 
 ```bash
-curl "http://saamtaxi.net/api/v1/client/history" \
+curl "http://flipapp.ir/api/v1/client/history" \
 -H "Accept: application/json" \
 -H "Authorization: Bearer ACCESS_TOKEN" \
 
@@ -3875,7 +4473,7 @@ curl "http://saamtaxi.net/api/v1/client/history" \
 var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://saamtaxi.net/api/v1/client/history",
+    "url": "http://flipapp.ir/api/v1/client/history",
     "method": "GET",
     "data": {},
     "headers": {
@@ -4168,6 +4766,110 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+##Driver
+
+History of driver trips.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v1/driver/history" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/history",
+    "method": "GET",
+    "data": {},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v1/driver/history`
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "status_id": 17,
+            "source": "استان اصفهان، اصفهان، بلوار کشاورز، ایران",
+            "destination": "استان اصفهان، اصفهان، چهارراه مارنان، ایران",
+            "eta_value": "249",
+            "eta_text": "4 mins",
+            "distance_value": "1289",
+            "distance_text": "1.3 km",
+            "etd_value": "0",
+            "etd_text": "1 min",
+            "driver_location": {
+                "id": 20204,
+                "latitude": "32.623239",
+                "longitude": "51.636149",
+                "name": "TEST",
+                "user_id": 207,
+                "created_at": "2017-02-14 14:58:34",
+                "updated_at": "2017-02-14 14:58:34"
+            },
+            "driver_distance_value": "0",
+            "driver_distance_text": "1 m",
+            "created_at": "2017-02-15 14:38:32",
+            "status_name": "trip_is_over",
+            "s_lat": "32.623239",
+            "s_long": "51.636149",
+            "d_lat": "32.634100",
+            "d_long": "51.639282",
+            "transaction": {
+                "id": 8,
+                "trip_id": 12,
+                "car_type_id": 1,
+                "entry": "2",
+                "distance": "1289",
+                "per_distance": "0.7",
+                "distance_unit": "kilometer",
+                "distance_value": "0.9",
+                "time": "249",
+                "per_time": "0.3",
+                "time_unit": "minute",
+                "time_value": "1.2",
+                "surcharge": "1",
+                "currency": "USD",
+                "timezone": "Asia/Tehran",
+                "total": "4.1",
+                "created_at": "2017-02-15 14:38:43",
+                "updated_at": "2017-02-15 14:38:43"
+            },
+            "rate": {
+                "id": 1,
+                "client": "5",
+                "driver": "4.5",
+                "client_comment": "hello",
+                "driver_comment": "hello",
+                "trip_id": 12,
+                "created_at": "2017-02-15 14:39:28",
+                "updated_at": "2017-02-15 14:39:28"
+            }
+        }
+    ]
+}
 ```
 
 

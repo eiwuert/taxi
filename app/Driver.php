@@ -243,7 +243,7 @@ class Driver extends Model
         if ($picture != 'no-profile.png') {
             return asset('storage/profile/driver/' . $picture);
         } else {
-            return $picture;
+            return asset('img/no-profile.png');
         }
     }
 
@@ -307,8 +307,9 @@ class Driver extends Model
      */
     public function lastLatLng()
     {
-        if (Cache::has('location_' . $this->user_id)) {
-            return Cache::get('location_' . $this->user_id);
+        $cacheName = config('app.name') . '_location_' . $this->user_id;
+        if (Cache::has($cacheName)) {
+            return Cache::get($cacheName);
         } else {
             $location = Location::whereUserId($this->user_id)
                             ->orderBy('id', 'desc')
@@ -318,7 +319,7 @@ class Driver extends Model
                 $location->latitude = 0.0;
                 $location->longitude = 0.0;
             }
-            Cache::forever('location_' . $this->user_id, ['lat' => $location->latitude, 'lng' => $location->longitude]);
+            Cache::forever($cacheName, ['lat' => $location->latitude, 'lng' => $location->longitude]);
             return ['lat' => $location->latitude, 'lng' => $location->longitude];
         }
     }
@@ -338,7 +339,8 @@ class Driver extends Model
      */
     public function carTypesPluck()
     {
-        return CarType::pluck('name', 'id');
+        return CarType::orderBy('created_at', 'desc')
+                        ->children()->pluck('name', 'id');
     }
 
     /**
@@ -370,6 +372,40 @@ class Driver extends Model
             return asset('img/no-profile.png');
         } else {
             return $this->picture;
+        }
+    }
+
+    /**
+     * Get the first name value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFirstNameAttribute($first_name)
+    {
+        if (is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+            return __('drivers.Unknown');
+        } else if (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+            return '';
+        } else {
+            return $first_name;
+        }
+    }
+
+    /**
+     * Get the LastName value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getLastNameAttribute($last_name)
+    {
+        if (is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+            return __('drivers.Driver');
+        } else if (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+            return '';
+        } else {
+            return $last_name;
         }
     }
 
@@ -429,17 +465,18 @@ class Driver extends Model
     public function angle()
     {
         $locations = Location::whereUserId($this->user_id)
+                            ->distinct()
                             ->orderBy('id', 'desc')
                             ->limit(2);
         $locations = $locations->get();
         if ($locations->count() == 2) {
-            $cache = 'driver_' . $this->id . '_angle';
+            $cache = config('app.name') . '_driver_' . $this->id . '_angle';
             $lng1 = $locations[0]->longitude;
             $lng2 = $locations[1]->longitude;
             $lat1 = $locations[0]->latitude;
             $lat2 = $locations[1]->latitude;
             // If last location is within the 20 meter return the previous angle.
-            if ($this->distance($lat1, $lng1, $lat2, $lng2) < 0.02 && Cache::has($cache)) {
+            if (!$this->distance($lat1, $lng1, $lat2, $lng2) && Cache::has($cache)) {
                 return Cache::get($cache);
             }
             $dLon = $lng2 - $lng1;
@@ -449,7 +486,7 @@ class Driver extends Model
             Cache::forever($cache, $angle);
             return $angle;
         } else {
-            return 0;
+            return rand(0, 359);
         }
     }
 
@@ -461,13 +498,13 @@ class Driver extends Model
      * @param  float $lng2
      * @return float
      */
-    protected function distance($lat1, $lng1, $lat2, $lng2)
+    protected function distance($lat1, $lng1, $lat2, $lng2) : int
     {
         $p = 0.017453292519943295;
         $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 + 
             cos($lat1 * $p) * cos($lat2 * $p) * 
             (1 - cos(($lng2 - $lng1) * $p)) / 2;
-        return 12742 * asin(sqrt($a));
+        return round(12742 * asin(sqrt($a)) * 1000);
     }
 
     /**
@@ -479,4 +516,6 @@ class Driver extends Model
     {
         return config('states.' . $this->state);
     }
+
+
 }

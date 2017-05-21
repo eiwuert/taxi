@@ -4,6 +4,7 @@
 *************************************************************************/
 
 return array (
+  'cash' => 'Cash',
   //============================== New strings to translate ==============================//
   // Defined in file /Applications/MAMP/htdocs/saamtaxi/app/Http/Controllers/PaymentController.php
   'Pay in cash' => 'Pay in cash',

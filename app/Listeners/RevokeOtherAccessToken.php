@@ -28,7 +28,7 @@ class RevokeOtherAccessToken
                 ->where('role', 'driver');
             foreach ($toRevoke->get() as $user) {
                 if (! $user->driver->isEmpty()) {
-                    dispatch(new SendDriverNotification('logout', '12', $user->driver->first()->device_token));
+                    dispatch(new SendDriverNotification('logout', '8', $user->driver->first()->device_token));
                 }
             }
             DB::table('oauth_access_tokens')
@@ -43,7 +43,7 @@ class RevokeOtherAccessToken
                             ->where('role', 'client');
             foreach ($toRevoke->get() as $user) {
                 if (! $user->client->isEmpty()) {
-                    dispatch(new SendClientNotification('logout', '8', $user->client->first()->device_token));
+                    dispatch(new SendClientNotification('logout', '12', $user->client->first()->device_token));
                 }
             }
             DB::table('oauth_access_tokens')

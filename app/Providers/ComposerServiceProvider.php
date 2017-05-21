@@ -37,6 +37,10 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            'admin.components.googlemaps-circle', 'App\Http\ViewComposers\GoogleMapsCircleComposer'
+        );
+
+        View::composer(
             'admin.components.googlemaps-marker', 'App\Http\ViewComposers\GoogleMapsMarkerComposer'
         );
 
@@ -45,7 +49,15 @@ class ComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
+            'admin.charts.fcm', 'App\Http\ViewComposers\FcmComposer'
+        );
+
+        View::composer(
             'admin.payments.index', 'App\Http\ViewComposers\PaymentComposer'
+        );
+
+        View::composer(
+            'admin.includes.sidebar', 'App\Http\ViewComposers\SidebarComposer'
         );
     }
 
