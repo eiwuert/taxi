@@ -83,6 +83,7 @@ class NearbyRepository
             if (!is_null($driverToCheck)) {
                 $driver->angle = $driverToCheck->angle();
                 $driver->cat_id = $driverToCheck->car()->type->id;
+                $driver->parent_id = $driverToCheck->car()->type->parent->id;
                 // $nearby[$driverToCheck->car()->type->parent->name][$driverToCheck->car()->type->name][] = $driver;
                 // $nearby->cat_id = $driverToCheck->car()->type->id;
             }
