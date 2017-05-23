@@ -14,7 +14,10 @@ class AddCarTypeIdToCarTypes extends Migration
     public function up()
     {
         Schema::table('car_types', function (Blueprint $table) {
-            //
+            $table->unsignedInteger('car_type_id')->nullable();
+            $table->foreign('car_type_id')
+                  ->references('id')->on('car_types')
+                  ->onDelete('cascade');
         });
     }
 
@@ -26,10 +29,7 @@ class AddCarTypeIdToCarTypes extends Migration
     public function down()
     {
         Schema::table('car_types', function (Blueprint $table) {
-            $table->unsignedInteger('car_type_id')->nullable();
-            $table->foreign('car_type_id')
-                  ->references('id')->on('car_types')
-                  ->onDelete('cascade');
+            $table->dropColumn('car_type_id');
         });
     }
 }
