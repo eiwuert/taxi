@@ -3,6 +3,21 @@
 use Illuminate\Http\Request;
 
 /**
+ * Common Routes
+ */
+Route::get('states', 'StateController@index')
+    ->name('getStates')
+    ->middleware('auth:api');
+
+Route::get('states/active', 'StateController@active')
+    ->name('getActiveStates')
+    ->middleware('auth:api');
+
+Route::get('states/{state}', 'StateController@get')
+    ->name('getState')
+    ->middleware('auth:api');
+
+/**
  * Client Routes.
  */
 Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
