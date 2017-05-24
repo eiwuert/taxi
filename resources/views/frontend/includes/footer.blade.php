@@ -30,7 +30,7 @@
     <!--small footer end-->
     <!-- js placed at the end of the document so the pages load faster
    -->
-    <script src="{{ asset('js/fa.js') }}"></script>
+    <script src="{{ elixir('js/fa.js') }}"></script>
     <!-- end of sequence slider js-->
     <script type="text/javascript">
     jQuery(document).ready(function() {
