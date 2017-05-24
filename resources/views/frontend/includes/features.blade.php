@@ -1,72 +1,103 @@
 <section id="features">
-    <div class="container">
-        <div class="row">
-            <div>
-                <div class="section-heading scrollpoint sp-effect3">
-                    <h3>ویژگی های فلیپ
-                    </h3>
-                    <span class="divider"></span>
-                    <h4> سریع  آسان  مطمئن </h4>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                    <div class="feature scrollpoint sp-effect2">
-                        <div class="icon">
-                            <i class="fa fa-dollar fa-4x"></i>
-                        </div>
-                        <h3>محاسبه گر کرایه</h3>
-                        <h4>کرایه خود را قبل از سرویس ببینید.</h4>
+        <div class="black-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide">
+            <div class="container">
+                <div class="row">
+                    <br />
+                    <div class="text-center feature-head">
+                        <h2 class="title-one" style="color: #fcfcfc">ویژگی های فلیپ</h2>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                    <div class="feature scrollpoint sp-effect2">
-                        <div class="icon">
-                            <i class="fa fa-tags fa-4x"></i>
+                    <br>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow fadeInRight" data-wow-duration="1.5s" data-wow-delay=".1s">
+                                <i class="fa fa-dollar">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                  محاسبه گر کرایه
+                </h3>
+                                <p>
+                                    کرایه خود را قبل از سرویس ببینید.
+                                </p>
+                            </div>
                         </div>
-                        <h3>کد تخفیف / کد ارجاع</h3>
-                        <h4>با استفاده از این کد، تخفیف بگیرد.</h4>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow rotateInUpRight" data-wow-duration="1.5s" data-wow-delay=".3s">
+                                <i class="fa fa-tags">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                  کد تخفیف / کد ارجاع
+                </h3>
+                                <p>
+                                    با استفاده از این کد، تخفیف بگیرد.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                    <div class="feature scrollpoint sp-effect1">
-                        <div class="icon">
-                            <i class="fa fa-credit-card fa-4x"></i>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow rotateInUpRight" data-wow-duration="1.5s" data-wow-delay=".5s">
+                                <i class="fa fa-credit-card ">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                  پرداخت با کیف پول
+                </h3>
+                                <p>
+                                    هزینه را با کیف پول پرداخت کنید.
+                                </p>
+                            </div>
                         </div>
-                        <h3>پرداخت با کیف پول</h3>
-                        <h4>هزینه را با کیف پول پرداخت کنید.</h4>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".7s">
+                                <i class="fa fa-taxi">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                 مشاهده موقعیت نزدیکترین راننده
+                </h3>
+                                <p>
+                                    کلیه فلیپ های آزاد پیرامون خود را مشاهده کنید.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="services">
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".9s">
+                                <i class="fa fa-clock-o">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                  زمان تقریبی رسیدن راننده
+                </h3>
+                                <p>
+                                    زمان رسیدن راننده را پیگیری کنید.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay="1.1s">
+                                <i class="fa fa-star">
+                </i>
+                            </div>
+                            <div class="content">
+                                <h3 class="title">
+                  سیستم امتیازدهی
+                </h3>
+                                <p>
+                                    در پایان هر سرویس، به راننده امتیاز دهید.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                <div class="feature scrollpoint sp-effect2">
-                    <div class="icon">
-                        <i class="fa fa-taxi fa-4x"></i>
-                    </div>
-                    <h3>مشاهده موقعیت نزدیکترین راننده</h3>
-                    <h4>کلیه فلیپ های آزاد پیرامون خود را مشاهده کنید.</h4>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                <div class="feature scrollpoint sp-effect2">
-                    <div class="icon">
-                        <i class="fa fa-clock-o fa-4x"></i>
-                    </div>
-                    <h3>زمان تقریبی رسیدن راننده</h3>
-                    <h4>زمان رسیدن راننده را پیگیری کنید.</h4>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12 feature-item">
-                <div class="feature scrollpoint sp-effect1">
-                    <div class="icon">
-                        <i class="fa fa-star fa-4x"></i>
-                    </div>
-                    <h3>سیستم امتیازدهی</h3>
-                    <h4>در پایان هر سرویس، به راننده امتیاز دهید.</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>

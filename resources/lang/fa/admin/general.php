@@ -2,8 +2,10 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Children: ' => 'زیر دسته: ',
-  'Sub categories' => 'زیر دسته‌ها',
+  'Active' => 'فعال',
+  'Active: ' => 'فعال: ',
+  'Deactive' => 'غیر فعال',
+  'Icon: ' => 'آیکون: ',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -46,6 +48,7 @@ return array (
   'Car types' => 'نوع خودروها',
   'Charge' => 'شارژ',
   'Charged' => 'شارژ شده',
+  'Children: ' => 'زیر دسته: ',
   'Choose picture' => 'انتخاب تصویر نمایه',
   'Client' => 'مسافر',
   'Client canceled arrived driver' => ' مسافر راننده رسیده را لغو کرد ',
@@ -266,6 +269,7 @@ return array (
   'State:' => 'وضعیت: ',
   'State: ' => 'شهر: ',
   'Status' => 'وضعیت',
+  'Sub categories' => 'زیر دسته‌ها',
   'Subject (*) : ' => 'موضوع (*): ',
   'Submit' => 'ارسال',
   'Subtotal:' => 'جمع:',

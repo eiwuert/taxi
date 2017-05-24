@@ -2,8 +2,10 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Children: ' => 'Children: ',
-  'Sub categories' => 'Sub categories',
+  'Active' => 'Active',
+  'Active: ' => 'Active: ',
+  'Deactive' => 'Deactive',
+  'Icon: ' => 'Icon: ',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -46,6 +48,7 @@ return array (
   'Car types' => 'Car types',
   'Charge' => 'Charge',
   'Charged' => 'Charged',
+  'Children: ' => 'Children: ',
   'Choose picture' => 'Choose picture',
   'Client' => 'Client',
   'Client canceled arrived driver' => ' Client canceled arrived driver ',
@@ -266,6 +269,7 @@ return array (
   'State:' => 'State:',
   'State: ' => 'State: ',
   'Status' => 'Status',
+  'Sub categories' => 'Sub categories',
   'Subject (*) : ' => 'Subject (*) : ',
   'Submit' => 'Submit',
   'Subtotal:' => 'Subtotal:',
