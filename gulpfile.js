@@ -27,17 +27,18 @@ elixir(mix => {
 
         .scripts([
             'jquery-1.8.3.min.js',
-            'seq-slider/jquery.sequence-min.js',
-            'seq-slider/sequencejs-options.apple-style.js',
-            'bootstrap.min.js',
-            'common-scripts.js',
-            'hover-dropdown.js',
             'jquery.easing.min.js',
             'jquery.flexslider.js',
             'jquery.parallax-1.1.3.js',
+            'bootstrap.min.js',
+            'hover-dropdown.js',
             'link-hover.js',
+            'common-scripts.js',
             'scrolling-nav.js',
+            'bxslider.js',
             'wow.min.js',
+            'seq-slider/jquery.sequence-min.js',
+            'seq-slider/sequencejs-options.apple-style.js',
         ], 'public/js/en.js', 'resources/assets/js');
 
     //fa
@@ -54,18 +55,19 @@ elixir(mix => {
 
         .scripts([
             'jquery-1.8.3.min.js',
-            'seq-slider/jquery.sequence-min.js',
-            'seq-slider/sequencejs-options.apple-style.js',
             'analytics.js',
-            'bootstrap.min.js',
-            'common-scripts.js',
-            'hover-dropdown.js',
             'jquery.easing.min.js',
             'jquery.flexslider.js',
             'jquery.parallax-1.1.3.js',
+            'bootstrap.min.js',
+            'hover-dropdown.js',
             'link-hover.js',
+            'common-scripts.js',
             'scrolling-nav.js',
+            'bxslider.js',
             'wow.min.js',
+            'seq-slider/jquery.sequence-min.js',
+            'seq-slider/sequencejs-options.apple-style.js',
         ], 'public/js/fa.js', 'resources/assets/js');
 
 
