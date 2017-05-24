@@ -93,6 +93,11 @@ body, h1, h2, h3, h4, h5, h6 {
     margin-right: 230px;
     margin-left: 0;
 }
+
+.content-wrapper, .main-footer {
+    margin-right: 230px;
+    margin-left: -230px;
+}
 .main-header .sidebar-toggle{
     float: right !important;
     width: 50px;
@@ -145,6 +150,10 @@ body, h1, h2, h3, h4, h5, h6 {
     .left-side {
         margin-right: -230px !important;
     }
+.content-wrapper, .main-footer {
+    margin-right: 230px;
+    margin-left: -230px;
+}
 }
 @media (min-width: 768px){
     .col-sm-2{
@@ -193,6 +202,17 @@ body, h1, h2, h3, h4, h5, h6 {
     .sidebar-mini.sidebar-collapse .sidebar-menu > li > a {
         padding-right: 17px;
     }
+
+    .sidebar-mini.sidebar-collapse 
+    .sidebar-menu>li:hover>.treeview-menu, 
+    .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>span:not(.pull-right) {
+        left: -180px;
+        border-radius: 0;
+    }
+}
+
+.treeview span {
+    z-index: +11;
 }
 
 ul.list-group {
