@@ -1,6 +1,7 @@
 {
   "css/admin/admin.css": "css/admin/admin-51e13ee3c7.css",
-  "css/admin/rtl.css": "css/admin/rtl-dd8f5a128d.css",
+  "css/admin/rtl.css": "css/admin/rtl-294ba57ea7.css",
+  "js/admin/admin.js": "js/admin/admin-0c8400ab64.js",
   "js/admin/flot.js": "js/admin/flot-66b9a14c60.js",
   "js/admin/iCheck.js": "js/admin/iCheck-2f07372661.js",
   "js/admin/jquery.inputmask.js": "js/admin/jquery-0067adda77.inputmask.js"
