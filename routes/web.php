@@ -50,4 +50,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('contacts', 'ContactController@index')->name('contacts.index');
     Route::get('contacts/{contact}', 'ContactController@show')->name('contacts.show');
     Route::delete('contacts', 'ContactController@destroy')->name('contacts.destroy');
+    // States
+    Route::resource('states', 'StateController', ['middleware' => ['superadmin']]);
 });
