@@ -266,6 +266,7 @@ return array (
   'State:' => 'State:',
   'State: ' => 'State: ',
   'Status' => 'Status',
+  'Status: ' => 'Status: ',
   'Subject (*) : ' => 'Subject (*) : ',
   'Submit' => 'Submit',
   'Subtotal:' => 'Subtotal:',
@@ -383,4 +384,15 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
+    'States' => 'States',
+    'New state' => 'New state',
+    'State cannot be deleted' => 'State cannot be deleted',
+    'State created' => 'State created',
+    'State has been deleted' => 'State has been deleted',
+    'State updated' => 'State updated',
+    'State: ' => 'State: ',
+    'Active' => 'Active',
+    'Inactive' => 'inActive',
+    'Edit'=>'Edit',
+    'Create'=>'Create'
 );
