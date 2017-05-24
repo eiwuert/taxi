@@ -1,21 +1,20 @@
 @extends('admin.includes.layout')
 @section('title')
-@lang('admin/general.Zone')
+@lang('admin/general.States')
 @endsection
 @section('header')
-<a href="{{ route('zones.create') }}">
+<a href="{{ route('states.create') }}">
     <button class="btn btn-primary btn-xs">
-    @lang('admin/general.New car zone')
+    @lang('admin/general.New state')
     </button>
 </a> 
-@lang('admin/general.Zone')
+@lang('admin/general.States')
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li class="active"><i class="ion-pinpoint"></i> @lang('admin/general.Zone') </li>
+<li class="active"><i class="ion-android-map"></i> @lang('admin/general.State') </li>
 @endsection
 @section('content')
-@include('admin.components.googlemaps-circle')
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
@@ -24,23 +23,19 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-                @if(!$zones->isEmpty())
+                @if(!$states->isEmpty())
                 <table class="table table-striped table-hover">
                     <tbody>
                         <tr>
                             <th></th>
                             <th>@lang('admin/general.Name')</th>
-                            <th>@lang('admin/general.Latitude')</th>
-                            <th>@lang('admin/general.Longitude')</th>
-                            <th>@lang('admin/general.Radius')</th>
+                            <th>@lang('admin/general.Status')</th>
                         </tr>
-                        @foreach($zones as $zone)
-                        <tr onclick="window.document.location='{{ action('Admin\ZoneController@edit', ['zone' => $zone]) }}';" style="cursor: pointer;">
-                            <td># {{ $zone->id }}</td>
-                            <td>{{ $zone->name }}</td>
-                            <td>{{ $zone->latitude }}</td>
-                            <td>{{ $zone->longitude }}</td>
-                            <td>{{ $zone->radius }}  @lang('admin/general.' . $zone->unit)</td>
+                        @foreach($states as $state)
+                        <tr onclick="window.document.location='{{ action('Admin\StateController@edit', ['state' => $state]) }}';" style="cursor: pointer;">
+                            <td># {{ $state->id }}</td>
+                            <td>{{ $state->name }}</td>
+                            <td>{!! $state->status() !!}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -51,7 +46,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-                @include('admin.includes.pagination', ['resource' => $zones])
+                @include('admin.includes.pagination', ['resource' => $states])
             </div>
         </div>
         <!-- /.box -->
