@@ -25,7 +25,7 @@ elixir(mix => {
             'more.css',
         ], 'public/css/en.css', 'resources/assets/css')
 
-        .webpack([
+        .scripts([
             'jquery-1.8.3.min.js',
             'seq-slider/jquery.sequence-min.js',
             'seq-slider/sequencejs-options.apple-style.js',
@@ -52,8 +52,10 @@ elixir(mix => {
             'rtl.css',
         ], 'public/css/fa.css', 'resources/assets/css')
 
-        .webpack([
+        .scripts([
             'jquery-1.8.3.min.js',
+            'seq-slider/jquery.sequence-min.js',
+            'seq-slider/sequencejs-options.apple-style.js',
             'analytics.js',
             'bootstrap.min.js',
             'common-scripts.js',
