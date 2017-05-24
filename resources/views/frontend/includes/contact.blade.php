@@ -1,54 +1,50 @@
-<footer id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2 clearfix">
-                <div class="section-heading scrollpoint sp-effect3">
-                    <h3>
-                    <span>تماس با ما</span>
-                    </h3>
-                    <br>
-                    <span class="divider"></span>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h4> آدرس:  میدان ونک ، برج نگار ،  طبقه ۱۶ ، واحد ۲</h4>
-                            <h4>تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+</h4>
-                            <h4>فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+</h4>
-                            <h4> ایمیل : info@flipapp.ir</h4>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img class="img-qr" src="../images/fa-barcode.png">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">@include('frontend.form')</div>
+<section id="contact">
+        <div class="container">
+            <div class="row text-center clearfix">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="contact-heading">
+                        <h2 class="title-one">تماس با ما</h2>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="social">
-                    <ul>
-                        <li><a href="https://twitter.com/flipapp96" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
-                        <li><a href="https://www.linkedin.com/in/flip-application-63abb5141" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
-                        <li><a href="https://www.facebook.com/profile.php?id=100016712433417" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
-                        <li><a href="https://t.me/flipapp" target="_blank"><i class="fa fa-paper-plane"></i></a></li>
-                        <li><a href="flipapp96@gmail.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="https://www.instagram.com/flipapplication/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                    </ul>
+        </div>
+        <div class="container">
+            <div class="contact-details">
+                <div class="pattern"></div>
+                <div class="row text-center clearfix">
+                    <div class="col-sm-6">
+                        <div class="contact-address wow rotateInUpRight">
+                            <address>
+                                <h2>فلیپ</h2><strong> آدرس: میدان ونک ، برج نگار ، طبقه ۱۶ ، واحد ۲
+                                <br> کد پستی: ۱۹۶۹۸۳۳۶۹۳ 
+                                <br> تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+<br> فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+ <br> ایمیل : info@flipapp.ir</strong>
+                                <br>
+                                <br>
+                                <div>
+                                    <img class="img-qr" src="../images/fa-barcode.png" alt="">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="contact-form-section" class="wow rotateInUpLeft">
+                            <div class="status alert alert-success" style="display: none"></div>
+                            <form id="contact-form" class="contact" name="contact-form" method="post" action="send-mail.php">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control name-field" required="required" placeholder="نام">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control mail-field" required="required" placeholder="ایمیل">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="پیغام"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">ارسال</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <p class="rights">
-                    <span>۲۰۱۷</span>
-                    |
-                    توسعه یافته توسط
-                    <a href="{{ route('faHome') }}">
-                        <span> فلیپ </span>
-                    </a>
-                    |
-                    <a href="{{url('fa/terms')}}">
-                        <span>قوانین و مقررات </span>
-                    </a>
-                </p>
             </div>
         </div>
-    </div>
-</footer>
+    </section>

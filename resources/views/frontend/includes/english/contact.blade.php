@@ -1,51 +1,49 @@
-<footer id="contact">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-md-push-2 clearfix">
-				<div class="section-heading scrollpoint sp-effect3">
-					<h3>
-					<span>Contact us</span>
-					</h3>
-					<span class="divider"></span>
-					<br>
-					<h4> Address :  #2, 16th Floor<br>Negar Tower,Vanak Sq.<br>Tehran 1969833693,IRAN</h4>
-					<h4>TEL : +98 21 88652990-3</h4>
-					<h4> FAX : +98 21 886 41639</h4>
-					<h4> EMAIL : info@flipapp.ir</h4>
-					<br>
-					<div class="row">
-						<div class="col-md-12">
-							<img class="img-qr" src="../../images/en-barcode.png">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12">
-				<div class="social">
-					<ul>
-						<li><a href="https://twitter.com/flipapp96" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
-						<li><a href="https://www.linkedin.com/in/flip-application-63abb5141" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
-						<li><a href="https://www.facebook.com/profile.php?id=100016712433417" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
-						<li><a href="https://t.me/flipapp" target="_blank"><i class="fa fa-paper-plane"></i></a></li>
-						<!-- <li><a href="#" target="_blank"><i class="fa fa-video-camera"></i>
-						</a></li> -->
-						<li><a href="flipapp96@gmail.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="https://www.instagram.com/flipapplication/" target="_blank"><i class="fa fa-instagram"></i></a></li>
-					</ul>
-				</div>
-				<p class="rights">
-					<span>2017 Flip</span>
-					|
-					Developed by
-					<a href="{{ url('en/global') }}" target="_blank">
-						<span>flip</span>
-					</a>
-					|
-					<a href="{{ url('en/global/terms') }}">
-						<span>Terms and Conditions</span>
-					</a>
-				</p>
-			</div>
-		</div>
-	</div>
-</footer>
+<section id="contact">
+        <div class="container">
+            <div class="row text-center clearfix">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <div class="contact-heading">
+                        <h2 class="title-one">Contact Us</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="contact-details">
+                <div class="pattern"></div>
+                <div class="row text-center clearfix">
+                    <div class="col-sm-6">
+                        <div class="contact-address wow rotateInUpRight">
+                            <address>
+                                <h2>Flip App</h2><strong>#2, 16th Floor Negar Tower,Vanak Sq.Tehran <br> 1969833693,IRAN 
+                                <br> TEL : +98 21 88652990-3 <br> FAX : +98 21 886 41639 <br> EMAIL : info@flipapp.ir</strong>
+                                <br>
+                                <br>
+                                <div>
+                                    <img class="img-qr" src="../../images/en-barcode.png" alt="">
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div id="contact-form-section" class="wow rotateInUpLeft">
+                            <div class="status alert alert-success" style="display: none"></div>
+                            <form id="contact-form" class="contact" name="contact-form" method="post" action="send-mail.php">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control name-field" required="required" placeholder="Your Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control mail-field" required="required" placeholder="Your Email">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
