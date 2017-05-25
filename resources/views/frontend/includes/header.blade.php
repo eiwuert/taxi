@@ -73,10 +73,10 @@
             <ul class="sequence-canvas">
                 <li class="animate-in">
                     <div class="intro">
-                        <h2>
+                        <h2 class="rtl text-right">
                 سریع
               </h2>
-                        <h3>
+                        <h3 class="rtl text-right">
                 به سرعت به شما می رسیم.
               </h3>
                     </div>
@@ -86,10 +86,10 @@
                 <li>
                     <img class="ipad" src="images/seq-slider/flipapp-en-slide-05.png" alt="iPad" />
                     <div class="slide2">
-                        <h2>
+                        <h2 class="rtl text-right">
                 آسان
               </h2>
-                        <h3>
+                        <h3 class="rtl text-right">
                             فقط با یک کلیک.
                         </h3>
                     </div>
@@ -97,10 +97,10 @@
                 </li>
                 <li>
                     <div class="slide3">
-                        <h2>
+                        <h2 class="rtl text-right">
                 مطمئن
               </h2>
-                        <h3>
+                        <h3 class="rtl text-right">
                             با سیستم رهگیری فلیپ، آسوده خاطر باشید.
                         </h3>
                     </div>

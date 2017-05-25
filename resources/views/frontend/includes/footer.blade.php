@@ -74,9 +74,9 @@
 
     jQuery(document).ready(function() {
         jQuery('ul.superfish').superfish();
+        new WOW().init();
     });
 
-    new WOW().init();
     </script>
 </body>
 
