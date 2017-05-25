@@ -7,6 +7,7 @@ return array (
   'Car type deleted' => 'Car type deleted',
   'Deactive' => 'Deactive',
   'Icon ' => 'Icon ',
+  'Deactive' => 'Deactive',
   'Icon: ' => 'Icon: ',
   //==================================== Translations ====================================//
   '1st' => '1st',
