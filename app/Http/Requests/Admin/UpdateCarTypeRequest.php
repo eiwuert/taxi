@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CarTypeRequest extends FormRequest
+class UpdateCarTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class CarTypeRequest extends FormRequest
         return [
             'name'   => 'required|max:255|unique:car_types,name,' . ((is_null($this->type)) ? '0' : $this->type->id) ,
             'active' => 'required',
-            'icon'   => 'required|image',
+            'icon'   => 'image',
         ];
     }
 }

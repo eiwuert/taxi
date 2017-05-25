@@ -147,7 +147,7 @@ class TransactionRepository
                 if (Cache::has(config('app.name') . '_fare_' . $default->id)) {
                     $fares = Cache::get(config('app.name') . '_fare_' . $default->id);
                 } else {
-                    $fares = $default->fare->cost;
+                    $fares = $dZefault->fare->cost;
                     Cache::forever(config('app.name') . '_fare_' . $default->id, $fares);
                 }
             } else {
@@ -157,7 +157,9 @@ class TransactionRepository
         }
         $formatedFares = [];
         foreach ($fares as $type => $fare) {
-            if (is_null(CarType::where('name', $type)->first()->car_type_id)) {
+            $type = CarType::where('name', $type)->first();
+            if (is_null($type) || 
+                is_null($type->car_type_id)) {
                 continue;
             }
             if (is_null($fare['entry']) ||
@@ -170,7 +172,7 @@ class TransactionRepository
             unset($fare['surcharge']['to'], $fare['surcharge']['from'], $fare['surcharge']['amount']);
             $fare['discount'] = (float)($fare['discount'] / 100);
             $fare['surcharge']['*']['amount'] = (1 + ($fare['surcharge']['*']['amount'] / 100));
-            $formatedFares[$type] = $fare;
+            $formatedFares[$type->name] = $fare;
         }
         return $formatedFares;
     }

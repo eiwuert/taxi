@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add car types.
 * Add car type to trip request.
 * Add calculate ver. 3 and nearby ver. 3
 * Add pusher
@@ -1360,48 +1361,78 @@ $.ajax(settings).done(function (response) {
 {
     "success": true,
     "data": [
+        []
+    ]
+}
+```
+
+
+```json
+{
+    "success": true,
+    "data": [
+        [
             {
-                "id": 1,
-                "name": "luxury",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 2,
-                "name": "van",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 3,
-                "name": "sport",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 4,
-                "name": "sedans",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 5,
-                "name": "economy",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 6,
-                "name": "off-roader",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 7,
-                "name": "motorcycle",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
+                "name": "woman",
+                "icon": "http://localhost:8000/img/no-icon.png",
+                "children": [
+                    {
+                        "name": "luxury",
+                        "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
+                        "id": 1
+                    }
+                ]
             }
+        ]
+    ]
+}
+```
+
+
+```json
+{
+    "success": true,
+    "data": [
+        [
+            {
+                "name": "High end",
+                "icon": "http://localhost:8000/img/no-icon.png",
+                "children": [
+                    {
+                        "name": "sport",
+                        "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
+                        "id": 3
+                    }
+                ]
+            },
+            {
+                "name": "Cheap",
+                "icon": "http://localhost:8000/img/no-icon.png",
+                "children": [
+                    {
+                        "name": "sedans",
+                        "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
+                        "id": 4
+                    }
+                ]
+            },
+            {
+                "name": "woman",
+                "icon": "http://localhost:8000/img/no-icon.png",
+                "children": [
+                    {
+                        "name": "luxury",
+                        "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
+                        "id": 1
+                    },
+                    {
+                        "name": "economy",
+                        "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
+                        "id": 5
+                    }
+                ]
+            }
+        ]
     ]
 }
 ```
