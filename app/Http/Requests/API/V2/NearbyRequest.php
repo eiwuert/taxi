@@ -16,7 +16,7 @@ class NearbyRequest extends Request
         return [
             'lat'      => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
             'lng'      => ['required', 'regex:/^[+-]?\d+\.\d+$/'],
-            'type'     => ['min:3', 'max:255', 'exists:car_types,name'],
+            'type'     => ['exists:car_types,id'],
             'currency' => ['size:3'],
             'distance' => ['numeric', 'min:1', 'max:5'],
             'limit'    => ['numeric', 'min:5', 'max:100'],

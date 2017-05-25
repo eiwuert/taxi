@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Log;
 use Auth;
+use App\Client;
 use App\Events\StateChanged;
 use Illuminate\Bus\Queueable;
 use App\Repositories\FcmRepository;
@@ -22,7 +23,7 @@ class SendClientNotification implements ShouldQueue
 
     /**
      * Create a new job instance.
-     * 
+     *
      * @param string $title
      * @param string $message
      * @param string $device_token
@@ -34,20 +35,18 @@ class SendClientNotification implements ShouldQueue
         $this->message = $message;
         $this->user_id = $userId;
         $this->device_token = $device_token;
-        if ($userId != 0) {
-            Auth::loginUsingId($userId);
-        }
     }
 
     /**
      * Execute the job.
-     * 
+     *
      * @return void
      */
     public function handle()
     {
         $fcm = new FcmRepository();
         $fcm->to_client($this->title, $this->message, $this->device_token);
-        event(new StateChanged(Auth::user(), $this->title, $this->message));
+        event(new StateChanged(Client::whereDeviceToken($this->device_token)->first()->user,
+                            $this->title, $this->message));
     }
 }
