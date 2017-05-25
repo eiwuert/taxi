@@ -14,7 +14,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   محاسبه گر کرایه
                 </h3>
                                 <p>
@@ -28,7 +28,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   کد تخفیف / کد ارجاع
                 </h3>
                                 <p>
@@ -44,7 +44,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   پرداخت با کیف پول
                 </h3>
                                 <p>
@@ -58,7 +58,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                  مشاهده موقعیت نزدیکترین راننده
                 </h3>
                                 <p>
@@ -74,7 +74,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   زمان تقریبی رسیدن راننده
                 </h3>
                                 <p>
@@ -88,7 +88,7 @@
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   سیستم امتیازدهی
                 </h3>
                                 <p>

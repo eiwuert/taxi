@@ -75,7 +75,7 @@ p {
     transition: all .3s ease;
     border: 1px solid #fff;
     box-shadow: none;
-    background: url("../img/search-icon.jpg") no-repeat 10px 8px;
+    background: url("../../img/search-icon.jpg") no-repeat 10px 8px;
     padding: 0 5px 0 35px;
     color: #fff;
     margin-left: 10px;
@@ -1750,7 +1750,7 @@ section#download:after {
     bottom: 0;
     right: 0;
     left: 0;
-    /* background: url(../img/pink-rice.png) repeat;*/
+    /* background: url(../../img/pink-rice.png) repeat;*/
 }
 
 section#download .container {
@@ -1796,7 +1796,7 @@ section#download .container .btn-group .btn {
 }
 
 section#download .container .btn-group .btn span {
-    background: url(../img/sprites.png) no-repeat;
+    background: url(../../img/sprites.png) no-repeat;
     display: block;
     margin: 10px auto;
     -webkit-transition: all 0.25s ease-in-out;
@@ -2214,7 +2214,7 @@ ul#filters > .active > span {
 
 #newsletter-faq {
     padding: 72px 0;
-    background: url("../img/tg-black-bg.png") no-repeat fixed top rgba(0, 0, 0, 0.7);
+    background: url("../../img/tg-black-bg.png") no-repeat fixed top rgba(0, 0, 0, 0.7);
     height: 200px;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -3729,7 +3729,7 @@ p {
 }
 
 .tag-line-section {
-    background: url("../img/tg-black-bg.png") no-repeat fixed top rgba(0, 0, 0, 0.7);
+    background: url("../../img/tg-black-bg.png") no-repeat fixed top rgba(0, 0, 0, 0.7);
     height: 300px;
     margin-bottom: 30px;
 }
@@ -3924,7 +3924,7 @@ p {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
-    background-image: url(../img/triangle.png);
+    background-image: url(../../img/triangle.png);
     background-position: 10px 12px;
     background-repeat: no-repeat;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
@@ -4179,7 +4179,7 @@ div.header h3 {
     z-index: 1;
     left: 0;
     bottom: 0;
-    background-image: url(../img/pattern.png);
+    background-image: url(../../img/pattern.png);
     background-repeat: repeat;
     opacity: 0.2;
 }
@@ -4379,7 +4379,7 @@ div.header h3 {
 }
 
 .black-bg {
-    /*    background-image: url("../img/black-bg.png");*/
+    /*    background-image: url("../../img/black-bg.png");*/
     background-color: #1c5f5f;
     background-repeat: no-repeat;
     background-size: cover;
