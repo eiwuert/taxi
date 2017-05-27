@@ -8,64 +8,64 @@ use Illuminate\Http\Request;
  */
 Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@client')
-         ->name('registerClient');
+         ->name('client.register');
 
     Route::get('states', 'StateController@active')
         ->name('client.states.active');
 
     Route::post('verify', 'Auth\SmsController@verify')
-         ->name('verifyUser')
+         ->name('client.verify')
          ->middleware('auth:api', 'role:client');
 
     Route::get('resend', 'Auth\SmsController@resend')
-         ->name('resendSMS')
+         ->name('client.sms.resend')
          ->middleware('auth:api', 'role:client');
 
     Route::get('lang/{lang}', 'UserController@changeLang')
-        ->name('change.language')
+        ->name('client.langs.change')
         ->middleware('auth:api');
 
     Route::get('contact', 'UserController@contact')
-        ->name('contact')
+        ->name('client.contact')
         ->middleware('auth:api');
 
     Route::group(['middleware' => ['auth:api', 'role:client', 'verified']], function () {
         Route::post('location', 'Trip\LocationController@set')
-             ->name('setLocation');
+             ->name('client.location.set');
 
         Route::get('car/types', 'Car\CarTypeController@all')
-            ->name('carTypes');
+            ->name('client.cars.type');
 
         Route::get('profile', 'ProfileController@get')
-             ->name('getClientProfile');
+             ->name('client.profiles.get');
 
         Route::get('balance', 'ProfileController@balance')
-             ->name('getClientBalance');
+             ->name('client.balance');
 
         Route::post('profile', 'ProfileController@update')
-             ->name('updateClientProfile');
+             ->name('client.profiles.update');
 
         Route::post('trip', 'Trip\TripController@requestTaxi')
-             ->name('requestTaxi');
+             ->name('client.trips.request');
 
         Route::post('calculate', 'Trip\TripController@calculate')
-             ->name('calculateTrip');
+             ->name('client.trips.calculate');
 
         Route::post('nearby', 'Trip\TripController@nearbyTaxi')
-             ->name('nearbyTaxi');
+             ->name('client.trips.nearbyTaxi');
 
         Route::get('cancel', 'Trip\TripController@cancel')
-             ->name('clientCancelTrip');
+             ->name('client.trips.cancel');
 
         Route::get('trip', 'Trip\TripController@trip')
-             ->name('currentTrip')
+             ->name('client.trips.current')
              ->middleware('inTrip');
 
         Route::post('rate', 'Trip\RateController@client')
-             ->name('clientRate');
+             ->name('client.trips.rate.set');
 
         Route::get('history', 'Trip\HistoryController@client')
-             ->name('clientHistory');
+             ->name('client.trips.history');
 
         Route::group(['middleware' => ['inTrip', 'notPaid']], function () {
             Route::get('pay/wallet', 'PaymentController@withWallet');
@@ -79,78 +79,78 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
  */
 Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@driver')
-         ->name('registerDriver');
+         ->name('driver.register');
 
     Route::get('states', 'StateController@active')
         ->name('driver.states.active');
 
     Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function () {
         Route::get('status', 'Trip\DriverController@status')
-             ->name('getStatus');
+             ->name('driver.status');
 
         Route::get('online', 'Trip\DriverController@online')
-             ->name('goOnline');
+             ->name('driver.online');
 
         Route::get('offline', 'Trip\DriverController@offline')
-             ->name('goOffline');
+             ->name('driver.offline');
 
         Route::post('location', 'Trip\LocationController@set')
-             ->name('setLocation');
+             ->name('driver.location.set');
 
         Route::get('car/info', 'Car\CarController@info')
-             ->name('getCarInfo');
+             ->name('driver.cars.info');
 
         Route::get('profile', 'ProfileController@get')
-             ->name('getDriverProfile');
+             ->name('driver.profiles.get');
 
         Route::post('profile', 'ProfileController@updateDriver')
-             ->name('updateDriverProfile');
+             ->name('driver.profiles.update');
 
         Route::get('income', 'ProfileController@income')
-             ->name('driverIncome');
+             ->name('driver.income');
 
         Route::get('history', 'Trip\HistoryController@driver')
-             ->name('driverHistory');
+             ->name('driver.trips.history');
 
         Route::group(['middleware' => 'online'], function () {
             Route::get('accept', 'Trip\TripController@accept')
-                 ->name('driverAcceptTrip');
+                 ->name('driver.trips.accept');
 
             Route::get('arrived', 'Trip\TripController@arrived')
-                 ->name('driverArrived');
+                 ->name('driver.trips.arrived');
 
             Route::get('start', 'Trip\TripController@start')
-                 ->name('driverStartTrip');
+                 ->name('driver.trips.start');
 
             Route::get('end', 'Trip\TripController@end')
-                 ->name('driverEndTrip');
+                 ->name('driver.trips.end');
 
             Route::get('cancel', 'Trip\TripController@cancel')
-                 ->name('driverCancelTrip');
+                 ->name('driver.trips.cancel');
 
             Route::get('trip', 'Trip\TripController@trip')
-                 ->name('currentTrip')
+                 ->name('driver.trips.current')
                  ->middleware('inTrip');
 
             Route::post('rate', 'Trip\RateController@driver')
-                 ->name('driverRate');
+                 ->name('driver.trips.rate.set');
         });
     });
 
     Route::post('verify', 'Auth\SmsController@verify')
-         ->name('verifyUser')
+         ->name('driver.verify')
          ->middleware('auth:api', 'role:driver');
 
     Route::get('resend', 'Auth\SmsController@resend')
-         ->name('resendSMS')
+         ->name('driver.sms.resend')
          ->middleware('auth:api', 'role:driver');
 
     Route::get('lang/{lang}', 'UserController@changeLang')
-        ->name('change.language')
+        ->name('driver.langs.change')
         ->middleware('auth:api');
 
     Route::get('contact', 'UserController@contact')
-        ->name('contact')
+        ->name('driver.contact')
         ->middleware('auth:api');
 });
 
