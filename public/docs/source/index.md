@@ -1373,35 +1373,14 @@ $.ajax(settings).done(function (response) {
     "data": [
         [
             {
-                "name": "woman",
-                "icon": "http://localhost:8000/img/no-icon.png",
-                "children": [
-                    {
-                        "name": "luxury",
-                        "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
-                        "id": 1
-                    }
-                ]
-            }
-        ]
-    ]
-}
-```
-
-
-```json
-{
-    "success": true,
-    "data": [
-        [
-            {
                 "name": "High end",
                 "icon": "http://localhost:8000/img/no-icon.png",
                 "children": [
                     {
                         "name": "sport",
                         "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
-                        "id": 3
+                        "id": 3,
+                        "parent_id": 12
                     }
                 ]
             },
@@ -1412,7 +1391,8 @@ $.ajax(settings).done(function (response) {
                     {
                         "name": "sedans",
                         "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
-                        "id": 4
+                        "id": 4,
+                        "parent_id": 11
                     }
                 ]
             },
@@ -1423,12 +1403,14 @@ $.ajax(settings).done(function (response) {
                     {
                         "name": "luxury",
                         "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
-                        "id": 1
+                        "id": 1,
+                        "parent_id": 10
                     },
                     {
                         "name": "economy",
                         "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
-                        "id": 5
+                        "id": 5,
+                        "parent_id": 10
                     }
                 ]
             }
