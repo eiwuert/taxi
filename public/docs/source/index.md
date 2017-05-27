@@ -3998,7 +3998,7 @@ $.ajax(settings).done(function (response) {
 }
 ```
 
-## Current
+## Current v1
 
 Current state of driver trip.
 
@@ -4096,6 +4096,105 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+## Current v2
+
+Current state of driver trip.
+
+
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v2/driver/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v2/driver/trip",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v2/driver/trip`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "paid": true,
+            "payment": "Cash",
+            "client": {
+                "first_name": "Unknown",
+                "last_name": "Passenger",
+                "gender": "not specified",
+                "picture": "http://localhost:8000/img/no-profile.png",
+                "phone": "989359999990"
+            },
+            "trip": {
+                "id": 247,
+                "eta_value": "17659",
+                "eta_text": "4 hours 54 mins",
+                "distance_value": "457814",
+                "distance_text": "458 km",
+                "etd_value": "598",
+                "etd_text": "10 mins",
+                "driver_distance_value": "4122",
+                "driver_distance_text": "4.1 km"
+            },
+            "status": {
+                "name": "driver_onway",
+                "value": 7
+            },
+            "source": {
+                "latitude": "35.726926",
+                "longitude": "51.391521",
+                "name": "استان تهران، تهران، کوچه حسین نیا ۱۲، ایران"
+            },
+            "destination": {
+                "latitude": "32.621120",
+                "longitude": "51.627184",
+                "name": "استان اصفهان، اصفهان، خیابان نستوه، ایران"
+            },
+            "total": "22300000"
+        }
+    ]
+}
+```
+
+> Example response - Not on an active trip
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not on trip",
+            "detail": "Not on an active trip right now"
+        }
+    ]
+}
 ```
 
 ## Income
