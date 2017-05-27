@@ -26,6 +26,19 @@ class Fcm extends Model
     ];
 
     /**
+     * Sortable columns
+     * @var array
+     */
+    public static $sortable = [
+        'success' => 'موفق',
+        'failure' => 'ناموفق',
+        'head' => 'دریافت کننده',
+        'title' => 'عنوان',
+        'message' => 'پیغام',
+//        'created_at' => 'تاریخ',
+    ];
+
+    /**
      * Table name
      * @var string
      */
