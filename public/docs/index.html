@@ -1602,57 +1602,56 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-json">{
     "success": true,
-    "data": [
-        []
-    ]
+    "data": []
 }</code></pre>
 <pre><code class="language-json">{
     "success": true,
     "data": [
-        [
-            {
-                "name": "High end",
-                "icon": "http://localhost:8000/img/no-icon.png",
-                "children": [
-                    {
-                        "name": "sport",
-                        "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
-                        "id": 3,
-                        "parent_id": 12
-                    }
-                ]
-            },
-            {
-                "name": "Cheap",
-                "icon": "http://localhost:8000/img/no-icon.png",
-                "children": [
-                    {
-                        "name": "sedans",
-                        "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
-                        "id": 4,
-                        "parent_id": 11
-                    }
-                ]
-            },
-            {
-                "name": "woman",
-                "icon": "http://localhost:8000/img/no-icon.png",
-                "children": [
-                    {
-                        "name": "luxury",
-                        "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
-                        "id": 1,
-                        "parent_id": 10
-                    },
-                    {
-                        "name": "economy",
-                        "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
-                        "id": 5,
-                        "parent_id": 10
-                    }
-                ]
-            }
-        ]
+        {
+            "name": "High end",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 12,
+            "children": [
+                {
+                    "name": "sport",
+                    "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
+                    "id": 3,
+                    "parent_id": 12
+                }
+            ]
+        },
+        {
+            "name": "Cheap",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 11,
+            "children": [
+                {
+                    "name": "sedans",
+                    "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
+                    "id": 4,
+                    "parent_id": 11
+                }
+            ]
+        },
+        {
+            "name": "woman",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 10,
+            "children": [
+                {
+                    "name": "luxury",
+                    "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
+                    "id": 1,
+                    "parent_id": 10
+                },
+                {
+                    "name": "economy",
+                    "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
+                    "id": 5,
+                    "parent_id": 10
+                }
+            ]
+        }
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
