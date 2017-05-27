@@ -34,7 +34,7 @@ class CarTypeController extends Controller
         //     unset($parent->id);
         // }
 
-        return ok($types);
+        return ok($types, 200, [], false);
 
         // $types = [];
         // $carTypes = CarType::whereActive(true)->parents();
