@@ -33,7 +33,15 @@ class CarTypeController extends Controller
         // foreach ($parents as $parent) {
         //     unset($parent->id);
         // }
-
+        // 
+        // TO BE FIXED
+        // 
+        $order = ['فلیپ', 'فلیپ لاکچری', 'فلیپ بانوان', 'فلیپ موتوری', 'فلیپ باربری'];
+        usort($types, function ($a, $b) use ($order) {
+            $pos_a = array_search($a['name'], $order);
+            $pos_b = array_search($b['name'], $order);
+            return $pos_a - $pos_b;
+        });
         return ok($types, 200, [], false);
 
         // $types = [];
