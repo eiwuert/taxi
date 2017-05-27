@@ -21,6 +21,9 @@ class CarTypeController extends Controller
         foreach ($parents as $parent) {
             if ($parent->children()->whereActive(true)->exists()) {
                 $parent->children = $parent->children()->whereActive(true)->get(['name', 'icon', 'id']);
+                foreach ($parent->children as $child) {
+                    $child->parent_id = $parent->id;
+                }
                 $types[] = $parent;
             } else {
                 unset($parent);
@@ -32,19 +35,19 @@ class CarTypeController extends Controller
 
         return ok($types);
 
-        $types = [];
-        $carTypes = CarType::whereActive(true)->parents();
-        foreach ($carTypes->get() as $carType) {
-            $types[$carType->name] = $carType;
-        }
-        foreach ($carTypes->get() as $carType) {
-            foreach ($carType->children()->get() as $child) {
-                if ($child->active) {
-                    $types[$carType->name][] = $child;
-                }
-            }
-        }
+        // $types = [];
+        // $carTypes = CarType::whereActive(true)->parents();
+        // foreach ($carTypes->get() as $carType) {
+        //     $types[$carType->name] = $carType;
+        // }
+        // foreach ($carTypes->get() as $carType) {
+        //     foreach ($carType->children()->get() as $child) {
+        //         if ($child->active) {
+        //             $types[$carType->name][] = $child;
+        //         }
+        //     }
+        // }
 
-        return ok($types, 200, [], false);
+        // return ok($types, 200, [], false);
     }
 }
