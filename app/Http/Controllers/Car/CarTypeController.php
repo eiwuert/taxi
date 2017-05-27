@@ -29,9 +29,10 @@ class CarTypeController extends Controller
                 unset($parent);
             }
         }
-        foreach ($parents as $parent) {
-            unset($parent->id);
-        }
+        // Remove parent ID
+        // foreach ($parents as $parent) {
+        //     unset($parent->id);
+        // }
 
         return ok($types);
 
