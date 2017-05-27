@@ -14,7 +14,7 @@ class StateController extends Controller
 
     public function active()
     {
-        $activeStates = State::where('active',true)->get();
+        $activeStates = State::where('active',true)->get(['id','name']);
         return ok($activeStates);
     }
 
