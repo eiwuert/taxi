@@ -2613,22 +2613,49 @@ limit | numeric |  min: `5`, max: `100`  |
     "success": true,
     "data": [
         {
-            "id": 20,
-            "distance": "0.245001059497561",
-            "longitude": "51.409909",
-            "latitude": "35.757580",
-            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
-            "user_id": 3,
-            "anlge": 350
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327
         },
         {
-            "id": 4,
-            "distance": "0.563525245388979",
-            "longitude": "51.406401",
-            "latitude": "35.757223",
-            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
-            "user_id": 1,
-            "angle": 12
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115
+        },
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112
         }
     ]
 }
@@ -2650,9 +2677,9 @@ limit | numeric |  min: `5`, max: `100`  |
 ```
 
 
-## Nearby taxis v2
+## Nearby taxis v3
 
-Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
+Find near by taxis.
 
 > Example request
 
@@ -2664,6 +2691,7 @@ curl "http://flipapp.ir/api/v3/client/nearby" \
    -d "lng": "maiores", \
    -d "distance": "maiores", \
    -d "limit": "maiores", \ 
+   -d "type": "maiores", \ 
 
 ```
 
@@ -2678,15 +2706,16 @@ var settings = {
         "lng": "amet",
         "distance": "amet",
         "limit": "amet",
+        "type": "amet",
 },
-        "headers": {
-    "accept": "application/json",
-    "authorization": "Bearer ACCESS_TOKEN"
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2702,72 +2731,70 @@ lat | numeric |  required  | `(d+).(d+)`
 lng | numeric |  required  | `(d+).(d+)`
 distance | numeric |  min: `1`, max: `5`  | 
 limit | numeric |  min: `5`, max: `100`  | 
+type | numeric |  children ID  | 
     
 > Example response
 
 ```json
 {
     "success": true,
-    "data": {
-        "woman": {
-            "luxury": [
-                {
-                    "id": 7947,
-                    "distance": "2.04013276215645",
-                    "longitude": "51.410165",
-                    "latitude": "35.716557",
-                    "name": "NOT SET",
-                    "user_id": 462,
-                    "angle": 192
-                },
-                {
-                    "id": 7341,
-                    "distance": "2.27246822248217",
-                    "longitude": "51.366905",
-                    "latitude": "35.731209",
-                    "name": "NOT SET",
-                    "user_id": 456,
-                    "angle": 327
-                },
-                {
-                    "id": 9159,
-                    "distance": "2.39551047107605",
-                    "longitude": "51.417375",
-                    "latitude": "35.722071",
-                    "name": "NOT SET",
-                    "user_id": 474,
-                    "angle": 115
-                },
-                {
-                    "id": 4008,
-                    "distance": "3.14346537747125",
-                    "longitude": "51.424588",
-                    "latitude": "35.718066",
-                    "name": "NOT SET",
-                    "user_id": 423,
-                    "angle": 19
-                },
-                {
-                    "id": 4715,
-                    "distance": "3.31577013795581",
-                    "longitude": "51.409080",
-                    "latitude": "35.753119",
-                    "name": "NOT SET",
-                    "user_id": 430,
-                    "angle": 237
-                }
-            ],
-            "economy": []
+    "data": [
+        {
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327,
+            "cat_id": 1,
+            "parent_id": 10
         },
-        "High-end": {
-            "sport": [],
-            "off-roader": []
+        {
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115,
+            "cat_id": 1,
+            "parent_id": 10
         },
-        "Cheap": {
-            "sedans": [],
-            "van": []
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19,
+            "cat_id": 1,
+            "parent_id": 10
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237,
+            "cat_id": 1,
+            "parent_id": 10
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112,
+            "cat_id": 1,
+            "parent_id": 10
         }
-    }
+    ]
 }
 ```
 
