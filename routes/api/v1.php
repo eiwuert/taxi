@@ -2,20 +2,6 @@
 
 use Illuminate\Http\Request;
 
-/**
- * Common Routes
- */
-Route::get('states', 'StateController@index')
-    ->name('getStates')
-    ->middleware('auth:api');
-
-Route::get('states/active', 'StateController@active')
-    ->name('getActiveStates')
-    ->middleware('auth:api');
-
-Route::get('states/{state}', 'StateController@get')
-    ->name('getState')
-    ->middleware('auth:api');
 
 /**
  * Client Routes.
@@ -23,6 +9,9 @@ Route::get('states/{state}', 'StateController@get')
 Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@client')
          ->name('registerClient');
+
+    Route::get('states', 'StateController@active')
+        ->name('client.states.active');
 
     Route::post('verify', 'Auth\SmsController@verify')
          ->name('verifyUser')
@@ -91,6 +80,9 @@ Route::group(['prefix' => 'client', 'middleware' => 'header'], function () {
 Route::group(['prefix' => 'driver', 'middleware' => 'header'], function () {
     Route::post('register', 'Auth\RegisterController@driver')
          ->name('registerDriver');
+
+    Route::get('states', 'StateController@active')
+        ->name('driver.states.active');
 
     Route::group(['middleware' => ['auth:api', 'role:driver', 'verified', 'approved', 'hasCar']], function () {
         Route::get('status', 'Trip\DriverController@status')
