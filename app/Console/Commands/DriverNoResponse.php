@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Log;
 use App\Trip;
 use App\Status;
 use App\Client;
@@ -58,7 +57,6 @@ class driverNoResponse extends Command
 
         foreach ($trips as $trip) {
             $driverId = $trip->driver_id;
-            Log::info($driverId);
             $trip->forceFill([
                             'status_id'              => Status::where('name', 'no_response')->firstOrFail()->value,
                             'updated_at'             => Carbon::now(),
@@ -73,14 +71,12 @@ class driverNoResponse extends Command
             }
             $driver = Driver::find($driverId);
             dispatch(new SendDriverNotification('no_reponse_going_offline', '4', $driver->device_token, $driver->user->id));
-            Log::info($driverId);
 
             Driver::find($driverId)->forceFill([
                         'online'     => false,
                         'available'  => true,
                     ])->save();
 
-            Log::alert(($trip->next));
             // Request new taxi
             $prevTrip = Trip::find($trip->id);
             $tripRequest = [
@@ -88,6 +84,7 @@ class driverNoResponse extends Command
                 's_long' => $prevTrip->source()->first()->longitude,
                 'd_lat'  => $prevTrip->destination()->first()->latitude,
                 'd_long' => $prevTrip->destination()->first()->longitude,
+                'type'   => $prevTrip->driver->user->car->type->id,
             ];
             $exclude = DriversTo::exclude($prevTrip->client_id);
             if ($exclude['count'] < 10) {
