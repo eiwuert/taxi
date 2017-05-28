@@ -1,4 +1,6 @@
 {!! Form::model($driver, ['method' => 'PATCH', 'action' => ['Admin\DriverController@update', $driver->id], 'class' => 'form-horizontal', 'files' => true]) !!}
+<input type="hidden" name="driver_id" value="{{$driver->id}}">
+
 <div class="form-group">
     {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">

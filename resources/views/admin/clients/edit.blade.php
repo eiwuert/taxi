@@ -1,4 +1,5 @@
 {!! Form::model($client, ['method' => 'PATCH', 'action' => ['Admin\ClientController@update', $client->id], 'class' => 'form-horizontal', 'files' => true]) !!}
+<input type="hidden" name="client_id" value="{{$client->id}}">
 <div class="form-group">
   {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
@@ -39,7 +40,7 @@
 <div class="form-group">
   {!! Form::label('state', __('admin/general.State: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
-    {!! Form::select('state', \Auth::user()->states(), null, ['class' => 'form-control']) !!}
+    {!! Form::select('state', \Auth::user()->states(), $client->state, ['class' => 'form-control']) !!}
   </div>
 </div>
 <div class="form-group">
