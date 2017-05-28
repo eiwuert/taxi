@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TripRepository;
 use App\Http\Requests\API\V2\TripRequest;
 use App\Http\Requests\API\V2\NearbyRequest;
+use App\Http\Requests\API\V3\CalculateRequest;
 use App\Repositories\Trip\NearbyRepository as Find;
 use App\Repositories\Trip\CreateRepository as Create;
 
@@ -26,7 +27,7 @@ class TripController extends Controller
      * @param App\Http\Requests\TripRequest $tripRequest
      * @return json
      */
-    public function calculate(TripRequest $tripRequest)
+    public function calculate(CalculateRequest $tripRequest)
     {
         return TripRepository::calculateV3($tripRequest);
     }

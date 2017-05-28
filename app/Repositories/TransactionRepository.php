@@ -95,10 +95,21 @@ class TransactionRepository
      * @param  App\Trip $trip
      * @param String $type
      * @param String $currency
+     * @param String $type
      * @return json
      */
-    public function calculateV3($lat, $long, $distance_value, $eta_value, $currency)
+    public function calculateV3($lat, $long, $distance_value, $eta_value, $currency, $type)
     {
+        $type = CarType::find($type);
+        if (!is_null($type->car_type_id)) {
+            $type = $type->parent;
+        }
+        $transactions = [];
+        $children = $type->children()->get(['name']);
+        $types = [];
+        foreach ($children as $child) {
+            $types[] = $child->name;
+        }
         $timezone = $this->timezone($lat, $long);
         $formatedFares = $this->getTransactins($lat, $long, $distance_value, $eta_value, $currency);
         foreach ($formatedFares as $type => $rules) {
@@ -106,10 +117,25 @@ class TransactionRepository
             $rules[$type] = $rules;
             $this->rules($type, $rules);
             $transaction = $this->transaction($distance_value, $eta_value, $timezone);
-            unset($transaction['commission']);
-            $transactions[CarType::whereName($type)->first()->parent->name][CarType::whereName($type)->first()->name] = $transaction;
+            if (in_array($transaction['car_type'], $types)) {
+                unset($transaction['commission']);
+                $transactions[] = $transaction;
+            }
         }
+
         return $transactions;
+
+        // $timezone = $this->timezone($lat, $long);
+        // $formatedFares = $this->getTransactins($lat, $long, $distance_value, $eta_value, $currency);
+        // foreach ($formatedFares as $type => $rules) {
+        //     $this->type = $type;
+        //     $rules[$type] = $rules;
+        //     $this->rules($type, $rules);
+        //     $transaction = $this->transaction($distance_value, $eta_value, $timezone);
+        //     unset($transaction['commission']);
+        //     $transactions[CarType::whereName($type)->first()->parent->name][CarType::whereName($type)->first()->name] = $transaction;
+        // }
+        // return $transactions;
     }
 
     /**
