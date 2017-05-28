@@ -4529,4 +4529,5 @@ div.header h3 {
 }
 .about-content{
     line-height: 30px;
+    direction: rtl;
 }
