@@ -163,7 +163,7 @@ class TripRepository
         }
         $transactions = (new TransactionRepository())->calculateV3($tripRequest->s_lat, $tripRequest->s_long,
                                              $distanceMatrix['distance']['value'],
-                                             $distanceMatrix['duration']['value'], 'IRR');
+                                             $distanceMatrix['duration']['value'], 'IRR', $tripRequest->type);
         return ok([
                 'source'       => $source,
                 'destination'  => $destination,

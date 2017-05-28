@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Shows fa frontend index page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -15,8 +15,9 @@ class HomeController extends Controller
     {
         return view('frontend.index');
     }
+
     /**
-     * Show the application dashboard.
+     * Shows fa frontend terms page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -24,8 +25,9 @@ class HomeController extends Controller
     {
         return view('frontend.terms');
     }
+
     /**
-     * Show the application dashboard.
+     * Shows en frontend index page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,8 +35,9 @@ class HomeController extends Controller
     {
         return view('frontend.en.index');
     }
-     /**
-     * Show the application dashboard.
+    
+    /**
+     * Shows en frontend terms page.
      *
      * @return \Illuminate\Http\Response
      */

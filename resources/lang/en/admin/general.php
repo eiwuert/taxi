@@ -2,8 +2,13 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Children: ' => 'Children: ',
-  'Sub categories' => 'Sub categories',
+  'Active' => 'Active',
+  'Active: ' => 'Active: ',
+  'Car type deleted' => 'Car type deleted',
+  'Deactive' => 'Deactive',
+  'Icon ' => 'Icon ',
+  'Deactive' => 'Deactive',
+  'Icon: ' => 'Icon: ',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -46,6 +51,7 @@ return array (
   'Car types' => 'Car types',
   'Charge' => 'Charge',
   'Charged' => 'Charged',
+  'Children: ' => 'Children: ',
   'Choose picture' => 'Choose picture',
   'Client' => 'Client',
   'Client canceled arrived driver' => ' Client canceled arrived driver ',
@@ -266,6 +272,7 @@ return array (
   'State:' => 'State:',
   'State: ' => 'State: ',
   'Status' => 'Status',
+  'Sub categories' => 'Sub categories',
   'Status: ' => 'Status: ',
   'Subject (*) : ' => 'Subject (*) : ',
   'Submit' => 'Submit',
@@ -384,15 +391,15 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
-    'States' => 'States',
-    'New state' => 'New state',
-    'State cannot be deleted' => 'State cannot be deleted',
-    'State created' => 'State created',
-    'State has been deleted' => 'State has been deleted',
-    'State updated' => 'State updated',
-    'State: ' => 'State: ',
-    'Active' => 'Active',
-    'Inactive' => 'inActive',
-    'Edit'=>'Edit',
-    'Create'=>'Create'
+  'States' => 'States',
+  'New state' => 'New state',
+  'State cannot be deleted' => 'State cannot be deleted',
+  'State created' => 'State created',
+  'State has been deleted' => 'State has been deleted',
+  'State updated' => 'State updated',
+  'State: ' => 'State: ',
+  'Active' => 'Active',
+  'Inactive' => 'inActive',
+  'Edit'=>'Edit',
+  'Create'=>'Create'
 );

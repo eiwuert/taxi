@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Trip;
 
+use Auth;
 use App\Client;
 use App\Driver;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\Trip\CreateRepository as Create;
 use App\Repositories\Trip\MainRepository as DriversTo;
-use Auth;
 
 class CancelRepository
 {
@@ -129,6 +129,7 @@ class CancelRepository
                             's_long' => $trip->source()->first()->longitude,
                             'd_lat'  => $trip->destination()->first()->latitude,
                             'd_long' => $trip->destination()->first()->longitude,
+                            'type'   => $trip->driver->user->car->type->id,
                         ];
                     $exclude = DriversTo::exclude($trip->client_id);
                     if ($exclude['count'] < 10) {

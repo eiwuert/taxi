@@ -64,6 +64,45 @@ class CurrentRepository extends Main
     }
 
     /**
+     * Show current trip of the driver.
+     * Add trip id to trip object.
+     * @return array
+     */
+    public static function driverTripV2()
+    {
+        $driver = Auth::user()->driver()->first();
+        $trip = $driver->trips()->orderBy('id', 'desc')->first();
+        $paid = $trip->payments()->paid()->exists();
+        $transaction = $trip->transaction()->first();
+        if(is_null($transaction)) {
+            $total = 0;
+        } else {
+            $total = $transaction->total;
+        }
+        $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+        $client->phone = $client->user->phone;
+        $source = $trip->source()->first(['latitude', 'longitude', 'name']);
+        $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
+        $status = Status::whereValue($trip->status_id)->first(['name', 'value']);
+        // Will be true always.
+        // $paid = $trip->payments()->paid()->exists();
+        $payment = is_null($payment = $trip->payments()->paid()->first())?__('api/payment.cash'):$payment->type;
+        unset($client->user_id, $trip->next, $trip->prev, $trip->client_id, $trip->driver_id,
+              $trip->status_id, $trip->source, $trip->destination, $trip->created_at, $trip->updated_at,
+              $trip->transaction_id, $trip->rate_id, $trip->driver_location, $client->user);
+        return [
+            'paid'        => true,
+            'payment'     => $payment,
+            'client'      => $client,
+            'trip'        => $trip,
+            'status'      => $status,
+            'source'      => $source,
+            'destination' => $destination,
+            'total'       => $total,
+        ];
+    }
+
+    /**
      * Show current trip of the client.
      * @return array
      */

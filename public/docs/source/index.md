@@ -21,6 +21,7 @@ toc_footers:
 HEAD UP! new changes to API will be here as reference.
 </aside>
 
+* Add car types.
 * Add new fcm code for driver (approved and disapproved).
 * Add client and driver states (province).
 * Add car type to trip request.
@@ -568,7 +569,7 @@ Parameter | Type | Status | Description
 
 
 ### States
-To get driver active States use below request.
+Get active states.
 
  `GET api/v1/driver/states`
 
@@ -1367,49 +1368,60 @@ $.ajax(settings).done(function (response) {
 ```json
 {
     "success": true,
+    "data": []
+}
+```
+
+
+```json
+{
+    "success": true,
     "data": [
-            {
-                "id": 1,
-                "name": "luxury",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 2,
-                "name": "van",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 3,
-                "name": "sport",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 4,
-                "name": "sedans",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 5,
-                "name": "economy",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 6,
-                "name": "off-roader",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 7,
-                "name": "motorcycle",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            }
+        {
+            "name": "High end",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 12,
+            "children": [
+                {
+                    "name": "sport",
+                    "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
+                    "id": 3,
+                    "parent_id": 12
+                }
+            ]
+        },
+        {
+            "name": "Cheap",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 11,
+            "children": [
+                {
+                    "name": "sedans",
+                    "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
+                    "id": 4,
+                    "parent_id": 11
+                }
+            ]
+        },
+        {
+            "name": "woman",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 10,
+            "children": [
+                {
+                    "name": "luxury",
+                    "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
+                    "id": 1,
+                    "parent_id": 10
+                },
+                {
+                    "name": "economy",
+                    "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
+                    "id": 5,
+                    "parent_id": 10
+                }
+            ]
+        }
     ]
 }
 ```
@@ -2590,22 +2602,49 @@ limit | numeric |  min: `5`, max: `100`  |
     "success": true,
     "data": [
         {
-            "id": 20,
-            "distance": "0.245001059497561",
-            "longitude": "51.409909",
-            "latitude": "35.757580",
-            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
-            "user_id": 3,
-            "anlge": 350
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327
         },
         {
-            "id": 4,
-            "distance": "0.563525245388979",
-            "longitude": "51.406401",
-            "latitude": "35.757223",
-            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
-            "user_id": 1,
-            "angle": 12
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115
+        },
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112
         }
     ]
 }
@@ -2627,9 +2666,9 @@ limit | numeric |  min: `5`, max: `100`  |
 ```
 
 
-## Nearby taxis v2
+## Nearby taxis v3
 
-Find near by taxis. in `v2` of API you can send `lng` instead of `long`.
+Find near by taxis.
 
 > Example request
 
@@ -2641,6 +2680,7 @@ curl "http://flipapp.ir/api/v3/client/nearby" \
    -d "lng": "maiores", \
    -d "distance": "maiores", \
    -d "limit": "maiores", \ 
+   -d "type": "maiores", \ 
 
 ```
 
@@ -2655,15 +2695,16 @@ var settings = {
         "lng": "amet",
         "distance": "amet",
         "limit": "amet",
+        "type": "amet",
 },
-        "headers": {
-    "accept": "application/json",
-    "authorization": "Bearer ACCESS_TOKEN"
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-console.log(response);
+    console.log(response);
 });
 ```
 
@@ -2679,72 +2720,70 @@ lat | numeric |  required  | `(d+).(d+)`
 lng | numeric |  required  | `(d+).(d+)`
 distance | numeric |  min: `1`, max: `5`  | 
 limit | numeric |  min: `5`, max: `100`  | 
+type | numeric |  children ID  | 
     
 > Example response
 
 ```json
 {
     "success": true,
-    "data": {
-        "woman": {
-            "luxury": [
-                {
-                    "id": 7947,
-                    "distance": "2.04013276215645",
-                    "longitude": "51.410165",
-                    "latitude": "35.716557",
-                    "name": "NOT SET",
-                    "user_id": 462,
-                    "angle": 192
-                },
-                {
-                    "id": 7341,
-                    "distance": "2.27246822248217",
-                    "longitude": "51.366905",
-                    "latitude": "35.731209",
-                    "name": "NOT SET",
-                    "user_id": 456,
-                    "angle": 327
-                },
-                {
-                    "id": 9159,
-                    "distance": "2.39551047107605",
-                    "longitude": "51.417375",
-                    "latitude": "35.722071",
-                    "name": "NOT SET",
-                    "user_id": 474,
-                    "angle": 115
-                },
-                {
-                    "id": 4008,
-                    "distance": "3.14346537747125",
-                    "longitude": "51.424588",
-                    "latitude": "35.718066",
-                    "name": "NOT SET",
-                    "user_id": 423,
-                    "angle": 19
-                },
-                {
-                    "id": 4715,
-                    "distance": "3.31577013795581",
-                    "longitude": "51.409080",
-                    "latitude": "35.753119",
-                    "name": "NOT SET",
-                    "user_id": 430,
-                    "angle": 237
-                }
-            ],
-            "economy": []
+    "data": [
+        {
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327,
+            "cat_id": 1,
+            "parent_id": 10
         },
-        "High-end": {
-            "sport": [],
-            "off-roader": []
+        {
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115,
+            "cat_id": 1,
+            "parent_id": 10
         },
-        "Cheap": {
-            "sedans": [],
-            "van": []
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19,
+            "cat_id": 1,
+            "parent_id": 10
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237,
+            "cat_id": 1,
+            "parent_id": 10
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112,
+            "cat_id": 1,
+            "parent_id": 10
         }
-    }
+    ]
 }
 ```
 
@@ -3975,7 +4014,7 @@ $.ajax(settings).done(function (response) {
 }
 ```
 
-## Current
+## Current v1
 
 Current state of driver trip.
 
@@ -4073,6 +4112,105 @@ $.ajax(settings).done(function (response) {
     ]
 }
 
+```
+
+## Current v2
+
+Current state of driver trip.
+
+
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v2/driver/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v2/driver/trip",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`GET api/v2/driver/trip`
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "paid": true,
+            "payment": "Cash",
+            "client": {
+                "first_name": "Unknown",
+                "last_name": "Passenger",
+                "gender": "not specified",
+                "picture": "http://localhost:8000/img/no-profile.png",
+                "phone": "989359999990"
+            },
+            "trip": {
+                "id": 247,
+                "eta_value": "17659",
+                "eta_text": "4 hours 54 mins",
+                "distance_value": "457814",
+                "distance_text": "458 km",
+                "etd_value": "598",
+                "etd_text": "10 mins",
+                "driver_distance_value": "4122",
+                "driver_distance_text": "4.1 km"
+            },
+            "status": {
+                "name": "driver_onway",
+                "value": 7
+            },
+            "source": {
+                "latitude": "35.726926",
+                "longitude": "51.391521",
+                "name": "استان تهران، تهران، کوچه حسین نیا ۱۲، ایران"
+            },
+            "destination": {
+                "latitude": "32.621120",
+                "longitude": "51.627184",
+                "name": "استان اصفهان، اصفهان، خیابان نستوه، ایران"
+            },
+            "total": "22300000"
+        }
+    ]
+}
+```
+
+> Example response - Not on an active trip
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Not on trip",
+            "detail": "Not on an active trip right now"
+        }
+    ]
+}
 ```
 
 ## Income

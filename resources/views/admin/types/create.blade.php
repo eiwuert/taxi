@@ -18,11 +18,23 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                {!! Form::open(['method' => 'POST', 'action' => ['Admin\TypeController@store'], 'class' => 'form-horizontal']) !!}
+                {!! Form::open(['method' => 'POST', 'action' => ['Admin\TypeController@store'], 'class' => 'form-horizontal', 'files' => true]) !!}
                 <div class="form-group">
                     {!! Form::label('name', __('admin/general.Name: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('icon', __('admin/general.Icon: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::file('icon', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('active', __('admin/general.Active: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::select('active', ['0' => __('admin/general.Deactive'), '1' => __('admin/general.Active')], null, ['class' => 'from-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">

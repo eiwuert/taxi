@@ -35,6 +35,10 @@ Route::group(['prefix' => 'driver', 'middleware' => 'header', 'namespace' => 'V2
              ->name('goOfflineV2');
         Route::get('status', 'DriverController@status')
              ->name('getStatusV2');
+        Route::group(['middleware' => 'online'], function () {
+            Route::get('trip', 'TripController@trip')
+                 ->middleware('inTrip');
+        });
     });
 });
 

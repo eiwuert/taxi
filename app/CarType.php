@@ -2,12 +2,15 @@
 
 namespace App;
 
+use Image;
+use Storage;
+use App\Car;
 use Illuminate\Database\Eloquent\Model;
 
 class CarType extends Model
 {
     protected $fillable = [
-        'name', 'car_type_id'
+        'name', 'car_type_id', 'icon', 'active'
     ];
 
     /**
@@ -74,7 +77,7 @@ class CarType extends Model
     /*
      * Scope a query for parents types.
      *
-     * @param \Illuminate\Database\Eloquent\Builder 
+     * @param \Illuminate\Database\Eloquent\Builder
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeParents($query)
@@ -85,11 +88,64 @@ class CarType extends Model
     /*
      * Scope a query for children types.
      *
-     * @param \Illuminate\Database\Eloquent\Builder 
+     * @param \Illuminate\Database\Eloquent\Builder
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeChildren($query)
     {
         return $query->whereNotNull('car_type_id');
+    }
+
+    /**
+     * Save car type icon.
+     *
+     * @param  string $icon
+     * @return string
+     */
+    public function setIconAttribute($icon)
+    {
+        if (! is_null($icon)) {
+            $name = $this->attributes['icon'] = basename($icon->store('public/car_types/icon/'));
+            $img = Image::make('storage/car_types/icon/' . $name);
+            $img->fit(128);
+            Storage::delete('storage/car_types/icon/' . $name);
+            $img->save('storage/car_types/icon/' . $name);
+        }
+    }
+
+    /**
+     * Get full path to car type icon url.
+     *
+     * @param  string $picture
+     * @return string
+     */
+    public function getIconAttribute($picture)
+    {
+        if ($picture != 'no-icon.png') {
+            return asset('storage/car_types/icon/' . $picture);
+        } else {
+            return asset('img/no-icon.png');
+        }
+    }
+
+    /**
+     * Can delete the given car type. A car type can be deleted when no driver's
+     * car assigned to the given car type.
+     *
+     * @return bool
+     */
+    public function canDelete()
+    {
+        $types = [$this->id];
+        if (!is_null($this->children) && !$this->children->isEmpty()) {
+            foreach ($this->children()->get(['id']) as $type) {
+                $types[] = $type->id;
+            }
+        }
+        if (Car::with('type')->whereIn('type_id', $types)->exists()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

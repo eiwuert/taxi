@@ -16,39 +16,57 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     // en
     mix.styles([
-            'animate.min.css',
             'bootstrap.min.css',
+            'flexslider.css',
+            'animate.css',
+            'seq-slider/sequencejs-theme.apple-style.css',
             'fontiran.css',
-            'ltr.css',
+            'style.css',
             'more.css',
-            'owl.carousel.css',
-            'owl.theme.css',
-            'styles.css',
         ], 'public/css/en.css', 'resources/assets/css')
-        .webpack(['analytics.js',
-            'jquery.min.js',
-            'bootstrap.js',
-            'owl.carousel.min.js',
-            'waypoints.min.js',
-            'script.js',
+
+        .webpack([
+            'jquery-1.8.3.min.js',
+            'jquery.easing.min.js',
+            'jquery.flexslider.js',
+            'jquery.parallax-1.1.3.js',
+            'bootstrap.min.js',
+            'hover-dropdown.js',
+            'link-hover.js',
+            'common-scripts.js',
+            'scrolling-nav.js',
+            'bxslider.js',
+            'wow.min.js',
+            'seq-slider/jquery.sequence-min.js',
+            'seq-slider/sequencejs-options.apple-style.js',
         ], 'public/js/en.js', 'resources/assets/js');
 
     //fa
     mix.styles([
-            'animate.min.css',
             'bootstrap.min.css',
+            'flexslider.css',
+            'animate.css',
+            'seq-slider/sequencejs-theme.apple-style.css',
             'fontiran.css',
-            'moreRtl.css',
-            'owl.carousel.css',
-            'owl.theme.css',
-            'styles.css',
+            'style.css',
+            'more.css',
+            'rtl.css',
         ], 'public/css/fa.css', 'resources/assets/css')
-        .webpack(['analytics.js',
-            'jquery.min.js',
-            'bootstrap.js',
-            'owl.carousel.min.js',
-            'waypoints.min.js',
-            'script.js',
+
+        .webpack([
+            'jquery-1.8.3.min.js',
+            'jquery.easing.min.js',
+            'jquery.flexslider.js',
+            'jquery.parallax-1.1.3.js',
+            'bootstrap.min.js',
+            'hover-dropdown.js',
+            'link-hover.js',
+            'common-scripts.js',
+            'scrolling-nav.js',
+            'bxslider.js',
+            'wow.min.js',
+            'seq-slider/jquery.sequence-min.js',
+            'seq-slider/sequencejs-options.apple-style.js',
         ], 'public/js/fa.js', 'resources/assets/js');
 
 
