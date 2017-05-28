@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use App\Driver;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,14 +29,7 @@ class DriverRequest extends FormRequest
         return [
             'first_name'    => 'sometimes|max:255',
             'last_name'     => 'sometimes|max:255',
-            'email'         => [
-                            'sometimes',
-                            Rule::unique('drivers')
-                                ->ignore(is_null(Driver::whereEmail(FormRequest::get('email'))->first()) 
-                                        ? 0 
-                                        : Driver::whereEmail(FormRequest::get('email'))->first()->id),
-                            'email',
-                            ],
+            'email'         => 'sometimes|nullable|email|unique:clients,email,'.Request::get('driver_id'),
             'gender'        => 'sometimes|in:"male", "female", "not specified"',
             'address'       => 'sometimes|max:255',
             'state'         => 'sometimes|max:255',

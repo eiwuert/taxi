@@ -21,8 +21,15 @@ Route::group(['prefix' => 'settings', 'middleware' => 'superadmin'], function ()
          ->name('settings.logs.index');
     Route::get('requests', 'Setting\RequestController@index')
          ->name('settings.requests.index');
+
+//    FCM & Filtering
     Route::get('fcm', 'Setting\FcmController@index')
          ->name('settings.fcm.index');
+    Route::get('fcm/filter', 'Setting\FcmController@filter')
+        ->name('settings.fcm.filter');
+    Route::get('fcm/search', 'Setting\FcmController@search')
+        ->name('settings.fcm.search');
+
      Route::get('sms', 'Setting\SmsController@index')
           ->name('settings.sms.index');
 });

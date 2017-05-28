@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\SendDriverNotification;
 use DB;
 use Auth;
 use App\User;
@@ -115,6 +116,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
+        dispatch(new SendDriverNotification('driver_approved_by_admin', '9', $driver->device_token));
         flash(__('admin/general.Driver approved'), 'success');
         return back();
     }
@@ -131,6 +133,7 @@ class DriverController extends Controller
         $driver->online = false;
         $driver->available = false;
         $driver->update();
+        dispatch(new SendDriverNotification('driver_disapproved_by_admin', '10', $driver->device_token));
         flash(__('admin/general.Driver declined'), 'success');
         return back();
     }

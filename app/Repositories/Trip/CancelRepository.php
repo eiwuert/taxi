@@ -46,7 +46,7 @@ class CancelRepository
             switch ($status) {
                 // REQUEST_TAXI
                 case '1':
-                    $this->trip->updateStatusTo('cancel_request_taxi');
+                    $trip->updateStatusTo('cancel_request_taxi');
                     return ['ok'];
                     break;
                 // NO_RESPONSE
