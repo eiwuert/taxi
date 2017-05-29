@@ -40,7 +40,7 @@ class CurrentRepository extends Main
         } else {
             $total = $transaction->total;
         }
-        $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+        $client = Client::whereId($trip->client_id)->first(Client::$info);
         $client->phone = $client->user->phone;
         $source = $trip->source()->first(['latitude', 'longitude', 'name']);
         $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
@@ -79,7 +79,7 @@ class CurrentRepository extends Main
         } else {
             $total = $transaction->total;
         }
-        $client = Client::whereId($trip->client_id)->first(['first_name', 'last_name', 'gender', 'picture', 'user_id']);
+        $client = Client::whereId($trip->client_id)->first(Client::$info);
         $client->phone = $client->user->phone;
         $source = $trip->source()->first(['latitude', 'longitude', 'name']);
         $destination = $trip->destination()->first(['latitude', 'longitude', 'name']);
@@ -110,7 +110,7 @@ class CurrentRepository extends Main
     {
         $client = Auth::user()->client()->first();
         $trip = $client->trips()->orderBy('id', 'desc')->first();
-        $driver = Driver::where('id', $trip->driver_id)->first(['first_name', 'last_name', 'email', 'gender', 'picture', 'user_id']);
+        $driver = Driver::where('id', $trip->driver_id)->first(Driver::$info);
         if (is_null($driver)) {
             return false;
         }

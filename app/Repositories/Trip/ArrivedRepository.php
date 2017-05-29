@@ -16,7 +16,7 @@ class ArrivedRepository
     public static function arrived()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::whereName('driver_onway')->firstOrFail()->value;
+        $status = Status::getVal('driver_onway');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
@@ -25,7 +25,7 @@ class ArrivedRepository
             return false;
         }
 
-        if ($trip->status_id == 7) {
+        if ($trip->status_id == $status) {
             $trip->updateStatusTo('driver_arrived');
             $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
             dispatch(new SendClientNotification('driver_arrived', '8', $deviceToken));

@@ -18,7 +18,7 @@ class EndRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::whereName('trip_started')->firstOrFail()->value;
+        $status = Status::getVal('trip_started');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
@@ -28,7 +28,7 @@ class EndRepository
         }
 
 
-        if ($trip->status_id == 6) {
+        if ($trip->status_id == $status) {
             if (! $trip->payments()->paid()->exists()) {
                 Payment::forceCreate([
                     'trip_id' => $trip->id,
