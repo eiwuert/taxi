@@ -2308,6 +2308,9 @@ ul#filters > .active > span {
 .form-control {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
+    text-align: left;
+    direction: ltr;
+    padding: 17px;
 }
 
 .form-control:focus {
@@ -2441,7 +2444,7 @@ ul#filters > .active > span {
 }
 
 .form-signin .form-control:focus {
-    z-index: 2
+    z-index: 2;
 }
 
 .form-signin input[type="text"],
@@ -3200,6 +3203,14 @@ p {
     text-align: left;
     color: #ea6459;
     margin-left: 90px;
+}
+
+.p-terms {
+    text-align: left;
+    color: #ea6459;
+    color: #fcfcfc;
+    margin-left: 0px !important;
+
 }
 
 .terms-list {
@@ -4176,7 +4187,7 @@ div.header h3 {
     height: 100%;
     position: absolute;
     width: 100%;
-    z-index: 1;
+    z-index: 0;
     left: 0;
     bottom: 0;
     background-image: url(../../img/pattern.png);
@@ -4185,9 +4196,10 @@ div.header h3 {
 }
 
 .contact-address {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
     height: 390px;
-    padding-top: 20px
+    padding-top: 20px;
+    direction: ltr;
 }
 
 .contact-address p {
@@ -4201,7 +4213,7 @@ div.header h3 {
 
 #contact-form-section {
     padding: 35px;
-    background-color: #FFF;
+    background-color: rgba(255, 255, 255, 0.5);
     height: 390px;
 }
 
@@ -4529,4 +4541,9 @@ div.header h3 {
 }
 .about-content{
     line-height: 30px;
+    direction: ltr;
+    text-align: justify;  
+    -moz-text-align-last: center; /* Code for Firefox */
+    text-align-last: center;
+
 }
