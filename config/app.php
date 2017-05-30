@@ -180,7 +180,6 @@ return [
         Potsky\LaravelLocalizationHelpers\LaravelLocalizationHelpersServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
-        Riverskies\Laravel\MobileDetect\MobileDetectServiceProvider::class,
 
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
