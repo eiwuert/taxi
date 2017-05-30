@@ -16,7 +16,7 @@ class StartRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::getVal('driver_arrived');
+        $status = Status::value('driver_arrived');
         $trip = $driver->trips()->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
 
