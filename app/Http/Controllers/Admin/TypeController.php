@@ -16,7 +16,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::parents()->orderBy('id', 'desc')
+        $types = Type::parents()->orderBy('position', 'asc')
                           ->paginate(config('admin.perPage'));
         return view('admin.types.index', compact('types'));
     }

@@ -2,8 +2,7 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Edit state' => 'Edit state',
-  'Position: ' => 'Position: ',
+  'Position ' => 'Position ',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -126,6 +125,7 @@ return array (
   'ETA' => 'ETA',
   'ETD' => 'ETD',
   'Edit' => 'Edit',
+  'Edit state' => 'Edit state',
   'Email (*) : ' => 'Email (*) : ',
   'Email:' => 'Email:',
   'Email: ' => 'Email: ',
@@ -248,6 +248,7 @@ return array (
   'Phone:' => 'Phone:',
   'Phone: ' => 'Phone: ',
   'Picture: ' => 'Picture: ',
+  'Position: ' => 'Position: ',
   'Profile' => 'Profile',
   'Profile updated' => 'Profile updated',
   'RATE' => 'RATE',
