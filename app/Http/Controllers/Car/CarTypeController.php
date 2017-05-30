@@ -17,10 +17,10 @@ class CarTypeController extends Controller
     {
         $types = [];
         $parents =  CarType::whereActive(true)
-                            ->whereNull('car_type_id')->get(['name', 'icon', 'id']);
+                            ->whereNull('car_type_id')->get(['name', 'icon', 'id', 'position']);
         foreach ($parents as $parent) {
             if ($parent->children()->whereActive(true)->exists()) {
-                $parent->children = $parent->children()->whereActive(true)->get(['name', 'icon', 'id']);
+                $parent->children = $parent->children()->whereActive(true)->get(['name', 'icon', 'id', 'position']);
                 foreach ($parent->children as $child) {
                     $child->parent_id = $parent->id;
                 }

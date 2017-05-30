@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\CarType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CarTypeRequest extends FormRequest
@@ -24,9 +25,10 @@ class CarTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => 'required|max:255|unique:car_types,name,' . ((is_null($this->type)) ? '0' : $this->type->id) ,
-            'active' => 'required',
-            'icon'   => 'required|image',
+            'name'     => 'required|max:255|unique:car_types,name,' . ((is_null($this->type)) ? '0' : $this->type->id) ,
+            'active'   => 'required',
+            'icon'     => 'required|image',
+            'position' => 'required|between:0,' . CarType::count(),
         ];
     }
 }

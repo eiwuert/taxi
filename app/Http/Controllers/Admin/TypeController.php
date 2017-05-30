@@ -29,7 +29,8 @@ class TypeController extends Controller
     public function create()
     {
         $types = $this->types();
-        return view('admin.types.create', compact('types'));
+        $position = range(0, Type::count());
+        return view('admin.types.create', compact('types', 'position'));
     }
 
     /**
@@ -66,8 +67,9 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
+        $position = range(0, Type::count());
         $types = $this->selectedTypesAndAvailableTypes($type);
-        return view('admin.types.edit', compact('type', 'types'));
+        return view('admin.types.edit', compact('type', 'types', 'position'));
     }
 
     /**
@@ -81,8 +83,9 @@ class TypeController extends Controller
     {
         $type->update($request->all());
         $types = $this->updateAndGetTypes($type, $request->children);
+        $position = range(0, Type::count());
         flash(__('admin/general.Car type updated'));
-        return view('admin.types.edit', compact('type', 'types'));
+        return redirect()->back();
     }
 
     /**

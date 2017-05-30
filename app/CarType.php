@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarType extends Model
 {
     protected $fillable = [
-        'name', 'car_type_id', 'icon', 'active'
+        'name', 'car_type_id', 'icon', 'active', 'position',
     ];
 
     /**
@@ -147,5 +147,15 @@ class CarType extends Model
         } else {
             return true;
         }
+    }
+
+    /**
+     * Update car type position
+     * 
+     * @return [type] [description]
+     */
+    public function updatePosition()
+    {
+        
     }
 }
