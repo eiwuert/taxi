@@ -180,6 +180,8 @@ return [
         Potsky\LaravelLocalizationHelpers\LaravelLocalizationHelpersServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
+        Riverskies\Laravel\MobileDetect\MobileDetectServiceProvider::class,
+
         // @todo
         // Folklore\GraphQL\ServiceProvider::class,
 
@@ -247,6 +249,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'MobileDetect' => 'Riverskies\Laravel\MobileDetect\Facades\MobileDetect::class'
         // @todo
         //'GraphQL' => Folklore\GraphQL\Support\Facades\GraphQL::class,
     ],

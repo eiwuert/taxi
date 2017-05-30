@@ -1,4 +1,4 @@
- <section id="testimonial" class=" green-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide " style="padding-bottom: 35px;"">
+ <section id="testimonial" class=" green-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide " style="padding-bottom: 60px;"">
         <div class="container">
             <div class="row mar-b-60">
                 <div class="col-lg-2">

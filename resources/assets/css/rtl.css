@@ -43,6 +43,7 @@ h4,
 h5,
 h6 {
     font-family: IRANSans !important;
+    direction: rtl;
 }
 
 a {
@@ -338,9 +339,10 @@ ul.about-flex-slides { margin-left: 0 }
 }
 .about-testimonial.boxed-style .about-testimonial-content {
     background-color: #1c5f5f;
-    margin-right: 1px;
+    margin-left: 1px;
     border: 1px solid #e9e9e9;
     border-radius: 25px;
+    margin-top: 73px;
 }
 .about-testimonial .about-testimonial-content {
     margin-top: 63px;
@@ -1454,7 +1456,7 @@ ul.tag li a {
 .social-link-footer li a {
     color: #fff;
     background: #000;
-    padding: 5px;
+    padding: 10px;
     width: 40px;
     height: 40px;
     border-radius: 50px;
@@ -1702,11 +1704,11 @@ ul.page-footer-list li i {
 }
 
 .bg-lg {
-    background: #f9f9f3
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .gray-bg {
-    background: #f9f9f3
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .property h1 {
@@ -2315,6 +2317,9 @@ ul#filters > .active > span {
 .form-control {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
+    text-align: right;
+    direction: rtl;
+    padding: 17px;
 }
 
 .form-control:focus {
@@ -2448,7 +2453,7 @@ ul#filters > .active > span {
 }
 
 .form-signin .form-control:focus {
-    z-index: 2
+    z-index: 2;
 }
 
 .form-signin input[type="text"],
@@ -4195,7 +4200,8 @@ div.header h3 {
 .contact-address {
     background-color: rgba(255, 255, 255, 0.5);
     height: 390px;
-    padding-top: 20px
+    padding-top: 20px;
+    direction: rtl;
 }
 
 .contact-address p {
@@ -4240,11 +4246,12 @@ div.header h3 {
 #contact-form .name-field,
 #contact-form .mail-field {
     width: 49%;
+
 }
 
 #contact-form .name-field {
-    margin-right: 2%;
-    float: left
+    margin-right: 1%;
+    float: right;
 }
 
 #contact-form .mail-field {}
@@ -4253,6 +4260,7 @@ div.header h3 {
     border-radius: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+    text-align: right;
 }
 
 #contact-form-section textarea {
@@ -4536,7 +4544,12 @@ div.header h3 {
     padding: 15px;
 }
 .about-content{
-	line-height: 30px;
+    direction: rtl;
+    line-height: 30px;
+    text-align: justify;  
+    -moz-text-align-last: center; /* Code for Firefox */
+    text-align-last: center;
+
 }
 header.masthead .bannercontainer {
     width: 100%;
