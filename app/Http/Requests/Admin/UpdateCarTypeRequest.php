@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\CarType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCarTypeRequest extends FormRequest
@@ -27,6 +28,7 @@ class UpdateCarTypeRequest extends FormRequest
             'name'   => 'required|max:255|unique:car_types,name,' . ((is_null($this->type)) ? '0' : $this->type->id) ,
             'active' => 'required',
             'icon'   => 'image',
+            'position' => 'required|between:0,' . CarType::count(),
         ];
     }
 }

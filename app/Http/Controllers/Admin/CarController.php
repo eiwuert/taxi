@@ -20,6 +20,5 @@ class CarController extends Controller
         $car->update($request->except(['_method', '_token']));
         flash(__('admin/general.Driver\'s car updated'), 'success');
         return redirect()->back();
-
     }
 }

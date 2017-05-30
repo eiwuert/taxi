@@ -60,6 +60,16 @@
                 </div>
                 @endif
                 <div class="form-group">
+                    {!! Form::label('position', __('admin/general.Position: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            <label>
+                                {!! Form::select('position', $position, null) !!}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>

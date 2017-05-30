@@ -1378,27 +1378,16 @@ $.ajax(settings).done(function (response) {
     "success": true,
     "data": [
         {
-            "name": "High end",
-            "icon": "http://localhost:8000/img/no-icon.png",
-            "id": 12,
-            "children": [
-                {
-                    "name": "sport",
-                    "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
-                    "id": 3,
-                    "parent_id": 12
-                }
-            ]
-        },
-        {
             "name": "Cheap",
             "icon": "http://localhost:8000/img/no-icon.png",
             "id": 11,
+            "position": "5",
             "children": [
                 {
                     "name": "sedans",
                     "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
                     "id": 4,
+                    "position": "0",
                     "parent_id": 11
                 }
             ]
@@ -1407,18 +1396,36 @@ $.ajax(settings).done(function (response) {
             "name": "woman",
             "icon": "http://localhost:8000/img/no-icon.png",
             "id": 10,
+            "position": "2",
             "children": [
                 {
                     "name": "luxury",
                     "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
                     "id": 1,
+                    "position": "0",
                     "parent_id": 10
                 },
                 {
                     "name": "economy",
                     "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
                     "id": 5,
+                    "position": "0",
                     "parent_id": 10
+                }
+            ]
+        },
+        {
+            "name": "High end",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 12,
+            "position": "1",
+            "children": [
+                {
+                    "name": "sport",
+                    "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
+                    "id": 3,
+                    "position": "2",
+                    "parent_id": 12
                 }
             ]
         }
@@ -2737,7 +2744,8 @@ type | numeric |  children ID  |
             "user_id": 856,
             "angle": 327,
             "cat_id": 1,
-            "parent_id": 10
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
         {
             "id": 9159,
@@ -2748,7 +2756,8 @@ type | numeric |  children ID  |
             "user_id": 474,
             "angle": 115,
             "cat_id": 1,
-            "parent_id": 10
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
         {
             "id": 4008,
@@ -2759,7 +2768,8 @@ type | numeric |  children ID  |
             "user_id": 423,
             "angle": 19,
             "cat_id": 1,
-            "parent_id": 10
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
         {
             "id": 4715,
@@ -2770,7 +2780,8 @@ type | numeric |  children ID  |
             "user_id": 430,
             "angle": 237,
             "cat_id": 1,
-            "parent_id": 10
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
         {
             "id": 3099,
@@ -2781,7 +2792,8 @@ type | numeric |  children ID  |
             "user_id": 414,
             "angle": 112,
             "cat_id": 1,
-            "parent_id": 10
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         }
     ]
 }
