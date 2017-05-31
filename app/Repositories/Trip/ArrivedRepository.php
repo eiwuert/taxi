@@ -16,7 +16,7 @@ class ArrivedRepository
     public static function arrived()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::getVal('driver_onway');
+        $status = Status::value('driver_onway');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();

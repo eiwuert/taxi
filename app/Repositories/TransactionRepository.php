@@ -173,7 +173,7 @@ class TransactionRepository
                 if (Cache::has(config('app.name') . '_fare_' . $default->id)) {
                     $fares = Cache::get(config('app.name') . '_fare_' . $default->id);
                 } else {
-                    $fares = $dZefault->fare->cost;
+                    $fares = $default->fare->cost;
                     Cache::forever(config('app.name') . '_fare_' . $default->id, $fares);
                 }
             } else {

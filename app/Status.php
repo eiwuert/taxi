@@ -49,7 +49,7 @@ class Status extends Model
      * @param  $status_name
      * @return mixed
      */
-    public static function getVal($status_name)
+    public static function value($status_name)
     {
         return self::whereName($status_name)->firstOrFail()->value;
     }

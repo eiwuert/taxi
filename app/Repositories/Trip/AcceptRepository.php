@@ -12,7 +12,7 @@ class AcceptRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::getVal('client_found');
+        $status = Status::value('client_found');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();

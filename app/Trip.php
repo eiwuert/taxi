@@ -411,7 +411,7 @@ class Trip extends Model
     public function updateStatusTo($name)
     {
         $this->update([
-            'status_id' => Status::where('name', $name)->firstOrFail()->value,
+            'status_id' => Status::value($name),
         ]);
     }
 

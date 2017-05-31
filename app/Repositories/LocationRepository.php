@@ -21,7 +21,7 @@ class LocationRepository
         $drivers = [];
         $info = [];
         $driverWithFilter = Driver::with('user', 'user.locations')
-                                  ->where('approve', true);
+            ->where('approve', true);
 
         // Apply filter on drivers
         switch ($filter) {
@@ -56,9 +56,9 @@ class LocationRepository
      */
     public static function driverOnMap(Driver $driver, $filter = null)
     {
-        $info = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . 
-                (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' . 
-                (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
+        $info = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' .
+            (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' .
+            (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
         $driver = [$driver->lastLatLng()];
         return [
             'driver' => $driver,
@@ -69,25 +69,15 @@ class LocationRepository
     /**
      * Return a new location id that has been saved.
      *
-     * @param  decimal  $lat
-     * @param  decimal  $long
-     * @param  string   $name
+     * @param  decimal $lat
+     * @param  decimal $long
+     * @param  string $name
      * @return integer Location id
      */
     public static function set($lat, $long, $userId = null, $name = '')
     {
         if ($name == '') {
-            $name = GoogleMaps::load('geocoding')
-                              ->setParamByKey('latlng', $lat . ',' . $long)
-                              ->setParamByKey('mode', 'driving')
-                              ->setParamByKey('language', 'FA')
-                              ->setParamByKey('traffic_model', 'best_guess')
-                              ->get('results.formatted_address');
-            (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
-        }
-
-        if (@$name['status'] == 'ZERO_RESULTS') {
-            $name = 'NO RESULT';
+            $name = self::getGeocoding($lat, $long);
         }
 
         if (is_null($userId)) {
@@ -95,29 +85,22 @@ class LocationRepository
         } else {
             $user = User::find($userId);
         }
-        $status = self::getLastStatusOfTrip($user);
+
         Cache::forever(config('app.name') . '_location_' . $user->id, ['lat' => $lat, 'lng' => $long]);
+        $location = $user->locations()->create([
+            'latitude' => $lat,
+            'longitude' => $long,
+            'name' => $name,
+        ]);
+
+        // Set status if is driver
+        $status = self::getLastStatusOfTrip($user);
         if ($status) {
-            $location = $user->locations()->create([
-                'latitude'  => $lat,
-                'longitude' => $long,
-                'name'      => $name,
-            ]);
-            if ($user->role == 'driver') {
-                $location['status'] = $status;
-            }
-            return $location;
-        } else {
-            $location = $user->locations()->create([
-                'latitude'  => $lat,
-                'longitude' => $long,
-                'name'      => $name,
-            ]);
-            if ($user->role == 'driver') {
-                $location['status'] = null;
-            }
-            return $location;
+            $location['status'] = $status;
+        } elseif ($user->role == 'driver') {
+            $location['status'] = null;
         }
+        return $location;
     }
 
     /**
@@ -129,11 +112,11 @@ class LocationRepository
     public static function getGeocoding($lat, $long)
     {
         $name = GoogleMaps::load('geocoding')
-                          ->setParamByKey('latlng', $lat . ',' . $long)
-                          ->setParamByKey('mode', 'driving')
-                          ->setParamByKey('language', 'FA')
-                          ->setParamByKey('traffic_model', 'best_guess')
-                          ->get('results.formatted_address');
+            ->setParamByKey('latlng', $lat . ',' . $long)
+            ->setParamByKey('mode', 'driving')
+            ->setParamByKey('language', 'FA')
+            ->setParamByKey('traffic_model', 'best_guess')
+            ->get('results.formatted_address');
         (isset($name['results'][0]['formatted_address'])) ? $name = $name['results'][0]['formatted_address'] : '';
 
         if (@$name['status'] == 'ZERO_RESULTS') {
@@ -151,10 +134,14 @@ class LocationRepository
     private static function getLastStatusOfTrip($user)
     {
         if ($user->role == 'driver') {
-            if (is_null($trip = $user->driver()->first()->trips()->whereNotIn('status_id', [10, 5, 4, 11, 8, 13, 14, 17, 18, 3])->orderBy('id', 'desc')->first())) {
+            if (is_null($trip = $user->driver()->first()->trips()
+                // 10:cancel_request_taxi, 5:no_driver, 4:reject_client_found, 11:cancel_onway_driver,
+                // 8:driver_reject_started_trip, 13:client_canceled_arrived_driver,
+                // 14:driver_cancel_arrived_status, 17:trip_is_over, 18:trip_is_over_by_admin, 3:no_response
+                ->whereNotIn('status_id', [10, 5, 4, 11, 8, 13, 14, 17, 18, 3])->orderBy('id', 'desc')->first())) {
                 return false;
             } else {
-                return Status::whereId($trip->status_id)->first()->value;
+                return $trip->status_id;
             }
         } else {
             return false;
