@@ -67,13 +67,13 @@
                 <div class="form-group">
                     {!! Form::label('cost[' . $type->name . '][time_unit]', __('admin/general.time unit'), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::select('cost[' . $type->name . '][distance_unit]', ['minute' => __('admin/general.minute'), 'hour' => __('admin/general.hour')],null, ['class' => 'form-control']) !!}
+                        {!! Form::select('cost[' . $type->name . '][time_unit]', ['minute' => __('admin/general.minute'), 'hour' => __('admin/general.hour')],null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('cost[' . $type->name . '][distance_unit]', __('admin/general.distance unit'), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::select('cost[' . $type->name . '][time_unit]', ['kilometer' => __('admin/general.kilometer'), 'mile' => __('admin/general.mile')],null, ['class' => 'form-control']) !!}
+                        {!! Form::select('cost[' . $type->name . '][distance_unit]', ['kilometer' => __('admin/general.kilometer'), 'mile' => __('admin/general.mile')],null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
             </div>
