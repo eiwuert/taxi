@@ -44,8 +44,9 @@ class TypeController extends Controller
         $type = Type::create($request->all());
         $this->storeChildren($type, $request->children);
         $types = $this->selectedTypesAndAvailableTypes($type);
+        $position = range(0, Type::count());
         flash(__('admin/general.New car type added'));
-        return view('admin.types.edit', compact('type', 'types'));
+        return view('admin.types.edit', compact('type', 'types', 'position'));
     }
 
     /**
@@ -131,8 +132,10 @@ class TypeController extends Controller
      */
     protected function storeChildren($type, $children)
     {
-        foreach ($children as $child) {
-            Type::find($child)->forceFill(['car_type_id' => $type->id])->save();
+        if (!is_null($children)) {
+            foreach ($children as $child) {
+                Type::find($child)->forceFill(['car_type_id' => $type->id])->save();
+            }
         }
     }
 

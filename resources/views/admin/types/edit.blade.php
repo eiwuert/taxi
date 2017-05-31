@@ -45,6 +45,16 @@
                         {!! Form::select('active', ['0' => __('admin/general.Deactive'), '1' => __('admin/general.Active')], null, ['class' => 'from-control']) !!}
                     </div>
                 </div>
+                <div class="form-group">
+                    {!! Form::label('position', __('admin/general.Position: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            <label>
+                                {!! Form::select('position', $position, null) !!}
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 @if (is_null($type->car_type_id))
                 <div class="form-group">
                     {!! Form::label('children', __('admin/general.Children: '), ['class' => 'col-sm-2 control-label']) !!}
@@ -59,16 +69,6 @@
                     </div>
                 </div>
                 @endif
-                <div class="form-group">
-                    {!! Form::label('position', __('admin/general.Position: '), ['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            <label>
-                                {!! Form::select('position', $position, null) !!}
-                            </label>
-                        </div>
-                    </div>
-                </div>
                 <div class="form-group">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
