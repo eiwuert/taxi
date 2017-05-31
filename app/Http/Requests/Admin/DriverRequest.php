@@ -40,10 +40,10 @@ class DriverRequest extends FormRequest
             'device_type'     => 'sometimes|in:manual,ios,android',
             'picture'         => 'sometimes|image',
             'identity_number' => 'required|integer', 
-            'identity_code'   => 'required|size:10|integer', 
+            'identity_code'   => 'required|integer', 
             'abuse_history'   => 'required|boolean',
             'drug_abuse'      => 'required|boolean', 
-            'credit_card'     => 'required|size:16|integer',
+            'credit_card'     => 'required|integer',
         ];
     }
 }
