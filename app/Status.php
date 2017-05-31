@@ -42,4 +42,15 @@ class Status extends Model
     {
         return $this->hasMany('App\TripLog', 'status_id', 'value');
     }
+
+    /**
+     * Get value (code) of status name
+     *
+     * @param  $status_name
+     * @return mixed
+     */
+    public static function value($status_name)
+    {
+        return self::whereName($status_name)->firstOrFail()->value;
+    }
 }

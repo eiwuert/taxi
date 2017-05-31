@@ -7,7 +7,7 @@
     <button class="btn btn-primary btn-xs">
     @lang('admin/general.New car type')
     </button>
-</a> 
+</a>
 @lang('admin/general.Car type')
 @endsection
 @section('breadcrumb')
@@ -27,19 +27,29 @@
                 <table class="table table-striped table-hover">
                     <tbody>
                         <tr>
+                            <th>@lang('admin/general.Active')</th>
                             <th>#</th>
+                            <th>@lang('admin/general.Position ')</th>
+                            <th>@lang('admin/general.Icon ')</th>
                             <th>@lang('admin/general.Name')</th>
                             <th>@lang('admin/general.Sub categories')</th>
                         </tr>
                         @foreach($types as $type)
                         <tr>
-                            <td onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $type]) }}';" style="cursor: pointer;"># {{ $type->id }}</td>
+                            <td>@if ($type->active) <i class="fa fa-circle-o text-green"></i> @else <i class="fa fa-circle-o text-red"></i> @endif</td>
+                            <td onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $type]) }}';" style="cursor: pointer;"># {{ $type->id }} <i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                            <td>{{ $type->position }}</td>
+                            <td><img src="{{ asset($type->icon) }}" alt="car type icon" class="img-circle" width="48" /></td>
                             <td>{{ $type->name }}</td>
                             <td>
                                 <table class="table table-bordered table-hover">
                                     <tbody>
-                                        @foreach($type->children as $child)
+                                        @foreach($type->children()->orderBy('position', 'asc')->get() as $child)
                                         <tr onclick="window.document.location='{{ action('Admin\TypeController@edit', ['type' => $child]) }}';" style="cursor: pointer;">
+                                            <td>@if ($child->active) <i class="fa fa-circle-o text-green"></i> @else <i class="fa fa-circle-o text-red"></i> @endif</td>
+                                            <td># {{ $child->id }} <i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                            <td>{{ $child->position }}</td>
+                                            <td><img src="{{ asset($child->icon) }}" alt="car type icon" class="img-circle" width="48" /></td>
                                             <td>{{ $child->name }}</td>
                                         </tr>
                                         @endforeach

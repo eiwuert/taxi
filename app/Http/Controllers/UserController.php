@@ -42,11 +42,13 @@ class UserController extends Controller
         if (is_null($userAgency)) {
             $userAgency = new \stdClass();
         } else {
+            $userAgency->name = config('states.' . $userAgency->state);
             unset($userAgency['id'], $userAgency['state'], $userAgency['created_at'], $userAgency['updated_at']);
         }
         if (is_null($globalAgency)) {
             $globalAgency = new \stdClass();
         } else {
+            // $globalAgency->name = config('states.' . $globalAgency->state);
             unset($globalAgency['id'], $globalAgency['state'], $globalAgency['created_at'], $globalAgency['updated_at']);
         }
         return ok([

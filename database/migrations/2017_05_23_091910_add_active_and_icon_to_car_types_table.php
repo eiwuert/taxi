@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCarTypeIdToCarTypes extends Migration
+class AddActiveAndIconToCarTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,8 @@ class AddCarTypeIdToCarTypes extends Migration
     public function up()
     {
         Schema::table('car_types', function (Blueprint $table) {
-            $table->unsignedInteger('car_type_id')->nullable();
-            $table->foreign('car_type_id')
-                  ->references('id')->on('car_types')
-                  ->onDelete('cascade');
+            $table->string('icon')->default('no-icon.png');
+            $table->boolean('active')->default(0);
         });
     }
 
@@ -29,7 +27,8 @@ class AddCarTypeIdToCarTypes extends Migration
     public function down()
     {
         Schema::table('car_types', function (Blueprint $table) {
-            $table->dropColumn('car_type_id');
+            $table->dropColumn('icon');
+            $table->dropColumn('active');
         });
     }
 }

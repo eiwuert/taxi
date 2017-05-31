@@ -18,7 +18,7 @@ class EndRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::whereName('trip_started')->firstOrFail()->value;
+        $status = Status::value('trip_started');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
@@ -27,17 +27,17 @@ class EndRepository
             return ['fail' => 'not_started'];
         }
 
-        if (! $trip->payments()->paid()->exists()) {
-            Payment::forceCreate([
-                'trip_id' => $trip->id,
-                'client_id' => $trip->client->id,
-                'paid' => true,
-                'type' => 'cash',
-                'ref'  => '00000',
-            ]);
-        }
 
-        if ($trip->status_id == 6) {
+        if ($trip->status_id == $status) {
+            if (! $trip->payments()->paid()->exists()) {
+                Payment::forceCreate([
+                    'trip_id' => $trip->id,
+                    'client_id' => $trip->client->id,
+                    'paid' => true,
+                    'type' => 'cash',
+                    'ref'  => '00000',
+                ]);
+            }
             $trip->updateStatusTo('trip_ended');
             $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
             dispatch(new SendClientNotification('trip_ended', '7', $deviceToken));

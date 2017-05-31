@@ -26,6 +26,19 @@ class Fcm extends Model
     ];
 
     /**
+     * Sortable columns
+     * @var array
+     */
+    public static $sortable = [
+        'success' => 'موفق',
+        'failure' => 'ناموفق',
+        'head' => 'دریافت کننده',
+        'title' => 'عنوان',
+        'message' => 'پیغام',
+//        'created_at' => 'تاریخ',
+    ];
+
+    /**
      * Table name
      * @var string
      */
@@ -60,7 +73,7 @@ class Fcm extends Model
 
         $ts = pack('N', $timestamp);
         $m = substr(md5(gethostname()), 0, 3);
-        $pid = pack('n', posix_getpid());
+        $pid = pack('n', getmypid());
         $trail = substr(pack('N', $inc++), 1, 3);
 
         $bin = sprintf("%s%s%s%s", $ts, $m, $pid, $trail);

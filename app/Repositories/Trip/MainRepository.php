@@ -25,7 +25,7 @@ class MainRepository
      */
     public static function is($role)
     {
-        if ($this->role() == $role) {
+        if (self::role() == $role) {
             return true;
         } else {
             return false;
@@ -51,15 +51,11 @@ class MainRepository
     }
 
     /**
-     * Get the last trip of the authenticated user.
-     * @return array
+     * Format not entered values.
+     *
+     * @param  array $request
+     * @return mixed
      */
-    public static function trips()
-    {
-        return $trip->driver;
-        return $this->driver()->trips()->orderBy('id', 'desc')->first();
-    }
-
     protected static function pre($request)
     {
         if (isset($request['s_lng'])) {

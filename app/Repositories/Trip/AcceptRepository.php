@@ -12,7 +12,7 @@ class AcceptRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::whereName('client_found')->firstOrFail()->value;
+        $status = Status::value('client_found');
         $trip = $driver->trips()
                        ->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
@@ -21,7 +21,7 @@ class AcceptRepository
             return false;
         }
 
-        if ($trip->status_id == 2) {
+        if ($trip->status_id == $status) {
             $trip->updateStatusTo('driver_onway');
             $driver->updateDriverAvailability(false);
             $deviceToken = Client::whereId($trip->client_id)->first()->device_token;

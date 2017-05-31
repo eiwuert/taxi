@@ -9,7 +9,7 @@
         @yield('header')
         <small>@yield('desc', '')</small>
         </h1>
-        <ol class="breadcrumb pull-left">
+        <ol class="breadcrumb">
             @yield('breadcrumb')
         </ol>
     </section>

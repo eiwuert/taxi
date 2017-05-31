@@ -15,12 +15,12 @@
     <div class="panel box">
         <div class="box-header with-border">
             <h4 class="box-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#{{ $type->name }}" aria-expanded="false" class="collapsed">
+            <a data-toggle="collapse" data-parent="#accordion" href="#{{ str_replace(' ', '_', $type->name) }}" aria-expanded="false" class="collapsed">
                 {{ $type->name }}
             </a>
             </h4>
         </div>
-        <div id="{{ $type->name }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0">
+        <div id="{{ str_replace(' ', '_', $type->name) }}" class="panel-collapse collapse" aria-expanded="false" style="height: 0">
             <div class="box-body">
                 <div class="form-group">
                     {!! Form::label('cost[' . $type->name . '][entry]', __('admin/general.entry'), ['class' => 'col-sm-2 control-label']) !!}

@@ -45,6 +45,9 @@
 HEAD UP! new changes to API will be here as reference.
 </aside>
 <ul>
+<li>Add car types.</li>
+<li>Add new fcm code for driver (approved and disapproved).</li>
+<li>Add client and driver states (province).</li>
 <li>Add car type to trip request.</li>
 <li>Add calculate ver. 3 and nearby ver. 3</li>
 <li>Add pusher</li>
@@ -408,173 +411,6 @@ $.ajax(settings).done(function (response) {
 </tr>
 </tbody>
 </table>
-<h4>States</h4>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Azerbaijan, East</td>
-<td>آذربایجان شرقی</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Azerbaijan, West</td>
-<td>آذربایجان غربی</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Ardabil</td>
-<td>اردبیل</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Isfahan</td>
-<td>اصفهان</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Alborz</td>
-<td>البرز</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Ilam</td>
-<td>ایلام</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Bushehr</td>
-<td>بوشهر</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Tehran</td>
-<td>تهران</td>
-</tr>
-<tr>
-<td>9</td>
-<td>Chahar Mahaal and Bakhtiari</td>
-<td>چهارمحال و بختیاری</td>
-</tr>
-<tr>
-<td>10</td>
-<td>Khorasan, South</td>
-<td>خراسان جنوبی</td>
-</tr>
-<tr>
-<td>11</td>
-<td>Khorasan, Razavi</td>
-<td>خراسان رضوی</td>
-</tr>
-<tr>
-<td>12</td>
-<td>Khorasan, North</td>
-<td>خراسان شمالی</td>
-</tr>
-<tr>
-<td>13</td>
-<td>Khuzestan</td>
-<td>خوزستان</td>
-</tr>
-<tr>
-<td>14</td>
-<td>Zanjan</td>
-<td>زنجان</td>
-</tr>
-<tr>
-<td>15</td>
-<td>Semnan</td>
-<td>سمنان</td>
-</tr>
-<tr>
-<td>16</td>
-<td>Sistan and Baluchestan</td>
-<td>سیستان و بلوچستان</td>
-</tr>
-<tr>
-<td>17</td>
-<td>Fars</td>
-<td>فارس</td>
-</tr>
-<tr>
-<td>18</td>
-<td>Qazvin</td>
-<td>قزوین</td>
-</tr>
-<tr>
-<td>19</td>
-<td>Qom</td>
-<td>قم</td>
-</tr>
-<tr>
-<td>20</td>
-<td>Kurdistan</td>
-<td>کردستان</td>
-</tr>
-<tr>
-<td>21</td>
-<td>Kerman</td>
-<td>کرمان</td>
-</tr>
-<tr>
-<td>22</td>
-<td>Kermanshah</td>
-<td>کرمانشاه</td>
-</tr>
-<tr>
-<td>23</td>
-<td>Kohgiluyeh and Boyer-Ahmad</td>
-<td>کهگیلویه و بویراحمد</td>
-</tr>
-<tr>
-<td>24</td>
-<td>Golestan</td>
-<td>گلستان</td>
-</tr>
-<tr>
-<td>25</td>
-<td>Gilan</td>
-<td>گیلان</td>
-</tr>
-<tr>
-<td>26</td>
-<td>Luristan</td>
-<td>لرستان</td>
-</tr>
-<tr>
-<td>27</td>
-<td>Mazandaran</td>
-<td>مازندران</td>
-</tr>
-<tr>
-<td>28</td>
-<td>Markazi</td>
-<td>مرکزی</td>
-</tr>
-<tr>
-<td>29</td>
-<td>Hormozgan</td>
-<td>هرمزگان</td>
-</tr>
-<tr>
-<td>30</td>
-<td>Hamadan</td>
-<td>همدان</td>
-</tr>
-<tr>
-<td>31</td>
-<td>Yazd</td>
-<td>یزد</td>
-</tr>
-</tbody>
-</table>
 <blockquote>
 <p>Example response</p>
 </blockquote>
@@ -605,13 +441,41 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
+<h3>States</h3>
+<p>To get client active States use below request.</p>
+<p><code>GET api/v1/client/states</code></p>
+<blockquote>
+<p>Example request active States</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/client/states" \
+-H "Accept: application/json" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/client/states",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response States</p>
+</blockquote>
 <pre><code class="language-json">{
-    "success": false,
+    "success": true,
     "data": [
         {
-            "title": "Validation failed",
-            "detail": "Validation for given fields have been failed, please check your inputs.",
-            "code": 422
+            "id": "2",
+            "name": "آذربایجان غربی"
+        },
+        {
+            "id": "8",
+            "name": "تهران"
         }
     ]
 }</code></pre>
@@ -653,6 +517,23 @@ for login and validation.</p>
 $.ajax(settings).done(function (response) {
     console.log(response);
 });</code></pre>
+<blockquote>
+<p>Example response:</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "token_type": "Bearer",
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjMwNDI2MTc1NWFiYTc0NjA2YTM3NWQzMGY5YzA2NmM4ZmU2Yjk2YTMyOTRkMWY1MmZmZGNhZGM4MWQzNTBlMjZiOGQ5MTM2MGM4MGRiZmYxIn0.eyJhdWQiOiIyOSIsImp0aSI6IjMwNDI2MTc1NWFiYTc0NjA2YTM3NWQzMGY5YzA2NmM4ZmU2Yjk2YTMyOTRkMWY1MmZmZGNhZGM4MWQzNTBlMjZiOGQ5MTM2MGM4MGRiZmYxIiwiaWF0IjoxNDgxNjE3NjkyLCJuYmYiOjE0ODE2MTc2OTIsImV4cCI6MTc5NzE1MDQ5Miwic3ViIjoiNDQwIiwic2NvcGVzIjpbXX0.rln8f7BLZ7cU2I1YBGCnrpxozhB5mVndacjIaz5zB7jfUxapguk2gx2Fdp9s5dc0628zEze7lmrIzuvBqxn4g9IwsxQhJzLfcw_oGdQN2rz0okraZS30fRspvBJ4FNDeYc4JzkCgxNWHWtIKdj0Jdl8M9IbI1hi0sq6MUh9cjODUMMLLJFb2Jx6oddYiFGBab0YTu98n7aBaJQ2h449fuxBfXlf67I5EZCoiFP20myd8JzteuZaAPQcVasvXTkejakpLLfK7y8OyKhrjti5Qytei73TmltY7NlKzTiYtRIzDTgJtPPPofOFZESha-6JxXFsAQ34--fIfYpFeUrnRHb8BJXfpaA5bzFKsRDSPUvMajlgJr2qDQhLUD9hlumBQDV881JN_V-zt_0QpI6LKOSzD2w4Gp9WQ02_Ib9Co8c57uVheX_vbSGUN2eemM5FTnP3ll9gNU6VgZOPjm8jbzLJ5ziVrxscKIbN5pjf6PSrmi7Jz1Ykl2GZoQiJHrfY5q-TWz-PpcnQu9c8_FnRKH3I9pCradOEZfaQjmMoes_AG8Wr5XyWlg-j930dhp6l5jF4KRKgprR4VMScBkVzyZAmGqdOuOjPPWM0i0uIQEnaJOcMXnjuYEsIcDkKFBo_tjKtbn1joT8W6hTo60Kt6xkjOfFCMn5IqTAwCALaPrGM",
+            "expires_at": {
+                "date": "2026-12-13 08:18:58.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        }
+    ]
+}</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/v1/driver/register</code></p>
 <h4>Parameters</h4>
@@ -710,187 +591,41 @@ $.ajax(settings).done(function (response) {
 </tr>
 </tbody>
 </table>
-<h4>States</h4>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Azerbaijan, East</td>
-<td>آذربایجان شرقی</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Azerbaijan, West</td>
-<td>آذربایجان غربی</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Ardabil</td>
-<td>اردبیل</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Isfahan</td>
-<td>اصفهان</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Alborz</td>
-<td>البرز</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Ilam</td>
-<td>ایلام</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Bushehr</td>
-<td>بوشهر</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Tehran</td>
-<td>تهران</td>
-</tr>
-<tr>
-<td>9</td>
-<td>Chahar Mahaal and Bakhtiari</td>
-<td>چهارمحال و بختیاری</td>
-</tr>
-<tr>
-<td>10</td>
-<td>Khorasan, South</td>
-<td>خراسان جنوبی</td>
-</tr>
-<tr>
-<td>11</td>
-<td>Khorasan, Razavi</td>
-<td>خراسان رضوی</td>
-</tr>
-<tr>
-<td>12</td>
-<td>Khorasan, North</td>
-<td>خراسان شمالی</td>
-</tr>
-<tr>
-<td>13</td>
-<td>Khuzestan</td>
-<td>خوزستان</td>
-</tr>
-<tr>
-<td>14</td>
-<td>Zanjan</td>
-<td>زنجان</td>
-</tr>
-<tr>
-<td>15</td>
-<td>Semnan</td>
-<td>سمنان</td>
-</tr>
-<tr>
-<td>16</td>
-<td>Sistan and Baluchestan</td>
-<td>سیستان و بلوچستان</td>
-</tr>
-<tr>
-<td>17</td>
-<td>Fars</td>
-<td>فارس</td>
-</tr>
-<tr>
-<td>18</td>
-<td>Qazvin</td>
-<td>قزوین</td>
-</tr>
-<tr>
-<td>19</td>
-<td>Qom</td>
-<td>قم</td>
-</tr>
-<tr>
-<td>20</td>
-<td>Kurdistan</td>
-<td>کردستان</td>
-</tr>
-<tr>
-<td>21</td>
-<td>Kerman</td>
-<td>کرمان</td>
-</tr>
-<tr>
-<td>22</td>
-<td>Kermanshah</td>
-<td>کرمانشاه</td>
-</tr>
-<tr>
-<td>23</td>
-<td>Kohgiluyeh and Boyer-Ahmad</td>
-<td>کهگیلویه و بویراحمد</td>
-</tr>
-<tr>
-<td>24</td>
-<td>Golestan</td>
-<td>گلستان</td>
-</tr>
-<tr>
-<td>25</td>
-<td>Gilan</td>
-<td>گیلان</td>
-</tr>
-<tr>
-<td>26</td>
-<td>Luristan</td>
-<td>لرستان</td>
-</tr>
-<tr>
-<td>27</td>
-<td>Mazandaran</td>
-<td>مازندران</td>
-</tr>
-<tr>
-<td>28</td>
-<td>Markazi</td>
-<td>مرکزی</td>
-</tr>
-<tr>
-<td>29</td>
-<td>Hormozgan</td>
-<td>هرمزگان</td>
-</tr>
-<tr>
-<td>30</td>
-<td>Hamadan</td>
-<td>همدان</td>
-</tr>
-<tr>
-<td>31</td>
-<td>Yazd</td>
-<td>یزد</td>
-</tr>
-</tbody>
-</table>
+<h3>States</h3>
+<p>Get active states.</p>
+<p><code>GET api/v1/driver/states</code></p>
 <blockquote>
-<p>Example response:</p>
+<p>Example request active States</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v1/driver/states" \
+-H "Accept: application/json" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v1/driver/states",
+    "method": "GET",
+    "headers": {
+        "accept": "application/json"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<blockquote>
+<p>Example response States</p>
 </blockquote>
 <pre><code class="language-json">{
     "success": true,
     "data": [
         {
-            "token_type": "Bearer",
-            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjMwNDI2MTc1NWFiYTc0NjA2YTM3NWQzMGY5YzA2NmM4ZmU2Yjk2YTMyOTRkMWY1MmZmZGNhZGM4MWQzNTBlMjZiOGQ5MTM2MGM4MGRiZmYxIn0.eyJhdWQiOiIyOSIsImp0aSI6IjMwNDI2MTc1NWFiYTc0NjA2YTM3NWQzMGY5YzA2NmM4ZmU2Yjk2YTMyOTRkMWY1MmZmZGNhZGM4MWQzNTBlMjZiOGQ5MTM2MGM4MGRiZmYxIiwiaWF0IjoxNDgxNjE3NjkyLCJuYmYiOjE0ODE2MTc2OTIsImV4cCI6MTc5NzE1MDQ5Miwic3ViIjoiNDQwIiwic2NvcGVzIjpbXX0.rln8f7BLZ7cU2I1YBGCnrpxozhB5mVndacjIaz5zB7jfUxapguk2gx2Fdp9s5dc0628zEze7lmrIzuvBqxn4g9IwsxQhJzLfcw_oGdQN2rz0okraZS30fRspvBJ4FNDeYc4JzkCgxNWHWtIKdj0Jdl8M9IbI1hi0sq6MUh9cjODUMMLLJFb2Jx6oddYiFGBab0YTu98n7aBaJQ2h449fuxBfXlf67I5EZCoiFP20myd8JzteuZaAPQcVasvXTkejakpLLfK7y8OyKhrjti5Qytei73TmltY7NlKzTiYtRIzDTgJtPPPofOFZESha-6JxXFsAQ34--fIfYpFeUrnRHb8BJXfpaA5bzFKsRDSPUvMajlgJr2qDQhLUD9hlumBQDV881JN_V-zt_0QpI6LKOSzD2w4Gp9WQ02_Ib9Co8c57uVheX_vbSGUN2eemM5FTnP3ll9gNU6VgZOPjm8jbzLJ5ziVrxscKIbN5pjf6PSrmi7Jz1Ykl2GZoQiJHrfY5q-TWz-PpcnQu9c8_FnRKH3I9pCradOEZfaQjmMoes_AG8Wr5XyWlg-j930dhp6l5jF4KRKgprR4VMScBkVzyZAmGqdOuOjPPWM0i0uIQEnaJOcMXnjuYEsIcDkKFBo_tjKtbn1joT8W6hTo60Kt6xkjOfFCMn5IqTAwCALaPrGM",
-            "expires_at": {
-                "date": "2026-12-13 08:18:58.000000",
-                "timezone_type": 3,
-                "timezone": "UTC"
-            }
+            "id": "2",
+            "name": "آذربایجان غربی"
+        },
+        {
+            "id": "8",
+            "name": "تهران"
         }
     ]
 }</code></pre>
@@ -1601,49 +1336,63 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-json">{
     "success": true,
+    "data": []
+}</code></pre>
+<pre><code class="language-json">{
+    "success": true,
     "data": [
-            {
-                "id": 1,
-                "name": "luxury",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 2,
-                "name": "van",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 3,
-                "name": "sport",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 4,
-                "name": "sedans",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 5,
-                "name": "economy",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 6,
-                "name": "off-roader",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            },
-            {
-                "id": 7,
-                "name": "motorcycle",
-                "created_at": "2016-12-09 22:22:17",
-                "updated_at": "2016-12-09 22:22:17"
-            }
+        {
+            "name": "Cheap",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 11,
+            "position": "5",
+            "children": [
+                {
+                    "name": "sedans",
+                    "icon": "http://localhost:8000/storage/car_types/icon/yNs95bIXvBxF06WT2WrctgdZs5VU4xvBHXOYlP32.png",
+                    "id": 4,
+                    "position": "0",
+                    "parent_id": 11
+                }
+            ]
+        },
+        {
+            "name": "woman",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 10,
+            "position": "2",
+            "children": [
+                {
+                    "name": "luxury",
+                    "icon": "http://localhost:8000/storage/car_types/icon/C6APml4f6X6KRkR5M1hBs9J73ti9xOjXDItgwcZa.png",
+                    "id": 1,
+                    "position": "0",
+                    "parent_id": 10
+                },
+                {
+                    "name": "economy",
+                    "icon": "http://localhost:8000/storage/car_types/icon/TR4SxsohvTzEeNeKKaepO1Tj44MmxV5zAluzLIrb.png",
+                    "id": 5,
+                    "position": "0",
+                    "parent_id": 10
+                }
+            ]
+        },
+        {
+            "name": "High end",
+            "icon": "http://localhost:8000/img/no-icon.png",
+            "id": 12,
+            "position": "1",
+            "children": [
+                {
+                    "name": "sport",
+                    "icon": "http://localhost:8000/storage/car_types/icon/vNbIzB3j55Ik4xMQu5fKAXtHZaC1GBBW8vlMHHrC.png",
+                    "id": 3,
+                    "position": "2",
+                    "parent_id": 12
+                }
+            ]
+        }
     ]
 }</code></pre>
 <h3>HTTP Request</h3>
@@ -2778,22 +2527,49 @@ console.log(response);
     "success": true,
     "data": [
         {
-            "id": 20,
-            "distance": "0.245001059497561",
-            "longitude": "51.409909",
-            "latitude": "35.757580",
-            "name": "استان تهران، تهران، میدان ونک، 1517943413، ایران",
-            "user_id": 3,
-            "anlge": 350
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327
         },
         {
-            "id": 4,
-            "distance": "0.563525245388979",
-            "longitude": "51.406401",
-            "latitude": "35.757223",
-            "name": "استان تهران، تهران، خیابان ملاصدرا، ایران",
-            "user_id": 1,
-            "angle": 12
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115
+        },
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112
         }
     ]
 }</code></pre>
@@ -2810,8 +2586,8 @@ console.log(response);
         }
     ]
 }</code></pre>
-<h2>Nearby taxis v2</h2>
-<p>Find near by taxis. in <code>v2</code> of API you can send <code>lng</code> instead of <code>long</code>.</p>
+<h2>Nearby taxis v3</h2>
+<p>Find near by taxis.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -2822,6 +2598,7 @@ console.log(response);
    -d "lng": "maiores", \
    -d "distance": "maiores", \
    -d "limit": "maiores", \ 
+   -d "type": "maiores", \ 
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -2833,15 +2610,16 @@ console.log(response);
         "lng": "amet",
         "distance": "amet",
         "limit": "amet",
+        "type": "amet",
 },
-        "headers": {
-    "accept": "application/json",
-    "authorization": "Bearer ACCESS_TOKEN"
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
     }
 }
 
 $.ajax(settings).done(function (response) {
-console.log(response);
+    console.log(response);
 });</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/v3/client/nearby</code></p>
@@ -2878,6 +2656,11 @@ console.log(response);
 <td>numeric</td>
 <td>min: <code>5</code>, max: <code>100</code></td>
 </tr>
+<tr>
+<td>type</td>
+<td>numeric</td>
+<td>children ID</td>
+</tr>
 </tbody>
 </table>
 <blockquote>
@@ -2885,66 +2668,68 @@ console.log(response);
 </blockquote>
 <pre><code class="language-json">{
     "success": true,
-    "data": {
-        "woman": {
-            "luxury": [
-                {
-                    "id": 7947,
-                    "distance": "2.04013276215645",
-                    "longitude": "51.410165",
-                    "latitude": "35.716557",
-                    "name": "NOT SET",
-                    "user_id": 462,
-                    "angle": 192
-                },
-                {
-                    "id": 7341,
-                    "distance": "2.27246822248217",
-                    "longitude": "51.366905",
-                    "latitude": "35.731209",
-                    "name": "NOT SET",
-                    "user_id": 456,
-                    "angle": 327
-                },
-                {
-                    "id": 9159,
-                    "distance": "2.39551047107605",
-                    "longitude": "51.417375",
-                    "latitude": "35.722071",
-                    "name": "NOT SET",
-                    "user_id": 474,
-                    "angle": 115
-                },
-                {
-                    "id": 4008,
-                    "distance": "3.14346537747125",
-                    "longitude": "51.424588",
-                    "latitude": "35.718066",
-                    "name": "NOT SET",
-                    "user_id": 423,
-                    "angle": 19
-                },
-                {
-                    "id": 4715,
-                    "distance": "3.31577013795581",
-                    "longitude": "51.409080",
-                    "latitude": "35.753119",
-                    "name": "NOT SET",
-                    "user_id": 430,
-                    "angle": 237
-                }
-            ],
-            "economy": []
+    "data": [
+        {
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
-        "High-end": {
-            "sport": [],
-            "off-roader": []
+        {
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         },
-        "Cheap": {
-            "sedans": [],
-            "van": []
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         }
-    }
+    ]
 }</code></pre>
 <blockquote>
 <p>Example response - Validation fails</p>
@@ -4086,7 +3871,7 @@ $.ajax(settings).done(function (response) {
         }
     ]
 }</code></pre>
-<h2>Current</h2>
+<h2>Current v1</h2>
 <p>Current state of driver trip.</p>
 <blockquote>
 <p>Example request</p>
@@ -4171,6 +3956,90 @@ $.ajax(settings).done(function (response) {
     ]
 }
 </code></pre>
+<h2>Current v2</h2>
+<p>Current state of driver trip.</p>
+<blockquote>
+<p>Example request</p>
+</blockquote>
+<pre><code class="language-bash">curl "http://flipapp.ir/api/v2/driver/trip" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+</code></pre>
+<pre><code class="language-javascript">var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v2/driver/trip",
+    "method": "GET",
+    "data": {
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v2/driver/trip</code></p>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": true,
+    "data": [
+        {
+            "paid": true,
+            "payment": "Cash",
+            "client": {
+                "first_name": "Unknown",
+                "last_name": "Passenger",
+                "gender": "not specified",
+                "picture": "http://localhost:8000/img/no-profile.png",
+                "phone": "989359999990"
+            },
+            "trip": {
+                "id": 247,
+                "eta_value": "17659",
+                "eta_text": "4 hours 54 mins",
+                "distance_value": "457814",
+                "distance_text": "458 km",
+                "etd_value": "598",
+                "etd_text": "10 mins",
+                "driver_distance_value": "4122",
+                "driver_distance_text": "4.1 km"
+            },
+            "status": {
+                "name": "driver_onway",
+                "value": 7
+            },
+            "source": {
+                "latitude": "35.726926",
+                "longitude": "51.391521",
+                "name": "استان تهران، تهران، کوچه حسین نیا ۱۲، ایران"
+            },
+            "destination": {
+                "latitude": "32.621120",
+                "longitude": "51.627184",
+                "name": "استان اصفهان، اصفهان، خیابان نستوه، ایران"
+            },
+            "total": "22300000"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response - Not on an active trip</p>
+</blockquote>
+<pre><code class="language-json">{
+    "success": false,
+    "data": [
+        {
+            "title": "Not on trip",
+            "detail": "Not on an active trip right now"
+        }
+    ]
+}</code></pre>
 <h2>Income</h2>
 <p>Get driver income.</p>
 <blockquote>
@@ -5259,6 +5128,14 @@ if not:</p>
 <tr>
 <td>8</td>
 <td><code>logout</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>driver_approved_by_admin</code></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>driver_disapproved_by_admin</code></td>
 </tr>
 </tbody>
 </table>

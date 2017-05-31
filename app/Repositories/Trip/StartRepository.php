@@ -16,7 +16,7 @@ class StartRepository
     public static function trip()
     {
         $driver = Auth::user()->driver()->first();
-        $status = Status::whereName('driver_arrived')->firstOrFail()->value;
+        $status = Status::value('driver_arrived');
         $trip = $driver->trips()->whereIn('status_id', [$status])
                        ->orderBy('id', 'desc')->first();
 
@@ -24,7 +24,7 @@ class StartRepository
             return false;
         }
 
-        if ($trip->status_id == 12) {
+        if ($trip->status_id == $status) {
             $trip->updateStatusTo('trip_started');
             $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
             dispatch(new SendClientNotification('trip_started', '6', $deviceToken));

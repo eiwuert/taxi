@@ -27,6 +27,7 @@
             <li class="{{ (str_contains(Request::url(), route('agencies.index'))) ? 'active' : '' }}"><a href="{{ route('agencies.index') }}"><i class='ion-person-stalker'></i><span> @lang('admin/general.Agencies')</span></a></li>
             <li class="{{ (str_contains(Request::url(), route('contacts.index'))) ? 'active' : '' }}"><a href="{{ route('contacts.index') }}"><i class='ion-paper-airplane'></i><span> @lang('admin/general.Contact')</span>@include('admin.includes.badge', ['string' => $countOfContacts])</a></li>
             <li class="{{ (str_contains(Request::url(), route('types.index'))) ? 'active' : '' }}"><a href="{{ route('types.index') }}"><i class='ion-cube'></i><span> @lang('admin/general.Car types')</span></a></li>
+            <li class="{{ (str_contains(Request::url(), route('states.index'))) ? 'active' : '' }}"><a href="{{ route('states.index') }}"><i class='ion-android-map'></i><span> @lang('admin/general.States')</span></a></li>
             <li class="{{ (str_contains(Request::url(), route('zones.index'))) ? 'active' : '' }}"><a href="{{ route('zones.index') }}"><i class='ion-pinpoint'></i><span> @lang('admin/general.Zone')</span></a></li>
             <li class="{{ (str_contains(Request::url(), route('currencies.index'))) ? 'active' : '' }}"><a href="{{ route('currencies.index') }}"><i class='ion-pricetags'></i><span> @lang('admin/general.Currency')</span></a></li>
             <li class="{{ (str_contains(Request::url(), 'fares')) ? 'treeview active' : 'treeview' }}">

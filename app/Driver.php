@@ -32,19 +32,10 @@ class Driver extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'gender',
-        'device_token',
-        'device_type',
-        'lang',
-        'state',
-        'email',
-        'country',
-        'address',
-        'zipcode',
-        'picture',
+    protected $fillable = ['first_name', 'last_name', 'gender', 'device_token',
+        'device_type', 'lang', 'state', 'email', 'country', 'address', 'zipcode',
+        'picture', 'identity_number', 'identity_code', 'abuse_history','drug_abuse', 
+        'credit_card'
     ];
 
     public static $sortable = [

@@ -39,7 +39,7 @@ class StateChanged implements ShouldBroadcast
     public function broadcastWith()
     {
         return [
-            "team"    => $this->title, 
+            "team"    => $this->title,
             "message" => $this->message
         ];
     }
@@ -51,6 +51,7 @@ class StateChanged implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        \Log::debug('Pusher to ' . $this->user->role . ': ' . $this->message . ': ' . $this->title);
         return new PrivateChannel('User.' . $this->user->id);
     }
 }

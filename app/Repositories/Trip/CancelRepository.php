@@ -2,13 +2,13 @@
 
 namespace App\Repositories\Trip;
 
+use Auth;
 use App\Client;
 use App\Driver;
 use App\Jobs\SendClientNotification;
 use App\Jobs\SendDriverNotification;
 use App\Repositories\Trip\CreateRepository as Create;
 use App\Repositories\Trip\MainRepository as DriversTo;
-use Auth;
 
 class CancelRepository
 {
@@ -43,10 +43,11 @@ class CancelRepository
             /**
              * Cancel by CLIENT
              */
+            $deviceToken = $driver->device_token;
             switch ($status) {
                 // REQUEST_TAXI
                 case '1':
-                    $this->trip->updateStatusTo('cancel_request_taxi');
+                    $trip->updateStatusTo('cancel_request_taxi');
                     return ['ok'];
                     break;
                 // NO_RESPONSE
@@ -61,7 +62,6 @@ class CancelRepository
                 case '2':
                     $trip->updateStatusTo('cancel_request_taxi');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Driver::whereId($trip->driver_id)->first()->device_token;
                     dispatch(new SendDriverNotification('trip_cancelled_by_client', '1', $deviceToken));
                     return ['ok'];
                     break;
@@ -69,7 +69,6 @@ class CancelRepository
                 case '7':
                     $trip->updateStatusTo('cancel_onway_driver');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Driver::whereId($trip->driver_id)->first()->device_token;
                     dispatch(new SendDriverNotification('client_cancelled_onway_driver', '2', $deviceToken));
                     return ['ok'];
                     break;
@@ -77,7 +76,6 @@ class CancelRepository
                 case '12':
                     $trip->updateStatusTo('client_canceled_arrived_driver');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Driver::whereId($trip->driver_id)->first()->device_token;
                     dispatch(new SendDriverNotification('client_canceled_arrived_driver', '3', $deviceToken));
                     return ['ok'];
                     break;
@@ -86,7 +84,8 @@ class CancelRepository
                     return ['fail' => 'came_early'];
                     break;
             }
-        } elseif (Auth::user()->role == 'driver') {
+        }
+        elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip   = $driver->trips()->orderBy('id', 'desc')->first();
 
@@ -96,13 +95,13 @@ class CancelRepository
                 $status = 0;
             }
 
+            $deviceToken = $trip->client->device_token;
             // Cancel by DRIVER
             switch ($status) {
                 // TRIP_STARTED
                 case '6':
                     $trip->updateStatusTo('driver_reject_started_trip');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
                     dispatch(new SendClientNotification('started_trip_cancelled_by_driver', '2', $deviceToken));
                     return ['ok'];
                     break;
@@ -112,7 +111,6 @@ class CancelRepository
                 case '7':
                     $trip->updateStatusTo('cancel_onway_driver');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
                     dispatch(new SendClientNotification('arrived_driver_cancelled_trip', '4', $deviceToken));
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
                     return ['ok'];
@@ -121,7 +119,6 @@ class CancelRepository
                 case '2':
                     $trip->updateStatusTo('reject_client_found');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
                     dispatch(new SendClientNotification('new_clinet_cancelled_by_driver', '3', $deviceToken));
                     // Request new taxi
                     $tripRequest = [
@@ -129,10 +126,11 @@ class CancelRepository
                             's_long' => $trip->source()->first()->longitude,
                             'd_lat'  => $trip->destination()->first()->latitude,
                             'd_long' => $trip->destination()->first()->longitude,
+                            'type'   => $driver->user->car->type->id,
                         ];
                     $exclude = DriversTo::exclude($trip->client_id);
                     if ($exclude['count'] < 10) {
-                        Create::this($tripRequest)->forThis(Client::find($trip->client_id)->user->id)->exclude($exclude['result'])->now();
+                        Create::this($tripRequest)->forThis($trip->client->user->id)->exclude($exclude['result'])->now();
                     } else {
                         $trip->updateStatusTo('no_driver');
                         dispatch(new SendClientNotification('no_driver_found', '1', $deviceToken));
@@ -143,7 +141,6 @@ class CancelRepository
                 case '12':
                     $trip->updateStatusTo('driver_cancel_arrived_status');
                     $driver->updateDriverAvailability(true);
-                    $deviceToken = Client::whereId($trip->client_id)->first()->device_token;
                     dispatch(new SendClientNotification('arrived_driver_cancelled_trip', '4', $deviceToken));
                     return ['ok'];
                     break;
@@ -152,7 +149,8 @@ class CancelRepository
                     return ['fail' => 'came_early'];
                     break;
             }
-        } else {
+        }
+        else {
             return ['fail' => 'came_early'];
         }
     }

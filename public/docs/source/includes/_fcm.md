@@ -45,6 +45,8 @@ Body | Header
 6 | `pay_cash`
 7 | `pay_wallet`
 8 | `logout`
+9 | `driver_approved_by_admin`
+10 | `driver_disapproved_by_admin`
 
 
 ## Pusher

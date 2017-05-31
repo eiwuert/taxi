@@ -159,7 +159,7 @@ class CreateRepository extends MainRepository
     {
         return Trip::forceCreate([
             'client_id'       => self::$client->id,
-            'status_id'       => Status::where('name', 'request_taxi')->firstOrFail()->value,
+            'status_id'       => Status::value('request_taxi'),
             'source'          => self::$source->id,
             'destination'     => self::$destination->id,
             'eta_text'        => self::$matrix['duration']['text'],
@@ -179,7 +179,7 @@ class CreateRepository extends MainRepository
     {
         self::$trip->update([
             'driver_id'              => self::$driver->id,
-            'status_id'              => Status::where('name', 'client_found')->firstOrFail()->value,
+            'status_id'              => Status::value('client_found'),
             'etd_text'               => self::$toClient['duration']['text'],
             'etd_value'              => self::$toClient['duration']['value'],
             'driver_distance_text'   => self::$toClient['distance']['text'],
@@ -252,7 +252,7 @@ class CreateRepository extends MainRepository
     private static function noDriver()
     {
         self::$trip->update([
-            'status_id'              => Status::where('name', 'no_driver')->firstOrFail()->value,
+            'status_id'              => Status::value('no_driver'),
             'updated_at'             => Carbon::now(),
         ]);
     }

@@ -81,19 +81,26 @@ class NearbyRepository
             $driverToCheck = User::whereId($u->user_id)->first()
                                 ->driver->first();
             if (!is_null($driverToCheck)) {
+                $type = $driverToCheck->car()->type;
+                $parent = $type->parent;
                 $driver->angle = $driverToCheck->angle();
-                $nearby[$driverToCheck->car()->type->parent->name][$driverToCheck->car()->type->name][] = $driver;
+                $driver->cat_id = $type->id;
+                $driver->parent_id = $parent->id;
+                $driver->parent_icon = $parent->icon;
+                // $nearby[$driverToCheck->car()->type->parent->name][$driverToCheck->car()->type->name][] = $driver;
+                // $nearby->cat_id = $driverToCheck->car()->type->id;
             }
+            $nearby[] = $driver;
         }
-        foreach(CarType::orderBy('id', 'desc')->parents()->get() as $top) {
-            if ($top->children()->count() != 0) {
-                foreach ($top->children()->get() as $child) {
-                    if (! isset($nearby[$top->name][$child->name])) {
-                        $nearby[$top->name][$child->name] = [];
-                    }
-                }
-            }
-        }
+        // foreach(CarType::orderBy('id', 'desc')->parents()->get() as $top) {
+        //     if ($top->children()->count() != 0) {
+        //         foreach ($top->children()->get() as $child) {
+        //             if (! isset($nearby[$top->name][$child->name])) {
+        //                 $nearby[$top->name][$child->name] = [];
+        //             }
+        //         }
+        //     }
+        // }
         return $nearby;
     }
 }

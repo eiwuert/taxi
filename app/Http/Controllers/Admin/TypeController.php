@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\CarType as Type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CarTypeRequest as Request;
+use App\Http\Requests\Admin\UpdateCarTypeRequest as UpdateRequest;
 
 class TypeController extends Controller
 {
@@ -15,7 +16,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::parents()->orderBy('id', 'desc')
+        $types = Type::parents()->orderBy('position', 'asc')
                           ->paginate(config('admin.perPage'));
         return view('admin.types.index', compact('types'));
     }
@@ -28,7 +29,8 @@ class TypeController extends Controller
     public function create()
     {
         $types = $this->types();
-        return view('admin.types.create', compact('types'));
+        $position = range(0, Type::count());
+        return view('admin.types.create', compact('types', 'position'));
     }
 
     /**
@@ -65,8 +67,9 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
+        $position = range(0, Type::count());
         $types = $this->selectedTypesAndAvailableTypes($type);
-        return view('admin.types.edit', compact('type', 'types'));
+        return view('admin.types.edit', compact('type', 'types', 'position'));
     }
 
     /**
@@ -76,12 +79,13 @@ class TypeController extends Controller
      * @param  \App\CarType $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(UpdateRequest $request, Type $type)
     {
         $type->update($request->all());
         $types = $this->updateAndGetTypes($type, $request->children);
+        $position = range(0, Type::count());
         flash(__('admin/general.Car type updated'));
-        return view('admin.types.edit', compact('type', 'types'));
+        return redirect()->back();
     }
 
     /**
@@ -92,9 +96,14 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        // $type->delete();
-        flash(__('admin/general.Cannot delete car types'));
-        return redirect()->route('types.index');
+        if ($type->canDelete()) {
+            $type->delete();
+            flash(__('admin/general.Car type deleted'));
+            return redirect()->route('types.index');
+        } else {
+            flash(__('admin/general.Cannot delete car types'));
+            return redirect()->route('types.index');
+        }
     }
 
     /**
@@ -151,7 +160,7 @@ class TypeController extends Controller
 
     /**
      * Update types and get the types for the updated model.
-     * 
+     *
      * @param  \App\CarType $type
      * @param  array $children
      * @return array

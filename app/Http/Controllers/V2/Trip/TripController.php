@@ -8,6 +8,7 @@ use App\Http\Requests\API\V2\TripRequest;
 use App\Http\Requests\API\V2\NearbyRequest;
 use App\Repositories\Trip\NearbyRepository as Find;
 use App\Repositories\Trip\CreateRepository as Create;
+use App\Repositories\Trip\CurrentRepository as Current;
 
 class TripController extends Controller
 {
@@ -82,5 +83,15 @@ class TripController extends Controller
     public function calculate(TripRequest $tripRequest)
     {
         return TripRepository::calculate($tripRequest);
+    }
+
+    /**
+     * Current state of the trip.
+     * @todo
+     * @return json
+     */
+    public function trip()
+    {
+        return ok(Current::driverTripV2());
     }
 }
