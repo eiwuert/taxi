@@ -56,6 +56,30 @@
         {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
     </div>
 </div>
+<div class="form-group">
+    {!! Form::label('identity_number', __('admin/general.Identity number: '), ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        {!! Form::text('identity_number', null, ['class' => 'form-control']) !!}
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('identity_code', __('admin/general.Identity code: '), ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        {!! Form::text('identity_code', null, ['class' => 'form-control']) !!}
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('credit_card', __('admin/general.Credit card: '), ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        {!! Form::text('credit_card', null, ['class' => 'form-control']) !!}
+    </div>
+</div>
+<div class="form-group">
+    {!! Form::label('abuse_history', __('admin/general.Abuse history: '), ['class' => 'col-sm-2 control-label']) !!}
+    <div class="col-sm-10">
+        {!! Form::select('abuse_history', [true => __('admin/general.true'), false => __('admin/general.false')], ['class' => 'form-control']) !!}
+    </div>
+</div>
 @if (is_null($driver->user->meta))
 <div class="form-group">
     {!! Form::label('documents', __('admin/general.Documents: '), ['class' => 'col-sm-2 control-label']) !!}
