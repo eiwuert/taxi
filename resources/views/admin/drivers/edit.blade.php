@@ -77,13 +77,13 @@
 <div class="form-group">
     {!! Form::label('abuse_history', __('admin/general.Abuse history: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::select('abuse_history', [true => __('admin/general.abuse_history_true'), false => __('admin/general.abuse_history_false')], null, ['class' => 'form-control']) !!}
+        {!! Form::select('abuse_history', [true => __('admin/general.abuse_history_true'), false => __('admin/general.abuse_history_false')], [$driver->abuse_history], ['class' => 'form-control']) !!}
     </div>
 </div>
 <div class="form-group">
     {!! Form::label('drug_abuse', __('admin/general.Drug abuse: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::select('drug_abuse', [true => __('admin/general.drug_abuse_true'), false => __('admin/general.drug_abuse_false')], null, ['class' => 'form-control']) !!}
+        {!! Form::select('drug_abuse', [true => __('admin/general.drug_abuse_true'), false => __('admin/general.drug_abuse_false')], [$driver->drug_abuse], ['class' => 'form-control']) !!}
     </div>
 </div>
 @if (is_null($driver->user->meta))
