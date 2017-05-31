@@ -141,7 +141,6 @@ class LocationRepository
                 ->whereNotIn('status_id', [10, 5, 4, 11, 8, 13, 14, 17, 18, 3])->orderBy('id', 'desc')->first())) {
                 return false;
             } else {
-//                return Status::whereId($trip->status_id)->first()->value;
                 return $trip->status_id;
             }
         } else {
