@@ -20,7 +20,7 @@ class LocationRepository
     {
         $drivers = [];
         $info = [];
-        $driverWithFilter = Driver::with('user', 'user.locations')
+        $driverWithFilter = Driver::with('user')
             ->where('approve', true);
 
         // Apply filter on drivers
