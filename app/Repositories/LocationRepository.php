@@ -93,6 +93,13 @@ class LocationRepository
             'name' => $name,
         ]);
 
+        if ($user->role == 'driver') {
+            $user->driver->first()->forceFill([
+                'latitude'  => $lat,
+                'longitude' => $long,
+            ])->save();
+        }
+
         // Set status if is driver
         $status = self::getLastStatusOfTrip($user);
         if ($status) {
