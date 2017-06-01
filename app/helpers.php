@@ -149,9 +149,9 @@ if (! function_exists('nearby')) {
                      WHERE id = '$type'";
         }
 
-        $query = "SELECT id, distance, longitude, latitude, name, user_id AS user_id
+        $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
         FROM (
-        SELECT DISTINCT ON (user_id) user_id AS LU, id, longitude, latitude, name, user_id, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
+        SELECT id, user_id, longitude, latitude, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
                                                                 COS( RADIANS( CAST(latitude  AS double precision) ) ) * 
                                                                 COS( RADIANS( CAST(longitude AS double precision) ) - 
                                                                 RADIANS(CAST($long AS double precision)) ) + 
@@ -159,7 +159,7 @@ if (! function_exists('nearby')) {
                                                                 SIN( RADIANS( CAST(latitude AS double precision) ) ) 
                                                             ) 
                                                 ) AS distance
-            FROM locations
+            FROM drivers
                 WHERE user_id IN (
                     SELECT id 
                     FROM users
@@ -171,6 +171,7 @@ if (! function_exists('nearby')) {
                         WHERE online = true
                         AND approve = true
                         AND available = true
+                        AND deleted_at IS NULL 
                         AND id NOT IN ( $exclude )
                     ) 
                     AND id IN (
