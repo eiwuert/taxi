@@ -85,7 +85,7 @@ class NearbyRepository
                 $parent = $type->parent;
                 $driver->angle = $driverToCheck->angle();
                 $driver->cat_id = $type->id;
-                if (!is_null($parent->id)) {
+                if (!is_null($parent)) {
                     $driver->parent_id = $parent->id;
                 } else {
                     $driver->parent_id = 0;
