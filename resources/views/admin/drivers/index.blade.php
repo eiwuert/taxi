@@ -87,6 +87,7 @@
                         <th>@lang('admin/general.Last name')</th>
                         <th>@lang('admin/general.Status')</th>
                         <th>@lang('admin/general.State')</th>
+                        <th>@lang('admin/general.Car type')</th>
                         <th>@lang('admin/general.Country')</th>
                         <th>@lang('admin/general.Phone')</th>
                     </tr>
@@ -97,6 +98,7 @@
                         <td>{!! $driver->last_name or '<tag color="default"></tag>' !!}</td>
                         <td><tag color="{{ $driver->state()->color }}">{{ $driver->state()->name }}</tag></td>
                         <td>{{ $driver->stateName() }}</td>
+                        <td>{{ $driver->car()->type->name }}</td>
                         <td>{{ $driver->country }}</td>
                         <td>{{ $driver->user->phone }}</td>
                     </tr>
