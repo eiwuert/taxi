@@ -302,16 +302,23 @@ class Driver extends Model
         if (Cache::has($cacheName)) {
             return Cache::get($cacheName);
         } else {
-            $location = Location::whereUserId($this->user_id)
-                            ->orderBy('id', 'desc')
-                            ->first();
-            if (is_null($location)) {
-                $location = new Location();
-                $location->latitude = 0.0;
-                $location->longitude = 0.0;
+            if (is_null($this->latitude) || is_null($this->longitude)) {
+                $location = Location::whereUserId($this->user_id)
+                                ->orderBy('id', 'desc')
+                                ->first();
+                if (is_null($location)) {
+                    $location = new Location();
+                    $location->latitude = 0.0;
+                    $location->longitude = 0.0;
+                } else {
+                    $this->forceFill([
+                        'latitude'  => $location->latitude,
+                        'longitude' => $location->longitude,
+                    ])->save();
+                }
             }
-            Cache::forever($cacheName, ['lat' => $location->latitude, 'lng' => $location->longitude]);
-            return ['lat' => $location->latitude, 'lng' => $location->longitude];
+            Cache::forever($cacheName, ['lat' => $this->latitude, 'lng' => $this->longitude]);
+            return ['lat' => $this->latitude, 'lng' => $this->longitude];
         }
     }
 
