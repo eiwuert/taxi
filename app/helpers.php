@@ -171,6 +171,7 @@ if (! function_exists('nearby')) {
                         WHERE online = true
                         AND approve = true
                         AND available = true
+                        AND deleted_at IS NULL 
                         AND id NOT IN ( $exclude )
                     ) 
                     AND id IN (
