@@ -2,8 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'Latest clients' => 'آخرین مسافرها',
-  'View all clients' => 'مشاهده همه مسافرها',
+  'Trip status' => 'وضعیت سفرها',
+  'View all trips' => 'مشاهده همه سفرها',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -184,6 +184,8 @@ return array (
   'Last name' => 'نام خانوادگی',
   'Last name: ' => 'نام خانوادگی: ',
   'Lastname' => 'نام‌خانوادگی',
+  'Latest clients' => 'آخرین مسافرها',
+  'Latest drivers' => 'آخرین راننده‌ها',
   'Latitude' => 'عرض جغرافیایی',
   'Latitude: ' => 'عرض جغرافیایی: ',
   'Line Chart' => 'نمودار خطی',
@@ -334,6 +336,8 @@ return array (
   'Unlocked' => 'باز شده',
   'Updated at' => 'به روز شده در',
   'Upload zip file' => 'آپلود فایل زیپ',
+  'View all clients' => 'مشاهده همه مسافرها',
+  'View all drivers' => 'مشاهده همه راننده‌ها',
   'Web' => 'وب',
   'Yesterday' => 'دیروز',
   'Zip code: ' => 'کد پستی: ',

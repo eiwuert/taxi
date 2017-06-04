@@ -84,6 +84,7 @@ const { mix } = require('laravel-mix');
             'public/js/admin/iCheck.js')
         .js('resources/assets/bower/AdminLTE/plugins/flot/jquery.flot.min.js',
             'public/js/admin/flot.js')
+        .js('node_modules/chart.js/dist/Chart.bundle.js', 'public/js/admin/chart.js')
         .js(['resources/assets/bower/AdminLTE/plugins/input-mask/jquery.inputmask.js',
             'resources/assets/bower/AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js',
             'resources/assets/bower/AdminLTE/plugins/input-mask/jquery.inputmask.regex.extensions.js'

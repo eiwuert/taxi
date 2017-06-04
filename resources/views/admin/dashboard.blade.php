@@ -56,4 +56,12 @@
 	</div>
 </div>
 @endif
+<div class="row">
+	<div class="col-md-6">
+		@include('admin.charts.trips')
+	</div>
+	<div class="col-md-6">
+		@include('admin.components.drivers')
+	</div>
+</div>
 @endsection

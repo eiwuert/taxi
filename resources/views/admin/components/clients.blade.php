@@ -1,6 +1,6 @@
 <div class="box box-solid latest-clients-widget">
     <div class="box-header with-border">
-        <h3 class="box-title">@lang('admin/general.Latest clients')</h3>
+        <h3 class="box-title"><i class="ion-android-walk"></i> @lang('admin/general.Latest clients')</h3>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
