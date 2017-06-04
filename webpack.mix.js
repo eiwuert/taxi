@@ -70,6 +70,7 @@ const { mix } = require('laravel-mix');
 
 
     // Admin
+    mix.sass('resources/assets/sass/admin.sass', 'public/css/admin/admin-fix.css'),
     mix.sass('resources/assets/sass/rtl.scss', 'public/css/admin/rtl.css')
         .styles([
             'resources/assets/bower/AdminLTE/bootstrap/css/bootstrap.css',

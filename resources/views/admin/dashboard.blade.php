@@ -46,4 +46,14 @@
 		@include('admin.charts.flot-line', ['title' => __('admin/general.trips') . ' - ' . date('F', mktime(0, 0, 0, \Carbon\Carbon::now()->month, 10)) ])
 	</div>
 </div>
+@if (Auth::user()->web->superadmin())
+<div class="row">
+	<div class="col-md-6">
+		@include('admin.charts.fcm')
+	</div>
+	<div class="col-md-6">
+		@include('admin.components.clients')
+	</div>
+</div>
+@endif
 @endsection

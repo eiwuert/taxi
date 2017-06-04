@@ -2,10 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'abuse_history_false' => 'بدون سو پیشینه',
-  'abuse_history_true' => 'سو پیشینه تایید نشده',
-  'drug_abuse_false' => 'عدم اعتیاد',
-  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
+  'Latest clients' => 'آخرین مسافرها',
+  'View all clients' => 'مشاهده همه مسافرها',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -346,6 +344,8 @@ return array (
   'Zone has been deleted' => 'منطقه پاک شد',
   'Zone updated' => 'منطقه به روز شد',
   'Zone: ' => 'منطقه: ',
+  'abuse_history_false' => 'بدون سو پیشینه',
+  'abuse_history_true' => 'سو پیشینه تایید نشده',
   'accept' => 'قبول سفر',
   'activate' => 'فعال کردن',
   'agencies' => 'نمایندگان',
@@ -367,6 +367,8 @@ return array (
   'distance unit' => 'واحد مسافت',
   'driver' => 'راننده',
   'drivers' => 'راننده ها',
+  'drug_abuse_false' => 'عدم اعتیاد',
+  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
   'email' => 'ایمیل',
   'encodings' => 'رمزگذاری',
   'entry' => 'ورودی',

@@ -23,6 +23,7 @@
   "dependencies": {
     "laravel-echo": "^1.3.0",
     "locutus": "^2.0.8",
+    "perfect-scrollbar": "^0.7.1",
     "pusher-js": "^4.1.0"
   }
 }
