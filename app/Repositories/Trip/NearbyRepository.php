@@ -85,12 +85,13 @@ class NearbyRepository
                 $parent = $type->parent;
                 $driver->angle = $driverToCheck->angle();
                 $driver->cat_id = $type->id;
-                if (!is_null($parent->id)) {
+                if (!is_null($parent)) {
                     $driver->parent_id = $parent->id;
+                    $driver->parent_icon = $parent->icon;
                 } else {
                     $driver->parent_id = 0;
+                    $driver->parent_icon = asset('img/no-icon.png');
                 }
-                $driver->parent_icon = $parent->icon;
                 // $nearby[$driverToCheck->car()->type->parent->name][$driverToCheck->car()->type->name][] = $driver;
                 // $nearby->cat_id = $driverToCheck->car()->type->id;
             }

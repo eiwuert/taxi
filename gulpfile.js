@@ -25,17 +25,19 @@ elixir(mix => {
             'more.css',
         ], 'public/css/en.css', 'resources/assets/css')
 
-        .webpack([
+        .scripts([
             'jquery-1.8.3.min.js',
             'jquery.easing.min.js',
             'jquery.flexslider.js',
             'jquery.parallax-1.1.3.js',
+            'superfish.js',
             'bootstrap.min.js',
             'hover-dropdown.js',
             'link-hover.js',
             'common-scripts.js',
             'scrolling-nav.js',
             'bxslider.js',
+            'owl.carousel.min.js',
             'wow.min.js',
             'seq-slider/jquery.sequence-min.js',
             'seq-slider/sequencejs-options.apple-style.js',
@@ -53,17 +55,20 @@ elixir(mix => {
             'rtl.css',
         ], 'public/css/fa.css', 'resources/assets/css')
 
-        .webpack([
+        .scripts([
             'jquery-1.8.3.min.js',
+            'analytics.js',
             'jquery.easing.min.js',
             'jquery.flexslider.js',
             'jquery.parallax-1.1.3.js',
+            'superfish.js',
             'bootstrap.min.js',
             'hover-dropdown.js',
             'link-hover.js',
             'common-scripts.js',
             'scrolling-nav.js',
             'bxslider.js',
+            'owl.carousel.min.js',
             'wow.min.js',
             'seq-slider/jquery.sequence-min.js',
             'seq-slider/sequencejs-options.apple-style.js',
@@ -102,6 +107,10 @@ elixir(mix => {
             'js/admin/admin.js',
             'js/admin/iCheck.js',
             'js/admin/jquery.inputmask.js',
-            'public/js/admin/flot.js'
+            'public/js/admin/flot.js',
+            'public/js/en.js',
+            'public/js/fa.js',
+            'public/css/en.css',
+            'public/css/fa.css',
         ]);
 });

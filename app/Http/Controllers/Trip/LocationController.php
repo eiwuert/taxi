@@ -19,12 +19,6 @@ class LocationController extends Controller
      */
     public function set(LocationRequest $request)
     {
-        if (Auth::user()->role == 'driver') {
-            Auth::user()->driver->first()->forceFill([
-                'latitude'  => $request->lat,
-                'longitude' => $request->long,
-            ])->save();
-        }
         return ok(LocationRepository::set($request->lat, $request->long, null, 'TEST'));
     }
 }

@@ -1,5 +1,5 @@
 
-    <section id="testimonial" class=" green-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide" style="direction: ltr;padding-bottom: 35px;">
+    <section id="testimonial" class=" green-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide" style="direction: ltr;padding-bottom: 60px;">
         <div class="container">
             <div class="row mar-b-60">
                 <div class="col-lg-2">
@@ -25,7 +25,7 @@
                     </span> -->
                                         <div class="about-testimonial-content">
                                             <p class="about-testimonial-quote">
-                                                من رانندگی با فلیپ را ترجیح میدهم . چون قیمت ارزان و دسترسی سریع از جمله مزیت های آن است.
+                                                من سفر با فلیپ را ترجیح میدهم . چون قیمت ارزان و دسترسی سریع از جمله مزیت های آن است.
                                             </p>
                                         </div>
                                     </li>
@@ -41,7 +41,7 @@
                     </span> -->
                                         <div class="about-testimonial-content">
                                             <p class="about-testimonial-quote">
-                                                من رانندگی با فلیپ را ترجیح میدهم . چون قیمت ارزان و دسترسی سریع از جمله مزیت های آن است.
+                                                من سفر با فلیپ را ترجیح میدهم . چون قیمت ارزان و دسترسی سریع از جمله مزیت های آن است.
                                             </p>
                                         </div>
                                     </li>

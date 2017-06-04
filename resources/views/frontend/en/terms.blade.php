@@ -62,11 +62,10 @@
         </div>
         <div class="container">
             <div class="col-sm-12 trans-blk">
-                <link rel="stylesheet" href="../css/more.css">
                 <h2>Terms and Conditions</h2>
                 <hr>
-                <p>This Mobile Application Terms and Conditions of Use and End User License Agreement is a binding agreement between you (End User or you) and Automated Service Provider. This Agreement governs your use of the service mobile software application (including all related documentation, the Application or the App).BY USING THE SERVICE, YOU ACKNOWLEDGE AND AGREE TO THESE TERMS OF SERVICE, AND Automated Service PRIVACY POLICY</p>
-                <p>By selecting the checkbox button you
+                <p class="p-terms">This Mobile Application Terms and Conditions of Use and End User License Agreement is a binding agreement between you (End User or you) and Automated Service Provider. This Agreement governs your use of the service mobile software application (including all related documentation, the Application or the App).BY USING THE SERVICE, YOU ACKNOWLEDGE AND AGREE TO THESE TERMS OF SERVICE, AND Automated Service PRIVACY POLICY</p>
+                <p class="p-terms">By selecting the checkbox button you
                 </p><ol type="a">
                 <li>acknowledge that you have read and understand this agreement;</li>
                 <li>represent that you are of legal age to enter into a binding agreement; and </li>

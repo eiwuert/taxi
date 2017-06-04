@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="copyright">
-                        <p>&copy; ۲۰۱۷ | توسعه یافته توسط
+                        <p>&copy; ۲۰۱۷ | پیاده سازی توسط
                             <a href="{{ url('global') }}" target="_blank">
                                 <span>تیم توسعه فلیپ</span>
                             </a>
@@ -77,9 +77,9 @@
 
     jQuery(document).ready(function() {
         jQuery('ul.superfish').superfish();
+        new WOW().init();
     });
 
-    new WOW().init();
     </script>
 </body>
 

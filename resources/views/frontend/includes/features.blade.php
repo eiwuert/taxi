@@ -10,11 +10,11 @@
                     <div class="services">
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow fadeInRight" data-wow-duration="1.5s" data-wow-delay=".1s">
-                                <i class="fa fa-dollar">
+                                <i class="fa fa-dollar ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   محاسبه گر کرایه
                 </h3>
                                 <p>
@@ -24,11 +24,11 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow rotateInUpRight" data-wow-duration="1.5s" data-wow-delay=".3s">
-                                <i class="fa fa-tags">
+                                <i class="fa fa-tags ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   کد تخفیف / کد ارجاع
                 </h3>
                                 <p>
@@ -40,11 +40,11 @@
                     <div class="services">
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow rotateInUpRight" data-wow-duration="1.5s" data-wow-delay=".5s">
-                                <i class="fa fa-credit-card ">
+                                <i class="fa fa-credit-card ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   پرداخت با کیف پول
                 </h3>
                                 <p>
@@ -54,11 +54,11 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".7s">
-                                <i class="fa fa-taxi">
+                                <i class="fa fa-taxi ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                  مشاهده موقعیت نزدیکترین راننده
                 </h3>
                                 <p>
@@ -70,11 +70,11 @@
                     <div class="services">
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay=".9s">
-                                <i class="fa fa-clock-o">
+                                <i class="fa fa-clock-o ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   زمان تقریبی رسیدن راننده
                 </h3>
                                 <p>
@@ -84,11 +84,11 @@
                         </div>
                         <div class="col-lg-6 col-sm-6">
                             <div class="icon-wrap ico-bg round-five wow zoomIn" data-wow-duration="1.5s" data-wow-delay="1.1s">
-                                <i class="fa fa-star">
+                                <i class="fa fa-star ico-padd">
                 </i>
                             </div>
                             <div class="content">
-                                <h3 class="title">
+                                <h3 class="title text-right">
                   سیستم امتیازدهی
                 </h3>
                                 <p>
