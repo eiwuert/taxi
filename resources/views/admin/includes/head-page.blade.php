@@ -6,6 +6,11 @@
         <title>@lang('admin/general.Flip') &bull; @yield('title', '')</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+        </script>
         <link rel="stylesheet" href="{{ mix('css/admin/admin.css') }}">
         @if (\Request::segment(1) == 'fa')
         <link rel="stylesheet" href="{{ mix('css/admin/rtl.css') }}">

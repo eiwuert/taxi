@@ -28,6 +28,7 @@ class GoogleMapsMarkerComposer
         $data = LocationRepository::driverOnMap($driverModel = Driver::find(end($segments)));
         $view->with('driver', $data['driver']);
         $view->with('info', $data['info']);
+        $view->with('icon', $data['icon']);
         $view->with('driverModel', $driverModel);
     }
 }
