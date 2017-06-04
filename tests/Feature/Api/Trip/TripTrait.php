@@ -12,12 +12,6 @@ trait TripTrait
     protected $clientId;
     protected $clientAccessToken;
     protected $driverAccessToken;
-
-    /**
-     * Set up methods.
-     *
-     * @return  void
-     */
     public function setUp()
     {
         parent::setUp();
@@ -71,23 +65,11 @@ trait TripTrait
 
         $this->refreshApplication();
     }
-
-    /**
-     * Remove created user.
-     * 
-     * @return void
-     */
     public function teardown()
     {
         $this->driver->forceDelete();
         $this->client->delete();
     }
-
-    /**
-     * Make driver online.
-     * 
-     * @return void
-     */
     protected function driverGoesOnline()
     {
         $this->get('api/v1/driver/online', [
@@ -95,14 +77,6 @@ trait TripTrait
             'Accept' => 'application/json']);
         $this->refreshApplication();
     }
-
-    /**
-     * Set driver location.
-     * 
-     * @param  float $lat
-     * @param  float $long
-     * @return void
-     */
     protected function driverSetsHerCurrentLocation($lat = '41.410874', $long = '2.157207')
     {
         $response = $this->post('api/v1/driver/location',
@@ -111,12 +85,6 @@ trait TripTrait
             'Accept' => 'application/json']);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver Accepts the trip.
-     * 
-     * @return void
-     */
     protected function driverAcceptsTheTrip()
     {
         $response = $this->get('api/v1/driver/accept',
@@ -128,12 +96,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver arrives to the start point.
-     * 
-     * @return void
-     */
     public function driverArrivesToTheStartPoint()
     {
         $this->get('/api/v1/driver/arrived',
@@ -145,12 +107,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver starts to the trip.
-     * 
-     * @return void
-     */
     public function driverStartsTheTrip()
     {
         $this->get('/api/v1/driver/start',
@@ -162,12 +118,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client choose the payment mode.
-     * 
-     * @return void
-     */
     public function clientChooseThePayment()
     {
         $this->get('/api/v1/client/pay/cash',
@@ -179,15 +129,8 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client choose the payment mode.
-     * @todo  Payment redirect back from IPG.
-     * @return void
-     */
     public function clientChooseWalletAsThePayment()
     {
-        // Test with no balance
         $this->get('/api/v1/client/pay/wallet',
             ['Authorization' => $this->clientAccessToken,
             'Accept' => 'application/json'])
@@ -208,12 +151,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver ends to the trip.
-     * 
-     * @return void
-     */
     public function driverEndsTheTrip()
     {
         $this->get('/api/v1/driver/end',
@@ -225,12 +162,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver rates the trip.
-     * 
-     * @return void
-     */
     protected function driverRatesTheTrip()
     {
         $this->post('/api/v1/driver/rate',
@@ -244,12 +175,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client rates the trip.
-     * 
-     * @return void
-     */
     protected function clientRatesTheTrip()
     {
         $this->post('/api/v1/client/rate',
@@ -263,16 +188,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Calculate trip cost by client. V1
-     * 
-     * @param  float $s_lat
-     * @param  float $s_long
-     * @param  float $d_lat
-     * @param  float $d_long
-     * @return void
-     */
     protected function clientCalculateTripV1($s_lat, $s_long, $d_lat, $d_long)
     {
         $this->post('/api/v1/client/calculate',
@@ -287,16 +202,6 @@ trait TripTrait
                 'distance', 'duration', 'transactions']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Calculate trip cost by client. V2
-     * 
-     * @param  float $s_lat
-     * @param  float $s_long
-     * @param  float $d_lat
-     * @param  float $d_long
-     * @return void
-     */
     protected function clientCalculateTripV2($s_lat, $s_lng, $d_lat, $d_lng)
     {
         $this->post('/api/v2/client/calculate',
@@ -311,12 +216,6 @@ trait TripTrait
                 'distance', 'duration', 'transactions']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Get client trip.
-     * 
-     * @return void
-     */
     protected function clientGetsCurrentTrip()
     {
         $this->get('/api/v1/client/trip',
@@ -330,12 +229,6 @@ trait TripTrait
                 'destination', 'driver_location', 'total']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Get driver trip.
-     * 
-     * @return void
-     */
     protected function driverGetsCurrentTrip()
     {
         $this->get('/api/v1/driver/trip',
@@ -348,12 +241,6 @@ trait TripTrait
                 'client', 'trip', 'status', 'source', 'destination', 'total']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver sees the new payment mode.
-     * 
-     * @return void
-     */
     protected function driverSeesThePaymentMode()
     {
         $this->get('/api/v1/driver/trip',
@@ -365,12 +252,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['paid']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client request a taxi V1.
-     * 
-     * @return void
-     */
     protected function clientRequestsATaxiV1()
     {
         $this->post('/api/v1/client/trip',
@@ -386,12 +267,6 @@ trait TripTrait
                 'source_name', 'destination_name']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Test no driver status V1.
-     * 
-     * @return void
-     */
     protected function clientRequestsATaxiV1AndSeesNoDriver()
     {
         $this->post('/api/v1/client/trip',
@@ -405,12 +280,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail','trip_status']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client request a taxi V2
-     * 
-     * @return void
-     */
     protected function clientRequestsATaxiV2()
     {
         $this->post('/api/v2/client/trip',
@@ -426,12 +295,6 @@ trait TripTrait
                 'source_name', 'destination_name']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Test no driver status V2
-     * 
-     * @return void
-     */
     protected function clientRequestsATaxiV2AndSeesNoDriver()
     {
         $this->post('/api/v2/client/trip',
@@ -445,12 +308,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail','trip_status']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client cancels the trip.
-     * 
-     * @return void
-     */
     protected function clientCancelsTheTrip()
     {
         $this->get('/api/v1/client/cancel',
@@ -462,12 +319,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver cancels the trip.
-     * 
-     * @return void
-     */
     protected function driverCancelsTheTrip()
     {
         $this->get('/api/v1/driver/cancel',
@@ -479,12 +330,6 @@ trait TripTrait
             ->assertJsonStructure(['success', 'data' => [['title', 'detail']]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Driver gets his or her history.
-     * 
-     * @return void
-     */
     protected function driverGetsHisOrHerHistory()
     {
         $this->get('/api/v1/driver/history',
@@ -503,12 +348,6 @@ trait TripTrait
                 'rate' => ['client', 'driver', 'client_comment', 'driver_comment', 'trip_id']]]]);
         $this->refreshApplication();
     }
-
-    /**
-     * Client gets his or her history.
-     * 
-     * @return void
-     */
     protected function clientGetsHisOrHerHistory()
     {
         $this->get('/api/v1/client/history',
