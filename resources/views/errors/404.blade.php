@@ -4,8 +4,8 @@
         <title>@lang('admin/general.Not found')</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
-        <link rel="stylesheet" href="{{ elixir('css/admin/rtl.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/admin/admin.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/admin/rtl.css') }}">
 
         <!-- Styles -->
         <style>

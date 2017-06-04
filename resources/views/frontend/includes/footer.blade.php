@@ -30,7 +30,10 @@
     <!--small footer end-->
     <!-- js placed at the end of the document so the pages load faster
    -->
-    <script src="{{ elixir('js/fa.js') }}"></script>
+    <script src="{{ mix('js/fa.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superfish/1.7.9/js/superfish.min.js"></script>
     <!-- end of sequence slider js-->
     <script type="text/javascript">
     jQuery(document).ready(function() {

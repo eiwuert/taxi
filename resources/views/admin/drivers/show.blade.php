@@ -48,7 +48,7 @@
 <!-- /.row -->
 @endsection
 @push('js')
-<script src="{{ elixir('js/admin/jquery.inputmask.js') }}"></script>
+<script src="{{ mix('js/admin/jquery.inputmask.js') }}"></script>
 <script type="text/javascript">
 $(function () {
   $(".data-mask-plate").inputmask();
