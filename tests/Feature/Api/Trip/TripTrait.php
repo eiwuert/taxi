@@ -25,7 +25,6 @@ trait TripTrait
             'country' => 'Iran',
         ]);
         $this->refreshApplication();
-
         $this->driverAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
                                    $response->getOriginalContent()['data'][0]['access_token'];
         $this->refreshApplication();
@@ -33,11 +32,9 @@ trait TripTrait
                             ['code' => '55555'],
                             ['Authorization' => $this->driverAccessToken,
                              'Accept' => 'application/json']);
-
         $this->driver = Driver::orderBy('id', 'desc')->first();
         $this->driver->forceFill(['approve' => 'true'])->save();
         $this->refreshApplication();
-
         $response = $this->json('POST', '/api/v1/client/register', [
             'phone' => rand(1111111111, 9999999999),
             'login_by' => 'manual',
@@ -49,16 +46,12 @@ trait TripTrait
         $this->client = Client::orderBy('id', 'desc')->first();
         $this->clientAccessToken = $response->getOriginalContent()['data'][0]['token_type'] . ' ' .
                                    $response->getOriginalContent()['data'][0]['access_token'];
-        \Log::debug($this->clientAccessToken);
         $this->refreshApplication();
-
         $response = $this->json('POST', '/api/v1/driver/verify',
                             ['code' => '55555'],
                             ['Authorization' => $this->clientAccessToken,
                              'Accept' => 'application/json']);
-
         $this->refreshApplication();
-
         $client = $this->json('GET', 'api/v1/client/profile', [], 
             ['Authorization' => $this->clientAccessToken]);
         $this->clientId = $client->getOriginalContent()['data'][0]['id'];
