@@ -137,13 +137,14 @@ class PaymentController extends Controller
                                                        ->get(['id'])
                                                        ->flatten())
                            ->paginate(option('pagination', 15));
+        $accountings = $driver->accounting()->orderby('id', 'desc')->get();
         if (@$request->export) {
             if (is_null($request->type)) {
                 $request->type = 'pdf';
             }
             return Export::from('Payment of the ' . $driver->first_name . ' ' . $driver->last_name, $payments->toArray()['data'], $request->type);
         } else {
-            return view('admin.payments.trips', compact('payments', 'driver'));
+            return view('admin.payments.trips', compact('payments', 'driver', 'accountings'));
         }
     }
 

@@ -171,4 +171,24 @@ class Payment extends Model
     {
         return FilterRepository::daterange($range, $query);
     }
+
+    /**
+     * Driver debit.
+     * @return integer
+     */
+    public function debit($date = null)
+    {
+        $transaction = $this->trip->transaction;
+        return (((((int)($transaction->commission)) / 100) * $transaction->total));
+    }
+
+    /**
+     * Driver credit.
+     * @return integer
+     */
+    public function credit($date = null)
+    {
+        $transaction = $this->trip->transaction;
+        return ((((100 - (int)($transaction->commission)) / 100) * $transaction->total));
+    }
 }

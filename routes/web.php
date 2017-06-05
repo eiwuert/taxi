@@ -46,6 +46,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::resource('fares', 'FareController', ['middleware' => ['superadmin']]);
     // Currencies
     Route::resource('currencies', 'CurrencyController', ['middleware' => ['superadmin']]);
+    // Accounting
+    Route::resource('accountings', 'AccountingController', ['middleware' => ['superadmin']]);
     // Contacts
     Route::get('contacts', 'ContactController@index')->name('contacts.index');
     Route::get('contacts/{contact}', 'ContactController@show')->name('contacts.show');

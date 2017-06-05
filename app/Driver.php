@@ -214,6 +214,16 @@ class Driver extends Model
     }
 
     /**
+     * A driver can have many accounting records.
+     *
+     * @return Illuminate\Database\Eloquent\Concerns\hasMany
+     */
+    public function accounting()
+    {
+        return $this->hasMany('App\Accounting');
+    }
+
+    /**
      * Inverse trips
      *
      * @return Illuminate\Database\Eloquent\Concerns\hasMany
@@ -249,7 +259,7 @@ class Driver extends Model
 
     /**
      * Get driver income
-     * 
+     * @deprecated 2.0 in favor of credit and debit
      * @return numeric
      */
     public function income($date = null)
@@ -519,5 +529,59 @@ class Driver extends Model
         return config('states.' . $this->state);
     }
 
+    /**
+     * Driver debit.
+     * @return integer
+     */
+    public function totalDebit($date = null) : string
+    {
+        $debit = 0;
+        $this->trips()->range($date)->finished()->each(function ($t) use (& $debit) {
+            if (! is_null($trip = $t->payments()->paid())) {
+                if ($trip->first()->type == 'cash') {
+                    $total = $t->transaction()->sum('total');
+                    $debit += ((((int)($t->transaction->commission)) / 100) * $total);
+                }
+            }
+        });
+        return $debit;
+    }
 
+    /**
+     * Driver credit.
+     * @return integer
+     */
+    public function totalCredit($date = null) : string
+    {
+        $credit = 0;
+        $this->trips()->range($date)->finished()->each(function ($t) use (& $credit) {
+            if (! is_null($trip = $t->payments()->paid())) {
+                if ($trip->first()->type == 'wallet') {
+                    $total = $t->transaction()->sum('total');
+                    $credit += (((100 - (int)($t->transaction->commission)) / 100) * $total);
+                }
+            }
+        });
+        return $credit;
+    }
+
+    /**
+     * Driver credit
+     * @return string
+     */
+    public function credit() : string
+    {
+        return ($this->totalCredit() + $this->accounting->sum('debit')) - 
+               ($this->totalDebit() + $this->accounting->sum('credit'));
+    }
+
+    /**
+     * Driver debit
+     * @return string
+     */
+    public function debit() : string
+    {
+        return ($this->totalDebit() + $this->accounting->sum('credit')) - 
+               ($this->totalCredit() + $this->accounting->sum('debit'));
+    }
 }

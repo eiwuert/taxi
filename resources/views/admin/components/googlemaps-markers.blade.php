@@ -99,7 +99,6 @@
   }
 
   function addMarker(position, info, icon) {
-    console.log(icon);
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(position.lat), lng: parseFloat(position.lng)},
         map: map,
