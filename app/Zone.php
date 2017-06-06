@@ -22,4 +22,13 @@ class Zone extends Model
     {
         return $this->hasOne('App\Fare');
     }
+
+    /**
+     * A Zone belongs to many car types.
+     * @return belongsToMany
+     */
+    public function carTypes()
+    {
+        return $this->belongsToMany('App\CarType');
+    }
 }
