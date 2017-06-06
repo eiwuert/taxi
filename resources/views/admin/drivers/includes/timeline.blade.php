@@ -102,7 +102,7 @@
   @endforeach
   @if ($driver->trips->isEmpty())
   <li>
-    <i class="fa fa-pause" aria-hidden="true"></i>
+    <i class="fa fa-circle" aria-hidden="true"></i>
     <div class="timeline-item">
     <h3 class="timeline-header">@lang('admin/general.Fresh as a daisy')</a></h3>
     <div class="timeline-body">

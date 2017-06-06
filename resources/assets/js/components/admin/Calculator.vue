@@ -160,7 +160,7 @@
             },
             total: function () {
                 var timeValue = 0
-                var total = this.theEntry + ((this.theDistance * this.thePerDistance)
+                var total = parseInt(this.theEntry) + ((this.theDistance * this.thePerDistance)
                                        + (this.theTime * this.thePerTime))
                 total = total * (1 - (this.theDiscount / 100))
                 if (this.surcharge == true) {
