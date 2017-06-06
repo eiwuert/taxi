@@ -184,7 +184,7 @@ class TransactionRepository
         $formatedFares = [];
         foreach ($fares as $type => $fare) {
             $type = CarType::where('name', $type)->first();
-            if (is_null($type) || 
+            if (is_null($type) ||
                 is_null($type->car_type_id)) {
                 continue;
             }
@@ -229,9 +229,11 @@ class TransactionRepository
      */
     private function transaction($distance_value, $eta_value, $timezone)
     {
+        $type = CarType::whereName($this->type)->first();
         return $transaction = [
             'car_type'       => $this->type,
-            'car_type_id'    => CarType::whereName($this->type)->first()->id,
+            'car_type_id'    => $type->id,
+            'icon'           => $type->icon,
             'currency'       => $this->currency,
             'entry'          => $this->entry(),
             'distance'       => $distance_value,
