@@ -28,7 +28,7 @@ HEAD UP! new changes to API will be here as reference.
 * Add calculate ver. 3 and nearby ver. 3
 * Add pusher
 * Add contact to call center
-* Add states to the client registration 
+* Add states to the client registration
 * Remove 'ar' from lang param in client and driver registration
 * Add register, payment and logout flow chart
 * Add FCM keys
@@ -402,7 +402,7 @@ Parameter | Type | Status | Description
     device_type | string |  required  | Maximum: `255`
     device_token | string |  required  | Maximum: `255`
     state | numeric |  required  | Maximum: `255`, exists in states
-    
+
 
 > Example response
 
@@ -614,7 +614,7 @@ $.ajax(settings).done(function (response) {
 }
 ```
 #Verify
- 
+
 ## Clinet
 
 Verify registered client
@@ -658,7 +658,7 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     code | numeric |  required  | length of code: `5`
-    
+
 > Example response
 
 ```json
@@ -773,7 +773,7 @@ $.ajax(settings).done(function (response) {
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
     code | numeric |  required  | length of code: `5`
-    
+
 > Example response
 
 ```json
@@ -867,7 +867,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/client/resend`
-    
+
 > Example response
 
 ```json
@@ -944,7 +944,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/driver/resend`
-    
+
 > Example response
 
 ```json
@@ -1036,8 +1036,8 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    lat | string |  required  | 
-    long | string |  required  | 
+    lat | string |  required  |
+    long | string |  required  |
 
 
 > Example response
@@ -1120,8 +1120,8 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    lat | string |  required  | 
-    long | string |  required  | 
+    lat | string |  required  |
+    long | string |  required  |
 
 
 > Example response
@@ -1207,8 +1207,8 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    lat | string |  required  | 
-    lng | string |  required  | 
+    lat | string |  required  |
+    lng | string |  required  |
 
 
 > Example response
@@ -1291,8 +1291,8 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-    lat | string |  required  | 
-    lng | string |  required  | 
+    lat | string |  required  |
+    lng | string |  required  |
 
 
 > Example response
@@ -1776,7 +1776,7 @@ Parameter | Type | Status | Description
     address | string |  optional  | Minimum: `3`
     state | string |  optional  | Minimum: `2` Maximum: `255`
     country | string |  optional  | Minimum: `2` Maximum: `255`
-    zipcode | numeric |  optional  | 
+    zipcode | numeric |  optional  |
     picture | image |  optional  | Must be an image (jpeg, png, bmp, gif, or svg) Maximum: `512`
 
 
@@ -2251,8 +2251,8 @@ curl "http://flipapp.ir/api/v1/client/trip" \
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_long": "maiores", \ 
-   -d "type": "maiores", \ 
+   -d "d_long": "maiores", \
+   -d "type": "maiores", \
 ```
 
 ```javascript
@@ -2287,10 +2287,10 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-s_lat | numeric |  required  | 
-s_long | numeric |  required  | 
-d_lat | numeric |  required  | 
-d_long | numeric |  required  | 
+s_lat | numeric |  required  |
+s_long | numeric |  required  |
+d_lat | numeric |  required  |
+d_long | numeric |  required  |
 type | | optional |  Children car types given by nearby
 > Example response
 
@@ -2358,8 +2358,8 @@ curl "http://flipapp.ir/api/v2/client/trip" \
    -d "s_lat": "maiores", \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_lng": "maiores", \ 
-   -d "type": "maiores", \ 
+   -d "d_lng": "maiores", \
+   -d "type": "maiores", \
 ```
 
 ```javascript
@@ -2394,10 +2394,10 @@ $.ajax(settings).done(function (response) {
 
 Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
-s_lat | numeric |  required  | 
-s_lng | numeric |  required  | 
-d_lat | numeric |  required  | 
-d_lng | numeric |  required  | 
+s_lat | numeric |  required  |
+s_lng | numeric |  required  |
+d_lat | numeric |  required  |
+d_lng | numeric |  required  |
 type | | optional | Children car types given by nearby
 > Example response
 
@@ -2464,7 +2464,7 @@ curl "http://flipapp.ir/api/v1/client/nearby" \
    -d "lat": "maiores", \
    -d "long": "maiores", \
    -d "distance": "maiores", \
-   -d "limit": "maiores", \ 
+   -d "limit": "maiores", \
 
 ```
 
@@ -2501,9 +2501,9 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
 lat | numeric |  required  | `(d+).(d+)`
 long | numeric |  required  | `(d+).(d+)`
-distance | numeric |  min: `1`, max: `5`  | 
-limit | numeric |  min: `5`, max: `100`  | 
-    
+distance | numeric |  min: `1`, max: `5`  |
+limit | numeric |  min: `5`, max: `100`  |
+
 > Example response
 
 ```json
@@ -2562,7 +2562,7 @@ curl "http://flipapp.ir/api/v2/client/nearby" \
    -d "lat": "maiores", \
    -d "lng": "maiores", \
    -d "distance": "maiores", \
-   -d "limit": "maiores", \ 
+   -d "limit": "maiores", \
 
 ```
 
@@ -2599,9 +2599,9 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
 lat | numeric |  required  | `(d+).(d+)`
 lng | numeric |  required  | `(d+).(d+)`
-distance | numeric |  min: `1`, max: `5`  | 
-limit | numeric |  min: `5`, max: `100`  | 
-    
+distance | numeric |  min: `1`, max: `5`  |
+limit | numeric |  min: `5`, max: `100`  |
+
 > Example response
 
 ```json
@@ -2686,8 +2686,8 @@ curl "http://flipapp.ir/api/v3/client/nearby" \
    -d "lat": "maiores", \
    -d "lng": "maiores", \
    -d "distance": "maiores", \
-   -d "limit": "maiores", \ 
-   -d "type": "maiores", \ 
+   -d "limit": "maiores", \
+   -d "type": "maiores", \
 
 ```
 
@@ -2725,10 +2725,10 @@ Parameter | Type | Status | Description
 --------- | ------- | ------- | ------- | -----------
 lat | numeric |  required  | `(d+).(d+)`
 lng | numeric |  required  | `(d+).(d+)`
-distance | numeric |  min: `1`, max: `5`  | 
-limit | numeric |  min: `5`, max: `100`  | 
-type | numeric |  children ID  | 
-    
+distance | numeric |  min: `1`, max: `5`  |
+limit | numeric |  min: `5`, max: `100`  |
+type | numeric |  children ID  |
+
 > Example response
 
 ```json
@@ -2851,7 +2851,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/client/trip`
-    
+
 > Example response
 
 ```json
@@ -2967,7 +2967,7 @@ console.log(response);
 
 ### HTTP Request
 `GET api/v1/client/cancel`
-    
+
 > Example response
 
 ```json
@@ -3015,7 +3015,7 @@ curl "http://flipapp.ir/api/v1/client/calculate" \
    -d "s_lat": "maiores", \
    -d "s_long": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_long": "maiores", \ 
+   -d "d_long": "maiores", \
 
 ```
 
@@ -3055,7 +3055,7 @@ s_long | numeric |  required  | [+-]?\d+\.\d+
 d_lat | numeric |  required  | [+-]?\d+\.\d+
 d_long | numeric |  required  | [+-]?\d+\.\d+
 
-    
+
 > Example response
 
 ```json
@@ -3220,7 +3220,7 @@ d_long | numeric |  required  | [+-]?\d+\.\d+
 
 ## Calculate V2
 
-Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API
 you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
 
 
@@ -3233,7 +3233,7 @@ curl "http://flipapp.ir/api/v2/client/calculate" \
    -d "s_lat": "maiores", \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
-   -d "d_lng": "maiores", \ 
+   -d "d_lng": "maiores", \
 
 ```
 
@@ -3273,7 +3273,7 @@ s_lng | numeric |  required  | [+-]?\d+\.\d+
 d_lat | numeric |  required  | [+-]?\d+\.\d+
 d_lng | numeric |  required  | [+-]?\d+\.\d+
 
-    
+
 > Example response
 
 ```json
@@ -3418,214 +3418,6 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 ```
 
 
-## Calculate V3
-
-Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
-you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
-
-
-> Example request
-
-```bash
-curl "http://flipapp.ir/api/v3/client/calculate" \
--H "Accept: application/json" \
--H "Authorization: Bearer ACCESS_TOKEN" \
-   -d "s_lat": "maiores", \
-   -d "s_lng": "maiores", \
-   -d "d_lat": "maiores", \
-   -d "d_lng": "maiores", \ 
-
-```
-
-```javascript
-var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "http://flipapp.ir/api/v3/client/calculate",
-    "method": "POST",
-    "data": {
-        "s_lat": "amet",
-        "s_lng": "amet",
-        "d_lat": "amet",
-        "d_lng": "amet",
-},
-    "headers": {
-        "accept": "application/json",
-        "authorization": "Bearer ACCESS_TOKEN"
-    }
-}
-
-$.ajax(settings).done(function (response) {
-    console.log(response);
-});
-```
-
-
-### HTTP Request
-`POST api/v3/client/calculate`
-
-#### Parameters
-
-Parameter | Type | Status | Description
---------- | ------- | ------- | ------- | -----------
-s_lat | numeric |  required  | [+-]?\d+\.\d+
-s_lng | numeric |  required  | [+-]?\d+\.\d+
-d_lat | numeric |  required  | [+-]?\d+\.\d+
-d_lng | numeric |  required  | [+-]?\d+\.\d+
-
-    
-> Example response
-
-```json
-{
-    "success": true,
-    "data": [
-        {
-            "source": "استان مازندران، رامسر، لمتر، ایران",
-            "destination": "استان اصفهان، اصفهان، خیابان نستوه، ایران",
-            "distance": {
-                "text": "737 km",
-                "value": 736912
-            },
-            "duration": {
-                "text": "9 hours 16 mins",
-                "value": 33331
-            },
-            "transactions": {
-                "High-end": {
-                    "off-roader": {
-                        "car_type": "off-roader",
-                        "car_type_id": 6,
-                        "currency": "IRR",
-                        "entry": "14000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42010000
-                    },
-                    "sport": {
-                        "car_type": "sport",
-                        "car_type_id": 3,
-                        "currency": "IRR",
-                        "entry": "14000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42010000
-                    }
-                },
-                "woman": {
-                    "luxury": {
-                        "car_type": "luxury",
-                        "car_type_id": 1,
-                        "currency": "IRR",
-                        "entry": "50000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42045000
-                    },
-                    "economy": {
-                        "car_type": "economy",
-                        "car_type_id": 5,
-                        "currency": "IRR",
-                        "entry": "14000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42010000
-                    }
-                },
-                "Cheap": {
-                    "van": {
-                        "car_type": "van",
-                        "car_type_id": 2,
-                        "currency": "IRR",
-                        "entry": "14000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42010000
-                    },
-                    "sedans": {
-                        "car_type": "sedans",
-                        "car_type_id": 4,
-                        "currency": "IRR",
-                        "entry": "14000",
-                        "distance": 736912,
-                        "per_distance": "0",
-                        "distance_unit": "minute",
-                        "distance_value": 0,
-                        "time": 33331,
-                        "per_time": "1400",
-                        "time_unit": "kilometer",
-                        "time_value": 46663400,
-                        "surcharge": 1,
-                        "timezone": "Asia/Tehran",
-                        "total": 42010000
-                    }
-                }
-            }
-        }
-    ]
-}
-
-```
-
-
-> Example response - Fail to fetch data from Google Maps
-
-```json
-{
-    "success": false,
-    "data": [
-        {
-            "title": "Failed",
-            "detail": "Failed to intact with Google Maps",
-            "code": 500
-        }
-    ]
-}
-```
-
-
-
-
 # Trip - driver
 
 
@@ -3665,7 +3457,7 @@ console.log(response);
 
 ### HTTP Request
 `GET api/v1/driver/accept`
-    
+
 > Example response
 
 ```json
@@ -3732,7 +3524,7 @@ console.log(response);
 
 ### HTTP Request
 `GET api/v1/driver/start`
-    
+
 > Example response
 
 ```json
@@ -3815,7 +3607,7 @@ console.log(response);
 
 ### HTTP Request
 `GET api/v1/driver/end`
-    
+
 > Example response
 
 ```json
@@ -3897,7 +3689,7 @@ console.log(response);
 
 ### HTTP Request
 `GET api/v1/driver/cancel`
-    
+
 > Example response - trip cancelled
 
 ```json
@@ -3979,7 +3771,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/driver/arrived`
-    
+
 > Example response - driver arrived
 
 ```json
@@ -4063,7 +3855,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/driver/trip`
-    
+
 > Example response
 
 ```json
@@ -4163,7 +3955,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v2/driver/trip`
-    
+
 > Example response
 
 ```json
@@ -4259,7 +4051,7 @@ $.ajax(settings).done(function (response) {
 
 ### HTTP Request
 `GET api/v1/driver/income`
-    
+
 > Example response
 
 ```json
@@ -4319,7 +4111,7 @@ Parameter | Type | Status | Description
 stars | numeric |  required  | float between `1.0` to `5.0`
 comment | text |  optional  | max: `5000`
 
-    
+
 > Example response
 
 ```json
@@ -4424,7 +4216,7 @@ Parameter | Type | Status | Description
 stars | numeric |  required  | float between `1.0` to `5.0`
 comment | text |  optional  | max: `5000`
 
-    
+
 > Example response
 
 ```json
@@ -4595,7 +4387,7 @@ $.ajax(settings).done(function (response) {
 ```
 
 
-> Example response - not enough balance 
+> Example response - not enough balance
 
 ```json
 
@@ -4649,7 +4441,7 @@ $.ajax(settings).done(function (response) {
 ### HTTP Request
 `GET api/v1/client/history`
 
-    
+
 > Example response
 
 ```json
@@ -4961,7 +4753,7 @@ $.ajax(settings).done(function (response) {
 ### HTTP Request
 `GET api/v1/driver/history`
 
-    
+
 > Example response
 
 ```json
