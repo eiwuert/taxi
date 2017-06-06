@@ -35,7 +35,8 @@ class CheckApproveDriver
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->user()->driver()->first()->approve) {
+        $driver = $this->auth->user()->driver()->first();
+        if (!is_null($this->auth->user()->driver()->first()) && $driver->approve) {
             return $next($request);
         } else {
             return fail([
