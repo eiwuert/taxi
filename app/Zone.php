@@ -29,6 +29,6 @@ class Zone extends Model
      */
     public function carTypes()
     {
-        return $this->belongsToMany('App\CarType');
+        return $this->hasMany('App\CarType');
     }
 }
