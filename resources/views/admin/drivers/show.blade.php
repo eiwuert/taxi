@@ -7,7 +7,8 @@
 @endsection
 @section('breadcrumb')
 <li><a href="#"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
-<li class="active">@lang('admin/general.drivers')</li>
+<li><a href="{{ route('drivers.index') }}"><i class="ion-android-walk"></i> @lang('admin/general.drivers')</a></li>
+<li class="active">{{ $driver->first_name }} {{ $driver->last_name }}</li>
 @endsection
 @section('content')
 <div class="row">
