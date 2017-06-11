@@ -7,7 +7,7 @@
         <div class="platePart3"><span>{{ platePart3 }}</span></div>
         <div class="platePart4"><span>{{ platePart4 }}</span></div>
     </div>
-    <div class="form-group">
+    <div class="form-group plate-form">
         <div class="col-sm-3">
             <input maxlength="2" v-model="platePart1" name="platePart1" class="form-control">
         </div>
@@ -54,7 +54,6 @@ export default {
 #plate {
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
 }
 .plate {
     position: relative;
@@ -70,31 +69,31 @@ div.platePart4 {
     font-family: IRANSans !important;
     direction: rtl;
     display: inline-block;
+    margin-top: 60px;
+    margin-bottom: -140px;
 }
 div.platePart1 {
-    margin-top: 57px;
     width: 133px;
     float: left;
     margin-left: 59px;
 }
 div.platePart2 {
-    margin-top: 57px;
     width: 117px;
     text-align: center;
     float: left;
     margin-left: 0px;
-    vertical-align: middle;
 }
 div.platePart3 {
-    margin-top: 57px;
     width: 110px;
     float: left;
     margin-left: 30px;
 }
 div.platePart4 {
-    margin-top: 57px;
     width: 128px;
     float: left;
     margin-left: 13px;
+}
+.plate-form {
+    display: inline-block;
 }
 </style>

@@ -21,7 +21,7 @@ class CarController extends Controller
             'color'   => $request->color,
             'type_id' => $request->type_id,
             // Hard coded
-            'number'  => $request->plate_part_1 . $request->plate_part_2 . $request->plate_part_3 . ' - ایران ' . $request->plate_part_4,
+            'number'  => $request->platePart1 . $request->platePart2 . $request->platePart3 . ' - ایران ' . $request->platePart4,
         ]);
         flash(__('admin/general.Driver\'s car updated'), 'success');
         return redirect()->back();
