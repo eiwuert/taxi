@@ -38,4 +38,23 @@ class Car extends Model
     {
         return $this->hasOne('App\CarType', 'id', 'type_id');
     }
+
+    /**
+     * Get plate segment by segment.
+     * @param  integer|null $segment
+     * @return string|array|null
+     */
+    public function segments($segment = null)
+    {
+        $plate = [];
+        $plate[] = substr($this->number, 0, 4);
+        $plate[] = substr($this->number, 4, 2);
+        $plate[] = substr($this->number, 6, 6);
+        $plate[] = substr($this->number, -4);
+        if (is_null($segment)) {
+            return $plate;
+        } else {
+            return $plate[$segment] ?? null;
+        }
+    }
 }

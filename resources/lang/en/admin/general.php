@@ -1,9 +1,26 @@
 <?php
+/*************************************************************************
+ Generated via "php artisan localization:missing" at 2017/06/08 12:12:35
+*************************************************************************/
 
 return array (
+  'first_name' => 'Firstname',
+  'last_name' => 'Lastname',
+  'email' => 'Email',
+  'gender' => 'Gender',
+  'address' => 'Address',
+  'country' => 'Country',
+  'zipcode' => 'Zipcode',
+  'picture' => 'picture',
+  'identity_number' => 'Identity number',
+  'identity_code' => 'Identity code',
+  'abuse_history' => 'Abuse history',
+  'drug_abuse' => 'Drug abuse',
+  'credit_card' => 'Credit card',
+  'user_mata' => 'Documents',
   //============================== New strings to translate ==============================//
-  'Trip status' => 'Trip status',
-  'View all trips' => 'View all trips',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
+  'Not filled' => 'TODO: Not filled',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -175,6 +192,7 @@ return array (
   'Inactive' => 'inActive',
   'Income' => 'Income',
   'Info' => 'Info',
+  'Information complete' => 'Information complete',
   'Invoice' => 'Invoice',
   'Lang: ' => 'Lang: ',
   'Last 30 Days' => 'Last 30 Days',
@@ -227,7 +245,6 @@ return array (
   'No driver' => ' No driver ',
   'No response from driver' => 'No response from driver',
   'Not authorized' => 'Not authorized',
-  'Not found' => 'Not found',
   'Nothing to show here' => 'Nothing to show here...',
   'Number: ' => 'Number: ',
   'Offline' => 'Offline',
@@ -256,6 +273,7 @@ return array (
   'Phone:' => 'Phone:',
   'Phone: ' => 'Phone: ',
   'Picture: ' => 'Picture: ',
+  'Please select one' => 'Please select one',
   'Position ' => 'Position ',
   'Position: ' => 'Position: ',
   'Profile' => 'Profile',
@@ -298,6 +316,7 @@ return array (
   'Submit' => 'Submit',
   'Subtotal:' => 'Subtotal:',
   'Success' => 'Success',
+  'Summary' => 'Summary',
   'Surcharge:' => 'Surcharge:',
   'Switch to Farsi' => 'Switch to Farsi',
   'Symbol' => 'Symbol',
@@ -327,6 +346,7 @@ return array (
   'Trip ended waiting for ratings' => 'Trip ended waiting for ratings',
   'Trip is over' => ' Trip is over ',
   'Trip is over by admin' => ' Trip is over by admin ',
+  'Trip status' => 'Trip status',
   'Trips' => 'Trips',
   'Type' => 'Type',
   'Type: ' => 'Type: ',
@@ -338,6 +358,7 @@ return array (
   'Upload zip file' => 'Upload zip file.',
   'View all clients' => 'View all clients',
   'View all drivers' => 'View all drivers',
+  'View all trips' => 'View all trips',
   'Web' => 'Web',
   'Yesterday' => 'Yesterday',
   'Zip code: ' => 'Zip code: ',
@@ -417,4 +438,9 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
+  //================================== Obsolete strings ==================================//
+  'LLH:obsolete' =>
+  array (
+    'Not found' => 'Not found',
+  ),
 );

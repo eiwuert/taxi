@@ -27,23 +27,23 @@ class DriverRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'      => 'sometimes|max:255',
-            'last_name'       => 'sometimes|max:255',
-            'email'           => 'sometimes|nullable|email|unique:clients,email,'.Request::get('driver_id'),
-            'gender'          => 'sometimes|in:"male", "female", "not specified"',
-            'address'         => 'sometimes|max:255',
-            'state'           => 'sometimes|max:255',
-            'country'         => 'sometimes|max:255',
-            'zipcode'         => 'sometimes|max:255',
-            'lang'            => 'sometimes|in:fa,en,ku',
-            'device_token'    => 'sometimes|max:255',
-            'device_type'     => 'sometimes|in:manual,ios,android',
+            'first_name'      => 'required|max:255',
+            'last_name'       => 'required|max:255',
+            'email'           => 'required|nullable|email|unique:clients,email,'.Request::get('driver_id'),
+            'gender'          => 'required|in:"male", "female", "not specified"',
+            'address'         => 'required|max:255',
+            'state'           => 'required|max:255',
+            'country'         => 'required|max:255',
+            'zipcode'         => 'required|digits:10|max:255',
+            'lang'            => 'required|in:fa,en,ku',
+            'device_token'    => 'required|max:255',
+            'device_type'     => 'required|in:manual,ios,android',
             'picture'         => 'sometimes|image',
-            'identity_number' => 'required|integer', 
-            'identity_code'   => 'required|integer', 
+            'identity_number' => 'required|integer',
+            'identity_code'   => 'required|digits:10|integer',
             'abuse_history'   => 'required|boolean',
-            'drug_abuse'      => 'required|boolean', 
-            'credit_card'     => 'required|integer',
+            'drug_abuse'      => 'required|boolean',
+            'credit_card'     => 'required|digits:16|integer',
         ];
     }
 }

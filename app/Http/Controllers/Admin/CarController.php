@@ -17,7 +17,12 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        $car->update($request->except(['_method', '_token']));
+        $car->update([
+            'color'   => $request->color,
+            'type_id' => $request->type_id,
+            // Hard coded
+            'number'  => $request->plate_part_1 . $request->plate_part_2 . $request->plate_part_3 . ' - ایران ' . $request->plate_part_4,
+        ]);
         flash(__('admin/general.Driver\'s car updated'), 'success');
         return redirect()->back();
     }

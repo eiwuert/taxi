@@ -43,6 +43,9 @@ window.axios.defaults.headers.common = {
 
 import Pusher from "pusher-js"
 import Echo from "laravel-echo"
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate)
 
 var echo = window.Echo = new Echo({
     broadcaster: 'pusher',
