@@ -146,7 +146,7 @@ if (! function_exists('nearby')) {
         } else {
             $type = "SELECT id 
                      FROM car_types
-                     WHERE id = '$type'";
+                     WHERE id = '$type' OR car_type_id= '$type'";
         }
 
         $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
