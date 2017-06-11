@@ -14,5 +14,6 @@
   "/css/admin/select2.css": "/css/admin/select2.d44571114a90b9226cd654d3c7d9442c.css",
   "/css/admin/rtl.css": "/css/admin/rtl.5762868526d0da1b0f1bc24b236124bd.css",
   "/css/admin/admin-fix.css": "/css/admin/admin-fix.716a17ab2cf2118b576e94a6b5959361.css",
-  "/js/admin/chart.js": "/js/admin/chart.681b1d3cf7e7f842c6ca.js"
+  "/js/admin/chart.js": "/js/admin/chart.681b1d3cf7e7f842c6ca.js",
+  "/js/admin/typeahead.js": "/js/admin/typeahead.8b974b40c4535284afe5.js"
 }
