@@ -417,4 +417,5 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
+  'total driver' => 'کل راننده ها',
 );

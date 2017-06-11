@@ -417,4 +417,6 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
+  'total driver' => 'Total driver',
+
 );
