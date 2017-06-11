@@ -3340,7 +3340,8 @@ $.ajax(settings).done(function (response) {
 }</code></pre>
 <h2>Calculate V3</h2>
 <p>Calculate trip fare(cost), distance and time. Take care of <code>NO RESULT</code> on source and destination. in <code>v2</code> of API
-you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</code> instead of <code>d_long</code>.</p>
+you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</code> instead of <code>d_long</code>.
+Specify <code>Car Type</code> by <code>type</code> field.</p>
 <blockquote>
 <p>Example request</p>
 </blockquote>
@@ -3351,6 +3352,7 @@ you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ 
 </code></pre>
 <pre><code class="language-javascript">var settings = {
     "async": true,
@@ -3362,6 +3364,7 @@ you can send <code>s_lng</code> instead of <code>s_long</code> and <code>d_lng</
         "s_lng": "amet",
         "d_lat": "amet",
         "d_lng": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -3408,6 +3411,12 @@ $.ajax(settings).done(function (response) {
 <td>numeric</td>
 <td>required</td>
 <td>[+-]?\d+.\d+</td>
+</tr>
+<tr>
+<td>type</td>
+<td>numeric</td>
+<td>required</td>
+<td>car type id</td>
 </tr>
 </tbody>
 </table>

@@ -3422,6 +3422,7 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 
 Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
 you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+Specify `Car Type` by `type` field.
 
 
 > Example request
@@ -3434,6 +3435,7 @@ curl "http://flipapp.ir/api/v3/client/calculate" \
    -d "s_lng": "maiores", \
    -d "d_lat": "maiores", \
    -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ 
 
 ```
 
@@ -3448,6 +3450,7 @@ var settings = {
         "s_lng": "amet",
         "d_lat": "amet",
         "d_lng": "amet",
+        "type": "amet",
 },
     "headers": {
         "accept": "application/json",
@@ -3472,6 +3475,7 @@ s_lat | numeric |  required  | [+-]?\d+\.\d+
 s_lng | numeric |  required  | [+-]?\d+\.\d+
 d_lat | numeric |  required  | [+-]?\d+\.\d+
 d_lng | numeric |  required  | [+-]?\d+\.\d+
+type  | numeric |  required  | car type id
 
     
 > Example response
