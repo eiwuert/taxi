@@ -26,6 +26,7 @@ class DriverComposer
      */
     public function compose(View $view)
     {
+        $view->with('countOfTotalDrivers', number_format($this->drivers->countOfTotalDrivers()));
         $view->with('countOfOnlineDrivers', number_format($this->drivers->countOfOnlineDrivers()));
         $view->with('countOfOnWayDrivers', number_format($this->drivers->countOfOnWayDrivers()));
         $view->with('countOfOfflineDrivers', number_format($this->drivers->countOfOfflineDrivers()));
