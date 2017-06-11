@@ -18,16 +18,3 @@
   </div>
 </div>
 {!!  Form::close() !!}
-@push('js')
-<script src="{{ mix('js/admin/typeahead.js') }}"></script>
-<script>
-$('.typeahead').typeahead({
-  minLength: 3,
-  highlight: true
-},
-{
-  name: 'my-dataset',
-  source: ['mySource']
-});
-</script>
-@endpush
