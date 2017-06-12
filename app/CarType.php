@@ -11,8 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 class CarType extends Model
 {
     protected $fillable = [
-        'name', 'car_type_id', 'icon', 'active', 'position',
+        'name', 'car_type_id', 'icon', 'active', 'position', 'slug',
     ];
+
+    protected $hidden = [
+        'created_at', 'updated_at', 'active' , 'car_type_id',
+         'names'  //must be delete
+    ];
+
+    protected $appends = ['name'];
 
     /**
      * Scope a query for searching car types.
@@ -105,7 +112,7 @@ class CarType extends Model
      */
     public function setIconAttribute($icon)
     {
-        if (! is_null($icon)) {
+        if (!is_null($icon)) {
             $name = $this->attributes['icon'] = basename($icon->store('public/car_types/icon/'));
             $img = Image::make('storage/car_types/icon/' . $name);
             $img->fit(128);
@@ -140,7 +147,7 @@ class CarType extends Model
     {
         $picture = $this->getOriginal('icon');
         if ($picture != 'no-icon.png') {
-            if (! File::exists(asset('storage/car_types/icon/30-' . $picture))) {
+            if (!File::exists(asset('storage/car_types/icon/30-' . $picture))) {
                 $img = Image::make('storage/car_types/icon/' . $picture);
                 $img->fit(30);
                 $img->save('storage/car_types/icon/30-' . $picture . '');
@@ -174,11 +181,24 @@ class CarType extends Model
 
     /**
      * Update car type position
-     * 
+     *
      * @return [type] [description]
      */
     public function updatePosition()
     {
-        
+
     }
+
+    /** Get translated of name
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    public function getNameAttribute()
+    {
+        $translate =  __('car_types.' . $this->attributes['slug'] . '.name');
+        if( $translate == 'car_types.' . $this->attributes['slug'] . '.name' ){
+            return $this->attributes['slug'];
+        }
+        return $translate;
+    }
+
 }
