@@ -147,18 +147,8 @@ class TypeController extends Controller
      */
     protected function selectedTypesAndAvailableTypes($type)
     {
-        $types = [];
-        $type_ids = [];
-        $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
-        foreach (Type::parents()->get() as $t) {
-            if ($t->children()->count() == 0 && $t->id != $type->id) {
-                $type_ids[0][] = ['id' => $t->id];
-            }
-        }
-        foreach ($type_ids[0] as $value) {
-            $types[] = $value['id'];
-        }
-        return Type::whereIn('id', $types)->pluck('name', 'id');
+        return Type::Where('car_type_id',$type->id)->orWhereNull('car_type_id')
+            ->where('id','<>',$type->id)->has('children',0)->pluck('name', 'id');
     }
 
     /**
