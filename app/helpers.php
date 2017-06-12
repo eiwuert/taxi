@@ -141,13 +141,18 @@ if (! function_exists('nearby')) {
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
         $distance = option('distance', 1);
-        if ($type == 'any' || is_null($type)) {
-            $type = "SELECT id FROM car_types";
-        } else {
-            $type = "SELECT id 
-                     FROM car_types
-                     WHERE id = '$type'";
-        }
+        $ids = \App\Zone::carTypeIds($lat, $long, $type);
+        $type = "SELECT id 
+                 FROM car_types
+                 WHERE id in $ids";
+                 // dd($type);
+        // if ($type == 'any' || is_null($type)) {
+        //     $type = "SELECT id FROM car_types";
+        // } else {
+        //     $type = "SELECT id 
+        //              FROM car_types
+        //              WHERE id = '$type'";
+        // }
 
         $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
         FROM (
