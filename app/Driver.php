@@ -257,7 +257,9 @@ class Driver extends Model
         $income = 0;
         $this->trips()->range($date)->finished()->each(function ($t) use (& $income) {
             $total = $t->transaction()->sum('total');
-            $income += (((100 - (int)($t->transaction->commission)) / 100) * $total);
+            $income += (((100 - (int)(($transaction = $t->transaction) ? 
+                                       $transaction->commission : 
+                                       option('commission', 13))) / 100) * $total);
         });
         return number_format($income);
     }

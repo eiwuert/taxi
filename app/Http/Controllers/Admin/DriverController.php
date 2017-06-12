@@ -42,19 +42,7 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->get('page', 1); // Get the ?page=1 from the url
-        $perPage = option('pagination', 15); // Number of items per page
-        $offset = ($page * $perPage) - $perPage;
-
-        $drivers = $this->drivers->get()->slice($offset, $perPage);
-        $drivers = new LengthAwarePaginator(
-            $drivers, // Only grab the items we need
-            count($drivers), // Total items
-            $perPage, // Items per page
-            $page, // Current page
-            ['path' => $request->url(), 'query' => $request->query()] // We need this so we can keep all old query parameters from the url
-        );
-        
+        $drivers = $this->drivers->paginate(config('admin.perPage'));
         if (@$request->export) {
             if (is_null($request->type)) {
                 $request->type = 'pdf';
