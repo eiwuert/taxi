@@ -31,6 +31,12 @@ window.axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 /**
  * Custom third-party components
  */
@@ -44,8 +50,10 @@ window.axios.defaults.headers.common = {
 import Pusher from "pusher-js"
 import Echo from "laravel-echo"
 import VeeValidate from 'vee-validate'
+import VueResource from "vue-resource"
 
 Vue.use(VeeValidate)
+Vue.use(VueResource);
 
 var echo = window.Echo = new Echo({
     broadcaster: 'pusher',
