@@ -31,6 +31,10 @@
     <!-- js placed at the end of the document so the pages load faster
     -->
     <script src="{{ asset('js/en.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/superfish/1.7.9/js/superfish.min.js"></script>
+
     <script type="text/javascript">
     jQuery(document).ready(function() {
 

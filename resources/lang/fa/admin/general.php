@@ -2,10 +2,8 @@
 
 return array (
   //============================== New strings to translate ==============================//
-  'abuse_history_false' => 'بدون سو پیشینه',
-  'abuse_history_true' => 'سو پیشینه تایید نشده',
-  'drug_abuse_false' => 'عدم اعتیاد',
-  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
+  'Trip status' => 'وضعیت سفرها',
+  'View all trips' => 'مشاهده همه سفرها',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -186,6 +184,8 @@ return array (
   'Last name' => 'نام خانوادگی',
   'Last name: ' => 'نام خانوادگی: ',
   'Lastname' => 'نام‌خانوادگی',
+  'Latest clients' => 'آخرین مسافرها',
+  'Latest drivers' => 'آخرین راننده‌ها',
   'Latitude' => 'عرض جغرافیایی',
   'Latitude: ' => 'عرض جغرافیایی: ',
   'Line Chart' => 'نمودار خطی',
@@ -336,6 +336,8 @@ return array (
   'Unlocked' => 'باز شده',
   'Updated at' => 'به روز شده در',
   'Upload zip file' => 'آپلود فایل زیپ',
+  'View all clients' => 'مشاهده همه مسافرها',
+  'View all drivers' => 'مشاهده همه راننده‌ها',
   'Web' => 'وب',
   'Yesterday' => 'دیروز',
   'Zip code: ' => 'کد پستی: ',
@@ -346,6 +348,8 @@ return array (
   'Zone has been deleted' => 'منطقه پاک شد',
   'Zone updated' => 'منطقه به روز شد',
   'Zone: ' => 'منطقه: ',
+  'abuse_history_false' => 'بدون سو پیشینه',
+  'abuse_history_true' => 'سو پیشینه تایید نشده',
   'accept' => 'قبول سفر',
   'activate' => 'فعال کردن',
   'agencies' => 'نمایندگان',
@@ -367,6 +371,8 @@ return array (
   'distance unit' => 'واحد مسافت',
   'driver' => 'راننده',
   'drivers' => 'راننده ها',
+  'drug_abuse_false' => 'عدم اعتیاد',
+  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
   'email' => 'ایمیل',
   'encodings' => 'رمزگذاری',
   'entry' => 'ورودی',

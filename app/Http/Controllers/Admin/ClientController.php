@@ -189,6 +189,7 @@ class ClientController extends Controller
     {
         // No space after and before the query
         $q = trim($request->q);
+        $q = convert_back($q);
 
         $clients = Client::where('first_name', 'ilike', "%$q%")
                         ->orWhere('last_name', 'ilike', "%$q%")

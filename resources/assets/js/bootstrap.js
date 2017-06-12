@@ -17,7 +17,6 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
-require('vue-resource');
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -25,11 +24,12 @@ require('vue-resource');
  * included with Laravel will automatically verify the header's value.
  */
 
-Vue.http.interceptors.push((request, next) => {
-    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);
+window.axios = require('axios');
 
-    next();
-});
+window.axios.defaults.headers.common = {
+    'X-CSRF-TOKEN': window.Laravel.csrfToken,
+    'X-Requested-With': 'XMLHttpRequest'
+};
 
 /**
  * Custom third-party components
@@ -45,8 +45,6 @@ import Pusher from "pusher-js"
 import Echo from "laravel-echo"
 
 var echo = window.Echo = new Echo({
-    // broadcaster: 'socket.io',
-    // host: window.location.hostname + ':6001'
     broadcaster: 'pusher',
     key: 'e3cc7f358bddccc00249',
     cluster: 'eu',

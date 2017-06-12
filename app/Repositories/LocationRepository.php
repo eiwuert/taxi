@@ -20,6 +20,7 @@ class LocationRepository
     {
         $drivers = [];
         $info = [];
+        $icon = [];
         $driverWithFilter = Driver::with('user')
             ->where('approve', true);
 
@@ -41,10 +42,12 @@ class LocationRepository
         foreach ($driverWithFilter as $driver) {
             $drivers[] = $driver->lastLatLng();
             $info[] = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' . (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' . (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
+            $icon[] = $driver->user->car()->first()->type->mapIcon;
         }
         return [
             'drivers' => $drivers,
             'info' => $info,
+            'icon' => $icon,
         ];
     }
 
@@ -59,10 +62,12 @@ class LocationRepository
         $info = '<p><a target="_blank" href="' . route('drivers.show', ['driver' => $driver]) . '">' .
             (($driver->first_name == '') ? 'empty' : $driver->first_name) . ' ' .
             (($driver->last_name == '') ? 'empty' : $driver->last_name) . '</a></p>';
+        $icon[] = $driver->user->car()->first()->type->mapIcon;
         $driver = [$driver->lastLatLng()];
         return [
             'driver' => $driver,
             'info' => [$info],
+            'icon' => [$icon],
         ];
     }
 

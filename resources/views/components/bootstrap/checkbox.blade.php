@@ -3,11 +3,11 @@
 </div>
 
 @push('style')
-<link rel="stylesheet" href="{{ elixir('css/admin/iCheckBlue.css') }}">
+<link rel="stylesheet" href="{{ mix('css/admin/iCheckBlue.css') }}">
 @endpush
 
 @push('js')
-<script src="{{ elixir('js/admin/iCheck.js') }}"></script>
+<script src="{{ mix('js/admin/iCheck.js') }}"></script>
 <script>
     $(function () {
         $('input').iCheck({

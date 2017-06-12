@@ -33,5 +33,6 @@ class GoogleMapsMarkersComposer
         $data = LocationRepository::driversOnMap($this->request->status);
         $view->with('drivers', $data['drivers']);
         $view->with('info', $data['info']);
+        $view->with('icon', $data['icon']);
     }
 }

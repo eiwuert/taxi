@@ -19,7 +19,7 @@
     <link href="../css/seq-slider/sequencejs-theme.apple-style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'> --}}
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" >
-    <link rel="stylesheet" href="{{ elixir('css/en.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/en.css') }}">
     <!-- Custom styles for this template -->
    {{--  <link href="../css/style.css" rel="stylesheet"> --}}
 

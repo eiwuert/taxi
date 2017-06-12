@@ -65,4 +65,4 @@
         </div>
     </header>
 @include('frontend.includes.404')
- <script src="{{ elixir('js/fa.js') }}"></script>   
+ <script src="{{ mix('js/fa.js') }}"></script>   

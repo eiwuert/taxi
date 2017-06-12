@@ -72,6 +72,7 @@
     @endif
     var neighborhoods = @jsonify($driver);
     var info = @jsonify($info);
+    var icon = @jsonify($icon);
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       center: {lat: parseFloat(neighborhoods[0].lat), lng: parseFloat(neighborhoods[0].lng)},
@@ -80,7 +81,7 @@
 
     clearMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
-      addMarker(neighborhoods[i], info[i]);
+      addMarker(neighborhoods[i], info[i], icon[i]);
     }
     setTimeout(function() {
       updateMarkers();
@@ -88,11 +89,11 @@
     autocomplete(map);
   }
 
-  function addMarker(position, info) {
+  function addMarker(position, info, icon) {
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(position.lat), lng: parseFloat(position.lng)},
         map: map,
-        icon: image
+        icon: icon[0]
       });
       markers.push(marker);
       var infoWindow = new google.maps.InfoWindow();
@@ -115,15 +116,17 @@
     setTimeout(this.updateMarkers, refreshTime);
     var newDriver = [];
     var newInfo = [];
+    var newIcon = [];
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
            if (xmlhttp.status == 200) {
             newDriver = JSON.parse(xmlhttp.responseText).driver;
             newInfo = JSON.parse(xmlhttp.responseText).info;
+            newIcon = JSON.parse(xmlhttp.responseText).icon;
             clearMarkers();
             for (var i = 0; i < newDriver.length; i++) {
-              addMarker(newDriver[i], newInfo[i]);
+              addMarker(newDriver[i], newInfo[i], newIcon[i]);
               map.setCenter({lat: parseFloat(newDriver[i].lat), 
                              lng: parseFloat(newDriver[i].lng)}); 
             }

@@ -100,7 +100,7 @@
                         <td>{{ $driver->stateName() }}</td>
                         <td>{{ $driver->car()->type->name }}</td>
                         <td>{{ $driver->country }}</td>
-                        <td>{{ $driver->user->phone }}</td>
+                        <td>{{ $driver->phoneNumber() }}</td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -17,7 +17,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css' /> --}}
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css' />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ elixir('css/fa.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/fa.css') }}">
     <!-- Custom styles for this template -->
     {{-- <link rel="stylesheet" type="text/css" href="../../css/fontiran.css">
     <link rel="stylesheet" type="text/css" href="../../css/rtl.css"> --}}
