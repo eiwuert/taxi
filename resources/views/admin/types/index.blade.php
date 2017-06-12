@@ -32,6 +32,7 @@
                             <th>@lang('admin/general.Position ')</th>
                             <th>@lang('admin/general.Icon ')</th>
                             <th>@lang('admin/general.Name')</th>
+                            <th>@lang('admin/general.Zone')</th>
                             <th>@lang('admin/general.Sub categories')</th>
                         </tr>
                         @foreach($types as $type)
@@ -42,6 +43,13 @@
                             <td><img src="{{ asset($type->icon) }}" alt="car type icon" class="img-circle" width="48" /></td>
                             <td>{{ $type->name }}</td>
                             <td>
+                                <ul class="unorder-list">
+                                    @foreach ($type->zones()->where('name', '!=', 'default')->get() as $zone)
+                                        <li>{{ $zone->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
                                 <table class="table table-bordered table-hover">
                                     <tbody>
                                         @foreach($type->children()->orderBy('position', 'asc')->get() as $child)
@@ -51,6 +59,13 @@
                                             <td>{{ $child->position }}</td>
                                             <td><img src="{{ asset($child->icon) }}" alt="car type icon" class="img-circle" width="48" /></td>
                                             <td>{{ $child->name }}</td>
+                                            <td>
+                                                <ul class="unorder-list">
+                                                    @foreach ($child->zones()->where('name', '!=', 'default')->get() as $zone)
+                                                        <li>{{ $zone->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

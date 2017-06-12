@@ -173,12 +173,12 @@ class CarType extends Model
     }
 
     /**
-     * Update car type position
-     * 
-     * @return [type] [description]
+     * A Car Type belongs to many zones.
+     *
+     * @return belongsToMany
      */
-    public function updatePosition()
+    public function zones()
     {
-        
+        return $this->belongsToMany('App\Zone');
     }
 }

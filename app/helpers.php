@@ -141,14 +141,10 @@ if (! function_exists('nearby')) {
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
         $distance = option('distance', 1);
-        if ($type == 'any' || is_null($type)) {
-            $type = "SELECT id FROM car_types";
-        } else {
-            $type = "SELECT id 
-                     FROM car_types
-                     WHERE id = '$type' OR car_type_id= '$type'";
-        }
-
+        $ids = \App\Zone::carTypeIds($lat, $long, $type);
+        $type = "SELECT id 
+                 FROM car_types
+                 WHERE id in $ids OR car_type_id= '$type'";
         $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
         FROM (
         SELECT id, user_id, longitude, latitude, ( 6371 * acos( COS( RADIANS(CAST($lat AS double precision)) ) * 
