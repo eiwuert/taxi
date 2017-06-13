@@ -1,26 +1,9 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/06/08 12:12:35
-*************************************************************************/
 
 return array (
-  'first_name' => 'Firstname',
-  'last_name' => 'Lastname',
-  'email' => 'Email',
-  'gender' => 'Gender',
-  'address' => 'Address',
-  'country' => 'Country',
-  'zipcode' => 'Zipcode',
-  'picture' => 'picture',
-  'identity_number' => 'Identity number',
-  'identity_code' => 'Identity code',
-  'abuse_history' => 'Abuse history',
-  'drug_abuse' => 'Drug abuse',
-  'credit_card' => 'Credit card',
-  'user_mata' => 'Documents',
   //============================== New strings to translate ==============================//
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
-  'Not filled' => 'TODO: Not filled',
+  'Admin user deleted' => 'Admin user deleted',
+  'You cannot delete yourself' => 'You cannot delete yourself',
   //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
@@ -245,8 +228,8 @@ return array (
   'No driver' => ' No driver ',
   'No response from driver' => 'No response from driver',
   'Not authorized' => 'Not authorized',
+  'Not filled' => 'Not filled',
   'Nothing to show here' => 'Nothing to show here...',
-  'Number: ' => 'Number: ',
   'Offline' => 'Offline',
   'Offline, Go online' => 'Offline, Go online',
   'Oh Snap!' => 'Oh Snap!',
@@ -438,9 +421,4 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
-  //================================== Obsolete strings ==================================//
-  'LLH:obsolete' =>
-  array (
-    'Not found' => 'Not found',
-  ),
 );
