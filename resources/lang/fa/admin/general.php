@@ -1,10 +1,23 @@
 <?php
 
 return array (
-  //============================== New strings to translate ==============================//
+  'first_name' => 'نام',
+  'last_name' => 'نام خانوادگی',
+  'email' => 'ایمیل',
+  'gender' => 'جنسیت',
+  'address' => 'آدرس',
+  'country' => 'کشور',
+  'zipcode' => 'کدپستی',
+  'picture' => 'عکس',
+  'identity_number' => 'شماره شناسنامه',
+  'identity_code' => 'کد ملی',
+  'abuse_history' => 'سو پیشینه',
+  'drug_abuse' => 'اعتیاد',
+  'credit_card' => 'شماره کارت',
+  'user_mata' => 'اسناد',
+  'Not filled' => 'وارد نشده است',
   'Admin user deleted' => 'حساب کاربری حذف شد',
   'You cannot delete yourself' => 'شما نمی‌توانید حساب کاربری خود را حذف کنید',
-  //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
   '3rd' => 'سوم',
