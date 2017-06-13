@@ -1,10 +1,23 @@
 <?php
 
 return array (
-  //============================== New strings to translate ==============================//
+  'first_name' => 'Firstname',
+  'last_name' => 'Lastname',
+  'email' => 'Email',
+  'gender' => 'Gender',
+  'address' => 'Address',
+  'country' => 'Country',
+  'zipcode' => 'Zipcode',
+  'picture' => 'picture',
+  'identity_number' => 'Identity number',
+  'identity_code' => 'Identity code',
+  'abuse_history' => 'Abuse history',
+  'drug_abuse' => 'Drug abuse',
+  'credit_card' => 'Credit card',
+  'user_mata' => 'Documents',
+  'Not filled' => 'Not filled',
   'Admin user deleted' => 'Admin user deleted',
   'You cannot delete yourself' => 'You cannot delete yourself',
-  //==================================== Translations ====================================//
   '1st' => '1st',
   '2nd' => '2nd',
   '3rd' => '3rd',
