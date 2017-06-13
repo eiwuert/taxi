@@ -4,7 +4,7 @@
 @endsection
 @section('header')
 @lang('admin/general.Trip')
-@if($trip->status_id != 18) <a href="{{ route('trips.hardCancel', ['trip' => $trip]) }}"><btn-danger add-class='btn-xs' text='hard canel' icon='trash' type='button'></btn-danger></a> @endif
+@if($trip->status_id != 18 && \Auth::user()->web->superadmin()) <a href="{{ route('trips.hardCancel', ['trip' => $trip]) }}"><btn-danger add-class='btn-xs' text='hard canel' icon='trash' type='button'></btn-danger></a> @endif
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
