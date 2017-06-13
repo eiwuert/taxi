@@ -1,26 +1,9 @@
 <?php
-/*************************************************************************
- Generated via "php artisan localization:missing" at 2017/06/08 12:12:35
-*************************************************************************/
 
 return array (
-  'first_name' => 'نام',
-  'last_name' => 'نام خانوادگی',
-  'email' => 'ایمیل',
-  'gender' => 'جنسیت',
-  'address' => 'آدرس',
-  'country' => 'کشور',
-  'zipcode' => 'کدپستی',
-  'picture' => 'عکس',
-  'identity_number' => 'شماره شناسنامه',
-  'identity_code' => 'کد ملی',
-  'abuse_history' => 'سو پیشینه',
-  'drug_abuse' => 'اعتیاد',
-  'credit_card' => 'شماره کارت',
-  'user_mata' => 'اسناد',
   //============================== New strings to translate ==============================//
-  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
-  'Not filled' => 'وارد نشده است',
+  'Admin user deleted' => 'حساب کاربری حذف شد',
+  'You cannot delete yourself' => 'شما نمی‌توانید حساب کاربری خود را حذف کنید',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -245,8 +228,8 @@ return array (
   'No driver' => ' بدون راننده ',
   'No response from driver' => 'راننده پاسخی نداد',
   'Not authorized' => 'مجاز نیست',
+  'Not filled' => 'وارد نشده است',
   'Nothing to show here' => 'چیزی برای نمایش وجود ندارد...',
-  'Number: ' => 'شماره پلاک: ',
   'Offline' => 'آفلاین',
   'Offline, Go online' => 'آفلاین، آنلاین شوید',
   'Oh Snap!' => 'هشدار!',
@@ -438,9 +421,4 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
-  //================================== Obsolete strings ==================================//
-  'LLH:obsolete' =>
-  array (
-    'Not found' => 'یافت نشد',
-  ),
 );

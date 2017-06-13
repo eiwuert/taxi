@@ -18,7 +18,7 @@ class WebController extends Controller
     }
 
     /**
-     * Get all admins.
+     * Get all Administrators.
      * @return Illuminate\Http\Response
      */
     public function index()
@@ -69,6 +69,12 @@ class WebController extends Controller
         return back();
     }
 
+    /**
+     * Update web user email.
+     * @param  Request $request
+     * @param  Web     $user
+     * @return Redirect
+     */
     public function updateEmail(Request $request, Web $user)
     {
         if (!Auth::user()->web->superadmin()) {
@@ -80,6 +86,12 @@ class WebController extends Controller
         return back();
     }
 
+    /**
+     * Update web user password
+     * @param  Request $request
+     * @param  Web     $user
+     * @return Redirect
+     */
     public function updatePassword(Request $request, Web $user)
     {
         if (!Auth::user()->web->superadmin()) {
@@ -121,5 +133,22 @@ class WebController extends Controller
         $request['permissions'] = collect($request->permissions)->values()->toArray();
         $profile = Web::create($request->all());
         return view('admin.webs.edit', compact('profile'));
+    }
+
+    /**
+     * Delete admin.
+     * @param  integer  $id
+     * @return Redirect
+     */
+    public function destroy($id)
+    {
+        if (Auth::user()->id == $id) {
+            flash(__('admin/general.You cannot delete yourself'));
+            return back();            
+        } else {
+            Web::find($id)->delete();
+            flash(__('admin/general.Admin user deleted'));
+            return back();
+        }
     }
 }

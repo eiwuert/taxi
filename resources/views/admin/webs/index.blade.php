@@ -28,6 +28,7 @@
                             <th>@lang('admin/general.First name')</th>
                             <th>@lang('admin/general.Last name')</th>
                             <th>@lang('admin/general.Permissions')</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +46,15 @@
                                     @endforeach
                                 </table>
                             </td>
+                            <td>
+                            @if (Auth::user()->id != $admin->id)
+                            {!! Form::open(['action' => ['Admin\WebController@destroy', $admin], 'method' => 'DELETE', 'style' => 'display: initial;']) !!}
+                                <button class="btn btn-xs btn-danger" type="submit">
+                                    <i class="ion-trash-b"></i> @lang('admin/general.Delete')
+                                </button>
+                            {!! Form::close() !!}
+                            @endif
+                          </td>
                         </tr>
                         @endforeach
                     </tbody>
