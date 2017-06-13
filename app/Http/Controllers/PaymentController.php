@@ -88,7 +88,7 @@ class PaymentController extends Controller
         if ($client->device_type == 'ios') {
             $href = '';
         } else if ($client->device_type == 'android') {
-            $href = 'http://com.flipapp.app_client/';
+            $href = 'flip://com.flipapp.app_rider';
         } else {
             $href = '#';
         }
