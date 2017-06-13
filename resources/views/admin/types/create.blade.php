@@ -60,6 +60,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    {!! Form::label('zones', __('admin/general.Zone: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-md-10">
+                        @foreach($zones as $key => $zone)
+                        <div class="checkbox">
+                            <label>
+                                {!! Form::checkbox('zones[]', $key) !!} {{ $zone }}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>

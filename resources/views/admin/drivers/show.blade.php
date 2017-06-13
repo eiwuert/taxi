@@ -47,11 +47,3 @@
 </div>
 <!-- /.row -->
 @endsection
-@push('js')
-<script src="{{ mix('js/admin/jquery.inputmask.js') }}"></script>
-<script type="text/javascript">
-$(function () {
-  $(".data-mask-plate").inputmask();
-});
-</script>
-@endpush

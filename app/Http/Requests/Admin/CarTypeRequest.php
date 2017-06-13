@@ -29,6 +29,7 @@ class CarTypeRequest extends FormRequest
             'active'   => 'required',
             'icon'     => 'required|image',
             'position' => 'required|between:0,' . CarType::count(),
+            'zones'    => 'required',
         ];
     }
 }

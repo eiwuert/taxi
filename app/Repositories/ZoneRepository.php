@@ -17,7 +17,7 @@ class ZoneRepository
         $zones = Zone::where('name', '!=', 'default')->get();
         $cities = [];
         foreach ($zones as $zone) {
-            $cities[$zone->name] = [
+            $cities[] = [
                 'center' => ['lat' => $zone->latitude, 'lng' => $zone->longitude],
                 'radius' => $zone->radius * (($zone->unit == 'kilometer') ? 1000 : 1609.33999997549),
             ];

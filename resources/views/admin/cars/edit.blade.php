@@ -1,10 +1,5 @@
 {!! Form::model($car, ['method' => 'PATCH', 'action' => ['Admin\CarController@update', $car], 'class' => 'form-horizontal']) !!}
-<div class="form-group">
-  {!! Form::label('number', __('admin/general.Number: '), ['class' => 'col-sm-2 control-label']) !!}
-  <div class="col-sm-10">
-    {!! Form::text('number', null, ['class' => 'form-control data-mask-plate', 'dir' => 'auto']) !!}
-  </div>
-</div>
+<plate parts="{{ json_encode($car->segments()) }}"></plate>
 <div class="form-group">
   {!! Form::label('color', __('admin/general.Color: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">

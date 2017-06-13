@@ -69,6 +69,7 @@
       <i class="fa fa-picture-o"></i> @lang('admin/general.Choose picture')
       {!! Form::file('picture', null, ['class' => 'form-control']) !!}
     </div>
+    <span class="help-block"></span>
   </div>
 </div>
 @else
@@ -118,3 +119,28 @@
   </div>
 </div>
 {!! Form::close() !!}
+@push('js')
+<script type="text/javascript">
+$(function() {
+  // We can attach the `fileselect` event to all file inputs on the page
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+  });
+  $(document).ready( function() {
+    $(':file').on('fileselect', function(event, numFiles, label) {
+      var input = $(this).parents('.form-group').find(':text'),
+        log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+      if( input.length ) {
+        input.val(log);
+      } else {
+        if( log ) $(this).parents('.form-group').find('.help-block').text(label);
+      }
+    });
+  });
+});
+</script>
+@endpush
