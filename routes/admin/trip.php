@@ -8,6 +8,6 @@ Route::group(['prefix' => 'trips'], function () {
     Route::get('search', 'TripController@search')
         ->name('trips.search');
     Route::get('cancel/{trip}', 'TripController@cancel')
-        ->name('trips.hardCancel');
+        ->name('trips.hardCancel')->middleware('superadmin');
 });
 Route::resource('trips', 'TripController');
