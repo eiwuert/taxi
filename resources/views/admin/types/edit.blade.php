@@ -55,7 +55,20 @@
                         </div>
                     </div>
                 </div>
-                @if (is_null($type->car_type_id))
+
+                <div class="form-group">
+                    {!! Form::label('zones', __('admin/general.Zone: '), ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-md-10">
+                        @foreach($zones as $key => $value)
+                        <div class="checkbox">
+                            <label>
+                                {!! Form::checkbox('zones[]', $key) !!} {{ $value }}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {!! Form::label('children', __('admin/general.Children: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-md-10">
@@ -68,7 +81,6 @@
                         @endforeach
                     </div>
                 </div>
-                @endif
                 <div class="form-group">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">

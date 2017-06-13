@@ -27,8 +27,8 @@
                              alt="User profile picture"
                              class="img-responsive img-circle"
                              width="24"></td>
-                    <td>{!! $code->name or '<tag color="default"></tag>' !!}</td>
-                    <td>{!! $code->phone or '<tag color="warning">Deleted</tag>' !!}</td>
+                    <td>{!! $code->name or '<tag color="default">In progress</tag>' !!}</td>
+                    <td>{!! $code->phone or '<tag color="success">Registering</tag>' !!}</td>
                     <td>{{ $code->code }}</td>
                     <td>{{ $code->attempts }}</td>
                     <td>{{ $code->created_at->diffForHumans() }}</td>

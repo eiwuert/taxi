@@ -1,19 +1,19 @@
 @if(! str_contains(Request::url(), route('maps.fullscreen')))
 <div class="box box-solid">
-  <div class="box-header with-border">
-    <i class="fa fa-map-marker" aria-hidden="true"></i>
-    <h3 class="box-title">@lang('admin/general.Markers')</h3>
-    <div class="box-tools fullscreen-link">
-      <a href="{{ route('maps.fullscreen') }}">@lang('admin/general.Go full screen') <i class="ion-arrow-expand"></i></a>
+    <div class="box-header with-border">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <h3 class="box-title">@lang('admin/general.Markers')</h3>
+        <div class="box-tools fullscreen-link">
+            <a href="{{ route('maps.fullscreen') }}">@lang('admin/general.Go full screen') <i class="ion-arrow-expand"></i></a>
+        </div>
     </div>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <input id="pac-input" class="controls" type="text"
+    <!-- /.box-header -->
+    <div class="box-body">
+        <input id="pac-input" class="controls" type="text"
         placeholder="@lang('admin/general.Enter a location')">
-    <div id="map" style="min-height: {{ $height or '400px' }};"></div>
-  </div>
-  <!-- /.box-body -->
+        <div id="map" style="min-height: {{ $height or '400px' }};"></div>
+    </div>
+    <!-- /.box-body -->
 </div>
 <!-- /.box -->
 @else
@@ -24,34 +24,34 @@
 @push('style')
 <style type="text/css">
 .controls {
-  margin-top: 10px;
-  border: 1px solid transparent;
-  border-radius: 2px 0 0 2px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  height: 32px;
-  outline: none;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 #pac-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  padding: 0 11px 0 13px;
-  text-overflow: ellipsis;
-  width: calc(100% - 120px);
-  height: 29px;
-  border-radius: 2px;
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: calc(100% - 120px);
+    height: 29px;
+    border-radius: 2px;
 }
 
 #pac-input:focus {
-  border-color: #4d90fe;
+    border-color: #4d90fe;
 }
 
 .pac-container {
-  font-family: Roboto;
+    font-family: Roboto;
 }
 </style>
 @endpush
@@ -59,7 +59,7 @@
 <script>
   var markers = [];
   var map;
-  var image = "{{ asset('img/driver.png') }}";
+  var image = "{{ asset('img/no-icon-30.png') }}";
   var refreshTime = 10000;
   function initMap() {
     @if(str_contains(Request::url(), route('maps.fullscreen')))
@@ -72,6 +72,7 @@
     @endif
     var neighborhoods = @jsonify($drivers);
     var info = @jsonify($info);
+    var icon = @jsonify($icon);
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,
       center: {lat: 35.757610, lng: 51.409954},
@@ -89,7 +90,7 @@
     }
     clearMarkers();
     for (var i = 0; i < neighborhoods.length; i++) {
-      addMarker(neighborhoods[i], info[i]);
+      addMarker(neighborhoods[i], info[i], icon[i]);
     }
     setTimeout(function() {
       updateMarkers();
@@ -97,11 +98,12 @@
     autocomplete(map);
   }
 
-  function addMarker(position, info) {
+  function addMarker(position, info, icon) {
+    console.log(icon);
       var marker = new google.maps.Marker({
         position: {lat: parseFloat(position.lat), lng: parseFloat(position.lng)},
         map: map,
-        icon: image
+        icon: icon
       });
       markers.push(marker);
       var infoWindow = new google.maps.InfoWindow();
@@ -130,9 +132,10 @@
            if (xmlhttp.status == 200) {
             newDrivers = JSON.parse(xmlhttp.responseText).drivers;
             newInfo = JSON.parse(xmlhttp.responseText).info;
+            newIcon = JSON.parse(xmlhttp.responseText).icon;
             clearMarkers();
             for (var i = 0; i < newDrivers.length; i++) {
-              addMarker(newDrivers[i], newInfo[i]);
+              addMarker(newDrivers[i], newInfo[i], newIcon[i]);
             }
            }
            else if (xmlhttp.status == 400) {

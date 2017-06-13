@@ -141,12 +141,13 @@ if (! function_exists('nearby')) {
     function nearby($lat, $long, $type = 'any', $distance = 1.0, $limit = 100, $exclude = 0)
     {
         $distance = option('distance', 1);
+        $ids = \App\Zone::carTypeIds($lat, $long, $type);
         if ($type == 'any' || is_null($type)) {
             $type = "SELECT id FROM car_types";
         } else {
             $type = "SELECT id 
                      FROM car_types
-                     WHERE id = '$type'";
+                     WHERE id in $ids OR car_type_id in $ids";
         }
 
         $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
@@ -194,11 +195,33 @@ if (! function_exists('nearby')) {
     }
 
     if (! function_exists('convert')) {
+        /**
+         * Convert string numbers to Persian format.
+         * 
+         * @param  string $string
+         * @return string
+         */
         function convert($string)
         {
             $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
             $num = range(0, 9);
             $converted = str_replace($num, $persian, $string);
+            return $converted;
+        }
+    }
+
+    if (! function_exists('convert_back')) {
+        /**
+         * Convert back Persian format to English format.
+         * 
+         * @param  string $string
+         * @return string
+         */
+        function convert_back($string)
+        {
+            $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            $num = range(0, 9);
+            $converted = str_replace($persian, $num, $string);
             return $converted;
         }
     }

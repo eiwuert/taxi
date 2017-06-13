@@ -1,29 +1,31 @@
 {!! Form::model($driver, ['method' => 'PATCH', 'action' => ['Admin\DriverController@update', $driver->id], 'class' => 'form-horizontal', 'files' => true]) !!}
 <input type="hidden" name="driver_id" value="{{$driver->id}}">
-
 <div class="form-group">
     {!! Form::label('phone', __('admin/general.Phone: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
         {!! Form::text('phone', $driver->user->phone, ['class' => 'form-control', 'disabled' => 'disabled']) !!}
     </div>
 </div>
-<div class="form-group">
-    {!! Form::label('first_name', __('admin/general.First name: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('first_name', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('first_name') }" >
+  <label class="col-sm-2 control-label" for="first_name">@lang('admin/general.First name: ')</label>
+  <div class="col-sm-10">
+    <input v-validate.initial="'required|max:255'" class="form-control" name="first_name" value="{{ old('first_name') ?? $driver->first_name }}" dir="auto">
+    <p class="text-danger" v-if="errors.has('first_name')">@{{ errors.first('first_name') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('last_name', __('admin/general.Last name: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('last_name', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('last_name') }" >
+  <label class="col-sm-2 control-label" for="last_name">@lang('admin/general.Last name: ')</label>
+  <div class="col-sm-10">
+    <input v-validate.initial="'required|max:255'" class="form-control" name="last_name" value="{{ old('last_name') ?? $driver->last_name }}" dir="auto">
+    <p class="text-danger" v-if="errors.has('last_name')">@{{ errors.first('last_name') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('email', __('admin/general.Email: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('email', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('email') }" >
+  <label class="col-sm-2 control-label" for="email">@lang('admin/general.Email: ')</label>
+  <div class="col-sm-10">
+    <input v-validate.initial="'required|max:255|email'" class="form-control" name="email" value="{{ old('email') ?? $driver->email }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('email')">@{{ errors.first('email') }}</p>
+  </div>
 </div>
 <div class="form-group">
     {!! Form::label('gender', __('admin/general.Gender: '), ['class' => 'col-sm-2 control-label']) !!}
@@ -32,47 +34,58 @@
         null, ['class' => 'form-control']) !!}
     </div>
 </div>
-<div class="form-group">
-    {!! Form::label('address', __('admin/general.Address: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('address', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('address') }" >
+  <label class="col-sm-2 control-label" for="address">@lang('admin/general.Address: ')</label>
+  <div class="col-sm-10">
+    <input v-validate.initial="'required|max:255'" class="form-control" name="address" value="{{ old('address') ?? $driver->address }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('address')">@{{ errors.first('address') }}</p>
+  </div>
 </div>
 <div class="form-group">
     {!! Form::label('state', __('admin/general.State: '), ['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">
-        {!! Form::select('state', \Auth::user()->states(), null, ['class' => 'form-control']) !!}
+        <select name="state" class="form-control">
+          <option disabled value="">@lang('admin/general.Please select one')</option>
+          @foreach (\Auth::user()->states() as $value => $name)
+            <option value="{{ $value }}" @if($value == $driver->state) selected="selected" @endif>{{ $name }}</option>
+          @endforeach
+        </select>
     </div>
 </div>
-<div class="form-group">
-    {!! Form::label('country', __('admin/general.Country: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('country', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('country') }" >
+  <label class="col-sm-2 control-label" for="country">@lang('admin/general.Country: ')</label>
+  <div class="col-sm-10">
+    <input v-validate.initial="'required'" class="form-control" name="country" value="{{ old('country') ?? $driver->country }}" dir="auto">
+    <p class="text-danger" v-if="errors.has('country')">@{{ errors.first('country') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('zipcode', __('admin/general.Zip code: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('zipcode') }" >
+  <label class="col-sm-2 control-label" for="zipcode">@lang('admin/general.Zip code: ')</label>
+  <div class="col-sm-10">
+    <input maxlength="10" v-validate.initial="'required|digits:10'" class="form-control" name="zipcode" value="{{ old('zipcode') ?? $driver->zipcode }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('zipcode')">@{{ errors.first('zipcode') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('identity_number', __('admin/general.Identity number: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('identity_number', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('identity_number') }" >
+  <label class="col-sm-2 control-label" for="identity_number">@lang('admin/general.Identity number: ')</label>
+  <div class="col-sm-10">
+    <input maxlength="10" v-validate.initial="'required'" class="form-control" name="identity_number" value="{{ old('identity_number') ?? $driver->identity_number }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('identity_number')">@{{ errors.first('identity_number') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('identity_code', __('admin/general.Identity code: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('identity_code', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('identity_code') }" >
+  <label class="col-sm-2 control-label" for="identity_code">@lang('admin/general.Identity code: ')</label>
+  <div class="col-sm-10">
+    <input maxlength="10" v-validate.initial="'required|digits:10'" class="form-control" name="identity_code" value="{{ old('identity_code') ?? $driver->identity_code }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('identity_code')">@{{ errors.first('identity_code') }}</p>
+  </div>
 </div>
-<div class="form-group">
-    {!! Form::label('credit_card', __('admin/general.Credit card: '), ['class' => 'col-sm-2 control-label']) !!}
-    <div class="col-sm-10">
-        {!! Form::text('credit_card', null, ['class' => 'form-control']) !!}
-    </div>
+<div class="form-group" :class="{'has-error': errors.has('credit_card') }" >
+  <label class="col-sm-2 control-label" for="credit_card">@lang('admin/general.Credit card: ')</label>
+  <div class="col-sm-10">
+    <input maxlength="16" v-validate.initial="'required|digits:16'" class="form-control" name="credit_card" value="{{ old('credit_card') ?? $driver->credit_card }}" dir="ltr">
+    <p class="text-danger" v-if="errors.has('credit_card')">@{{ errors.first('credit_card') }}</p>
+  </div>
 </div>
 <div class="form-group">
     {!! Form::label('abuse_history', __('admin/general.Abuse history: '), ['class' => 'col-sm-2 control-label']) !!}
@@ -174,7 +187,8 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">@lang('admin/general.Submit')</button>
+          <button type="submit" class="btn btn-primary" v-if="errors.any()" disabled="disabled">@lang('admin/general.Submit')</button>
+          <button type="submit" class="btn btn-primary" v-else>@lang('admin/general.Submit')</button>
         </div>
     </div>
 </div>

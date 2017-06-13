@@ -30,10 +30,10 @@ php70:
   stage: php70
   image: php:7.0
   script:
-  - php vendor/bin/phpunit tests/Feature/
+  - php ./vendor/bin/phpunit tests/Feature/
 
 php71:
   stage: php71
   image: php:7.1
   script:
-  - php vendor/bin/phpunit tests/Feature/
+  - php ./vendor/bin/phpunit tests/Feature/

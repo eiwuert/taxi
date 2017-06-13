@@ -14,60 +14,18 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(
-            ['admin.includes.header',
-            'admin.includes.sidebar'], 'App\Http\ViewComposers\AdminHeaderComposer'
-        );
-
-        View::composer(
-            ['admin.drivers.index',
-            'admin.maps.*',], 'App\Http\ViewComposers\DriverComposer'
-        );
-
-        View::composer(
-            'admin.clients.index', 'App\Http\ViewComposers\ClientComposer'
-        );
-
-        View::composer(
-            'admin.trips.index', 'App\Http\ViewComposers\TripComposer'
-        );
-
-        View::composer(
-            'admin.components.googlemaps-markers', 'App\Http\ViewComposers\GoogleMapsMarkersComposer'
-        );
-
-        View::composer(
-            'admin.components.googlemaps-circle', 'App\Http\ViewComposers\GoogleMapsCircleComposer'
-        );
-
-        View::composer(
-            'admin.components.googlemaps-marker', 'App\Http\ViewComposers\GoogleMapsMarkerComposer'
-        );
-
-        View::composer(
-            'admin.charts.flot-line', 'App\Http\ViewComposers\FlotLineComposer'
-        );
-
-        View::composer(
-            'admin.charts.fcm', 'App\Http\ViewComposers\FcmComposer'
-        );
-
-        View::composer(
-            'admin.payments.index', 'App\Http\ViewComposers\PaymentComposer'
-        );
-
-        View::composer(
-            'admin.includes.sidebar', 'App\Http\ViewComposers\SidebarComposer'
-        );
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+        View::composer('admin.charts.fcm', 'App\Http\ViewComposers\FcmComposer');
+        View::composer('admin.clients.index', 'App\Http\ViewComposers\ClientComposer');
+        View::composer('admin.payments.index', 'App\Http\ViewComposers\PaymentComposer');
+        View::composer('admin.includes.sidebar', 'App\Http\ViewComposers\SidebarComposer');
+        View::composer('admin.charts.flot-line', 'App\Http\ViewComposers\FlotLineComposer');
+        View::composer('admin.components.clients', 'App\Http\ViewComposers\LatestClientsComposer');
+        View::composer('admin.components.drivers', 'App\Http\ViewComposers\LatestDriversComposer');
+        View::composer(['admin.drivers.index', 'admin.maps.*',], 'App\Http\ViewComposers\DriverComposer');
+        View::composer(['admin.trips.index', 'admin.charts.trips'], 'App\Http\ViewComposers\TripComposer');
+        View::composer('admin.components.googlemaps-marker', 'App\Http\ViewComposers\GoogleMapsMarkerComposer');
+        View::composer('admin.components.googlemaps-circle', 'App\Http\ViewComposers\GoogleMapsCircleComposer');
+        View::composer('admin.components.googlemaps-markers', 'App\Http\ViewComposers\GoogleMapsMarkersComposer');
+        View::composer(['admin.includes.header', 'admin.includes.sidebar'], 'App\Http\ViewComposers\AdminHeaderComposer');
     }
 }

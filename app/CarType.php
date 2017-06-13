@@ -2,6 +2,7 @@
 
 namespace App;
 
+use File;
 use Image;
 use Storage;
 use App\Car;
@@ -110,6 +111,8 @@ class CarType extends Model
             $img->fit(128);
             Storage::delete('storage/car_types/icon/' . $name);
             $img->save('storage/car_types/icon/' . $name);
+            $img->fit(30);
+            $img->save('storage/car_types/icon/30-' . $name . '');
         }
     }
 
@@ -125,6 +128,26 @@ class CarType extends Model
             return asset('storage/car_types/icon/' . $picture);
         } else {
             return asset('img/no-icon.png');
+        }
+    }
+
+    /**
+     * Get full path to car type icon url.
+     *
+     * @return string
+     */
+    public function getMapIconAttribute()
+    {
+        $picture = $this->getOriginal('icon');
+        if ($picture != 'no-icon.png') {
+            if (! File::exists(asset('storage/car_types/icon/30-' . $picture))) {
+                $img = Image::make('storage/car_types/icon/' . $picture);
+                $img->fit(30);
+                $img->save('storage/car_types/icon/30-' . $picture . '');
+            }
+            return asset('storage/car_types/icon/30-' . $picture);
+        } else {
+            return asset('img/30-no-icon.png');
         }
     }
 
@@ -150,12 +173,12 @@ class CarType extends Model
     }
 
     /**
-     * Update car type position
-     * 
-     * @return [type] [description]
+     * A Car Type belongs to many zones.
+     *
+     * @return belongsToMany
      */
-    public function updatePosition()
+    public function zones()
     {
-        
+        return $this->belongsToMany('App\Zone');
     }
 }

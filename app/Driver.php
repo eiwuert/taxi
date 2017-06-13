@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+
 use Auth;
 use Cache;
 use Image;
@@ -34,7 +35,7 @@ class Driver extends Model
      */
     protected $fillable = ['first_name', 'last_name', 'gender', 'device_token',
         'device_type', 'lang', 'state', 'email', 'country', 'address', 'zipcode',
-        'picture', 'identity_number', 'identity_code', 'abuse_history','drug_abuse', 
+        'picture', 'identity_number', 'identity_code', 'abuse_history','drug_abuse',
         'credit_card'
     ];
 
@@ -249,7 +250,7 @@ class Driver extends Model
 
     /**
      * Get driver income
-     * 
+     *
      * @return numeric
      */
     public function income($date = null)
@@ -319,8 +320,8 @@ class Driver extends Model
                     ])->save();
                 }
             }
-            Cache::forever($cacheName, ['lat' => $this->latitude, 'lng' => $this->longitude]);
-            return ['lat' => $this->latitude, 'lng' => $this->longitude];
+            Cache::forever($cacheName, ['lat' => ($this->latitude ?? 0.0), 'lng' => ($this->longitude ?? 0.0)]);
+            return ['lat' => ($this->latitude ?? 0.0), 'lng' => ($this->longitude ?? 0.0)];
         }
     }
 
@@ -350,7 +351,11 @@ class Driver extends Model
      */
     public function phoneNumber()
     {
-        return User::whereId($this->user_id)->first()->phone;
+        $phone = User::whereId($this->user_id)->first()->phone;
+        if (\Request::segment(1)) {
+            $phone = convert($phone);
+        }
+        return $phone;
     }
 
     /**
@@ -385,7 +390,7 @@ class Driver extends Model
     {
         if (is_null($this->getOriginal('last_name')) && is_null($first_name)) {
             return __('drivers.Unknown');
-        } else if (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
+        } elseif (! is_null($this->getOriginal('last_name')) && is_null($first_name)) {
             return '';
         } else {
             return $first_name;
@@ -402,7 +407,7 @@ class Driver extends Model
     {
         if (is_null($this->getOriginal('first_name')) && is_null($last_name)) {
             return __('drivers.Driver');
-        } else if (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
+        } elseif (! is_null($this->getOriginal('first_name')) && is_null($last_name)) {
             return '';
         } else {
             return $last_name;
@@ -501,15 +506,15 @@ class Driver extends Model
     protected function distance($lat1, $lng1, $lat2, $lng2) : int
     {
         $p = 0.017453292519943295;
-        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 + 
-            cos($lat1 * $p) * cos($lat2 * $p) * 
+        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 +
+            cos($lat1 * $p) * cos($lat2 * $p) *
             (1 - cos(($lng2 - $lng1) * $p)) / 2;
         return round(12742 * asin(sqrt($a)) * 1000);
     }
 
     /**
      * Get state name.
-     * 
+     *
      * @return string
      */
     public function stateName()
@@ -517,5 +522,51 @@ class Driver extends Model
         return config('states.' . $this->state);
     }
 
-
+    public function summary()
+    {
+        $summary = [];
+        if (is_null($this->getOriginal('first_name'))) {
+            $summary['first_name'] = false;
+        }
+        if (is_null($this->getOriginal('last_name'))) {
+            $summary['last_name'] = false;
+        }
+        if (is_null($this->email)) {
+            $summary['email'] = false;
+        }
+        if ($this->gender == 'not specified') {
+            $summary['gender'] = false;
+        }
+        if (is_null($this->address)) {
+            $summary['address'] = false;
+        }
+        if (is_null($this->country)) {
+            $summary['country'] = false;
+        }
+        if (is_null($this->zipcode)) {
+            $summary['zipcode'] = false;
+        }
+        if ($this->getOriginal('picture') == 'no-profile.png') {
+            $summary['picture'] = 'false';
+        }
+        if (is_null($this->identity_number)) {
+            $summary['identity_number'] = false;
+        }
+        if (is_null($this->identity_code)) {
+            $summary['identity_code'] = false;
+        }
+        if ($this->abuse_history) {
+            $summary['abuse_history'] = false;
+        }
+        if ($this->drug_abuse) {
+            $summary['drug_abuse'] = false;
+        }
+        if (is_null($this->credit_card)) {
+            $summary['credit_card'] = false;
+        }
+        if(is_null($this->user->meta)) {
+            $summary['user_mata'] = false;
+        }
+        return $summary;
+    }
 }

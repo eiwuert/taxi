@@ -120,7 +120,11 @@ class Client extends Model
      */
     public function phoneNumber()
     {
-        return User::whereId($this->user_id)->first()->phone;
+        $phone = User::whereId($this->user_id)->first()->phone;
+        if (\Request::segment(1)) {
+            $phone = convert($phone);
+        }
+        return $phone;
     }
 
     /**

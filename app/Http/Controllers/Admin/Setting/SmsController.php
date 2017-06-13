@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Setting;
 
 use App\Sms;
+use SoapClient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,6 +20,14 @@ class SmsController extends Controller
                     ->orderBy('id', 'desc')
                     ->paginate((int) option('pagination', 15));
         $codes = $this->mutateCodes($codes);
+        // $client = new SoapClient('http://ip.sms.ir/ws/SendReceive.asmx?wsdl');
+        // $Params= [
+        //     'userName'=>'09122641637',
+        //     'password'=>'!@#123QWEqwe',
+        //     'fromDate'=>Carbon::now()->yesterday()->endOfDay()->toIso8601String(),
+        //     'toDate'=>Carbon::now()->endOfDay()->toIso8601String()
+        // ];
+        // dd( $client->GetVipSentMessages($Params) );
         return view('admin.settings.sms', compact('codes'));
     }
 

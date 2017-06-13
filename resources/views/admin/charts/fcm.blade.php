@@ -4,24 +4,24 @@
     <h3 class="box-title">{{ $title or __('admin/general.FCM chart') }}</h3>
   </div>
   <div class="box-body">
-    <div id="line-chart" style="height: 300px; padding: 0px; position: relative;"></div>
+    <div id="fcm-line-chart" style="height: 300px; padding: 0px; position: relative;"></div>
   </div>
   <!-- /.box-body-->
 </div>
 @push('js')
-<script src="{{ elixir('js/admin/flot.js') }}"></script>
+<script src="{{ mix('js/admin/flot.js') }}"></script>
 <script type="text/javascript">
 
 $(function () {
-var line_data2 = {
+var fcm_line_data2 = {
   data: {!! $dailySuccessfulMessagesOnMonth !!},
   color: "#00c0ef"
 };
-var line_data1 = {
+var fcm_line_data1 = {
   data: {!! $dailyFailedMessagesOnMonth !!},
   color: "#ff5050"
 };
-$.plot("#line-chart", [line_data1, line_data2], {
+$.plot("#fcm-line-chart", [fcm_line_data1, fcm_line_data2], {
   grid: {
     hoverable: true,
     borderColor: "#f3f3f3",

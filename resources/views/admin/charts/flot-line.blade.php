@@ -9,7 +9,7 @@
   <!-- /.box-body-->
 </div>
 @push('js')
-<script src="{{ elixir('js/admin/flot.js') }}"></script>
+<script src="{{ mix('js/admin/flot.js') }}"></script>
 <script type="text/javascript">
 
 $(function () {

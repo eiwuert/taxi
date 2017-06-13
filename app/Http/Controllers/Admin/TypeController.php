@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Zone;
 use App\CarType as Type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CarTypeRequest as Request;
@@ -29,8 +30,9 @@ class TypeController extends Controller
     public function create()
     {
         $types = $this->types();
+        $zones = Zone::pluck('name', 'id');
         $position = range(0, Type::count());
-        return view('admin.types.create', compact('types', 'position'));
+        return view('admin.types.create', compact('types', 'position', 'zones'));
     }
 
     /**
@@ -43,10 +45,9 @@ class TypeController extends Controller
     {
         $type = Type::create($request->all());
         $this->storeChildren($type, $request->children);
-        $types = $this->selectedTypesAndAvailableTypes($type);
-        $position = range(0, Type::count());
+        $type->zones()->sync($request->zones);
         flash(__('admin/general.New car type added'));
-        return view('admin.types.edit', compact('type', 'types', 'position'));
+        return redirect()->route('types.edit', $type->id);
     }
 
     /**
@@ -69,8 +70,9 @@ class TypeController extends Controller
     public function edit(Type $type)
     {
         $position = range(0, Type::count());
+        $zones = Zone::pluck('name', 'id');
         $types = $this->selectedTypesAndAvailableTypes($type);
-        return view('admin.types.edit', compact('type', 'types', 'position'));
+        return view('admin.types.edit', compact('type', 'types', 'position', 'zones'));
     }
 
     /**
@@ -83,8 +85,8 @@ class TypeController extends Controller
     public function update(UpdateRequest $request, Type $type)
     {
         $type->update($request->all());
-        $types = $this->updateAndGetTypes($type, $request->children);
-        $position = range(0, Type::count());
+        $this->updateAndGetTypes($type, $request->children);
+        $type->zones()->sync($request->zones);
         flash(__('admin/general.Car type updated'));
         return redirect()->back();
     }
@@ -147,18 +149,8 @@ class TypeController extends Controller
      */
     protected function selectedTypesAndAvailableTypes($type)
     {
-        $types = [];
-        $type_ids = [];
-        $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
-        foreach (Type::parents()->get() as $t) {
-            if ($t->children()->count() == 0 && $t->id != $type->id) {
-                $type_ids[0][] = ['id' => $t->id];
-            }
-        }
-        foreach ($type_ids[0] as $value) {
-            $types[] = $value['id'];
-        }
-        return Type::whereIn('id', $types)->pluck('name', 'id');
+        return Type::Where('car_type_id',$type->id)->orWhereNull('car_type_id')
+            ->where('id','<>',$type->id)->has('children',0)->pluck('name', 'id');
     }
 
     /**

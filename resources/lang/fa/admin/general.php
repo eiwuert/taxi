@@ -1,11 +1,26 @@
 <?php
+/*************************************************************************
+ Generated via "php artisan localization:missing" at 2017/06/08 12:12:35
+*************************************************************************/
 
 return array (
+  'first_name' => 'نام',
+  'last_name' => 'نام خانوادگی',
+  'email' => 'ایمیل',
+  'gender' => 'جنسیت',
+  'address' => 'آدرس',
+  'country' => 'کشور',
+  'zipcode' => 'کدپستی',
+  'picture' => 'عکس',
+  'identity_number' => 'شماره شناسنامه',
+  'identity_code' => 'کد ملی',
+  'abuse_history' => 'سو پیشینه',
+  'drug_abuse' => 'اعتیاد',
+  'credit_card' => 'شماره کارت',
+  'user_mata' => 'اسناد',
   //============================== New strings to translate ==============================//
-  'abuse_history_false' => 'بدون سو پیشینه',
-  'abuse_history_true' => 'سو پیشینه تایید نشده',
-  'drug_abuse_false' => 'عدم اعتیاد',
-  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
+  // Defined in file /Applications/MAMP/htdocs/saamtaxi/resources/views/admin/drivers/includes/about.blade.php
+  'Not filled' => 'وارد نشده است',
   //==================================== Translations ====================================//
   '1st' => 'یکم',
   '2nd' => 'دوم',
@@ -177,6 +192,7 @@ return array (
   'Inactive' => 'غیرفعال',
   'Income' => 'درآمد',
   'Info' => 'اطلاعات',
+  'Information complete' => 'همه اطلاعات وارد شده است',
   'Invoice' => 'فاکتور',
   'Lang: ' => 'زبان: ',
   'Last 30 Days' => 'سی روز گذشه',
@@ -186,6 +202,8 @@ return array (
   'Last name' => 'نام خانوادگی',
   'Last name: ' => 'نام خانوادگی: ',
   'Lastname' => 'نام‌خانوادگی',
+  'Latest clients' => 'آخرین مسافرها',
+  'Latest drivers' => 'آخرین راننده‌ها',
   'Latitude' => 'عرض جغرافیایی',
   'Latitude: ' => 'عرض جغرافیایی: ',
   'Line Chart' => 'نمودار خطی',
@@ -227,7 +245,6 @@ return array (
   'No driver' => ' بدون راننده ',
   'No response from driver' => 'راننده پاسخی نداد',
   'Not authorized' => 'مجاز نیست',
-  'Not found' => 'یافت نشد',
   'Nothing to show here' => 'چیزی برای نمایش وجود ندارد...',
   'Number: ' => 'شماره پلاک: ',
   'Offline' => 'آفلاین',
@@ -256,6 +273,7 @@ return array (
   'Phone:' => 'تلفن: ',
   'Phone: ' => 'تلفن: ',
   'Picture: ' => 'عکس: ',
+  'Please select one' => 'لطفا یک مورد را انتهاب کنید',
   'Position ' => 'موقعیت ',
   'Position: ' => 'موقعیت: ',
   'Profile' => ' مشخصات',
@@ -298,6 +316,7 @@ return array (
   'Submit' => 'ارسال',
   'Subtotal:' => 'جمع:',
   'Success' => 'موفق',
+  'Summary' => 'خلاصه',
   'Surcharge:' => 'ضریب اضافه:',
   'Switch to Farsi' => 'تبدیل به انگلیسی',
   'Symbol' => 'نماد',
@@ -327,6 +346,7 @@ return array (
   'Trip ended waiting for ratings' => 'سفر پایان یافته است، منتظر امتیاز دهی',
   'Trip is over' => ' سفر به پایان رسیده ',
   'Trip is over by admin' => ' سفر توسط راننده به پایان رسید ',
+  'Trip status' => 'وضعیت سفرها',
   'Trips' => ' سفرها ',
   'Type' => 'نوع',
   'Type: ' => 'نوع خودرو: ',
@@ -336,6 +356,9 @@ return array (
   'Unlocked' => 'باز شده',
   'Updated at' => 'به روز شده در',
   'Upload zip file' => 'آپلود فایل زیپ',
+  'View all clients' => 'مشاهده همه مسافرها',
+  'View all drivers' => 'مشاهده همه راننده‌ها',
+  'View all trips' => 'مشاهده همه سفرها',
   'Web' => 'وب',
   'Yesterday' => 'دیروز',
   'Zip code: ' => 'کد پستی: ',
@@ -346,6 +369,8 @@ return array (
   'Zone has been deleted' => 'منطقه پاک شد',
   'Zone updated' => 'منطقه به روز شد',
   'Zone: ' => 'منطقه: ',
+  'abuse_history_false' => 'بدون سو پیشینه',
+  'abuse_history_true' => 'سو پیشینه تایید نشده',
   'accept' => 'قبول سفر',
   'activate' => 'فعال کردن',
   'agencies' => 'نمایندگان',
@@ -367,6 +392,8 @@ return array (
   'distance unit' => 'واحد مسافت',
   'driver' => 'راننده',
   'drivers' => 'راننده ها',
+  'drug_abuse_false' => 'عدم اعتیاد',
+  'drug_abuse_true' => 'عدم اعتیاد تایید نشده',
   'email' => 'ایمیل',
   'encodings' => 'رمزگذاری',
   'entry' => 'ورودی',
@@ -411,4 +438,9 @@ return array (
   'trips' => ' سفرها ',
   'url' => 'آدرس',
   'wiki' => 'ویکی',
+  //================================== Obsolete strings ==================================//
+  'LLH:obsolete' =>
+  array (
+    'Not found' => 'یافت نشد',
+  ),
 );

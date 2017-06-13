@@ -6,13 +6,17 @@
   <title>{{ config('app.name') }} &bull; @yield('title', '')</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' };</script>
-  <script src="http://{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
+  <script>
+          window.Laravel = <?php echo json_encode([
+              'csrfToken' => csrf_token(),
+          ]); ?>
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="{{ elixir('css/admin/admin.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/admin/admin.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/admin/admin-fix.css') }}">
   @if (\Request::segment(1) == 'fa')
-  <link rel="stylesheet" href="{{ elixir('css/admin/rtl.css') }}">
+  <link rel="stylesheet" href="{{ mix('css/admin/rtl.css') }}">
   @endif
   @stack('style')
 
