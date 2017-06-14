@@ -7,6 +7,7 @@ body {
     padding: 0px !important;
     margin: 0px !important;
     font-size: 14px;
+
 }
 
 .rtl {
@@ -4072,8 +4073,12 @@ div.header h3 {
 .img-qr {
     width: 150px;
     height: 150px;
+    margin-left: 150px;
 }
-
+.enamad{
+    margin-left: -200px;
+    margin-top: -141px;
+}
 .section-heading {
     text-align: center;
     padding: 30px 0;
@@ -4196,11 +4201,12 @@ div.header h3 {
     height: 390px;
     padding-top: 20px;
     direction: rtl;
+    min-height: 500px;
 }
 
 .contact-address p {
     font-weight: 800;
-    font-size: 24px
+    font-size: 24px;
 }
 
 .contact-address p span {
@@ -4211,6 +4217,7 @@ div.header h3 {
     padding: 35px;
     background-color: rgba(255, 255, 255, 0.5);
     height: 390px;
+    min-height: 500px;
 }
 
 #contact-form-section .btn-primary {
@@ -4350,6 +4357,8 @@ div.header h3 {
     -o-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     transition: all 0.25s ease-in-out;
+    float: right;
+    direction: rtl;
 }
 
 #nav .navbar-nav li a:hover {
@@ -4463,8 +4472,8 @@ div.header h3 {
 }
 
 .appe-imgg {
-    width: 169px;
-    height: 48.5px;
+    width: 120px;
+    height: 35.5px;
 }
 
 .title-padding {

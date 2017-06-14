@@ -15,14 +15,21 @@
                     <div class="col-sm-6">
                         <div class="contact-address wow rotateInUpRight">
                             <address>
-                                <h2>فلیپ</h2><strong> آدرس: میدان ونک ، برج نگار ، طبقه ۱۶ ، واحد ۲
-                                <br> کد پستی: ۱۹۶۹۸۳۳۶۹۳ 
-                                <br> تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸+<br> فکس: ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸+ <br> ایمیل : info@flipapp.ir</strong>
+                                <h2>فلیپ</h2><strong style="line-height: 25px"> آدرس: میدان ونک ، برج نگار ، طبقه ۱۶ ، واحد ۲
+                                <br> کد پستی : ۱۹۶۹۸۳۳۶۹۳ 
+                                <br> تلفن: ۳-۵۲۹۹۰ ۸۸۶ ۲۱ ۹۸<br> فکس : ۴۱۶۳۹ ۸۸۶ ۲۱ ۹۸ <br> ایمیل : info@flipapp.ir</strong>
                                 <br>
                                 <br>
                                 <div>
                                     <img class="img-qr" src="../images/fa-barcode.png" alt="">
                                 </div>
+                                <div>
+                                    
+                                    <img class="enamad" id='rgvlgwmdbrgwbrgwsgui' style='cursor:pointer' onclick='window.open
+                                    ("https://trustseal.enamad.ir/Verify.aspx?id=59660&p=yncrjzpghwmbhwmbdrfs", 
+                                    "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
+                                    ' alt='' src='../images/logo.aspx'/>
+                                    </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
