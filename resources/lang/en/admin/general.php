@@ -417,4 +417,11 @@ return array (
   'trips' => 'trips',
   'url' => 'url',
   'wiki' => 'wiki',
+    'Car Types Trans' => 'Translates of car types',
+    'translates' => 'Translates',
+    'translate_updated' => 'Translates was updated.',
+    'unq_key'=> 'Unique Key',
+    'fa' => 'Persian',
+    'en' => 'English',
+
 );

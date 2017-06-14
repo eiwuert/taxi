@@ -14,7 +14,7 @@ class ModifyStateColumnToIntegerInClientsTable extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            //
+            DB::statement('alter table '.$table->getTable().' alter column state type numeric(10,0) using state::numeric;');
         });
     }
 
@@ -26,7 +26,6 @@ class ModifyStateColumnToIntegerInClientsTable extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
-            DB::statment('alter table '.$table->getTable().' alter column state type numeric(10,0) using state::numeric;');
         });
     }
 }

@@ -34,6 +34,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::get('switch', 'DashboardController@switchLang')->name('switch');
     // Agencies Info
     Route::resource('agencies', 'AgencyController', ['middleware' => ['superadmin']]);
+    // Car types Translates
+    Route::get('types/translate', 'TypeController@langs',['middleware' => ['superadmin']])->name('types.translate');
+    Route::patch('types/translate', 'TypeController@updateTranslates',['middleware' => ['superadmin']])->name('types.translate');
     // Car types
     Route::resource('types', 'TypeController', ['middleware' => ['superadmin']]);
     // Zones
@@ -52,4 +55,6 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['aut
     Route::delete('contacts', 'ContactController@destroy')->name('contacts.destroy');
     // States
     Route::resource('states', 'StateController', ['middleware' => ['superadmin']]);
+
+
 });

@@ -14,7 +14,7 @@ class ModifyStateColumnToIntegerInDriversTable extends Migration
     public function up()
     {
         Schema::table('drivers', function (Blueprint $table) {
-            //
+            DB::statement('alter table '.$table->getTable().' alter column state type numeric(10,0) using state::numeric;');
         });
     }
 
@@ -26,7 +26,6 @@ class ModifyStateColumnToIntegerInDriversTable extends Migration
     public function down()
     {
         Schema::table('drivers', function (Blueprint $table) {
-            DB::statment('alter table '.$table->getTable().' alter column state type numeric(10,0) using state::numeric;');
         });
     }
 }

@@ -17,12 +17,27 @@
                 <h3 class="box-title">@lang('admin/general.List')</h3>
             </div>
             <!-- /.box-header -->
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="box-body">
                 {!! Form::open(['method' => 'POST', 'action' => ['Admin\TypeController@store'], 'class' => 'form-horizontal', 'files' => true]) !!}
                 <div class="form-group">
                     {!! Form::label('name', __('admin/general.Name: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('slug', __('admin/general.unq_key').': ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('slug', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">

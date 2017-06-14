@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\CarType as Type;
+use App\CarType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CarTypeRequest as Request;
+use App\Http\Requests\Admin\CarTypeRequest;
 use App\Http\Requests\Admin\UpdateCarTypeRequest as UpdateRequest;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -17,7 +19,7 @@ class TypeController extends Controller
     public function index()
     {
         $types = Type::parents()->orderBy('position', 'asc')
-                          ->paginate(config('admin.perPage'));
+            ->paginate(config('admin.perPage'));
         return view('admin.types.index', compact('types'));
     }
 
@@ -36,10 +38,10 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CarTypeRequest $request)
     {
         $type = Type::create($request->all());
         $this->storeChildren($type, $request->children);
@@ -52,7 +54,7 @@ class TypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CarType  $type
+     * @param  \App\CarType $type
      * @return \Illuminate\Http\Response
      */
     public function show(Type $type)
@@ -76,7 +78,7 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  \App\CarType $type
      * @return \Illuminate\Http\Response
      */
@@ -84,6 +86,9 @@ class TypeController extends Controller
     {
         $type->update($request->all());
         $types = $this->updateAndGetTypes($type, $request->children);
+        if($request->slug != $request->old_slug){
+            changeTranslateSlug('car_types', $request->old_slug, $request->slug);
+        }
         $position = range(0, Type::count());
         flash(__('admin/general.Car type updated'));
         return redirect()->back();
@@ -114,13 +119,8 @@ class TypeController extends Controller
      */
     protected function types()
     {
-        $type_ids = [];
-        foreach (Type::parents()->get() as $type) {
-            if ($type->children()->count() == 0) {
-                $type_ids[] = $type->id;
-            }
-        }
-        return Type::whereIn('id', $type_ids)->pluck('name', 'id');
+
+        return Type::WhereNull('car_type_id')->has('children', 0)->pluck('slug', 'id');
     }
 
     /**
@@ -147,8 +147,8 @@ class TypeController extends Controller
      */
     protected function selectedTypesAndAvailableTypes($type)
     {
-        return Type::Where('car_type_id',$type->id)->orWhereNull('car_type_id')
-                    ->where('id','<>',$type->id)->has('children',0)->pluck('slug', 'id');
+        return Type::Where('car_type_id', $type->id)->orWhereNull('car_type_id')
+            ->where('id', '<>', $type->id)->has('children', 0)->pluck('slug', 'id');
 
     }
 
@@ -169,17 +169,27 @@ class TypeController extends Controller
                 Type::find($child)->forceFill(['car_type_id' => $type->id])->save();
             }
         }
-        $type_ids = [];
-        $type_ids[] = $type->children()->get(['id'])->flatten()->toArray();
-        foreach (Type::parents()->get() as $t) {
-            if ($t->children()->count() == 0) {
-                $type_ids[0][] = ['id' => $t->id];
-            }
-        }
-        $types = [];
-        foreach ($type_ids[0] as $value) {
-            $types[] = $value['id'];
-        }
-        return Type::whereIn('id', $types)->pluck('name', 'id');
+
+    }
+
+    /**
+     * Show all car type slug translates
+     */
+    public function langs()
+    {
+        $types = CarType::orderBy('created_at','desc')->get();
+        return view('admin.types.translate', compact('types'));
+
+    }
+
+    /**
+     * Update Translates of Car types slug
+     * @param Request $request
+     */
+    public function updateTranslates(Request $request)
+    {
+        addLangs('car_types', $request->trans);
+        flash(__('admin/general.translate_updated'));
+        return redirect()->back();
     }
 }

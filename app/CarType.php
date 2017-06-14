@@ -14,12 +14,7 @@ class CarType extends Model
         'name', 'car_type_id', 'icon', 'active', 'position', 'slug',
     ];
 
-    protected $hidden = [
-        'created_at', 'updated_at', 'active' , 'car_type_id',
-         'names'  //must be delete
-    ];
-
-    protected $appends = ['name'];
+    public static $unset = ['created_at', 'updated_at', 'active' , 'car_type_id','slug'];
 
     /**
      * Scope a query for searching car types.
@@ -189,16 +184,14 @@ class CarType extends Model
 
     }
 
-    /** Get translated of name
-     * @return \Illuminate\Contracts\Translation\Translator|string
+
+    /**
+     * Slug car type name before save
+     * @param $value
      */
-    public function getNameAttribute()
+    public function setSlugAttribute($value)
     {
-        $translate =  __('car_types.' . $this->attributes['slug'] . '.name');
-        if( $translate == 'car_types.' . $this->attributes['slug'] . '.name' ){
-            return $this->attributes['slug'];
-        }
-        return $translate;
+        $this->attributes['slug'] = str_slug($value,'_');
     }
 
 }
