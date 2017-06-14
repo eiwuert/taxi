@@ -1,5 +1,5 @@
 <section id="features">
-        <div class="black-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide">
+        <div class="green-bg anchor parallax container1 pad-top-115 pr clip-this overflow-hide" style="direction: rtl;padding-bottom: 60px;">
             <div class="container">
                 <div class="row">
                     <br />
