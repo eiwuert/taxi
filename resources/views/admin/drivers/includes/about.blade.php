@@ -12,6 +12,19 @@
   'text' => __('admin/general.Approve')])
 @endif
 <br />
+<switch-state go-online="@lang('admin/general.Online, Go offline')"
+    go-offline="@lang('admin/general.Offline, Go online')"
+    error="@lang('admin/general.Driver is in trip')"
+    online="{{ $driver->online ? '1' : '0' }}"
+    go-online-url="{{ route('drivers.online', ['driver' => $driver]) }}"
+    go-offline-url="{{ route('drivers.offline', ['driver' => $driver]) }}"></switch-state>
+<br />
+@include('admin.drivers.includes.delete',
+    ['driver' => $driver,
+    'addClass' => 'btn-block btn-sm',
+    'icon' => 'trash',
+    'text' => __('admin/general.Delete')])
+<br />
 <div class="box box-primary">
   <div class="box-header with-border">
     <h3 class="box-title">@lang('admin/general.Summary')</h3>
@@ -39,16 +52,3 @@
   </div>
   <!-- /.box-body -->
 </div>
-<switch-state go-online="@lang('admin/general.Online, Go offline')"
-    go-offline="@lang('admin/general.Offline, Go online')"
-    error="@lang('admin/general.Driver is in trip')"
-    online="{{ $driver->online ? '1' : '0' }}"
-    go-online-url="{{ route('drivers.online', ['driver' => $driver]) }}"
-    go-offline-url="{{ route('drivers.offline', ['driver' => $driver]) }}"></switch-state>
-<br />
-@include('admin.drivers.includes.delete',
-    ['driver' => $driver,
-    'addClass' => 'btn-block btn-sm',
-    'icon' => 'trash',
-    'text' => __('admin/general.Delete')])
-<br />
