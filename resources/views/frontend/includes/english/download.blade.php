@@ -5,10 +5,10 @@
                     <img alt="ios" src="../../images/app-store.png" class="appe-imgg">
                 </a>
                 <a href="https://play.google.com/store/apps/details?id=ir.flipapp.app_rider" title="playstore" target="_blank">
-                    <img alt="ios" src="../../images/playstore.png" class="appe-imgg">
+                    <img alt="playstore" src="../../images/playstore.png" class="appe-imgg">
                 </a>
                 <a href="https://cafebazaar.ir/app/ir.flipapp.app_rider/?l=fa" title="bazaar" target="_blank">
-                    <img alt="ios" src="../../images/bazaar.svg" class="appe-imgg">
+                    <img alt="bazar" src="../../images/bazaar.svg" class="appe-imgg">
                 </a>
             </div>
         </div>

@@ -20,21 +20,21 @@
                 <div class="col-md-4">
                     <div class="service wow slideInLeft">
                         <img src="images/avaible.png">
-                        <h4>دسترسی آسان و راحت</h4>
+                        <h4><strong>دسترسی آسان و راحت</strong></h4>
                         <h4 class="about-content margin-bottom-medium wow slideInUp animated ">فلیپ را میتوانید در هر شرایطی در اختیار خود داشته باشید.</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="service wow fadeInUp">
                         <img src="images/save.png">
-                        <h4>کاهش هزینه شما</h4>
+                        <h4><strong>کاهش هزینه شما</strong></h4>
                         <h4 class="about-content margin-bottom-medium wow slideInUp animated">مسافرت با فلیپ هزینه های شما را کاهش میدهد.</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="service wow slideInRight">
                         <img src="images/safe.png">
-                        <h4>سفری امن با فلیپ</h4>
+                        <h4><strong>سفری امن با فلیپ</strong></h4>
                         <h4 class="about-content margin-bottom-medium wow slideInUp animated">با فلیپ سفری امن و مطمئن را تجربه کنید.</h4>
                     </div>
                 </div>

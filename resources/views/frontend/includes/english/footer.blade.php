@@ -1,7 +1,7 @@
 <footer class="footer-small footer-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6 pull-right">
+                <div class="col-lg-5 col-sm-6 pull-left">
                     <ul class="social-link-footer list-unstyled">
                         <li class="wow flipInX" data-wow-duration="2s" data-wow-delay=".6s"><a href="https://www.instagram.com/flipapplication/"><i class="fa fa-instagram"></i></a></li>
                         <li class="wow flipInX" data-wow-duration="2s" data-wow-delay=".2s"><a href="flipapp96@gmail.com"><i class="fa fa-google-plus"></i></a></li>
@@ -30,11 +30,11 @@
     <!--small footer end-->
     <!-- js placed at the end of the document so the pages load faster
     -->
-    <script src="{{ asset('js/en.js') }}"></script>
+    <script src="{{ mix('js/en.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/superfish/1.7.9/js/superfish.min.js"></script>
-
+    <!-- end of sequence slider js-->
     <script type="text/javascript">
     jQuery(document).ready(function() {
 
