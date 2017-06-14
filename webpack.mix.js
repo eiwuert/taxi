@@ -11,6 +11,9 @@ const { mix } = require('laravel-mix');
  |
  */
 
+    // cleave
+    mix.js('node_modules/cleave.js/dist/cleave.min.js', 'public/js/admin/cleave.js')
+       .version();
 
     // en
     mix.styles([

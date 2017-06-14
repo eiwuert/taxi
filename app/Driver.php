@@ -567,6 +567,63 @@ class Driver extends Model
         if(is_null($this->user->meta)) {
             $summary['user_mata'] = false;
         }
+        if(is_null($this->user->car->hull_insurance_expire)) {
+            $summary['hull_insurance_expire'] = false;
+        }
+        if(is_null($this->user->car->third_party_insurance_expire)) {
+            $summary['third_party_insurance_expire'] = false;
+        }
+        if(is_null($this->user->car->technical_diagnosis_expire)) {
+            $summary['technical_diagnosis_expire'] = false;
+        }
+        if($this->user->car->number == '000000') {
+            $summary['number'] = false;
+        }
+        if($this->user->car->color == 'pink') {
+            $summary['color'] = false;
+        }
+        if(is_null($this->user->car->technical_diagnosis_number)) {
+            $summary['technical_diagnosis_number'] = false;
+        }
+        if(is_null($this->user->car->card)) {
+            $summary['card'] = false;
+        }
+        if(is_null($this->user->car->type_of)) {
+            $summary['type_of'] = false;
+        }
+        if(is_null($this->user->car->system)) {
+            $summary['system'] = false;
+        }
+        if(is_null($this->user->car->brigade)) {
+            $summary['brigade'] = false;
+        }
+        if(is_null($this->user->car->year)) {
+            $summary['year'] = false;
+        }
+        if(is_null($this->user->car->fuel)) {
+            $summary['fuel'] = false;
+        }
+        if(is_null($this->user->car->capacity)) {
+            $summary['capacity'] = false;
+        }
+        if(is_null($this->user->car->cylinder)) {
+            $summary['cylinder'] = false;
+        }
+        if(is_null($this->user->car->axis)) {
+            $summary['axis'] = false;
+        }
+        if(is_null($this->user->car->wheel)) {
+            $summary['wheel'] = false;
+        }
+        if(is_null($this->user->car->motor)) {
+            $summary['motor'] = false;
+        }
+        if(is_null($this->user->car->chassis)) {
+            $summary['chassis'] = false;
+        }
+        if(is_null($this->user->car->vin)) {
+            $summary['vin'] = false;
+        }
         return $summary;
     }
 }
