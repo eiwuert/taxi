@@ -1,7 +1,7 @@
 <footer class="footer-small footer-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6 pull-right">
+                <div class="col-lg-5 col-sm-6 pull-left">
                     <ul class="social-link-footer list-unstyled">
                         <li class="wow flipInX" data-wow-duration="2s" data-wow-delay=".6s"><a href="https://www.instagram.com/flipapplication/"><i class="fa fa-instagram"></i></a></li>
                         <li class="wow flipInX" data-wow-duration="2s" data-wow-delay=".2s"><a href="flipapp96@gmail.com"><i class="fa fa-google-plus"></i></a></li>
