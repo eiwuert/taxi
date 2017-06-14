@@ -19,6 +19,7 @@
         "laravelcollective/html": "5.4.x-dev",
         "maatwebsite/excel": "~2.1.0",
         "mews/captcha": "^2.1",
+        "morilog/jalali": "^2.2",
         "mpdf/mpdf": "6.1.*",
         "mpociot/laravel-apidoc-generator": "^2.0",
         "potsky/laravel-localization-helpers": "2.5.*",

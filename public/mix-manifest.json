@@ -1,18 +1,19 @@
 {
   "/mix.js": "/mix.js",
   "/css/en.css": "/css/en.bdf4a24445420ed238c2c9590883ea39.css",
-  "/js/fa.js": "/js/fa.98f3b5ed8e5d8f6e2516.js",
-  "/js/en.js": "/js/en.0b5a14f96cf78d01d0b8.js",
-  "/js/admin/select2.js": "/js/admin/select2.352ce1368befa0f4878b.js",
-  "/js/admin/jquery.inputmask.js": "/js/admin/jquery.inputmask.4e7ae9a3ef2a9819a87f.js",
-  "/js/admin/iCheck.js": "/js/admin/iCheck.0313b2ebd60464625702.js",
-  "/js/admin/flot.js": "/js/admin/flot.6b779b0a951c47b113e9.js",
-  "/js/admin/admin.js": "/js/admin/admin.7b26ac7e9d42e18e3453.js",
+  "/js/fa.js": "/js/fa.bbaed2c665199af58220.js",
+  "/js/en.js": "/js/en.bbaed2c665199af58220.js",
+  "/js/admin/select2.js": "/js/admin/select2.deabfa5d00fa2324759f.js",
+  "/js/admin/jquery.inputmask.js": "/js/admin/jquery.inputmask.9e0eb6bc7fb08ed11f76.js",
+  "/js/admin/iCheck.js": "/js/admin/iCheck.76eb67e041bd32a535b6.js",
+  "/js/admin/flot.js": "/js/admin/flot.5fcfdf878a0f24968b1e.js",
+  "/js/admin/admin.js": "/js/admin/admin.eb273561db9241f9c987.js",
   "/css/fa.css": "/css/fa.fc280b934e7915398ec430b0922d88ae.css",
   "/css/admin/admin.css": "/css/admin/admin.5d7ffe9e3cda4f920d1bd3e9f92ab0f4.css",
   "/css/admin/iCheckBlue.css": "/css/admin/iCheckBlue.37fd35194ed2735b31d71b8b8c063898.css",
   "/css/admin/select2.css": "/css/admin/select2.d44571114a90b9226cd654d3c7d9442c.css",
   "/css/admin/rtl.css": "/css/admin/rtl.5762868526d0da1b0f1bc24b236124bd.css",
   "/css/admin/admin-fix.css": "/css/admin/admin-fix.716a17ab2cf2118b576e94a6b5959361.css",
-  "/js/admin/chart.js": "/js/admin/chart.96af63325e5f36de4e27.js"
+  "/js/admin/chart.js": "/js/admin/chart.a116f9fc0d5998fae309.js",
+  "/js/admin/cleave.js": "/js/admin/cleave.e9959ee5c9c953fe6999.js"
 }

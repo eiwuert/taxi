@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Car;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CarRequest as Request;
 
 class CarController extends Controller
 {
@@ -17,12 +17,8 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        $car->update([
-            'color'   => $request->color,
-            'type_id' => $request->type_id,
-            // Hard coded
-            'number'  => $request->platePart1 . $request->platePart2 . $request->platePart3 . ' - ایران ' . $request->platePart4,
-        ]);
+        $request->number = Car::formatNumber($request);
+        $car->update($request->all());
         flash(__('admin/general.Driver\'s car updated'), 'success');
         return redirect()->back();
     }
