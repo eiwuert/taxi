@@ -142,7 +142,7 @@ class CurrentRepository extends Main
             'destination'     => $destination,
             'angle'           => $angle,
             'driver_location' => $driverLocation,
-            'total'           => $trip->transaction()->first()->total,
+            'total'           => is_null($t = $trip->transaction()->first()) ? 0 : $t->total,
         ];
     }
 }
