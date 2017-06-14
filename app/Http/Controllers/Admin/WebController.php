@@ -146,7 +146,7 @@ class WebController extends Controller
             flash(__('admin/general.You cannot delete yourself'));
             return back();            
         } else {
-            Web::find($id)->delete();
+            Web::find($id)->user->delete();
             flash(__('admin/general.Admin user deleted'));
             return back();
         }
