@@ -147,6 +147,7 @@ class NearbyRepository
             }
             $nearby[] = $driver;
         }
-        return $count;
+        return ['count'  => $count,
+                'nearby' => $nearby];
     }
 }
