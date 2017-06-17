@@ -27,6 +27,7 @@ class DriverRequest extends FormRequest
     public function rules()
     {
         return [
+
             'first_name'      => 'required|max:255',
             'last_name'       => 'required|max:255',
             'email'           => 'required|nullable|email|unique:clients,email,'.Request::get('driver_id'),

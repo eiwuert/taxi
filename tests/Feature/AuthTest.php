@@ -21,7 +21,7 @@ class AuthTest extends TestCase
     public function testClientSuccessRegister()
     {
         $response = $this->json('POST', '/api/v1/client/register', [
-            'phone' => rand(1111111111, 9999999999),
+            'phone' => rand(1111111111, mt_getrandmax()),
             'login_by' => 'manual',
             'lang' => 'en',
             'state' => '1',
