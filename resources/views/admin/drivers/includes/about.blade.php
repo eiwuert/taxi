@@ -5,11 +5,15 @@
   'icon' => 'times',
   'text' => __('admin/general.Decline')])
 @else
+  @if(empty($driver->summary()))
   @include('admin.drivers.includes.approve',
   ['driver' => $driver,
   'addClass' => 'btn-block btn-sm',
   'icon' => 'check',
   'text' => __('admin/general.Approve')])
+  @else
+  <button class="btn btn-block btn-default btn-sm" disabled="disabled"><i class="fa fa-check"></i> @lang('admin/general.Approve')</button>
+  @endif
 @endif
 <br />
 <switch-state go-online="@lang('admin/general.Online, Go offline')"
