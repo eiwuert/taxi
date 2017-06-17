@@ -37,6 +37,17 @@ class LoginController extends Controller
     private $type;
 
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        $this->middleware('guest', ['except' => 'logout']);
+        $this->type = $request->segment(2);
+    }
+
+    /**
      * Get the login username to be used by the controller.
      *
      * @return string
@@ -47,13 +58,19 @@ class LoginController extends Controller
     }
 
     /**
-     * Create a new controller instance.
+     * Log the user out of the application.
      *
-     * @return void
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function __construct(Request $request)
+    public function logout(Request $request)
     {
-        $this->middleware('guest', ['except' => 'logout']);
-        $this->type = $request->segment(2);
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect($request->segment(1) . '/admin/login');
     }
 }
