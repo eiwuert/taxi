@@ -1,18 +1,17 @@
 {
-  "/mix.js": "/mix.js",
-  "/css/en.css": "/css/en.bdf4a24445420ed238c2c9590883ea39.css",
-  "/js/fa.js": "/js/fa.98f3b5ed8e5d8f6e2516.js",
-  "/js/en.js": "/js/en.0b5a14f96cf78d01d0b8.js",
-  "/js/admin/select2.js": "/js/admin/select2.352ce1368befa0f4878b.js",
+  "/js/admin/admin.js": "/js/admin/admin.5e4c821580c9ff3ddcca.js",
+  "/js/en.js": "/js/en.828b950a71d01f463fa5.js",
+  "/css/admin/admin-fix.css": "/css/admin/admin-fix.716a17ab2cf2118b576e94a6b5959361.css",
+  "/css/admin/rtl.css": "/css/admin/rtl.5762868526d0da1b0f1bc24b236124bd.css",
+  "/js/fa.js": "/js/fa.21595fcaa6323010ac8a.js",
   "/js/admin/jquery.inputmask.js": "/js/admin/jquery.inputmask.4e7ae9a3ef2a9819a87f.js",
+  "/js/admin/select2.js": "/js/admin/select2.352ce1368befa0f4878b.js",
+  "/js/admin/chart.js": "/js/admin/chart.96af63325e5f36de4e27.js",
   "/js/admin/iCheck.js": "/js/admin/iCheck.0313b2ebd60464625702.js",
   "/js/admin/flot.js": "/js/admin/flot.6b779b0a951c47b113e9.js",
-  "/js/admin/admin.js": "/js/admin/admin.7b26ac7e9d42e18e3453.js",
-  "/css/fa.css": "/css/fa.fc280b934e7915398ec430b0922d88ae.css",
+  "/css/en.css": "/css/en.6fd300058556fc331c26d56b1584af43.css",
+  "/css/fa.css": "/css/fa.2f90cefca9569d4d860e317a6f9e653f.css",
   "/css/admin/admin.css": "/css/admin/admin.5d7ffe9e3cda4f920d1bd3e9f92ab0f4.css",
   "/css/admin/iCheckBlue.css": "/css/admin/iCheckBlue.37fd35194ed2735b31d71b8b8c063898.css",
-  "/css/admin/select2.css": "/css/admin/select2.d44571114a90b9226cd654d3c7d9442c.css",
-  "/css/admin/rtl.css": "/css/admin/rtl.5762868526d0da1b0f1bc24b236124bd.css",
-  "/css/admin/admin-fix.css": "/css/admin/admin-fix.716a17ab2cf2118b576e94a6b5959361.css",
-  "/js/admin/chart.js": "/js/admin/chart.96af63325e5f36de4e27.js"
+  "/css/admin/select2.css": "/css/admin/select2.d44571114a90b9226cd654d3c7d9442c.css"
 }
