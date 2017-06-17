@@ -470,4 +470,11 @@ return array (
   'picture' => 'picture',
   'user_mata' => 'Documents',
   'zipcode' => 'Zipcode',
+    'Car Types Trans' => 'Translates of car types',
+    'translates' => 'Translates',
+    'translate_updated' => 'Translates was updated.',
+    'unq_key'=> 'Unique Key',
+    'fa' => 'Persian',
+    'en' => 'English',
+
 );

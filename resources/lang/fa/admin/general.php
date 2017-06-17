@@ -470,4 +470,10 @@ return array (
   'picture' => 'عکس',
   'user_mata' => 'اسناد',
   'zipcode' => 'کدپستی',
+    'Car Types Trans' => 'ترجمه نوع خودروها',
+    'translates' => 'ترجمه‌ها',
+    'translate_updated' => 'ترجمه‌ها بروزرسانی شدند.',
+    'unq_key'=> 'نام کلیدی یکتا',
+    'fa' => 'فارسی',
+    'en' => 'انگلیسی',
 );

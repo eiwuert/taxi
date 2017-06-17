@@ -14,7 +14,8 @@
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li class="active"><i class="ion-cube"></i> @lang('admin/general.agencies') </li>
+<li><a href="{{ route('types.index') }}"><i class="ion-cube"></i> @lang('admin/general.Car type')</a></li>
+<li class="active">{{ $type->name }}</li>
 @endsection
 @section('content')
 <div class="row">
@@ -24,12 +25,28 @@
                 <h3 class="box-title">@lang('admin/general.List')</h3>
             </div>
             <!-- /.box-header -->
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="box-body">
                 {!! Form::model($type, ['method' => 'PATCH', 'action' => ['Admin\TypeController@update', $type], 'class' => 'form-horizontal', 'files' => true]) !!}
+                <input type="hidden" name="old_slug" value="{{$type->slug}}">
                 <div class="form-group">
                     {!! Form::label('name', __('admin/general.Name: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
                         {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {!! Form::label('slug', __('admin/general.unq_key').': ', ['class' => 'col-sm-2 control-label']) !!}
+                    <div class="col-sm-10">
+                        {!! Form::text('slug', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 <div class="form-group">

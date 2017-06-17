@@ -3,11 +3,16 @@
 @lang('admin/general.Car type')
 @endsection
 @section('header')
-<a href="{{ route('types.create') }}">
-    <button class="btn btn-primary btn-xs">
-    @lang('admin/general.New car type')
-    </button>
-</a>
+    <a href="{{ route('types.create') }}">
+        <button class="btn btn-primary btn-xs">
+            @lang('admin/general.New car type')
+        </button>
+    </a>
+    <a href="{{ route('types.translate') }}">
+        <button class="btn btn-info btn-xs">
+            @lang('admin/general.translates')
+        </button>
+    </a>
 @lang('admin/general.Car type')
 @endsection
 @section('breadcrumb')
