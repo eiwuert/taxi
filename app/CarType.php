@@ -175,15 +175,9 @@ class CarType extends Model
     }
 
     /**
-<<<<<<< HEAD
      * A Car Type belongs to many zones.
      *
      * @return belongsToMany
-=======
-     * Update car type position
-     *
-     * @return [type] [description]
->>>>>>> feature/add_slug_to_car_types
      */
     public function zones()
     {

@@ -5,6 +5,6 @@ return array (
   'sedans' => 'sedans',
   'economy' => 'economy',
   'motorcycle' => 'motorcycle',
-  'off_roader' => NULL,
-  'van' => 'van',
+  'off_roader' => 'off-roader',
+  'on' => 'ون',
 );
