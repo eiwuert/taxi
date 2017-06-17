@@ -43,7 +43,9 @@ class CancelRepository
             /**
              * Cancel by CLIENT
              */
-            $deviceToken = $driver->device_token;
+            if ($status != '1') {
+                $deviceToken = $driver->device_token;
+            }
             switch ($status) {
                 // REQUEST_TAXI
                 case '1':
@@ -84,8 +86,7 @@ class CancelRepository
                     return ['fail' => 'came_early'];
                     break;
             }
-        }
-        elseif (Auth::user()->role == 'driver') {
+        } elseif (Auth::user()->role == 'driver') {
             $driver = Auth::user()->driver()->first();
             $trip   = $driver->trips()->orderBy('id', 'desc')->first();
 
@@ -149,8 +150,7 @@ class CancelRepository
                     return ['fail' => 'came_early'];
                     break;
             }
-        }
-        else {
+        } else {
             return ['fail' => 'came_early'];
         }
     }

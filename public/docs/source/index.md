@@ -2800,18 +2800,191 @@ type | numeric |  children ID  |
 }
 ```
 
-> Example response - Validation fails
+## Nearby taxis v3
+
+Find near by taxis.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v4/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet"
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v4/client/nearby`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | `(d+).(d+)`
+lng | numeric |  required  | `(d+).(d+)`
+
+> Example response
+
+```json
+## Nearby taxis v3
+
+Find near by taxis.
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/nearby" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "lat": "maiores", \
+   -d "lng": "maiores", \
+   -d "distance": "maiores", \
+   -d "limit": "maiores", \
+   -d "type": "maiores", \
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/nearby",
+    "method": "POST",
+    "data": {
+        "lat": "amet",
+        "lng": "amet",
+        "distance": "amet",
+        "limit": "amet",
+        "type": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/nearby`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+lat | numeric |  required  | `(d+).(d+)`
+lng | numeric |  required  | `(d+).(d+)`
+distance | numeric |  min: `1`, max: `5`  |
+limit | numeric |  min: `5`, max: `100`  |
+type | numeric |  children ID  |
+
+> Example response
 
 ```json
 {
-    "success": false,
+    "success": true,
     "data": [
         {
-            "title": "Validation failed",
-            "detail": "Validation for given fields have been failed, please check your inputs.",
-            "code": 422
+            "id": 7341,
+            "distance": "2.27246822248217",
+            "longitude": "51.366905",
+            "latitude": "35.731209",
+            "name": "NOT SET",
+            "user_id": 856,
+            "angle": 327,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 9159,
+            "distance": "2.39551047107605",
+            "longitude": "51.417375",
+            "latitude": "35.722071",
+            "name": "NOT SET",
+            "user_id": 474,
+            "angle": 115,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 4008,
+            "distance": "3.14346537747125",
+            "longitude": "51.424588",
+            "latitude": "35.718066",
+            "name": "NOT SET",
+            "user_id": 423,
+            "angle": 19,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 4715,
+            "distance": "3.31577013795581",
+            "longitude": "51.409080",
+            "latitude": "35.753119",
+            "name": "NOT SET",
+            "user_id": 430,
+            "angle": 237,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
+        },
+        {
+            "id": 3099,
+            "distance": "3.37062995126478",
+            "longitude": "51.422144",
+            "latitude": "35.709585",
+            "name": "NOT SET",
+            "user_id": 414,
+            "angle": 112,
+            "cat_id": 1,
+            "parent_id": 10,
+            "parent_icon": "http://localhost:8000/img/no-icon.png"
         }
     ]
+}
+```
+```
+
+> Example response
+
+```json
+{
+    "success": true,
+    "data": {
+        "count": [],
+        "nearby": []
+    }
 }
 ```
 
