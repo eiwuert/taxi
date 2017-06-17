@@ -15,13 +15,20 @@
                     <div class="col-sm-6">
                         <div class="contact-address wow rotateInUpRight">
                             <address>
-                                <h2>Flip App</h2><strong>#2, 16th Floor Negar Tower,Vanak Sq.Tehran <br> 1969833693,IRAN 
+                                <h2>Flip App</h2><strong style="line-height: 25px">#2, 16th Floor Negar Tower,Vanak Sq.Tehran <br> 1969833693,IRAN 
                                 <br> TEL : +98 21 88652990-3 <br> FAX : +98 21 886 41639 <br> EMAIL : info@flipapp.ir</strong>
                                 <br>
                                 <br>
                                 <div>
                                     <img class="img-qr" src="../../images/en-barcode.png" alt="">
                                 </div>
+                                <div>
+                                    
+                                    <img class="enamad" id='rgvlgwmdbrgwbrgwsgui' style='cursor:pointer' onclick='window.open
+                                    ("https://trustseal.enamad.ir/Verify.aspx?id=59660&p=yncrjzpghwmbhwmbdrfs", 
+                                    "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
+                                    ' alt='' src='../images/logo.aspx'/>
+                                    </div>
                         </div>
                     </div>
                         <div class="col-sm-6">
