@@ -21,8 +21,8 @@ class SlugCarTypeTableSeeder extends Seeder
                 $slug = $slug.'_'.str_random(5);
             $type->slug = $slug;
             $type->save();
-            $localTranslate[$slug] = $type->name;
-            $translate[$slug] = $slug;
+            $localTranslate[$type->slug] = $type->name;
+            $translate[$type->slug] = $slug;
         }
 
         // array to string
