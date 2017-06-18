@@ -231,7 +231,7 @@ class TransactionRepository
     {
         $type = CarType::whereName($this->type)->first();
         return $transaction = [
-            'car_type'       => $this->type,
+            'car_type'       => __('car_types.'.$type->slug),
             'car_type_id'    => $type->id,
             'icon'           => $type->icon,
             'currency'       => $this->currency,
