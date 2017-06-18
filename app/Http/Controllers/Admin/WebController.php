@@ -115,7 +115,7 @@ class WebController extends Controller
 
     /**
      * Create new admin
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(WebRequest $request)
@@ -144,9 +144,9 @@ class WebController extends Controller
     {
         if (Auth::user()->id == $id) {
             flash(__('admin/general.You cannot delete yourself'));
-            return back();            
+            return back();
         } else {
-            Web::find($id)->delete();
+            Web::find($id)->user->delete();
             flash(__('admin/general.Admin user deleted'));
             return back();
         }

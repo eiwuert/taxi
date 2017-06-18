@@ -108,4 +108,46 @@ class NearbyRepository
         // }
         return $nearby;
     }
+
+    /**
+     * Get nearby drivers with count.
+     * @param App\Http\Requests\NearbyRequest $request
+     * @return array
+     */
+    public static function nearbyWithCount($request)
+    {
+        $request = self::defaults($request);
+        $drivers = nearby($request->lat,
+                              $request->long,
+                              $request->type,
+                              $request->distance,
+                              $request->limit)['result'];
+        $nearby = [];
+        $count = collect();
+        foreach (collect($drivers) as $u) {
+            $driver = $u;
+            $driverToCheck = User::whereId($u->user_id)->first()
+                                ->driver->first();
+            if (!is_null($driverToCheck)) {
+                $type = $driverToCheck->car()->type;
+                $parent = $type->parent;
+                $driver->angle = $driverToCheck->angle();
+                $driver->cat_id = $type->id;
+                if (!is_null($parent)) {
+                    $driver->parent_id = $parent->id;
+                    $driver->parent_icon = $parent->icon;
+                    $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
+                    $count[$type->id] = isset($count[$type->id]) ? $count[$type->id] + 1 : 1;
+                } else {
+                    $driver->parent_id = 0;
+                    $driver->parent_icon = asset('img/no-icon.png');
+                    $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
+                    $count[$type->id] = isset($count[$type->id]) ? $count[$type->id] + 1 : 1;
+                }
+            }
+            $nearby[] = $driver;
+        }
+        return ['count'  => $count,
+                'nearby' => $nearby];
+    }
 }

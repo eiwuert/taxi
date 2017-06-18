@@ -156,7 +156,7 @@ class Payment extends Model
         if ($this->type == 'wallet' && is_null($this->trip_id)) {
             return $this->transactionAmount;
         } else {
-            return $this->trip->transaction->total;
+            return (is_null($t = $this->trip->transaction)) ? 0 : $t->total;
         }
     }
 

@@ -17,8 +17,7 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        $request->number = Car::formatNumber($request);
-        $car->update($request->all());
+        $car->update(array_merge($request->all(), ['number' => Car::formatNumber($request)]));
         flash(__('admin/general.Driver\'s car updated'), 'success');
         return redirect()->back();
     }

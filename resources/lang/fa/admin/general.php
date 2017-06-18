@@ -3,6 +3,7 @@
 return array (
   //============================== New strings to translate ==============================//
   'axis: ' => 'تعداد محور: ',
+  'Email' => 'ایمیل',
   'brigade: ' => 'تیپ: ',
   'capacity: ' => 'ظرفیت: ',
   'chassis: ' => 'شماره شاسی: ',
@@ -272,7 +273,7 @@ return array (
   'Onway' => 'درراه',
   'Order by' => 'مرتب کردن',
   'Our share:' => 'سهم ما:',
-  'Password' => 'رمزعبور',
+  'Password' => 'رمز عبور',
   'Password: ' => 'رمز عبور: ',
   'Pay cash' => 'پرداخت نقدی',
   'Pay wallet' => 'پرداخت با کیف پول',

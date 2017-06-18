@@ -100,6 +100,10 @@ class DriverController extends Controller
      */
     public function approve(Driver $driver)
     {
+        // If driver info is not complete
+        if (! empty($driver->summary())) {
+            return back();
+        }
         $driver = Driver::whereId($driver->id)->firstOrFail();
         $driver->approve = true;
         $driver->online = false;

@@ -98,7 +98,8 @@ const { mix } = require('laravel-mix');
             'public/js/admin/select2.js')
         .copy('resources/assets/bower/AdminLTE/dist/img', 'public/img')
         .copy('resources/assets/bower/AdminLTE/bootstrap/fonts', 'public/build/css/fonts')
-        .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/b*.png', 'public/css/admin')
+        .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/blue.png', 'public/css/admin/blue.png')
+        .copy('resources/assets/bower/AdminLTE/plugins/iCheck/square/blue@2x.png', 'public/css/admin/blue@2x.png')
         .version();
   
 if (mix.config.inProduction) {
