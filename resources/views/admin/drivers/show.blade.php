@@ -22,9 +22,9 @@
     @include('admin.drivers.includes.marker')
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#timeline" data-toggle="tab">@lang('admin/general.Timeline')</a></li>
-        <li><a href="#info" data-toggle="tab">@lang('admin/general.Info')</a></li>
-        <li><a href="#car" data-toggle="tab">@lang('admin/general.Car')</a></li>
+        <li class="active"><a href="#timeline" data-toggle="tab"><i class="fa fa-clock-o"></i> @lang('admin/general.Timeline')</a></li>
+        <li><a href="#info" data-toggle="tab"><i class="fa fa-info"></i> @lang('admin/general.Info')</a></li>
+        <li><a href="#car" data-toggle="tab"><i class="fa fa-car"></i> @lang('admin/general.Car')</a></li>
       </ul>
       <div class="tab-content">
         <div class="active tab-pane" id="timeline">
