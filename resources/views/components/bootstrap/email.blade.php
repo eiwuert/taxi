@@ -2,12 +2,12 @@
 @endif
 @if ($errors->has($name))
 <email name="{{ isset($name) ? $name : 'email' }}" 
-        placeholder="{{ isset($placeholder) ? $placeholder : 'Email' }}"
+        placeholder="{{ isset($placeholder) ? $placeholder : __('admin/general.Email') }}"
         value="{{ old($name) }}"
         error="{{ ($errors->first($name)) }}"
         add-class="has-error"></email>
 @else
 <email name="{{ $name }}" 
-        placeholder="{{ isset($placeholder) ? $placeholder : 'Email' }}"
+        placeholder="{{ isset($placeholder) ? $placeholder : __('admin/general.Email') }}"
         value="{{ old($name) }}"></email>
 @endif
