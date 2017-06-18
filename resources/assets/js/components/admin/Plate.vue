@@ -1,6 +1,6 @@
 <template>
 <div id="plate">
-    <img src="./assets/plate.png" class="img-responsive center-block">
+    <img :src="plate" class="img-responsive center-block">
     <div class="plate">
         <div class="platePart1"><span>{{ platePart1 }}</span></div>
         <div class="platePart2"><span>{{ platePart2 }}</span></div>
@@ -29,6 +29,9 @@ export default {
   props: {
     parts: {
       type: String
+    },
+      plate: {
+        type: String
     }
   },
   data: function () {

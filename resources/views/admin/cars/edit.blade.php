@@ -1,5 +1,5 @@
 {!! Form::model($car, ['method' => 'PATCH', 'action' => ['Admin\CarController@update', $car], 'class' => 'form-horizontal']) !!}
-<plate parts="{{ json_encode($car->segments()) }}"></plate>
+<plate parts="{{ json_encode($car->segments()) }}" plate="{{ asset('images/plate.png')  }}"></plate>
 <div class="form-group">
   {!! Form::label('card', __('admin/general.card: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
