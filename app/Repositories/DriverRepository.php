@@ -8,6 +8,15 @@ use App\Driver;
 class DriverRepository
 {
     /**
+     * Count of total drivers
+     * @return numeric
+     */
+    public function countOfTotalDrivers()
+    {
+        return Driver::count();
+    }
+
+    /**
      * Count of online drivers
      * @return numeric
      */

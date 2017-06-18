@@ -3397,6 +3397,217 @@ d_lng | numeric |  required  | [+-]?\d+\.\d+
 ```
 
 
+## Calculate V3
+
+Calculate trip fare(cost), distance and time. Take care of `NO RESULT` on source and destination. in `v2` of API 
+you can send `s_lng` instead of `s_long` and `d_lng` instead of `d_long`.
+Specify `Car Type` by `type` field.
+
+
+> Example request
+
+```bash
+curl "http://flipapp.ir/api/v3/client/calculate" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ACCESS_TOKEN" \
+   -d "s_lat": "maiores", \
+   -d "s_lng": "maiores", \
+   -d "d_lat": "maiores", \
+   -d "d_lng": "maiores", \ 
+   -d "type": "maiores", \ 
+
+```
+
+```javascript
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://flipapp.ir/api/v3/client/calculate",
+    "method": "POST",
+    "data": {
+        "s_lat": "amet",
+        "s_lng": "amet",
+        "d_lat": "amet",
+        "d_lng": "amet",
+        "type": "amet",
+},
+    "headers": {
+        "accept": "application/json",
+        "authorization": "Bearer ACCESS_TOKEN"
+    }
+}
+
+$.ajax(settings).done(function (response) {
+    console.log(response);
+});
+```
+
+
+### HTTP Request
+`POST api/v3/client/calculate`
+
+#### Parameters
+
+Parameter | Type | Status | Description
+--------- | ------- | ------- | ------- | -----------
+s_lat | numeric |  required  | [+-]?\d+\.\d+
+s_lng | numeric |  required  | [+-]?\d+\.\d+
+d_lat | numeric |  required  | [+-]?\d+\.\d+
+d_lng | numeric |  required  | [+-]?\d+\.\d+
+type  | numeric |  required  | car type id
+
+    
+> Example response
+
+```json
+{
+    "success": true,
+    "data": [
+        {
+            "source": "استان مازندران، رامسر، لمتر، ایران",
+            "destination": "استان اصفهان، اصفهان، خیابان نستوه، ایران",
+            "distance": {
+                "text": "737 km",
+                "value": 736912
+            },
+            "duration": {
+                "text": "9 hours 16 mins",
+                "value": 33331
+            },
+            "transactions": {
+                "High-end": {
+                    "off-roader": {
+                        "car_type": "off-roader",
+                        "car_type_id": 6,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sport": {
+                        "car_type": "sport",
+                        "car_type_id": 3,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "woman": {
+                    "luxury": {
+                        "car_type": "luxury",
+                        "car_type_id": 1,
+                        "currency": "IRR",
+                        "entry": "50000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42045000
+                    },
+                    "economy": {
+                        "car_type": "economy",
+                        "car_type_id": 5,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                },
+                "Cheap": {
+                    "van": {
+                        "car_type": "van",
+                        "car_type_id": 2,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    },
+                    "sedans": {
+                        "car_type": "sedans",
+                        "car_type_id": 4,
+                        "currency": "IRR",
+                        "entry": "14000",
+                        "distance": 736912,
+                        "per_distance": "0",
+                        "distance_unit": "minute",
+                        "distance_value": 0,
+                        "time": 33331,
+                        "per_time": "1400",
+                        "time_unit": "kilometer",
+                        "time_value": 46663400,
+                        "surcharge": 1,
+                        "timezone": "Asia/Tehran",
+                        "total": 42010000
+                    }
+                }
+            }
+        }
+    ]
+}
+
+```
+
+
+> Example response - Fail to fetch data from Google Maps
+
+```json
+{
+    "success": false,
+    "data": [
+        {
+            "title": "Failed",
+            "detail": "Failed to intact with Google Maps",
+            "code": 500
+        }
+    ]
+}
+```
+
+
+
 # Trip - driver
 
 

@@ -476,5 +476,6 @@ return array (
     'unq_key'=> 'Unique Key',
     'fa' => 'Persian',
     'en' => 'English',
+  'total driver' => 'Total driver',
 
 );
