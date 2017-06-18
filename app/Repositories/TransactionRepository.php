@@ -105,10 +105,10 @@ class TransactionRepository
             $type = $type->parent;
         }
         $transactions = [];
-        $children = $type->children()->get(['name']);
+        $children = $type->children()->get(['id']);
         $types = [];
         foreach ($children as $child) {
-            $types[] = $child->name;
+            $types[] = $child->id;
         }
         $timezone = $this->timezone($lat, $long);
         $formatedFares = $this->getTransactins($lat, $long, $distance_value, $eta_value, $currency);
@@ -117,7 +117,7 @@ class TransactionRepository
             $rules[$type] = $rules;
             $this->rules($type, $rules);
             $transaction = $this->transaction($distance_value, $eta_value, $timezone);
-            if (in_array($transaction['car_type'], $types)) {
+            if (in_array($transaction['car_type_id'], $types)) {
                 unset($transaction['commission']);
                 $transactions[] = $transaction;
             }
