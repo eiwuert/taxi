@@ -134,6 +134,9 @@ class Car extends Model
      */
     public static function formatNumber($request)
     {
-        return $request->platePart1 . $request->platePart2 . $request->platePart3 . ' - ایران ' . $request->platePart4;
+        return convert($request->platePart1) . 
+                $request->platePart2 . 
+                convert($request->platePart3) . ' - ایران ' . 
+                convert($request->platePart4);
     }
 }
