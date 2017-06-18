@@ -60,6 +60,7 @@
             <li class="{{ (str_contains(Request::url(), route('settings.requests.index'))) ? 'active' : '' }}"><a href="{{ route('settings.requests.index') }}">@lang('admin/general.Requests')</a></li>
             <li class="{{ (str_contains(Request::url(), route('settings.sms.index'))) ? 'active' : '' }}"><a href="{{ route('settings.sms.index') }}">@lang('admin/general.Sms')</a></li>
             <li class="{{ (str_contains(Request::url(), route('users.index'))) ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang('admin/general.Admins')</a></li>
+            <li class="{{ (str_contains(Request::url(), route('settings.changelog.index'))) ? 'active' : '' }}"><a href="{{ route('settings.changelog.index') }}">@lang('admin/general.Changelog')</a></li>
         </ul>
     </li>
     @endif
