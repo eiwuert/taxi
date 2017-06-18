@@ -4,6 +4,7 @@ return array (
   //============================== New strings to translate ==============================//
   'axis: ' => 'Axis: ',
   'Email' => 'Email',
+  'Changelog' => 'Changelog',
   'brigade: ' => 'Brigade: ',
   'capcity: ' => 'Capacity: ',
   'chassis: ' => 'Chassis: ',

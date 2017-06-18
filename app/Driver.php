@@ -522,6 +522,11 @@ class Driver extends Model
         return config('states.' . $this->state);
     }
 
+    /**
+     * Get summary of driver information.
+     * 
+     * @return array
+     */
     public function summary()
     {
         $summary = [];
@@ -564,9 +569,9 @@ class Driver extends Model
         if (is_null($this->credit_card)) {
             $summary['credit_card'] = false;
         }
-        if(is_null($this->user->meta)) {
-            $summary['user_mata'] = false;
-        }
+        // if(is_null($this->user->meta)) {
+        //     $summary['user_mata'] = false;
+        // }
         if(is_null($this->user->car->hull_insurance_expire)) {
             $summary['hull_insurance_expire'] = false;
         }

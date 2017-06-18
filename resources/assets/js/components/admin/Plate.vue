@@ -12,7 +12,7 @@
             <input maxlength="2" v-model="platePart1" name="platePart1" class="form-control">
         </div>
         <div class="col-sm-3">
-            <input maxlength="3" v-model="platePart2" name="platePart2" class="form-control">
+            <input maxlength="1" v-model="platePart2" name="platePart2" class="form-control">
         </div>
         <div class="col-sm-3">
             <input maxlength="3" v-model="platePart3" name="platePart3" class="form-control">
