@@ -5,7 +5,7 @@
           :placeholder="placeholder" 
           :name="name"
           dir="ltr">
-  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+  <i class="fa fa-lock form-control-feedback"></i>
   <span class="help-block" v-show="error != ''">
     <strong v-text="error"></strong>
   </span>

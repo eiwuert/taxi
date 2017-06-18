@@ -24,3 +24,11 @@
         }
     }
 </script>
+
+<style>
+button i {
+    height: 19px;
+    vertical-align: text-bottom;
+    padding-left: 7px;
+}
+</style>

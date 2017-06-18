@@ -6,7 +6,7 @@
           :name="name" 
           :value="value"
           dir="ltr">
-  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+  <i class="fa fa-envelope-o form-control-feedback"></i>
   <span class="help-block" v-show="error != ''">
     <strong v-text="error"></strong>
   </span>
