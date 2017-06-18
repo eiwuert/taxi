@@ -229,9 +229,10 @@ class TransactionRepository
      */
     private function transaction($distance_value, $eta_value, $timezone)
     {
+        $carType = CarType::whereName($this->type)->first();
         return $transaction = [
-            'car_type'       => $this->type,
-            'car_type_id'    => CarType::whereName($this->type)->first()->id,
+            'car_type'       => __('car_types.'.$carType->slug),
+            'car_type_id'    => $carType->id,
             'currency'       => $this->currency,
             'entry'          => $this->entry(),
             'distance'       => $distance_value,
