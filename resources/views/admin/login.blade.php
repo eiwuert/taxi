@@ -1,4 +1,5 @@
 @extends('admin.includes.page')
+@section('title', __('admin/general.Login'))
 @section('content')
 <body class="hold-transition login-page">
     <div class="login-box" id="admin">
