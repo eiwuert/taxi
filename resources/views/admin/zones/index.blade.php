@@ -32,7 +32,6 @@
                             <th>@lang('admin/general.Name')</th>
                             <th>@lang('admin/general.Latitude')</th>
                             <th>@lang('admin/general.Longitude')</th>
-                            <th>@lang('admin/general.Radius')</th>
                         </tr>
                         @foreach($zones as $zone)
                         <tr onclick="window.document.location='{{ action('Admin\ZoneController@edit', ['zone' => $zone]) }}';" style="cursor: pointer;">
@@ -40,7 +39,6 @@
                             <td>{{ $zone->name }}</td>
                             <td>{{ $zone->latitude }}</td>
                             <td>{{ $zone->longitude }}</td>
-                            <td>{{ $zone->radius }}  @lang('admin/general.' . $zone->unit)</td>
                         </tr>
                         @endforeach
                     </tbody>

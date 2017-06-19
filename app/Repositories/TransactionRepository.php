@@ -148,24 +148,13 @@ class TransactionRepository
     protected function getTransactins($lat, $long, $distance_value, $eta_value, $currency)
     {
         // default zone
-        $zone_id = Zone::whereName('default')->first()->id;
-        $zones = Zone::orderBy('id', 'desc')->get();
-        foreach ($zones as $zone) {
-            $distance = $zone->radius;
-            if ($zone->unit == 'mile') {
-                $distance = $zone->radius * 1.60934;
-            }
-            if ($this->distance($lat, $long, $zone->latitude, $zone->longitude) <= $zone->radius) {
-                $zone_id = $zone->id;
-            }
-        }
+        $zone = Zone::findZone($lat, $long);
         $this->currency = $currency;
         $transactions = [];
         $types = [];
         $fares = [];
-        $zone = Zone::find($zone_id);
-        if (Cache::has(config('app.name') . '_fare_' . $zone_id)) {
-            $fares = Cache::get(config('app.name') . '_fare_' . $zone_id);
+        if (Cache::has(config('app.name') . '_fare_' . $zone->id)) {
+            $fares = Cache::get(config('app.name') . '_fare_' . $zone->id);
         } else {
             $fares = $zone->fare;
             if (is_null($zone->fare)) {

@@ -3,6 +3,7 @@
 return array (
   //============================== New strings to translate ==============================//
   'axis: ' => 'Axis: ',
+  'Coordinates: ' => 'Coordinates: ',
   'Email' => 'Email',
   'Changelog' => 'Changelog',
   'brigade: ' => 'Brigade: ',

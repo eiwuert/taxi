@@ -3,6 +3,7 @@
 return array (
   //============================== New strings to translate ==============================//
   'axis: ' => 'تعداد محور: ',
+  'Coordinates: ' => 'مختصات: ',
   'Email' => 'ایمیل',
   'Changelog' => 'آخرین تغییرات',
   'brigade: ' => 'تیپ: ',

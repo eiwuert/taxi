@@ -43,15 +43,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('radius', __('admin/general.Radius: '), ['class' => 'col-sm-2 control-label']) !!}
+                    {!! Form::label('coordinates', __('admin/general.Coordinates: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::text('radius', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {!! Form::label('unit', __('admin/general.Unit: '), ['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-sm-10">
-                        {!! Form::select('unit',  ['kilometer' => __('admin/general.kilometer'), 'mile' => __('admin/general.mile')], null,['class' => 'form-control']) !!}
+                        {!! Form::textarea('coordinates', json_encode($zone->coordinates), ['class' => 'form-control', 'dir' => 'ltr']) !!}
                     </div>
                 </div>
                 <div class="form-group">

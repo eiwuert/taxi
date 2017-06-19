@@ -31,21 +31,19 @@
         map.setCenter(pos);
       });
     }
-
     // Construct the circle for each value in citymap.
     // Note: We scale the area of the circle based on the population.
     for (var city in citymap) {
-      // Add the circle for this city to the map.
-      var cityCircle = new google.maps.Circle({
-        strokeColor: '#3c8dbc',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#3c8dbc',
-        fillOpacity: 0.35,
-        map: map,
-        center: citymap[city].center,
-        radius: citymap[city].radius
-      });
+        // Construct the polygon.
+        var bermudaTriangle = new google.maps.Polygon({
+          paths: citymap[city],
+          strokeColor: '#3c8dbc',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#3c8dbc',
+          fillOpacity: 0.35
+        });
+        bermudaTriangle.setMap(map);
     }
   }
 </script>
