@@ -2874,74 +2874,32 @@ $.ajax(settings).done(function (response) {
 </blockquote>
 <pre><code class="language-json">{
     "success": true,
-    "data": [
-        {
-            "id": 7341,
-            "distance": "2.27246822248217",
-            "longitude": "51.366905",
-            "latitude": "35.731209",
-            "name": "NOT SET",
-            "user_id": 856,
-            "angle": 327,
-            "cat_id": 1,
-            "parent_id": 10,
-            "parent_icon": "http://localhost:8000/img/no-icon.png"
-        },
-        {
-            "id": 9159,
-            "distance": "2.39551047107605",
-            "longitude": "51.417375",
-            "latitude": "35.722071",
-            "name": "NOT SET",
-            "user_id": 474,
-            "angle": 115,
-            "cat_id": 1,
-            "parent_id": 10,
-            "parent_icon": "http://localhost:8000/img/no-icon.png"
-        },
-        {
-            "id": 4008,
-            "distance": "3.14346537747125",
-            "longitude": "51.424588",
-            "latitude": "35.718066",
-            "name": "NOT SET",
-            "user_id": 423,
-            "angle": 19,
-            "cat_id": 1,
-            "parent_id": 10,
-            "parent_icon": "http://localhost:8000/img/no-icon.png"
-        },
-        {
-            "id": 4715,
-            "distance": "3.31577013795581",
-            "longitude": "51.409080",
-            "latitude": "35.753119",
-            "name": "NOT SET",
-            "user_id": 430,
-            "angle": 237,
-            "cat_id": 1,
-            "parent_id": 10,
-            "parent_icon": "http://localhost:8000/img/no-icon.png"
-        },
-        {
-            "id": 3099,
-            "distance": "3.37062995126478",
-            "longitude": "51.422144",
-            "latitude": "35.709585",
-            "name": "NOT SET",
-            "user_id": 414,
-            "angle": 112,
-            "cat_id": 1,
-            "parent_id": 10,
-            "parent_icon": "http://localhost:8000/img/no-icon.png"
-        }
-    ]
+    "data": {
+        "count": [
+            {
+                "parent_id": 12,
+                "count": 1
+            }
+        ],
+        "nearby": [
+            {
+                "id": 540,
+                "distance": "9.49352979660034e-05",
+                "longitude": "46.297838",
+                "latitude": "38.080826",
+                "user_id": 1018,
+                "angle": 20,
+                "cat_id": 3,
+                "parent_id": 12,
+                "parent_icon": "http://localhost:8000/img/no-icon.png"
+            }
+        ]
+    }
 }</code></pre>
-<pre><code>
-&gt; Example response
-
-```json
-{
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre><code class="language-json">{
     "success": true,
     "data": {
         "count": [],
