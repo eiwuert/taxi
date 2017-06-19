@@ -111,7 +111,7 @@ return array (
   'Create' => 'ایجاد',
   'Created' => 'ایجاد شده',
   'Created at' => 'ایجاد شده در',
-  'Credit card: ' => 'شماره کارت: ',
+  'Credit card: ' => 'شماره کارت بانکی: ',
   'Currencies' => 'واحدهای پول',
   'Currency' => 'واحد پول',
   'Currency created' => 'واحد پول ایجاد شد',
@@ -479,4 +479,5 @@ return array (
     'unq_key'=> 'نام کلیدی یکتا',
     'fa' => 'فارسی',
     'en' => 'انگلیسی',
+  'total driver' => 'کل راننده ها',
 );

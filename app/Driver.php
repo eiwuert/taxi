@@ -345,6 +345,20 @@ class Driver extends Model
     }
 
     /**
+     * list of car types for select options with optgorup (parents name)
+     * @return array
+     */
+    public function carTypeOptions()
+    {
+        $parents = CarType::whereNull('car_type_id')->whereHas('children')->get();
+        $types = [];
+        foreach ($parents as $parent) {
+            $types [$parent->name] = $parent->children()->pluck('name', 'id')->toArray();
+        }
+        return $types;
+    }
+
+    /**
      * Get driver phone number
      * @deprecated 2.0 in favor of shorter version phone
      * @return string

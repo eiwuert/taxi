@@ -7,7 +7,7 @@
 @endsection
 @section('breadcrumb')
     <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-    <li><a href="{{ route('states.index') }}"><i class="ion-android-map"></i> @lang('admin/general.State') </a></li>
+    <li><a href="{{ route('states.index') }}"><i class="ion-android-map"></i> @lang('admin/general.States') </a></li>
     <li class="active">@lang('admin/general.Create')</li>
 @endsection
 @section('content')

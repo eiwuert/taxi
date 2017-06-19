@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -5861,21 +5861,7 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./resources/assets/sass/admin.sass":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/assets/sass/rtl.scss":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 7:
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./resources/assets/js/jquery-1.8.3.min.js");
@@ -5890,9 +5876,7 @@ __webpack_require__("./resources/assets/js/scrolling-nav.js");
 __webpack_require__("./resources/assets/js/bxslider.js");
 __webpack_require__("./resources/assets/js/wow.min.js");
 __webpack_require__("./resources/assets/js/seq-slider/jquery.sequence-min.js");
-__webpack_require__("./resources/assets/js/seq-slider/sequencejs-options.apple-style.js");
-__webpack_require__("./resources/assets/sass/admin.sass");
-module.exports = __webpack_require__("./resources/assets/sass/rtl.scss");
+module.exports = __webpack_require__("./resources/assets/js/seq-slider/sequencejs-options.apple-style.js");
 
 
 /***/ })

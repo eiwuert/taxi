@@ -1,5 +1,5 @@
 {!! Form::model($car, ['method' => 'PATCH', 'action' => ['Admin\CarController@update', $car], 'class' => 'form-horizontal']) !!}
-<plate parts="{{ json_encode($car->segments()) }}"></plate>
+<plate parts="{{ json_encode($car->segments()) }}" plate="{{ asset('images/plate.png')  }}"></plate>
 <div class="form-group">
   {!! Form::label('card', __('admin/general.card: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
@@ -111,7 +111,7 @@
 <div class="form-group">
   {!! Form::label('type_id', __('admin/general.Type: '), ['class' => 'col-sm-2 control-label']) !!}
   <div class="col-sm-10">
-    {!! Form::select('type_id', $driver->carTypesPluck(), null, ['class' => 'form-control']) !!}
+    {!! Form::select('type_id', $driver->carTypeOptions(), null, ['class' => 'form-control']) !!}
   </div>
 </div>
 <div class="form-group">

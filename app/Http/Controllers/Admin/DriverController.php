@@ -42,7 +42,8 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        $drivers = $this->drivers->paginate(config('admin.perPage'));
+
+        $drivers = $this->drivers->paginate(option('pagination', 15));
         if (@$request->export) {
             if (is_null($request->type)) {
                 $request->type = 'pdf';

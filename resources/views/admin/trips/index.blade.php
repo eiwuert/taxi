@@ -3,7 +3,7 @@
 @lang('admin/general.Trips')
 @endsection
 @section('header')
-@lang('admin/general.Rate')
+@lang('admin/general.Trips')
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i>@lang('admin/general.dashboard') </a></li>
