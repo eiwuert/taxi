@@ -14,7 +14,7 @@
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li><a href="{{ route('types.index') }}"><i class="ion-cube"></i> @lang('admin/general.Car type')</a></li>
+<li><a href="{{ route('types.index') }}"><i class="ion-cube"></i> @lang('admin/general.Car types')</a></li>
 <li class="active">{{ $type->name }}</li>
 @endsection
 @section('content')

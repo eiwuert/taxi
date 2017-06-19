@@ -43,8 +43,8 @@
                 @include('admin.includes.angle')
             </a>
             <ul class="treeview-menu">
-                <li class="{{ (ends_with(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">@lang('admin/general.All')</span></a></li>
-                <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">@lang('admin/general.Drivers')</span></a></li>
+                <li class="{{ (ends_with(Request::url(), route('payments.index'))) ? 'active' : '' }}"><a href="{{ route('payments.index') }}">@lang('admin/general.All')</a></li>
+                <li class="{{ (ends_with(Request::url(), 'drivers') || ends_with(Request::url(), 'trips')) ? 'active' : '' }}"><a href="{{ route('payments.drivers') }}">@lang('admin/general.Drivers')</a></li>
             </ul>
         </li>
         @if(Auth::user()->web->superadmin())

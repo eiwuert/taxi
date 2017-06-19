@@ -1,20 +1,20 @@
 @extends('admin.includes.layout')
 @section('title')
-@lang('admin/general.Car Types')
+@lang('admin/general.New car type')
 @endsection
 @section('header')
-@lang('admin/general.Car Types')
+@lang('admin/general.New car type')
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li class="active"><i class="ion-android-walk"></i>@lang('admin/general.Car types') </li>
-@endsection
+<li><a href="{{ route('types.index') }}"><i class="ion-cube"></i> @lang('admin/general.Car types')</a></li>
+<li class="active">@lang('admin/general.New car type')</li>@endsection
 @section('content')
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">@lang('admin/general.List')</h3>
+                <h3 class="box-title">@lang('admin/general.Create')</h3>
             </div>
             <!-- /.box-header -->
             @if (count($errors) > 0)

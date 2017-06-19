@@ -17,7 +17,7 @@
 @endsection
 @section('breadcrumb')
 <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> @lang('admin/general.dashboard')</a></li>
-<li class="active"><i class="ion-cube"></i> @lang('admin/general.Car type') </li>
+<li class="active"><i class="ion-cube"></i> @lang('admin/general.Car types') </li>
 @endsection
 @section('content')
 <div class="row">
