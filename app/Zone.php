@@ -11,7 +11,7 @@ class Zone extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'latitude', 'longitude', 'radius', 'unit'];
+    protected $fillable = ['name', 'latitude', 'longitude', 'coordinates'];
 
     /**
      * A zone can has one fare.
@@ -58,35 +58,48 @@ class Zone extends Model
      */
     public static function findZone($lat, $lng) : Zone
     {
-        $zone_id = Zone::whereName('default')->first()->id;
+        $default = Zone::whereName('default')->first();
+        $zone_id = $default->id;
         $zones = Zone::where('id', '!=', $zone_id)->get();
         foreach ($zones as $zone) {
-            $distance = $zone->radius;
-            if ($zone->unit == 'mile') {
-                $distance = $zone->radius * 1.60934;
-            }
-            if (self::distance($lat, $lng, $zone->latitude, $zone->longitude) <= $zone->radius) {
+            if (self::isIn($zone, $lat, $lng)) {
                 $zone_id = $zone->id;
             }
         }
-        return Zone::find($zone_id);
+        if ($zone_id == $default->id) {
+            return $default;
+        } else {
+            return Zone::find($zone_id);
+        }
     }
 
     /**
-     * Get distance between 2 latLng (KM)
-     * @param  float $lat1
-     * @param  float $lng1
-     * @param  float $lat2
-     * @param  float $lng2
-     * @return float
+     * Is in the polygon.
+     *
+     * @param  \App\Zone  $zone
+     * @param  float $lat
+     * @param  float $lng
+     * @return boolean
      */
-    protected static function distance(float $lat1, float $lng1, float $lat2, float $lng2) : float
+    public static function isIn($zone, $lat, $lng)
     {
-        $p = 0.017453292519943295;
-        $a = 0.5 - cos(($lat2 - $lat1) * $p) / 2 +
-            cos($lat1 * $p) * cos($lat2 * $p) *
-            (1 - cos(($lng2 - $lng1) * $p)) / 2;
-        return round(12742 * asin(sqrt($a)));
+        $vertices_x = $zone->xCoordinates();
+        $vertices_y = $zone->yCoordinates();
+        $points_polygon = count($vertices_x) - 1;
+        $i = $j = $c = $point = 0;
+        for ($i = 0, $j = $points_polygon ; $i < $points_polygon; $j = $i++) {
+            $point = $i;
+            if ($point == $points_polygon) {
+                $point = 0;
+            }
+            if ((($vertices_y[$point]  >  $lng != ($vertices_y[$j] > $lng)) &&
+                ($lat < ($vertices_x[$j] - $vertices_x[$point]) *
+                ($lng - $vertices_y[$point]) / ($vertices_y[$j] -
+                $vertices_y[$point]) + $vertices_x[$point]))) {
+                $c = !$c;
+            }
+        }
+        return $c;
     }
 
     /**
@@ -97,36 +110,77 @@ class Zone extends Model
      */
     protected static function givenCarTypeInTheZone($zone, $type) : string
     {
-        $in = '(';
-        if ($zone->carTypes()->where('car_types.id', $type)->exists()) {
-            foreach ($carTypes = CarType::whereIn('id', $zone->carTypes->where('id', $type)->pluck('id'))->get(['id'])->toArray() as $car) {
+        if (in_array($type, self::allCarTypesInTheZone($zone, true))) {
+            $in = [];
+            foreach ($carTypes = $zone->carTypes()->whereActive(true)
+                                      ->orWhere('car_types.id', $type)
+                                      ->orWhere('car_types.car_type_id', $type)
+                                      ->get()->toArray() as $car) {
                 if ($car === end($carTypes)) {
-                    $in .= $car['id'] . ')';
+                    $in[] = $car['id'];
                 } else {
-                    $in .= $car['id'] . ',';
+                    $in[] = $car['id'];
                 }
             }
+            return '(' . implode(',', $in) . ')';
         } else {
-            $in .= '0)';
+            return '(0)';
         }
-        return $in;
     }
 
     /**
      * Get car type for give
      * @param  \App\Zone $zone
+     * @param  bool $array
      * @return string
      */
-    protected static function allCarTypesInTheZone($zone)
+    protected static function allCarTypesInTheZone($zone, $array = false)
     {
-        $in = '(';
-        foreach ($carTypes = CarType::whereIn('id', $zone->carTypes->pluck('id'))->get(['id'])->toArray() as $car) {
-            if ($car === end($carTypes)) {
-                $in .= $car['id'] . ')';
-            } else {
-                $in .= $car['id'] . ',';
-            }
+        $in = [];
+        foreach ($carTypes = $zone->carTypes()->whereActive(true)
+                                ->whereNotNull('car_types.car_type_id')
+                                ->whereHas('parent', function($query) use ($zone) {
+                                    $query->whereActive(true)->whereHas('zones', function ($query) use ($zone) {
+                                        $query->where('zones.id', $zone->id);
+                                    });
+                                })->get()->toArray() as $car) {
+            $in[] = $car['id'];
         }
-        return $in;
+        if ($array) {
+            return $in;
+        } else {
+            return '(' . implode(',', $in) . ')';
+        }
+    }
+
+    /**
+     * Get the coordinates value.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getCoordinatesAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    /**
+     * Get zone's x-coordinates.
+     *
+     * @return array
+     */
+    public function xCoordinates()
+    {
+        return array_column($this->coordinates->geometries[0]->coordinates[0][0], 1);
+    }
+
+    /**
+     * Get zone's y-coordinates.
+     *
+     * @return array
+     */
+    public function yCoordinates()
+    {
+        return array_column($this->coordinates->geometries[0]->coordinates[0][0], 0);
     }
 }

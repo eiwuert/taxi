@@ -14,13 +14,14 @@ class ZoneRepository
      */
     public static function cities()
     {
-        $zones = Zone::where('name', '!=', 'default')->get();
+        $zones = \App\Zone::where('name', '!=', 'default')->get();
         $cities = [];
         foreach ($zones as $zone) {
-            $cities[] = [
-                'center' => ['lat' => $zone->latitude, 'lng' => $zone->longitude],
-                'radius' => $zone->radius * (($zone->unit == 'kilometer') ? 1000 : 1609.33999997549),
-            ];
+            $coordinates = [];
+            foreach ($zone->coordinates->geometries[0]->coordinates[0][0] as $c) {
+                $coordinates[] = ['lat' => $c[1], 'lng' => $c[0]];
+            }
+            $cities[] = $coordinates;
         }
         return js_json($cities);
     }

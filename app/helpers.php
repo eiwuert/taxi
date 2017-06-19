@@ -142,13 +142,9 @@ if (!function_exists('nearby')) {
     {
         $distance = option('distance', 1);
         $ids = \App\Zone::carTypeIds($lat, $long, $type);
-        if ($type == 'any' || is_null($type)) {
-            $type = "SELECT id FROM car_types";
-        } else {
-            $type = "SELECT id 
-                     FROM car_types
-                     WHERE id in $ids OR car_type_id in $ids";
-        }
+        $type = "SELECT id 
+                 FROM car_types
+                 WHERE id in $ids OR car_type_id in $ids";
 
         $query = "SELECT id, distance, longitude, latitude, user_id AS user_id
         FROM (
