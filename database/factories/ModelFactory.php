@@ -95,21 +95,13 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Zone::class, function (Faker\Generator $faker) {
-    return [
-        'name'      => 'default',
-        'latitude'  => '0.0',
-        'longitude' => '0.0',
-        'radius'    => '0'
-    ];
-});
 
 $factory->define(App\Zone::class, function (Faker\Generator $faker) {
     return [
         'name'      => 'default',
         'latitude'  => '0.0',
         'longitude' => '0.0',
-        'radius'    => '0'
+        'coordinates'    => '{"type": "GeometryCollection","geometries": [{"type": "MultiPolygon","coordinates": [[[[0.0,0.0]]]]}]}'
     ];
 });
 
