@@ -155,6 +155,8 @@ class DriverController extends Controller
 
         if (isset($request->sortby) && isset($request->orderby) && array_key_exists($request->sortby, Driver::$sortable)) {
             $drivers = $drivers->orderBy($request->sortby, $request->orderby);
+        }else{
+            $drivers = $drivers->orderBy('created_at', 'desc');
         }
 
         if (isset($request->ids)) {
@@ -206,17 +208,17 @@ class DriverController extends Controller
         // No space after and before the query
         $q = trim($request->q);
         $q = convert_back($q);
-
+        $states = inState($q);
         $drivers = Driver::where('first_name', 'ilike', "%$q%")
                         ->orWhere('last_name', 'ilike', "%$q%")
                         ->orWhere('email', 'ilike', "%$q%")
                         ->orWhere('gender', 'ilike', "%$q%")
-                        ->orWhere('state', 'ilike', "%$q%")
                         ->orWhere('country', 'ilike', "%$q%")
                         ->orWhere('address', 'ilike', "%$q%")
                         ->orWhere('zipcode', 'ilike', "%$q%")
                         ->orWhereIn('user_id', User::where('phone', 'ilike', "%$q%")
                                                     ->get(['id'])->flatten())
+                        ->orWhereIn('state',$states)
                         ->paginate(option('pagination', 15));
 
         if (@$request->export) {
@@ -228,6 +230,7 @@ class DriverController extends Controller
             return view('admin.drivers.index', compact('drivers'));
         }
     }
+
 
     /**
      * Make an driver offline manually

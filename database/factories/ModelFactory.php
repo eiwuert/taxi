@@ -46,7 +46,7 @@ $factory->define(App\Driver::class, function (Faker\Generator $faker) {
         'approve' => true,
         'available' => true,
         'address' => $faker->address,
-        'state' => $faker->state,
+        'state' => $faker->numberBetween(1,30),
         'country' => $faker->country,
         'zipcode' => $faker->postcode,
     ];
@@ -60,7 +60,7 @@ $factory->define(App\Client::class, function (Faker\Generator $faker) {
         'device_token' => $faker->unique()->sha256(),
         'device_type' => 'ios',
         'address' => $faker->address,
-        'state' => $faker->state,
+        'state' => $faker->numberBetween(1,30),
         'country' => $faker->country,
         'zipcode' => $faker->postcode,
     ];

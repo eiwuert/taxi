@@ -103,9 +103,7 @@ class Driver extends Model
      */
     public function scopeInapprove($query)
     {
-        return $query->where('online', false)
-                     ->where('available', false)
-                     ->where('approve', false);
+        return $query->where('approve', false);
     }
 
     /**
@@ -155,7 +153,6 @@ class Driver extends Model
     public function scopeOnline($query)
     {
         return $query->where('online', true)
-                     ->where('available', true)
                      ->where('approve', true);
     }
 
