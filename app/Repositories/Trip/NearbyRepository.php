@@ -124,6 +124,7 @@ class NearbyRepository
                               $request->limit)['result'];
         $nearby = [];
         $count = collect();
+        $countOutput = [];
         foreach (collect($drivers) as $u) {
             $driver = $u;
             $driverToCheck = User::whereId($u->user_id)->first()
@@ -143,7 +144,6 @@ class NearbyRepository
                     $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
                 }
             }
-            $countOutput = [];
             foreach ($count as $key => $value) {
                 $countOutput[] = ['parent_id' => $key, 'count' => $value];
             }

@@ -136,7 +136,7 @@ class Zone extends Model
      */
     protected static function allCarTypesInTheZone($zone, $array = false)
     {
-        $in = [];
+        $in = [0];
         foreach ($carTypes = $zone->carTypes()->whereActive(true)
                                 ->whereNotNull('car_types.car_type_id')
                                 ->whereHas('parent', function($query) use ($zone) {
