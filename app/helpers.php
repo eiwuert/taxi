@@ -343,4 +343,23 @@ return ' . var_export($array, true) . ';';
             return true;
         }
     }
+
+    if (!function_exists('isState')) {
+        /**
+         * Return Arrays of similar state
+         * @param $state
+         * @return array
+         */
+        function inState($state)
+        {
+            $input = preg_quote($state, '~');
+            $result = preg_grep('~' . $input . '~', config('states'));
+            $state_ids = [];
+            foreach ($result as $key=>$val){
+                $state_ids[] = $key;
+            }
+            return $state_ids;
+        }
+    }
+
 }
