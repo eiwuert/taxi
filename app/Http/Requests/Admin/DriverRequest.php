@@ -34,16 +34,16 @@ class DriverRequest extends FormRequest
             'address'         => 'required|max:255',
             'state'           => 'required|max:255',
             'country'         => 'required|max:255',
-            'zipcode'         => 'required|digits:10|max:255',
+            'zipcode'         => 'required|max:255',
             'lang'            => 'required|in:fa,en,ku',
             'device_token'    => 'required|max:255',
             'device_type'     => 'required|in:manual,ios,android',
             'picture'         => 'sometimes|image',
             'identity_number' => 'required|integer',
-            'identity_code'   => 'required|digits:10|integer',
+            'identity_code'   => 'required|integer',
             'abuse_history'   => 'required|boolean',
             'drug_abuse'      => 'required|boolean',
-            'credit_card'     => 'required|digits:16|integer',
+            'credit_card'     => 'required|integer',
         ];
     }
 }
