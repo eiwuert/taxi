@@ -208,7 +208,7 @@ class DriverController extends Controller
         // No space after and before the query
         $q = trim($request->q);
         $q = convert_back($q);
-        $states = static::inState($q);
+        $states = inState($q);
         $drivers = Driver::where('first_name', 'ilike', "%$q%")
                         ->orWhere('last_name', 'ilike', "%$q%")
                         ->orWhere('email', 'ilike', "%$q%")
@@ -231,21 +231,6 @@ class DriverController extends Controller
         }
     }
 
-    /**
-     * Return Arrays of similar state
-     * @param $state
-     * @return array
-     */
-    public static function inState($state)
-    {
-        $input = preg_quote($state, '~');
-        $result = preg_grep('~' . $input . '~', config('states'));
-        $state_ids = [];
-        foreach ($result as $key=>$val){
-            $state_ids[] = $key;
-        }
-        return $state_ids;
-    }
 
     /**
      * Make an driver offline manually
