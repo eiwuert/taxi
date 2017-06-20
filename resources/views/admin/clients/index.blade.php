@@ -32,6 +32,9 @@
       <!-- /.box-header -->
       <div class="box-body">
         {!! Form::open(['action' => 'Admin\ClientController@filter', 'method' => 'get', 'class' => 'form-inline']) !!}
+        @if(!empty(app('request')->input('status')))
+              <input type="hidden" name="status" value="{{app('request')->input('status')}}">
+        @endif
         @include('components.bootstrap.select', ['name' => 'sortby',
         'label' => __('admin/general.Sort by'),
         'items' => \App\Client::$sortable])
