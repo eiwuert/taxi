@@ -144,10 +144,10 @@ class NearbyRepository
                     $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
                 }
             }
-            foreach ($count as $key => $value) {
-                $countOutput[] = ['parent_id' => $key, 'count' => $value];
-            }
             $nearby[] = $driver;
+        }
+        foreach ($count as $key => $value) {
+            $countOutput[] = ['parent_id' => $key, 'count' => $value];
         }
         return ['count'  => $countOutput,
                 'nearby' => $nearby];
