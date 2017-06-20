@@ -153,7 +153,6 @@ class Driver extends Model
     public function scopeOnline($query)
     {
         return $query->where('online', true)
-                     ->where('available', true)
                      ->where('approve', true);
     }
 
