@@ -136,18 +136,20 @@ class NearbyRepository
                 if (!is_null($parent)) {
                     $driver->parent_id = $parent->id;
                     $driver->parent_icon = $parent->icon;
-                    $count[] = ['parent_id' => $parent->id,
-                                'count' => isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1];
+                    $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
                 } else {
                     $driver->parent_id = 0;
                     $driver->parent_icon = asset('img/no-icon.png');
-                    $count[] = ['parent_id' => $parent->id,
-                                'count' => isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1];
+                    $count[$parent->id] = isset($count[$parent->id]) ? $count[$parent->id] + 1 : 1;
                 }
+            }
+            $countOutput = [];
+            foreach ($count as $key => $value) {
+                $countOutput[] = ['parent_id' => $key, 'count' => $value];
             }
             $nearby[] = $driver;
         }
-        return ['count'  => $count,
+        return ['count'  => $countOutput,
                 'nearby' => $nearby];
     }
 }
