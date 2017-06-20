@@ -17,15 +17,7 @@
                 <h3 class="box-title">@lang('admin/general.Create')</h3>
             </div>
             <!-- /.box-header -->
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('components.bootstrap.errors')
             <div class="box-body">
                 {!! Form::open(['method' => 'POST', 'action' => ['Admin\TypeController@store'], 'class' => 'form-horizontal', 'files' => true]) !!}
                 <div class="form-group">

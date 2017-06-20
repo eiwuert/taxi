@@ -17,6 +17,7 @@
                 <h3 class="box-title">@lang('admin/general.List')</h3>
             </div>
             <!-- /.box-header -->
+            @include('components.bootstrap.errors')
             <div class="box-body">
                 {!! Form::open(['method' => 'POST', 'action' => ['Admin\ZoneController@store'], 'class' => 'form-horizontal']) !!}
                 <div class="form-group">
@@ -38,9 +39,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('coordinate', __('admin/general.Coordinates: '), ['class' => 'col-sm-2 control-label']) !!}
+                    {!! Form::label('coordinates', __('admin/general.Coordinates: '), ['class' => 'col-sm-2 control-label']) !!}
                     <div class="col-sm-10">
-                        {!! Form::textarea('coordinate', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
+                        {!! Form::textarea('coordinates', null, ['class' => 'form-control', 'dir' => 'ltr']) !!}
                     </div>
                 </div>
                 <div class="form-group">

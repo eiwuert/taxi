@@ -25,15 +25,7 @@
                 <h3 class="box-title">@lang('admin/general.List')</h3>
             </div>
             <!-- /.box-header -->
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('components.bootstrap.errors')
             <div class="box-body">
                 {!! Form::model($type, ['method' => 'PATCH', 'action' => ['Admin\TypeController@update', $type], 'class' => 'form-horizontal', 'files' => true]) !!}
                 <input type="hidden" name="old_slug" value="{{$type->slug}}">
