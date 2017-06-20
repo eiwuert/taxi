@@ -105,7 +105,10 @@ class TransactionRepository
             $type = $type->parent;
         }
         $transactions = [];
-        $children = $type->children()->get(['id']);
+        $zone = Zone::findZone($lat, $long);
+        $children = $type->children()->whereActive(true)->whereHas('zones', function ($query) use ($zone) {
+            $query->where('zones.id', $zone->id);
+        })->get(['car_types.id']);
         $types = [];
         foreach ($children as $child) {
             $types[] = $child->id;
@@ -167,7 +170,7 @@ class TransactionRepository
                 }
             } else {
                 $fares = $fares->cost;
-                Cache::forever(config('app.name') . '_fare_' . $zone_id, $fares);
+                Cache::forever(config('app.name') . '_fare_' . $zone->id, $fares);
             }
         }
         $formatedFares = [];
