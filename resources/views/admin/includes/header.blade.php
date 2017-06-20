@@ -18,6 +18,7 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        @if(Auth::user()->web->superadmin())
                         <!-- Notifications Menu -->
                         <li class="dropdown notifications-menu">
                             <!-- Menu toggle button -->
@@ -38,6 +39,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
