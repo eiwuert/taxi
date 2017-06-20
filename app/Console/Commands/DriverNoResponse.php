@@ -56,7 +56,7 @@ class driverNoResponse extends Command
 
             $driver->forceFill([
                         'online'     => false,
-                        'available'  => true,
+                        'available'  => false,
                     ])->save();
 
             // Request new taxi
